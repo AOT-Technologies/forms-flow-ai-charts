@@ -1,0 +1,83 @@
+apiVersion: v1
+entries:
+  camunda-deploy:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4284135-08:00"
+    description: Deployment template for a postgresql server with persistent storage.
+    digest: 29dd82f403567d2739e375031e249a63e764b09e0b5b1c701a4bbcebea0d113c
+    name: camunda-deploy
+    tags: camunda-postgres
+    urls:
+    - camunda-deploy-v0.0.1.tgz
+    version: v0.0.1
+  formio-mongodb:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4315089-08:00"
+    description: MongoDB database running as replicate set
+    digest: b5fe5f96b98a46af0d708415b07c48604de6b19e1967c5d0d6c8af3346167c9a
+    name: formio-mongodb
+    tags: nodejs,mongodb,replication,instant-app
+    urls:
+    - formio-mongodb-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-ai:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4343348-08:00"
+    digest: 6ee13a24dadd34359f1d0921d281cc18163573c4825d2aa4c2d79060866c2182
+    name: forms-flow-ai
+    urls:
+    - forms-flow-ai-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-analytics:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4372021-08:00"
+    digest: b48a4ec18be107d98374d8c942ae2f4fb8d13a41f22e0208adf3568b5af3f789
+    name: forms-flow-analytics
+    tags: forms-flow-analytics
+    urls:
+    - forms-flow-analytics-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-bpm:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4404239-08:00"
+    digest: 59e88c487de38b637ba87d2d935889de5b8141c6490a13421dcd08aa1b11831e
+    name: forms-flow-bpm
+    urls:
+    - forms-flow-bpm-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-forms:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4432924-08:00"
+    digest: 06645a9983c24379852ff8ce276c01fef47ebc15ed6141178d1738e6e36fc6ea
+    name: forms-flow-forms
+    urls:
+    - forms-flow-forms-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-web:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4462719-08:00"
+    digest: 2bcaaf00dc4056e8dfeda74ed8ba65010525dd8c5f450375fbe968f9ce593677
+    name: forms-flow-web
+    urls:
+    - forms-flow-web-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-webapi:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.44911-08:00"
+    digest: 1613d0512e6a3efab62ba23d664b5487e146a0e05a73c65e29dd8e45a6f00995
+    name: forms-flow-webapi
+    tags: forms-flow-webapi
+    urls:
+    - forms-flow-webapi-v0.0.1.tgz
+    version: v0.0.1
+  webapi-postgresql-deploy:
+  - apiVersion: v1
+    created: "2021-11-09T09:47:45.4520193-08:00"
+    description: Deployment template for a postgresql server with persistent storage.
+    digest: 21e29ea81883eb00ac1e37d64efaeafb11483e134d76c530ce54a67280c3dbd3
+    name: webapi-postgresql-deploy
+    tags: webapi-postgresql-dev
+    urls:
+    - webapi-postgresql-deploy-v0.0.1.tgz
+    version: v0.0.1
+generated: "2021-11-09T09:47:45.4240814-08:00"
