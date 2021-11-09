@@ -1,5 +1,8 @@
+---
+apiVersion: v2
 name: forms-flow-ai
 version: v0.0.1
+icon: "https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png"
 dependencies:
   - name: formio-mongodb
     version: "v0.0.1"

@@ -1,0 +1,4 @@
+description: Keycloak server with HTTPS
+name: keycloak-https
+tags: keycloak
+version: v0.0.1

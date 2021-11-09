@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    application: {{ .Values.application_name }}
+  name: {{ .Values.application_name }}
+spec:
+  replicas: 1
+  selector:
+    deploymentConfig: {{ .Values.application_name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        application: {{ .Values.application_name }}
+        deploymentConfig: {{ .Values.application_name }}
+      name: {{ .Values.application_name }}
+    spec:
+      containers:
+      - env:
+        - name: KEYCLOAK_HTTPS
+          value: {{ .Values.keycloak_https }}
+        - name: KEYCLOAK_USER
+          value: {{ .Values.keycloak_user }}
+        - name: KEYCLOAK_PASSWORD
+          value: {{ .Values.keycloak_password }}
+        - name: JGROUPS_DISCOVERY_PROTOCOL
+          value: dns.DNS_PING
+        - name: JGROUPS_DISCOVERY_PROPERTIES
+          value: dns_query={{ .Values.application_name }}.{{ .Values.namespace }}.svc.cluster.local
+        - name: DB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              key: database-name
+              name: postgresql-keycloak
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: postgresql-keycloak
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: postgresql-keycloak
+        - name: DB_VENDOR
+          value: {{ .Values.db_vendor }}
+        - name: DB_ADDR
+          value: {{ .Values.db_addr }}
+        - name: DB_PORT
+          value: {{ .Values.db_port }}
+        - name: PROXY_ADDRESS_FORWARDING
+          value: {{ .Values.proxy_address_forwarding }}
+        image: jboss/keycloak:6.0.1
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /auth/realms/master
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 60
+        name: {{ .Values.application_name }}
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /auth/realms/master
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+        securityContext:
+          privileged: false
+  triggers:
+  - type: ConfigChange
