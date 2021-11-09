@@ -1,2 +1,18 @@
 name: forms-flow-ai
 version: v0.0.1
+dependencies:
+  - name: formio-mongodb
+      version: "v0.0.1"
+      repository: "https://github.com/cberg-aot/helm-charts"
+  - name: forms-flow-forms
+      version: "v0.0.1"
+      repository: "https://github.com/cberg-aot/helm-charts"
+  - name: forms-flow-analytics
+      version: "v0.0.1"
+      repository: "https://github.com/cberg-aot/helm-charts"
+  - name: forms-flow-bpm
+      version: "v0.0.1"
+      repository: "https://github.com/cberg-aot/helm-charts"
+  - name: camunda-postgres
+      version: "v0.0.1"
+      repository: "https://github.com/cberg-aot/helm-charts"
