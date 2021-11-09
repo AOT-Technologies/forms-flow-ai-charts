@@ -1,0 +1,4 @@
+description: Deployment template for a postgresql server with persistent storage.
+name: camunda-deploy
+tags: camunda-postgres
+version: v0.0.1

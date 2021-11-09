@@ -1,0 +1,24 @@
+app_name: forms-flow-ai
+application_name: '# TODO: must define a default value for .application_name'
+camunda_url: '# TODO: must define a default value for .camunda_url'
+cpu_limit: 750m
+cpu_request: 100m
+forms_url: '# TODO: must define a default value for .forms_url'
+image_namespace: nzpnbz-tools
+kc_mount_path: /usr/share/nginx/html/config/kc
+keycloak_realm: '# TODO: must define a default value for .keycloak_realm'
+keycloak_url: '# TODO: must define a default value for .keycloak_url'
+memory_limit: 2Gi
+memory_request: 100Mi
+mount_path: /usr/share/nginx/html/config/
+name: forms-flow-web
+react_app_anonymous_id: '# TODO: must define a default value for .react_app_anonymous_id'
+react_app_client_id: '# TODO: must define a default value for .react_app_client_id'
+react_app_staff_designer_id: '# TODO: must define a default value for .react_app_staff_designer_id'
+react_app_staff_reviewer_id: '# TODO: must define a default value for .react_app_staff_reviewer_id'
+react_app_user_resource_form_id: '# TODO: must define a default value for .react_app_user_resource_form_id'
+react_app_websocket_encrypt_key: '# TODO: must define a default value for .react_app_websocket_encrypt_key'
+redash_secret_key: '# TODO: must define a default value for .redash_secret_key'
+tag_name: latest
+web_api_url: '# TODO: must define a default value for .web_api_url'
+web_url: '# TODO: must define a default value for .web_url'

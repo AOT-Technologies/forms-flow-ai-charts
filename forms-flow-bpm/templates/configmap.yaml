@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  mail-config.properties: |
+    # send mails via SMTP
+    mail.transport.protocol=smtp
+    mail.smtp.host={{ .Values.smtp_server }}
+    mail.smtp.port={{ .Values.smtp_port }}
+    mail.smtp.auth=true
+    mail.smtp.ssl.enable=true
+    mail.smtp.socketFactory.port=465
+    mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory
+    # poll mails via IMAPS
+    #mail.store.protocol=imaps
+    # mail.imaps.host=imap.gmail.com
+    mail.imaps.port=993
+    mail.imaps.timeout=1000
+    # additional config
+    #mail.poll.folder=INBOX
+    mail.sender={{ .Values.mail_from }}
+    mail.sender.alias=DoNotReply
+    mail.attachment.download=true
+    mail.attachment.path=attachments
+    # credentials
+    mail.user={{ .Values.mail_user }}
+    mail.password={{ .Values.mail_password }}
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ .Values.name }}
+  name: {{ .Values.name }}-mail-config

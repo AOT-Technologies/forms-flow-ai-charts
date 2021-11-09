@@ -1,0 +1,11 @@
+cpu_limit: 750m
+cpu_request: 100m
+forms_url: '# TODO: must define a default value for .forms_url'
+formsflow_secret: forms-flow-ai
+image_namespace: '# TODO: must define a default value for .image_namespace'
+instance: '# TODO: must define a default value for .instance'
+memory_limit: 2Gi
+memory_request: 100Mi
+mongodb_secret_name: formio-mongodb
+name: forms-flow-forms
+tag_name: latest

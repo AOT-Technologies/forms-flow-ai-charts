@@ -1,0 +1,4 @@
+description: Deployment template for a postgresql server with persistent storage.
+name: webapi-postgresql-deploy
+tags: webapi-postgresql-dev
+version: v0.0.1

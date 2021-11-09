@@ -1,0 +1,32 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: forms-flow-analytics
+  name: forms-flow-analytics
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: forms-flow-analytics:latest
+  resources:
+    limits:
+      cpu: "2"
+      memory: 8Gi
+    requests:
+      cpu: "1"
+      memory: 4Gi
+  source:
+    git:
+      ref: {{ .Values.source_repository_ref }}
+      uri: {{ .Values.source_repository_url }}
+  strategy:
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      pullSecret:
+        name: default-f35946-lhtabk
+    type: Docker
+  triggers:
+  - imageChange: {}
+    type: ImageChange
+  - type: ConfigChange

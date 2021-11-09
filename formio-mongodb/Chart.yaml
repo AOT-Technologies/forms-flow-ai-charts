@@ -1,0 +1,4 @@
+description: MongoDB database running as replicate set
+name: formio-mongodb
+tags: nodejs,mongodb,replication,instant-app
+version: v0.0.1

@@ -1,0 +1,13 @@
+app_group: formio
+database_host: forms-flow-bpm-session-db
+database_name: postgres
+database_port: "5432"
+database_user: postgres
+memory_limit: 512Mi
+name: camunda-session-postgresql
+persistent_volume_class: netapp-file-standard
+persistent_volume_size: 1Gi
+postgresql_admin_password: '# TODO: must define a default value for .postgresql_admin_password'
+postgresql_password: '# TODO: must define a default value for .postgresql_password'
+postgresql_test_password: '# TODO: must define a default value for .postgresql_test_password'
+tag_name: '# TODO: must define a default value for .tag_name'

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: {{ .Values.name }}-{{ .Values.tag_name }}
+    app-group: {{ .Values.app_group }}
+    template: {{ .Values.name }}-deploy
+  name: {{ .Values.name }}-{{ .Values.tag_name }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.persistent_volume_size }}
+  storageClassName: {{ .Values.persistent_volume_class }}

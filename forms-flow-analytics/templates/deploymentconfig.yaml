@@ -1,0 +1,471 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations: null
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.name }}
+  name: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    app: {{ .Values.name }}
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources:
+      limits:
+        cpu: {{ .Values.cpu_limit }}
+        memory: {{ .Values.memory_limit }}
+      requests:
+        cpu: {{ .Values.cpu_request }}
+        memory: {{ .Values.memory_request }}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      post:
+        execNewPod:
+          command:
+          - /bin/sh
+          - -c
+          - python ./manage.py database create_tables
+        failurePolicy: ignore
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.name }}
+    restartPolicy: Always
+    spec:
+      containers:
+      - args:
+        - server
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_HOST_AUTH_METHOD
+              name: {{ .Values.name }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_PASSWORD
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            secretKeyRef:
+              key: PYTHONUNBUFFERED
+              name: {{ .Values.name }}
+        - name: REDASH_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_COOKIE_SECRET
+              name: {{ .Values.name }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: REDASH_HOST
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_HOST
+              name: {{ .Values.name }}
+        - name: REDASH_LOG_LEVEL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_LOG_LEVEL
+              name: {{ .Values.name }}
+        - name: REDASH_REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_REDIS_URL
+              name: {{ .Values.name }}
+        - name: REDASH_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_SECRET_KEY
+              name: {{ .Values.name }}
+        - name: REDASH_WEB_WORKERS
+          value: "4"
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        name: {{ .Values.name }}
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        resources: {}
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Values.name }}
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        namespace: {{ .Values.image_namespace }}
+    type: ImageChange
+status: {}
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations: null
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.name }}-adhoc-worker
+  name: {{ .Values.name }}-adhoc-worker
+spec:
+  replicas: 1
+  selector:
+    app: {{ .Values.name }}-adhoc-worker
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.name }}-adhoc-worker
+    spec:
+      containers:
+      - args:
+        - worker
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_HOST_AUTH_METHOD
+              name: {{ .Values.name }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_PASSWORD
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            secretKeyRef:
+              key: PYTHONUNBUFFERED
+              name: {{ .Values.name }}
+        - name: QUEUES
+          value: queries
+        - name: REDASH_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_COOKIE_SECRET
+              name: {{ .Values.name }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: REDASH_HOST
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_HOST
+              name: {{ .Values.name }}
+        - name: REDASH_LOG_LEVEL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_LOG_LEVEL
+              name: {{ .Values.name }}
+        - name: REDASH_REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_REDIS_URL
+              name: {{ .Values.name }}
+        - name: REDASH_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_SECRET_KEY
+              name: {{ .Values.name }}
+        - name: WORKERS_COUNT
+          value: "2"
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        name: {{ .Values.name }}-adhoc-worker
+        resources: {}
+      restartPolicy: Always
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Values.name }}-adhoc-worker
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        namespace: {{ .Values.image_namespace }}
+    type: ImageChange
+status: {}
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations: null
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.name }}-scheduled-worker
+  name: {{ .Values.name }}-scheduled-worker
+spec:
+  replicas: 1
+  selector:
+    app: {{ .Values.name }}-scheduled-worker
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.name }}-scheduled-worker
+    spec:
+      containers:
+      - args:
+        - worker
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_HOST_AUTH_METHOD
+              name: {{ .Values.name }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_PASSWORD
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            secretKeyRef:
+              key: PYTHONUNBUFFERED
+              name: {{ .Values.name }}
+        - name: QUEUES
+          value: scheduled_queries,schemas
+        - name: REDASH_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_COOKIE_SECRET
+              name: {{ .Values.name }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: REDASH_HOST
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_HOST
+              name: {{ .Values.name }}
+        - name: REDASH_LOG_LEVEL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_LOG_LEVEL
+              name: {{ .Values.name }}
+        - name: REDASH_REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_REDIS_URL
+              name: {{ .Values.name }}
+        - name: REDASH_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_SECRET_KEY
+              name: {{ .Values.name }}
+        - name: WORKERS_COUNT
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        name: {{ .Values.name }}-scheduled-worker
+        resources: {}
+        value: "1"
+      restartPolicy: Always
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Values.name }}-scheduled-worker
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        namespace: {{ .Values.image_namespace }}
+    type: ImageChange
+status: {}
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations: null
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.name }}-scheduler
+  name: {{ .Values.name }}-scheduler
+spec:
+  replicas: 1
+  selector:
+    app: {{ .Values.name }}-scheduler
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.name }}-scheduler
+    spec:
+      containers:
+      - args:
+        - scheduler
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_HOST_AUTH_METHOD
+              name: {{ .Values.name }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_PASSWORD
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            secretKeyRef:
+              key: PYTHONUNBUFFERED
+              name: {{ .Values.name }}
+        - name: REDASH_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_COOKIE_SECRET
+              name: {{ .Values.name }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: REDASH_HOST
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_HOST
+              name: {{ .Values.name }}
+        - name: REDASH_LOG_LEVEL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_LOG_LEVEL
+              name: {{ .Values.name }}
+        - name: REDASH_REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_REDIS_URL
+              name: {{ .Values.name }}
+        - name: REDASH_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_SECRET_KEY
+              name: {{ .Values.name }}
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        name: {{ .Values.name }}-scheduler
+        resources: {}
+      restartPolicy: Always
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Values.name }}-scheduler
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        namespace: {{ .Values.image_namespace }}
+    type: ImageChange
+status: {}
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations: null
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.name }}-worker
+  name: {{ .Values.name }}-worker
+spec:
+  replicas: 1
+  selector:
+    app: {{ .Values.name }}-worker
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.name }}-worker
+    spec:
+      containers:
+      - args:
+        - worker
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_HOST_AUTH_METHOD
+              name: {{ .Values.name }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_PASSWORD
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            secretKeyRef:
+              key: PYTHONUNBUFFERED
+              name: {{ .Values.name }}
+        - name: QUEUES
+          value: periodic emails default
+        - name: REDASH_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_COOKIE_SECRET
+              name: {{ .Values.name }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+        - name: REDASH_HOST
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_HOST
+              name: {{ .Values.name }}
+        - name: REDASH_LOG_LEVEL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_LOG_LEVEL
+              name: {{ .Values.name }}
+        - name: REDASH_REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_REDIS_URL
+              name: {{ .Values.name }}
+        - name: REDASH_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_SECRET_KEY
+              name: {{ .Values.name }}
+        - name: WORKERS_COUNT
+          value: "1"
+        image: ' '
+        name: {{ .Values.name }}-worker
+        resources: {}
+      restartPolicy: Always
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Values.name }}-worker
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        namespace: {{ .Values.image_namespace }}
+    type: ImageChange
+status: {}
