@@ -1,0 +1,15 @@
+---
+keycloak:
+  extraVolumes: |
+    - name: forms-flow-idm 
+      configmap:
+        name: forms-flow-idm
+
+  extraVolumeMounts: |
+    - name: forms-flow-idm
+      mountPath: "/realm/"
+      readOnly: true
+
+  extraEnv: |
+    - name: KEYCLOAK_IMPORT
+      value: /realm/realm.json

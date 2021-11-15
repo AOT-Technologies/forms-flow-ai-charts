@@ -1,2 +1,4 @@
+---
+apiVersion: v2
 name: postgres-keycloak
 version: v0.0.1

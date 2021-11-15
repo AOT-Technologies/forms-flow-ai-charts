@@ -1,4 +1,6 @@
+---
+apiVersion: v2
 description: Deployment template for a postgresql server with persistent storage.
-name: webapi-postgresql
-tags: webapi-postgresql-dev
+name: camunda-postgres
+tags: camunda-postgres
 version: v0.0.1

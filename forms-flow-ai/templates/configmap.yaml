@@ -1,4 +1,8 @@
+---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: forms-flow-ai-config
 data:
   CAMUNDA_API_URI: https://{{ .Values.camunda_bpm_url }}/camunda
   FORMIO_DEBUG: formio:*
@@ -10,7 +14,3 @@ data:
   KEYCLOAK_JWT_OIDC_JWKS_URI: {{ .Values.keycloak_url }}/auth/realms/{{ .Values.keycloak_realm }}/protocol/openid-connect/certs
   KEYCLOAK_TOKEN_URL: {{ .Values.keycloak_url }}/auth/realms/{{ .Values.keycloak_realm }}/protocol/openid-connect/token
   WEB_API_BASE_URL: https://{{ .Values.web_api_url }}
-kind: ConfigMap
-metadata:
-  name: forms-flow-ai-config
-  namespace: default
