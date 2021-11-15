@@ -1,11 +1,57 @@
 apiVersion: v1
 entries:
-  forms-flow-ai:
-  - apiVersion: v1
-    created: "2021-11-09T14:19:50.56784-08:00"
-    digest: f8acf68b02455ed81d277e37ca4911679125022a4bf38b337fec1655dc0f9f4b
-    name: forms-flow-ai
+  camunda-postgres:
+  - apiVersion: v2
+    created: "2021-11-15T10:37:33.3171331-08:00"
+    description: Deployment template for a postgresql server with persistent storage.
+    digest: b7233c6202ed996a18e7d8654136e4c070f635aded0a5d58e598ab164504952d
+    name: camunda-postgres
+    tags: camunda-postgres
     urls:
-    - forms-flow-ai-v0.0.1.tgz
+    - camunda-postgres-v0.0.1.tgz
     version: v0.0.1
-generated: "2021-11-09T14:19:50.5619761-08:00"
+  formio-mongodb:
+  - apiVersion: v2
+    created: "2021-11-15T10:37:33.3179118-08:00"
+    description: MongoDB database running as replicate set
+    digest: d9ad770a29cce66cf79dae51ce3d121af678fcce7daecc0fa191a1c90c1d8726
+    name: formio-mongodb
+    tags: nodejs,mongodb,replication,instant-app
+    urls:
+    - formio-mongodb-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-analytics:
+  - apiVersion: v2
+    created: "2021-11-15T10:37:33.3217745-08:00"
+    digest: a9da97f15518c821da2d842c876f87cdc60f884d6e423d54501f7abdfa76238c
+    name: forms-flow-analytics
+    tags: forms-flow-analytics
+    urls:
+    - forms-flow-analytics-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-bpm:
+  - apiVersion: v2
+    created: "2021-11-15T10:37:33.3232679-08:00"
+    digest: c37f788bb7511c5bd854d1a1de6a298c9421ea2fec6eb2fc14893b203a071329
+    name: forms-flow-bpm
+    urls:
+    - forms-flow-bpm-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-forms:
+  - apiVersion: v2
+    created: "2021-11-15T10:37:33.3240592-08:00"
+    digest: 6b6e86c731c74ae2bd6c787e97e89bd416ebcc071b71e747f70e090898d2bb69
+    name: forms-flow-forms
+    urls:
+    - forms-flow-forms-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-idm:
+  - apiVersion: v1
+    created: "2021-11-15T10:37:33.3320328-08:00"
+    digest: 9975b873a58861aea99bb0d37464b11bdfdedeab48d0e8a68d381b420b81042d
+    icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
+    name: forms-flow-idm
+    urls:
+    - forms-flow-idm-v0.0.1.tgz
+    version: v0.0.1
+generated: "2021-11-15T10:37:33.3144305-08:00"
