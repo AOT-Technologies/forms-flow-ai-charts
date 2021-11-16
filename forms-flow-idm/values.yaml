@@ -2,7 +2,7 @@
 keycloak:
   extraVolumes: |
     - name: forms-flow-idm 
-      configmap:
+      configMap:
         name: forms-flow-idm
 
   extraVolumeMounts: |

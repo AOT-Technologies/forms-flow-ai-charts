@@ -1,6 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
 metadata:
-    name: formsflow-ai-realm 
+    name: formsflow-ai-realm
 data:
   formsflow-ai-realm.json: |- 
     {
