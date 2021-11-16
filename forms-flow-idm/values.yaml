@@ -13,3 +13,5 @@ keycloak:
   extraEnv: |
     - name: KEYCLOAK_IMPORT
       value: /realm/realm.json
+
+  podSecurityContext: {"fsGroup":1000650000}
