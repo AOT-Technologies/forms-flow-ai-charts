@@ -7,7 +7,7 @@ This chart installs the forms-flow microservices needed for deploying formsflow.
 ## Get Repo Info
 
 ```console
-helm repo add formsflow https://cberg-aot.github.io/
+helm repo add formsflow https://cberg-aot.github.io/helm-charts
 helm repo update
 ```
 
