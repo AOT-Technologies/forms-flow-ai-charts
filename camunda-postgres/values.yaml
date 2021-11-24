@@ -1,7 +1,7 @@
 app_group: formio
 database_host: forms-flow-bpm-session-db
 database_name: postgres
-database_port: 5432
+database_port: "5432"
 database_user: postgres
 memory_limit: 512Mi
 name: camunda-session-postgresql

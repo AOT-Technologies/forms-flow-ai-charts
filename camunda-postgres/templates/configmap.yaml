@@ -1,9 +1,4 @@
 apiVersion: v1
-data:
-  DATABASE_HOST: {{ .Values.database_host }}-{{ .Values.tag_name }}
-  DATABASE_NAME: {{ .Values.database_name }}
-  DATABASE_PORT: {{ .Values.database_port }}
-  DATABASE_USER: {{ .Values.database_user }}
 kind: ConfigMap
 metadata:
   labels:
@@ -11,3 +6,8 @@ metadata:
     app-group: {{ .Values.app_group }}
     template: {{ .Values.name }}-deploy
   name: {{ .Values.name }}-{{ .Values.tag_name }}-config
+data:
+  DATABASE_HOST: "{{ .Values.database_host }}-{{ .Values.tag_name }}"
+  DATABASE_NAME: "{{ .Values.database_name }}"
+  DATABASE_PORT: "{{ .Values.database_port }}"
+  DATABASE_USER: "{{ .Values.database_user }}"
