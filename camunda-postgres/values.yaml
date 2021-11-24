@@ -5,7 +5,7 @@ database_port: "5432"
 database_user: postgres
 memory_limit: 512Mi
 name: camunda-session-postgresql
-persistent_volume_class: nfs-client
+persistent_volume_class: 
 persistent_volume_size: 1Gi
 postgresql_admin_password: admin
 postgresql_password: demo
