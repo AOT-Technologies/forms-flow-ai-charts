@@ -1,0 +1,61 @@
+apiVersion: v1
+entries:
+  camunda-postgres:
+  - apiVersion: v2
+    created: "2021-11-24T14:05:09.0058055-08:00"
+    description: Deployment template for a postgresql server with persistent storage.
+    digest: cc85b38016da4b3d1a560e980e2d2730a3b35c3c96154df3cb18c3af0fed1711
+    name: camunda-postgres
+    tags: camunda-postgres
+    urls:
+    - camunda-postgres-v0.0.1.tgz
+    version: v0.0.1
+  formio-mongodb:
+  - apiVersion: v2
+    created: "2021-11-24T14:05:09.0123396-08:00"
+    description: MongoDB database running as replicate set
+    digest: e07169374fc22586b68b5b7e8a2f29d484cdda5d481de59ac950eaeb107daf11
+    name: formio-mongodb
+    tags: nodejs,mongodb,replication,instant-app
+    urls:
+    - formio-mongodb-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-analytics:
+  - apiVersion: v2
+    created: "2021-11-24T14:05:09.0155557-08:00"
+    digest: a9da97f15518c821da2d842c876f87cdc60f884d6e423d54501f7abdfa76238c
+    name: forms-flow-analytics
+    tags: forms-flow-analytics
+    urls:
+    - forms-flow-analytics-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-bpm:
+  - apiVersion: v2
+    created: "2021-11-24T14:05:09.0213563-08:00"
+    digest: c37f788bb7511c5bd854d1a1de6a298c9421ea2fec6eb2fc14893b203a071329
+    name: forms-flow-bpm
+    urls:
+    - forms-flow-bpm-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-forms:
+  - apiVersion: v2
+    created: "2021-11-24T14:05:09.0240233-08:00"
+    digest: 0b84c1ecfaf4b0f10d5947f09d3f7eb98e39b56ca9244655c069d10c062174d8
+    name: forms-flow-forms
+    urls:
+    - forms-flow-forms-v0.0.1.tgz
+    version: v0.0.1
+  forms-flow-idm:
+  - apiVersion: v2
+    created: "2021-11-24T14:05:09.0470125-08:00"
+    dependencies:
+    - name: keycloak
+      repository: https://codecentric.github.io/helm-charts
+      version: 15.1.0
+    digest: 8e7c4c0964b7945d47ecbb84689654ff61a90bf240cc1bc0a72dd1439458ee03
+    icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
+    name: forms-flow-idm
+    urls:
+    - forms-flow-idm-v0.0.1.tgz
+    version: v0.0.1
+generated: "2021-11-24T14:05:08.9913151-08:00"
