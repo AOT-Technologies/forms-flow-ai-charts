@@ -17,8 +17,6 @@ spec:
   strategy:
     dockerStrategy:
       dockerfilePath: Dockerfile
-      pullSecret:
-        name: default-f35946-lhtabk
     type: Docker
   triggers:
   - imageChange: {}
