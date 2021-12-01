@@ -1,0 +1,9 @@
+dependencies:
+- name: formio-mongodb
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-forms
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+digest: sha256:1af7bbcfc1fd6f54ce43d629cbfaad2746eaed4bd659b1aca8b5735da831766b
+generated: "2021-12-01T15:01:49.9722299-08:00"
