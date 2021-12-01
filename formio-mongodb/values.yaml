@@ -14,5 +14,5 @@ mongodb_replicas: "2"
 mongodb_secret_name: mongodb
 mongodb_service_name: mongodb
 mongodb_user: mongodb
-sc_mongo: managed-nfs-storage
+sc_mongo: nfs-client
 volume_capacity: 10Gi
