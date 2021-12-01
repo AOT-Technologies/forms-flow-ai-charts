@@ -32,7 +32,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: NODE_CONFIG
-              name: {{ .Values.mongodb_secret_name }}-{{ .Values.instance }}-secret
+              name: {{ .Values.mongodb_secret_name }}
         - name: ROOT_EMAIL
           valueFrom:
             secretKeyRef:
