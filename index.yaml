@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   camunda-postgres:
   - apiVersion: v2
-    created: "2021-12-01T15:36:29.6065943-08:00"
+    created: "2021-12-01T15:47:56.4459092-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: ec2dff66b34860325287a2408c8207dce51443b6a8e6991565b437a2184d3082
     name: camunda-postgres
@@ -12,7 +12,7 @@ entries:
     version: v0.0.1
   formio-mongodb:
   - apiVersion: v2
-    created: "2021-12-01T15:36:29.6073514-08:00"
+    created: "2021-12-01T15:47:56.4467742-08:00"
     description: MongoDB database running as replicate set
     digest: 4c314d0e1559d51a2548120d942b8213f1226544e047e2c05df02441fb7d9ff0
     name: formio-mongodb
@@ -22,7 +22,7 @@ entries:
     version: v0.0.1
   forms-flow-ai:
   - apiVersion: v2
-    created: "2021-12-01T15:36:29.6109191-08:00"
+    created: "2021-12-01T15:47:56.4502987-08:00"
     dependencies:
     - name: formio-mongodb
       repository: https://cberg-aot.github.io/helm-charts/
@@ -30,7 +30,7 @@ entries:
     - name: forms-flow-forms
       repository: https://cberg-aot.github.io/helm-charts/
       version: v0.0.1
-    digest: b8b2867a033b3bd6b8fb30dade87588a82d0fed11f0db1680d3df7a97d232953
+    digest: 2ab2b01d4b16d11d9c8fef292bbd70e3317cd838c5ccb7bc5040ea6a64b68f0e
     icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
     name: forms-flow-ai
     urls:
@@ -38,7 +38,7 @@ entries:
     version: v0.0.1
   forms-flow-analytics:
   - apiVersion: v2
-    created: "2021-12-01T15:36:29.6116403-08:00"
+    created: "2021-12-01T15:47:56.4510515-08:00"
     digest: a9da97f15518c821da2d842c876f87cdc60f884d6e423d54501f7abdfa76238c
     name: forms-flow-analytics
     tags: forms-flow-analytics
@@ -47,7 +47,7 @@ entries:
     version: v0.0.1
   forms-flow-bpm:
   - apiVersion: v2
-    created: "2021-12-01T15:36:29.6125605-08:00"
+    created: "2021-12-01T15:47:56.45404-08:00"
     digest: c37f788bb7511c5bd854d1a1de6a298c9421ea2fec6eb2fc14893b203a071329
     name: forms-flow-bpm
     urls:
@@ -55,7 +55,7 @@ entries:
     version: v0.0.1
   forms-flow-forms:
   - apiVersion: v2
-    created: "2021-12-01T15:36:29.6132389-08:00"
+    created: "2021-12-01T15:47:56.4547239-08:00"
     digest: 6cb987f78c66b77361b8128f2f0020bceafcd104abf68a2f9ab115666b3ad08d
     name: forms-flow-forms
     urls:
@@ -63,7 +63,7 @@ entries:
     version: v0.0.1
   forms-flow-idm:
   - apiVersion: v2
-    created: "2021-12-01T15:36:29.6213627-08:00"
+    created: "2021-12-01T15:47:56.4622705-08:00"
     dependencies:
     - name: keycloak
       repository: https://codecentric.github.io/helm-charts
@@ -74,4 +74,4 @@ entries:
     urls:
     - forms-flow-idm-v0.0.1.tgz
     version: v0.0.1
-generated: "2021-12-01T15:36:29.6024062-08:00"
+generated: "2021-12-01T15:47:56.4419684-08:00"
