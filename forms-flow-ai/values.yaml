@@ -2,7 +2,7 @@ bpm_keycloak_clientid: '# TODO: must define a default value for .bpm_keycloak_cl
 bpm_keycloak_clientsecret: '# TODO: must define a default value for .bpm_keycloak_clientsecret'
 formio_admin_email: '# TODO: must define a default value for .formio_admin_email'
 formio_admin_password: '# TODO: must define a default value for .formio_admin_password'
-instance: '# TODO: must define a default value for .instance '
+instance: '# TODO: must define a default value for .instance'
 keycloak_realm: '# TODO: must define a default value for .keycloak_realm'
 keycloak_web_clientid: forms-flow-web
 name: forms-flow-ai
