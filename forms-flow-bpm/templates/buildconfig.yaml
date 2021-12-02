@@ -24,9 +24,9 @@ spec:
     contextDir: {{ .Values.source_context_dir }}
     git:
       ref: {{ .Values.source_repository_ref }}
-      sourceSecret:
-        name: github-token
       uri: {{ .Values.source_repository_url }}
+    sourceSecret:
+      name: github-token
     type: Git
   strategy:
     dockerStrategy:
