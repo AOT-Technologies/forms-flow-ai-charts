@@ -30,3 +30,5 @@ web_api_url: formsflow.webapi.devops.aot-technologies.com
 websocket_encrypt_key: FormsFlow.AI@Taft
 websocket_message_type: TASK_EVENT
 websocket_security_origin: "https://*.devops.aot-technologies.com"
+source_repository_ref: forms-flow-bpm
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai.git
