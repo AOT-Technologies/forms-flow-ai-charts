@@ -1,32 +1,32 @@
 analytics_db_resource_name: analytics-postgresql
 app_root_log_flag: INFO
-app_security_origin: '# TODO: must define a default value for .app_security_origin'
+app_security_origin: "*"
 bpm_history_level: auto
 camunda_app_root_log_flag: info
 camunda_db_resource_name: camunda-postgresql
 camunda_formbuilder_pipeline_password: demo
 camunda_formbuilder_pipeline_username: demo
-camunda_hik_idle_timeout: "600000"
-camunda_hikari_connection_timeout: "30000"
-camunda_hikari_maximum_poolsize: "10"
+camunda_hik_idle_timeout: 600000
+camunda_hikari_connection_timeout: 30000
+camunda_hikari_maximum_poolsize: 10
 camunda_session_db_resource_name: camunda-session-postgresql
-camunda_url: '# TODO: must define a default value for .camunda_url'
-database_port: "5432"
-forms_url: '# TODO: must define a default value for .forms_url'
+camunda_url: formsflow.bpm.devops.aot-technologies.com
+database_port: 5432
+forms_url: formio.devops.aot-technologies.com
 formsflow_config_name: forms-flow-ai
 formsflow_secret: forms-flow-ai
-hikari_valid_timeout: "5000"
+hikari_valid_timeout: 5000
 image_namespace: formsflow-ai
-image_tag: '# TODO: must define a default value for .image_tag'
-keycloak_url: '# TODO: must define a default value for .keycloak_url'
-mail_from: '# TODO: must define a default value for .mail_from'
-mail_password: '# TODO: must define a default value for .mail_password'
-mail_user: '# TODO: must define a default value for .mail_user'
+image_tag: latest 
+keycloak_url: formsflow.idm.devops.aot-technologies.com
+mail_from: support@aot-technologies.com
+mail_password: YwJaMyhmHbBg0cp6
+mail_user: support@aot-technologies.com
 name: forms-flow-bpm
 postgre_db_driver: org.postgresql.Driver
-smtp_port: '# TODO: must define a default value for .smtp_port'
-smtp_server: '# TODO: must define a default value for .smtp_server'
-web_api_url: '# TODO: must define a default value for .web_api_url'
+smtp_port: 587 
+smtp_server: smtp-relay.sendinblue.com
+web_api_url: formsflow.webapi.devops.aot-technologies.com
 websocket_encrypt_key: FormsFlow.AI@Taft
 websocket_message_type: TASK_EVENT
-websocket_security_origin: '# TODO: must define a default value for .websocket_security_origin'
+websocket_security_origin: "https://*.devops.aot-technologies.com"
