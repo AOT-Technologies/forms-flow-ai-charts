@@ -4,7 +4,7 @@ cpu_request: 500m
 memory_limit: 3Gi
 memory_request: 512Mi
 mongodb_admin_password: mongodb
-mongodb_database: formiodb
+mongodb_database: formio-mongodb
 mongodb_image: image-registry.openshift-image-registry.svc:5000/openshift/mongodb
 mongodb_image_tag: "3.6"
 mongodb_keyfile_value: mongodb
