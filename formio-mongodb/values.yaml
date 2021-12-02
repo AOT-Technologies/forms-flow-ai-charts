@@ -11,7 +11,7 @@ mongodb_keyfile_value: mongodb
 mongodb_password: mongodb
 mongodb_replica_name: rs0
 mongodb_replicas: "2"
-mongodb_secret_name: mongodb
+mongodb_secret_name: formio-mongodb
 mongodb_service_name: mongodb
 mongodb_user: mongodb
 sc_mongo: nfs-client
