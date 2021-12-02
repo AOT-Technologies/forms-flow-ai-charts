@@ -3,13 +3,13 @@ kind: DeploymentConfig
 metadata:
   annotations: null
   labels:
-    app: {{ .Values.name }}
-  name: {{ .Values.name }}
+    app: "{{ .Values.name }}"
+  name: "{{ .Values.name }}"
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
-    app: {{ .Values.name }}
+    app: "{{ .Values.name }}"
   strategy:
     activeDeadlineSeconds: 21600
     resources: {}
@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.name }}
+        app: "{{ .Values.name }}"
     spec:
       affinity:
         podAntiAffinity:
@@ -33,7 +33,7 @@ spec:
               - key: name
                 operator: In
                 values:
-                - {{ .Values.name }}
+                - "{{ .Values.name }}"
             topologyKey: kubernetes.io/hostname
       containers:
       - env:
@@ -43,68 +43,68 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DATABASE_NAME
-              name: {{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-config
+              name: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-config"
         - name: CAMUNDA_DATABASE_SERVICE_NAME
-          value: {{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}
+          value: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}"
         - name: CAMUNDA_JDBC_DRIVER
-          value: {{ .Values.postgre_db_driver }}
+          value: "{{ .Values.postgre_db_driver }}"
         - name: CAMUNDA_JDBC_URL
-          value: jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:{{ .Values.database_port }}/${CAMUNDA_DATABASE_NAME}
+          value: "jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:{{ .Values.database_port }}/${CAMUNDA_DATABASE_NAME}"
         - name: WAIT_FOR
-          value: ${CAMUNDA_DATABASE_SERVICE_NAME}:{{ .Values.database_port }}
+          value: "${CAMUNDA_DATABASE_SERVICE_NAME}:{{ .Values.database_port }}"
         - name: CAMUNDA_JDBC_USER
           valueFrom:
             configMapKeyRef:
               key: DATABASE_USER
-              name: {{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-config
+              name: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-config"
         - name: CAMUNDA_JDBC_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: {{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: KEYCLOAK_URL
-          value: {{ .Values.keycloak_url }}
+          value: "{{ .Values.keycloak_url }}"
         - name: KEYCLOAK_URL_REALM
           valueFrom:
             secretKeyRef:
               key: KEYCLOAK_REALM
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: KEYCLOAK_CLIENTID
           valueFrom:
             secretKeyRef:
               key: BPM_CLIENT_ID
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: KEYCLOAK_CLIENTSECRET
           valueFrom:
             secretKeyRef:
               key: BPM_CLIENT_SECRET
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: MAIL_CONFIG
           value: /app/mail-config.properties
         - name: CAMUNDA_FORMBUILDER_PIPELINE_USERNAME
-          value: {{ .Values.camunda_formbuilder_pipeline_username }}
+          value: "{{ .Values.camunda_formbuilder_pipeline_username }}"
         - name: CAMUNDA_FORMBUILDER_PIPELINE_PASSWORD
-          value: {{ .Values.camunda_formbuilder_pipeline_password }}
+          value: "{{ .Values.camunda_formbuilder_pipeline_password }}"
         - name: CAMUNDA_FORMBUILDER_PIPELINE_BPM_URL
           valueFrom:
             configMapKeyRef:
               key: CAMUNDA_API_URI
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: CAMUNDA_HIKARI_CONN_TIMEOUT
-          value: {{ .Values.camunda_hikari_connection_timeout }}
+          value: "{{ .Values.camunda_hikari_connection_timeout }}"
         - name: CAMUNDA_HIKARI_IDLE_TIMEOUT
-          value: {{ .Values.camunda_hik_idle_timeout }}
+          value: "{{ .Values.camunda_hik_idle_timeout }}"
         - name: CAMUNDA_HIKARI_MAX_POOLSIZE
-          value: {{ .Values.camunda_hikari_maximum_poolsize }}
+          value: "{{ .Values.camunda_hikari_maximum_poolsize }}"
         - name: CAMUNDA_HIKARI_VALID_TIMEOUT
-          value: {{ .Values.hikari_valid_timeout }}
+          value: "{{ .Values.hikari_valid_timeout }}"
         - name: CAMUNDA_ANALYTICS_DATABASE_SERVICE_NAME
-          value: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}
+          value: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}"
         - name: CAMUNDA_ANALYTICS_DATABASE_NAME
           valueFrom:
             configMapKeyRef:
               key: DATABASE_NAME
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-config
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-config"
         - name: CAMUNDA_BPM_HISTORY_LEVEL
           value: none
         - name: CAMUNDA_AUTHORIZATION_FLAG
@@ -112,28 +112,28 @@ spec:
         - name: CAMUNDA_AUTHORIZATION_REVOKE_CHECK_FLAG
           value: auto
         - name: CAMUNDA_APP_ROOT_LOG_FLAG
-          value: {{ .Values.camunda_app_root_log_flag }}
+          value: "{{ .Values.camunda_app_root_log_flag }}"
         - name: FORMSFLOW_API_URL
-          value: https://{{ .Values.web_api_url }}
+          value: "https://{{ .Values.web_api_url }}"
         - name: FORMIO_URL
-          value: https://{{ .Values.forms_url }}
+          value: "https://{{ .Values.forms_url }}"
         - name: FORMIO_ROOT_EMAIL
           valueFrom:
             secretKeyRef:
               key: FORMIO_ROOT_EMAIL
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: FORMIO_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
               key: FORMIO_ROOT_PASSWORD
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: WEBSOCKET_ENCRYPT_KEY
-          value: {{ .Values.websocket_encrypt_key }}
+          value: "{{ .Values.websocket_encrypt_key }}"
         - name: WEBSOCKET_MESSAGE_TYPE
-          value: {{ .Values.websocket_message_type }}
+          value: "{{ .Values.websocket_message_type }}"
         - name: WEBSOCKET_SECURITY_ORIGIN
-          value: {{ .Values.websocket_security_origin }}
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}
+          value: "{{ .Values.websocket_security_origin }}"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}"
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -145,7 +145,7 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 3
-        name: {{ .Values.name }}
+        name: "{{ .Values.name }}"
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -170,7 +170,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /app/mail-config.properties
-          name: {{ .Values.name }}-mail-config
+          name: "{{ .Values.name }}-mail-config"
           subPath: mail-config.properties
       dnsPolicy: ClusterFirst
       restartPolicy: Always
@@ -183,5 +183,5 @@ spec:
           items:
           - key: mail-config.properties
             path: mail-config.properties
-          name: {{ .Values.name }}-mail-config
-        name: {{ .Values.name }}-mail-config
+          name: "{{ .Values.name }}-mail-config"
+        name: "{{ .Values.name }}-mail-config"
