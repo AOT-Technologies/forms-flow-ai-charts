@@ -44,7 +44,7 @@ spec:
             secretKeyRef:
               key: DATABASE_ADMIN_PASSWORD
               name: {{ .Values.name }}-{{ .Values.tag_name }}-secret
-        image: ' '
+        image: "{{ .Values.image_url }}"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
