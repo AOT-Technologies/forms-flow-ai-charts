@@ -25,14 +25,10 @@ spec:
     git:
       ref: {{ .Values.source_repository_ref }}
       uri: {{ .Values.source_repository_url }}
-    sourceSecret:
-      name: github-token
     type: Git
   strategy:
     dockerStrategy:
-      dockerfilePath: openshift_custom_Dockerfile
-      pullSecret:
-        name: artifacts-default-kpfslj
+      dockerfilePath: Dockerfile
     type: Docker
   successfulBuildsHistoryLimit: 5
   triggers:
