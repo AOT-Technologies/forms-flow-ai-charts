@@ -2,13 +2,13 @@ app_group: formio
 database_host: forms-flow-bpm-session-db
 database_name: postgres
 database_port: "5432"
-database_user: postgres
+database_user: user
 image_url: registry.redhat.io/rhscl/postgresql-94-rhel7
 memory_limit: 512Mi
 name: camunda-session-postgresql
 persistent_volume_class: nfs-client
 persistent_volume_size: 1Gi
 postgresql_admin_password: admin
-postgresql_password: demo
-postgresql_test_password: demo
-tag_name: demo 
+postgresql_password: password
+postgresql_test_password: test
+tag_name: demo
