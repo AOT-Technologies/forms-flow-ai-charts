@@ -65,6 +65,21 @@ spec:
         - name: MONGODB_SERVICE_NAME
           value: {{ .Values.mongodb_service_name }}-internal
         image: {{ .Values.mongodb_image }}:{{ .Values.mongodb_image_tag }}
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - >
+                  if [ ! -f /data/db/admin-user.lock ]; then
+                    sleep 5;
+                    touch /data/db/admin-user.lock
+                    if [ "$HOSTNAME" = "mongo-0" ]; then
+                      mongo --eval 'db = db.getSiblingDB("admin"); db.createUser({ user: "admin", pwd: "password", roles: [{ role: "root", db: "admin" }]});';
+                    fi;
+                    mongod --shutdown;
+                  fi;
         name: mongo-container
         ports:
         - containerPort: 27017
