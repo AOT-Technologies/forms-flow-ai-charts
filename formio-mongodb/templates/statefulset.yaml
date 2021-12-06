@@ -72,7 +72,7 @@ spec:
                 - /bin/sh
                 - -c
                 - >
-                  if [ ! -f /data/db/admin-user.lock ]; then
+                  if [ ! -f /var/lib/mongodb/data/db/admin-user.lock ]; then
                     sleep 5;
                     touch /data/db/admin-user.lock
                     if [ "$HOSTNAME" = "mongo-0" ]; then
