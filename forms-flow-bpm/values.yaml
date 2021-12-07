@@ -3,7 +3,7 @@ app_root_log_flag: INFO
 app_security_origin: "*"
 bpm_history_level: auto
 camunda_app_root_log_flag: info
-camunda_db_resource_name: camunda-postgresql
+camunda_db_resource_name: postgres
 camunda_formbuilder_pipeline_password: demo
 camunda_formbuilder_pipeline_username: demo
 camunda_hik_idle_timeout: 600000

@@ -43,7 +43,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DATABASE_NAME
-              name: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-config"
+              name: "{{ .Values.camunda_session_db_resource_name }}-{{ .Values.image_tag }}-config"
         - name: CAMUNDA_DATABASE_SERVICE_NAME
           value: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}"
         - name: CAMUNDA_JDBC_DRIVER
