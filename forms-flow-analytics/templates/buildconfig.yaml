@@ -18,8 +18,8 @@ spec:
       memory: 4Gi
   source:
     git:
-      ref: {{ .Values.source_repository_ref }}
-      uri: {{ .Values.source_repository_url }}
+      ref: "{{ .Values.source_repository_ref }}"
+      uri: "{{ .Values.source_repository_url }}"
   strategy:
     dockerStrategy:
       dockerfilePath: Dockerfile
