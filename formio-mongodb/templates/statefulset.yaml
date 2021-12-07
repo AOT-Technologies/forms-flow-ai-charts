@@ -7,6 +7,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.app_group }}
+      name: {{ .Values.mongodb_service_name }}
   serviceName: {{ .Values.mongodb_service_name }}-internal
   template:
     metadata:
