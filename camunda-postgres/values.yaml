@@ -11,4 +11,4 @@ persistent_volume_size: 1Gi
 postgresql_admin_password: admin
 postgresql_password: password
 postgresql_test_password: test
-tag_name: demo
+tag_name: latest
