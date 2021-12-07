@@ -1,6 +1,6 @@
 cpu_limit: 750m
 cpu_request: 100m
-forms_url: formio.devops.aot-technologies.com
+forms_url: formio.apps.devops.aot-technologies.com
 formsflow_secret: forms-flow-ai
 image_namespace: formsflow
 instance: forms-flow-forms
