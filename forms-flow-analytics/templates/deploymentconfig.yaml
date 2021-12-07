@@ -53,7 +53,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -68,7 +68,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -91,7 +91,7 @@ spec:
               name: {{ .Values.name }}
         - name: REDASH_WEB_WORKERS
           value: "4"
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}"
         name: {{ .Values.name }}
         ports:
         - containerPort: 5000
@@ -105,7 +105,7 @@ spec:
       - {{ .Values.name }}
       from:
         kind: ImageStreamTag
-        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
 status: {}
@@ -143,7 +143,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -160,7 +160,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -183,7 +183,7 @@ spec:
               name: {{ .Values.name }}
         - name: WORKERS_COUNT
           value: "2"
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}"
         name: {{ .Values.name }}-adhoc-worker
         resources: {}
       restartPolicy: Always
@@ -196,7 +196,7 @@ spec:
       - {{ .Values.name }}-adhoc-worker
       from:
         kind: ImageStreamTag
-        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
 status: {}
@@ -234,7 +234,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -251,7 +251,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -273,7 +273,7 @@ spec:
               key: REDASH_SECRET_KEY
               name: {{ .Values.name }}
         - name: WORKERS_COUNT
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}"
         name: {{ .Values.name }}-scheduled-worker
         resources: {}
         value: "1"
@@ -287,7 +287,7 @@ spec:
       - {{ .Values.name }}-scheduled-worker
       from:
         kind: ImageStreamTag
-        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
 status: {}
@@ -325,7 +325,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -340,7 +340,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -361,7 +361,7 @@ spec:
             secretKeyRef:
               key: REDASH_SECRET_KEY
               name: {{ .Values.name }}
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}"
         name: {{ .Values.name }}-scheduler
         resources: {}
       restartPolicy: Always
@@ -374,7 +374,7 @@ spec:
       - {{ .Values.name }}-scheduler
       from:
         kind: ImageStreamTag
-        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
 status: {}
@@ -412,7 +412,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -429,7 +429,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: {{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -465,7 +465,7 @@ spec:
       - {{ .Values.name }}-worker
       from:
         kind: ImageStreamTag
-        name: {{ .Values.name }}:{{ .Values.tag_name }}
+        name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
 status: {}
