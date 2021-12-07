@@ -3,7 +3,6 @@ kind: StatefulSet
 metadata:
   labels:
     app: {{ .Values.app_group }}
-    name: {{ .Values.mongodb_service_name }}
   name: {{ .Values.mongodb_service_name }}
 spec:
   replicas: 2
@@ -14,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.app_group }}
+        name: {{ .Values.mongodb_service_name }}
     spec:
       affinity:
         podAntiAffinity:
