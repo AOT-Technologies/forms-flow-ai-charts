@@ -71,7 +71,7 @@ spec:
           exec:
             command:
             - stat
-            - /tmp/initialized
+            - /tmp/
         resources:
           limits:
             cpu: {{ .Values.cpu_limit }}
