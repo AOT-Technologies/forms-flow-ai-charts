@@ -1,11 +1,9 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  labels:
-    app: {{ .Values.app_group }}
   name: {{ .Values.mongodb_service_name }}
 spec:
-  replicas: 2
+  replicas: {{ .Values.mongodb_replicas }}
   selector:
     matchLabels:
       app: {{ .Values.app_group }}
@@ -14,6 +12,7 @@ spec:
     metadata:
       labels:
         name: {{ .Values.mongodb_service_name }}
+        app: {{ .Values.app_group }}
     spec:
       affinity:
         podAntiAffinity:
