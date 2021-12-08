@@ -10,6 +10,6 @@ redash_database_url: postgresql://postgres@postgres/postgres
 redash_host: formsflow.analytics.apps.devops.aot-technologies.com
 redash_redis_url: redis://redis:6379/0
 source_context_dir: /forms-flow-ai/forms-flow-analytics
-source_repository_ref: feat/TAFT-668
-source_repository_url: https://github.com/AOT-Technologies/TAFT
+source_repository_ref: forms-flow-analytics
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
 tag_name: dev
