@@ -1,3 +1,4 @@
+analytics_db_resource_name: analytics-postgresql 
 cpu_limit: 750m
 cpu_request: 100m
 image_namespace: formsflow
