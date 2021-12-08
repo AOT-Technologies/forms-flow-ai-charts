@@ -17,6 +17,7 @@ spec:
       cpu: "1"
       memory: 4Gi
   source:
+    contextDir: {{ .Values.source_context_dir }}
     git:
       ref: "{{ .Values.source_repository_ref }}"
       uri: "{{ .Values.source_repository_url }}"
