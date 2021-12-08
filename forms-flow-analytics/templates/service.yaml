@@ -1,10 +1,9 @@
 apiVersion: v1
 kind: Service
-labels:
-  app: {{ .Values.name }}
 metadata:
+  labels:
+    app: {{ .Values.name }}
   name: {{ .Values.name }}
-name: {{ .Values.name }}
 spec:
   ports:
   - name: "7000"
@@ -12,4 +11,5 @@ spec:
     targetPort: 5000
   selector:
     app: {{ .Values.name }}
-  type: LoadBalancer
+status:
+  loadBalancer: {}
