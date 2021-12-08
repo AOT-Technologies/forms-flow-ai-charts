@@ -23,6 +23,7 @@ spec:
       maxUnavailable: 25%
       post:
         execNewPod:
+          containerName: {{ .Values.name }}-postgres
           command:
           - /bin/sh
           - -c
@@ -33,10 +34,8 @@ spec:
     type: Rolling
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: {{ .Values.name }}
-    restartPolicy: Always
     spec:
       containers:
       - args:
@@ -95,6 +94,7 @@ spec:
         - containerPort: 5000
           protocol: TCP
         resources: {}
+      restartPolicy: Always
   triggers:
   - type: ConfigChange
   - imageChangeParams:
@@ -105,13 +105,10 @@ spec:
         kind: ImageStreamTag
         name: "{{ .Values.name }}:{{ .Values.tag_name }}"
     type: ImageChange
-status: {}
 ---
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations: null
-  creationTimestamp: null
   labels:
     app: {{ .Values.name }}-adhoc-worker
   name: {{ .Values.name }}-adhoc-worker
@@ -123,7 +120,6 @@ spec:
     resources: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: {{ .Values.name }}-adhoc-worker
     spec:
@@ -196,7 +192,6 @@ spec:
         name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
-status: {}
 ---
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
@@ -284,13 +279,10 @@ spec:
         name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
-status: {}
 ---
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations: null
-  creationTimestamp: null
   labels:
     app: {{ .Values.name }}-scheduler
   name: {{ .Values.name }}-scheduler
@@ -302,7 +294,6 @@ spec:
     resources: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: {{ .Values.name }}-scheduler
     spec:
@@ -371,13 +362,10 @@ spec:
         name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
-status: {}
 ---
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations: null
-  creationTimestamp: null
   labels:
     app: {{ .Values.name }}-worker
   name: {{ .Values.name }}-worker
@@ -389,7 +377,6 @@ spec:
     resources: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: {{ .Values.name }}-worker
     spec:
@@ -462,4 +449,3 @@ spec:
         name: "{{ .Values.name }}:{{ .Values.tag_name }}"
         namespace: {{ .Values.image_namespace }}
     type: ImageChange
-status: {}
