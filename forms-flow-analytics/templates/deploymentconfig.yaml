@@ -262,10 +262,10 @@ spec:
               key: REDASH_SECRET_KEY
               name: "{{ .Values.name }}"
         - name: WORKERS_COUNT
+          value: "1"
         image: "image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}:{{ .Values.tag_name }}"
         name: "{{ .Values.name }}-scheduled-worker"
         resources: {}
-        value: "1"
       restartPolicy: Always
   test: false
   triggers:
