@@ -1,8 +1,6 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations: null
-  creationTimestamp: null
   labels:
     app: {{ .Values.name }}
   name: {{ .Values.name }}
@@ -106,7 +104,6 @@ spec:
       from:
         kind: ImageStreamTag
         name: "{{ .Values.name }}:{{ .Values.tag_name }}"
-        namespace: {{ .Values.image_namespace }}
     type: ImageChange
 status: {}
 ---
@@ -204,8 +201,6 @@ status: {}
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations: null
-  creationTimestamp: null
   labels:
     app: {{ .Values.name }}-scheduled-worker
   name: {{ .Values.name }}-scheduled-worker
@@ -217,7 +212,6 @@ spec:
     resources: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: {{ .Values.name }}-scheduled-worker
     spec:
