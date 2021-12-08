@@ -9,6 +9,6 @@ memory_request: 100Mi
 name: forms-flow-forms
 tag_name: latest
 mongodb_secret_name: formio-mongodb
-source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
 source_repository_ref: master 
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
 source_context_dir: /forms-flow-forms
