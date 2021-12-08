@@ -1,6 +1,4 @@
-annotations: null
 apiVersion: v1
-creationTimestamp: null
 kind: Service
 labels:
   app: {{ .Values.name }}
@@ -8,11 +6,10 @@ metadata:
   name: {{ .Values.name }}
 name: {{ .Values.name }}
 spec:
-  loadBalancer: {}
   ports:
   - name: "7000"
     port: 7000
     targetPort: 5000
   selector:
     app: {{ .Values.name }}
-  status: null
+  type: LoadBalancer
