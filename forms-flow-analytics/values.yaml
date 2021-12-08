@@ -1,5 +1,7 @@
 cpu_limit: 750m
 cpu_request: 100m
+image_namespace: formsflow
+image_tag: latest
 memory_limit: 2Gi
 memory_request: 100Mi
 name: forms-flow-analytics
@@ -9,3 +11,4 @@ redash_redis_url: redis://redis:6379/0
 source_context_dir: /forms-flow-ai/forms-flow-analytics
 source_repository_ref: feat/TAFT-668
 source_repository_url: https://github.com/AOT-Technologies/TAFT
+tag_name: dev
