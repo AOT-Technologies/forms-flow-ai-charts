@@ -22,7 +22,7 @@ spec:
       uri: "{{ .Values.source_repository_url }}"
   strategy:
     dockerStrategy:
-      dockerfilePath: Dockerfile
+      dockerfilePath: docker-compose-linux.yml
     type: Docker
   triggers:
   - imageChange: {}
