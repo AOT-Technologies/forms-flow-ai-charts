@@ -1,0 +1,5 @@
+---
+apiVersion: v2
+description: Redis master/slave templates based on Statefulsets
+name: redash-redis-cluster-dc
+version: v0.0.1

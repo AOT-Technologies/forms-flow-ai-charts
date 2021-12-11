@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: {{ .Values.app_name }}-{{ .Values.instance }}
+    name: {{ .Values.name }}-{{ .Values.instance }}
+    template: {{ .Values.name }}-{{ .Values.instance }}-template
+  name: {{ .Values.name }}-{{ .Values.instance }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}-{{ .Values.instance }}
+  serviceName: {{ .Values.name }}-{{ .Values.instance }}
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "9121"
+        prometheus.io/scrape: "true"
+      labels:
+        app: {{ .Values.app_name }}-{{ .Values.instance }}
+    spec:
+      containers:
+      - image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.namespace }}/{{ .Values.redis_exporter_name }}"
+        name: "{{ .Values.redis_exporter_name }}"
+        ports:
+        - containerPort: 9121
+          name: exporter
+      - command:
+        - /conf/update-node.sh
+        - redis-server
+        - /conf/redis.conf
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.namespace }}/{{ .Values.name }}"
+        livenessProbe:
+          failureThreshold: 5
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: client
+          timeoutSeconds: 5
+        name: redis
+        ports:
+        - containerPort: 6379
+          name: client
+        - containerPort: 16379
+          name: gossip
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 10
+          periodSeconds: 3
+          timeoutSeconds: 5
+        resources:
+          limits:
+            memory: 1.5Gi
+          requests:
+            memory: 1.5Gi
+        volumeMounts:
+        - mountPath: /conf
+          name: conf
+          readOnly: false
+        - mountPath: /data
+          name: redis-data
+          readOnly: false
+      volumes:
+      - configMap:
+          defaultMode: 493
+          name: {{ .Values.name }}-{{ .Values.instance }}
+        name: conf
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 3Gi

@@ -1,0 +1,26 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: redash
+spec:
+  tags:
+  - from:
+      kind: DockerImage
+      name: " {{ .Values.docker_path_and_image }}"
+    name: "{{ .Values.name }}"
+    referencePolicy:
+      type: Local
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: redash-exporter
+spec:
+  tags:
+  - from:
+      kind: DockerImage
+      name: " {{ .Values.redis_exporter_image }}"
+    name: "{{ .Values.redis_exporter_name }}"
+    referencePolicy:
+      type: Local
