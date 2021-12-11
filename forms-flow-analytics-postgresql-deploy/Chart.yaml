@@ -1,6 +1,5 @@
 ---
 apiVersion: v2
 description: Deployment template for a postgresql server with persistent storage.
-name: ${NAME}-deploy
-tags: ${NAME}-${INSTANCE}
+name: forms-flow-analytics-postgresql-deploy
 version: v0.0.1
