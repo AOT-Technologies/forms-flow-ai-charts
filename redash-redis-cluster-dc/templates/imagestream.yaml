@@ -7,7 +7,7 @@ spec:
   tags:
   - from:
       kind: DockerImage
-      name: " {{ .Values.redis_image }}"
+      name: "{{ .Values.redis_image }}"
     name: "{{ .Values.name }}"
     referencePolicy:
       type: Local
