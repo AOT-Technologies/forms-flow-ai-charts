@@ -13,4 +13,3 @@ redash_redis_url: redis://redis:6379/0
 source_context_dir: /forms-flow-analytics
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
-tag_name: dev
