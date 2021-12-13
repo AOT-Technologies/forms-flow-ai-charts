@@ -3,7 +3,7 @@ database_host: forms-flow-analytics-db
 database_name: postgres
 database_port: "5432"
 database_user: postgres
-instance: dev
+instance: latest
 memory_limit: 512Mi
 name: analytics-postgresql
 persistent_volume_class: netapp-file-standard
@@ -11,4 +11,3 @@ persistent_volume_size: 1Gi
 postgresql_admin_password: admin
 postgresql_password: postgresql
 postgresql_test_password: test
-tag_name: latest
