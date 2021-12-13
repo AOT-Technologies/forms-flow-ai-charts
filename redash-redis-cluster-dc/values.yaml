@@ -1,8 +1,9 @@
 app_name: redash
 cpu: 500m
-docker_path_and_image: redis:6.0.12
 instance: dev
 name: redash-redis
 ram: 1Gi
-redis_exporter_name: oliver006/redis_exporter:v1.14.0-alpine 
+redis_exporter_image: oliver006/redis_exporter:v1.14.0-alpine 
+redis_exporter_name: redash-exporter
+redis_image: redis:6.0.12
 storage: 1Gi
