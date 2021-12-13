@@ -20,7 +20,7 @@ spec:
   tags:
   - from:
       kind: DockerImage
-      name: " {{ .Values.redis_exporter_image }}"
+      name: "registry.hub.docker.com/{{ .Values.redis_exporter_name }}"
     name: "{{ .Values.redis_exporter_name }}"
     referencePolicy:
       type: Local
