@@ -5,8 +5,8 @@ database_port: "5432"
 database_user: postgres
 instance: latest
 memory_limit: 512Mi
-name: analytics-postgresql
-persistent_volume_class: netapp-file-standard
+name: forms-flow-analytics-postgresql
+persistent_volume_class: nfs-client 
 persistent_volume_size: 1Gi
 postgresql_admin_password: admin
 postgresql_password: postgresql
