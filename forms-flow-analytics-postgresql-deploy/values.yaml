@@ -9,5 +9,7 @@ name: forms-flow-analytics-postgresql
 persistent_volume_class: nfs-client 
 persistent_volume_size: 1Gi
 postgresql_admin_password: admin
+postgresql_image_name: postgresql
+postgresql_image_tag: 10
 postgresql_password: postgresql
 postgresql_test_password: test

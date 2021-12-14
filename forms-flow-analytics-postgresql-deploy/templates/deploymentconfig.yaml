@@ -44,7 +44,7 @@ spec:
             secretKeyRef:
               key: DATABASE_ADMIN_PASSWORD
               name: {{ .Values.name }}-{{ .Values.instance }}-secret
-        image: ' '
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.postgresql_image_name }}:{{ .Values.image_tag }}"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
