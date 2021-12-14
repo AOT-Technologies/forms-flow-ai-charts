@@ -21,7 +21,7 @@ spec:
         app: {{ .Values.app_name }}-{{ .Values.instance }}
     spec:
       containers:
-      - image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.namespace }}/{{ .Values.redis_exporter_name }}"
+      - image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redis_exporter_name }}"
         name: "{{ .Values.redis_exporter_name }}"
         ports:
         - containerPort: 9121
@@ -35,7 +35,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.namespace }}/{{ .Values.name }}"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.name }}"
         livenessProbe:
           failureThreshold: 5
           initialDelaySeconds: 30
