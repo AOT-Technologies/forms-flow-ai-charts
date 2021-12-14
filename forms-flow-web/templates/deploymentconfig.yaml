@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - env: null
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.name }}
         imagePullPolicy: Always
         name: {{ .Values.name }}
         ports:

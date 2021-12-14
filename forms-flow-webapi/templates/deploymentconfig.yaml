@@ -100,7 +100,7 @@ spec:
               name: {{ .Values.formsflow_config_name }}-config
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.name }}
         name: {{ .Values.name }}
       ports:
       - containerPort: 5000

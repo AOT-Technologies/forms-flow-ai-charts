@@ -133,7 +133,7 @@ spec:
           value: "{{ .Values.websocket_message_type }}"
         - name: WEBSOCKET_SECURITY_ORIGIN
           value: "{{ .Values.websocket_security_origin }}"
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Values.image_namespace }}/{{ .Values.name }}"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.name }}"
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3

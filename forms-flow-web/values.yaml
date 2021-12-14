@@ -4,7 +4,6 @@ camunda_url: '# TODO: must define a default value for .camunda_url'
 cpu_limit: 750m
 cpu_request: 100m
 forms_url: '# TODO: must define a default value for .forms_url'
-image_namespace: nzpnbz-tools
 kc_mount_path: /usr/share/nginx/html/config/kc
 keycloak_realm: '# TODO: must define a default value for .keycloak_realm'
 keycloak_url: '# TODO: must define a default value for .keycloak_url'
