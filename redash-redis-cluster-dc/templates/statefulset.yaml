@@ -70,11 +70,11 @@ spec:
         - mountPath: /data
           name: redis-data
           readOnly: false
-      volumes:
-      - configMap:
-          defaultMode: 493
-          name: {{ .Values.name }}-{{ .Values.instance }}
-        name: conf
+    volumes:
+    - configMap:
+        defaultMode: 493
+        name: {{ .Values.name }}-{{ .Values.instance }}
+      name: conf
   volumeClaimTemplates:
   - metadata:
       name: redis-data
