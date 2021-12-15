@@ -11,6 +11,5 @@ persistent_volume_size: 1Gi
 postgresql_admin_password: admin
 postgresql_image_name: postgresql
 postgresql_image_tag: 12
-postgresql_image_url: registry.redhat.io/rhel8
 postgresql_password: postgresql
 postgresql_test_password: test
