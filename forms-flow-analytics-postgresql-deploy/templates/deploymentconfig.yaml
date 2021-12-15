@@ -45,7 +45,7 @@ spec:
               key: DATABASE_ADMIN_PASSWORD
               name: {{ .Values.name }}-{{ .Values.instance }}-secret
               #image: "image-registry.openshift-image-registry.svc:5000/openshift/{{ .Values.postgresql_image_name }}:{{ .Values.postgresql_image_tag }}"
-        image: "{{ .Values.image_url }}/{{ .Values.postgresql_image_name }}:{{ .Values.postgresql_image_tag }}"
+        image: "{{ .Values.postgresql_image_url }}/{{ .Values.postgresql_image_name }}:{{ .Values.postgresql_image_tag }}"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
