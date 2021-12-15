@@ -92,14 +92,3 @@ spec:
         persistentVolumeClaim:
           claimName: {{ .Values.name }}-{{ .Values.instance }}
   test: false
-  triggers:
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - {{ .Values.name }}-{{ .Values.instance }}
-      from:
-        kind: ImageStreamTag
-        name: postgresql:10
-        namespace: openshift
-    type: ImageChange
-  - type: ConfigChange
