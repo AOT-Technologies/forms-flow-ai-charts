@@ -5,7 +5,7 @@ image_tag: latest
 memory_limit: 2Gi
 memory_request: 100Mi
 name: forms-flow-analytics
-redash_database_url: postgresql://postgres@postgres/postgres
+redash_database_url: postgresql://postgres:postgresql@forms-flow-analytics-postgresql-latest:5432/postgres
 redash_host: formsflow.analytics.apps.devops.aot-technologies.com
 redash_image_name: forms-flow-analytics-redash 
 redash_image_tag: latest
