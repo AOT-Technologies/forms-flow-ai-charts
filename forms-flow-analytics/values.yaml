@@ -8,7 +8,7 @@ name: forms-flow-analytics
 redash_database_url: postgresql://postgres@postgres/postgres
 redash_host: formsflow.analytics.apps.devops.aot-technologies.com
 redash_image_name: aot-redash-reddis
-reddis_image_src: https://github.com/AOT-Technologies/
+redash_image_src: https://github.com/AOT-Technologies/redash
 redash_redis_url: redis://redis:6379/0
 source_context_dir: /forms-flow-analytics
 source_repository_ref: master
