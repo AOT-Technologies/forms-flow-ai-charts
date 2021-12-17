@@ -1,4 +1,4 @@
-analytics_db_resource_name: analytics-postgresql
+analytics_db_resource_name: forms-flow-analytics-postgresql 
 app_root_log_flag: INFO
 app_security_origin: "*"
 bpm_history_level: auto
