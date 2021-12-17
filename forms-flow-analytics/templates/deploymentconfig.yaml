@@ -23,7 +23,7 @@ spec:
       maxUnavailable: 25%
       post:
         execNewPod:
-          containerName: "{{ .Values.name }}"
+          containerName: "{{ .Values.name }}-server"
           command:
           - /bin/sh
           - -c
@@ -89,7 +89,7 @@ spec:
         - name: REDASH_WEB_WORKERS
           value: "4"
         image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redash_image_name }}:{{ .Values.redash_image_tag }}"
-        name: "{{ .Values.name }}"
+        name: "{{ .Values.name }}-server"
         ports:
         - containerPort: 5000
           protocol: TCP
@@ -100,7 +100,7 @@ spec:
   - imageChangeParams:
       automatic: true
       containerNames:
-      - "{{ .Values.name }}"
+      - "{{ .Values.name }}-server"
       from:
         kind: ImageStreamTag
         name: "{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
