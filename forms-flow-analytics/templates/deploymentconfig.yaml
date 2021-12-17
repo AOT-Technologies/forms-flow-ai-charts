@@ -23,7 +23,7 @@ spec:
       maxUnavailable: 25%
       post:
         execNewPod:
-          containerName: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}"
+          containerName: "{{ .Values.name }}"
           command:
           - /bin/sh
           - -c
