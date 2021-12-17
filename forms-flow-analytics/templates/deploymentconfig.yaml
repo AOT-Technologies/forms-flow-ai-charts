@@ -2,8 +2,8 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    app: "{{ .Values.name }}"
-  name: "{{ .Values.name }}"
+    app: "{{ .Values.name }}-server"
+  name: "{{ .Values.name }}-server"
 spec:
   replicas: 1
   selector:
