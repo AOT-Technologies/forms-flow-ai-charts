@@ -35,7 +35,8 @@ spec:
   template:
     metadata:
       labels:
-        app: "{{ .Values.name }}"
+        app: "{{ .Values.name }}-server"
+      name: "{{ .Values.name }}-server"
     spec:
       containers:
       - args:
