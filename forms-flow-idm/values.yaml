@@ -15,3 +15,11 @@ keycloak:
       value: /realm/realm.json
 
   podSecurityContext: {"fsGroup":1000650000}
+
+  route.enabled: true
+  route.path:  /
+  route.labels: {"app":"forms-flow-idm"}
+  route.host: "formsflow.idm.apps.devops.aot-technologies.com"
+  route.tls.enabled: true
+  route.tls.insecureEdgeTerminationPolicy: Redirect
+  route.tls.termination: edge
