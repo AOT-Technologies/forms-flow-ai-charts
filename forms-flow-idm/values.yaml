@@ -13,6 +13,13 @@ keycloak:
   extraEnv: |
     - name: KEYCLOAK_IMPORT
       value: /realm/realm.json
+    
+  # Docker image used to check Postgresql readiness at startup 
+  pgchecker:
+    securityContext:
+      runAsUser: 1000650000
+      runAsGroup: 1000650000
+      runAsNonRoot: true
 
   podSecurityContext: 
     fsGroup: 1000650000
@@ -26,7 +33,8 @@ keycloak:
       enabled: true
       insecureEdgeTerminationPolicy: Redirect
       termination: edge
-
+  
+  # SecurityContext for the Keycloak container
   securityContext:
     runAsUser: 1000650000
     runAsNonRoot: true
