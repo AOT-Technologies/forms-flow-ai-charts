@@ -24,9 +24,18 @@ keycloak:
   podSecurityContext: 
     fsGroup: 1000650000
   
+## "auto" is especially useful for OpenShift which has scc with dynamic userids (and 0 is not allowed).
+## You may want to use this volumePermissions.securityContext.runAsUser="auto" in combination with
+## pod securityContext.enabled=false and shmVolume.chmod.enabled=false
   postgresql:
     securityContext:
-      runAsUser: "auto"
+      enabled: false 
+    shmVolume:
+      chmod:
+        enabled: false
+    volumePermissions:
+      securityContext:
+        runAsUser: "auto"
   
   route:
     enabled: true
