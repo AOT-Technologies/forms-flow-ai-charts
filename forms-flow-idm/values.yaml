@@ -1,12 +1,12 @@
 ---
 keycloak:
   extraVolumes: |
-    - name: {{ .Chart.Name }}
+    - name: {{ .Chart.Name }}-realm
       configMap:
-        name: {{ .Chart.Name }}-config
+        name: {{ .Chart.Name }}-realm
 
   extraVolumeMounts: |
-    - name: {{ .Chart.Name }}
+    - name: {{ .Chart.Name }}-realm
       mountPath: "/realm/"
       readOnly: true
 
