@@ -1,9 +1,9 @@
 ---
 keycloak:
   extraVolumes: |
-    - name: forms-flow-idm 
+    - name: {{ .Chart.Name }}
       configMap:
-        name: forms-flow-idm
+        name: {{ .Chart.Name }}-config
 
   extraVolumeMounts: |
     - name: forms-flow-idm
