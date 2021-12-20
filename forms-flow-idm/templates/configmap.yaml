@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: {{ .Values.name }}-realm
+    name: "{{ .Values.name }}-realm"
 data:
   {{ .Values.name }}-realm.json: |- 
     {

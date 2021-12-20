@@ -1,12 +1,12 @@
 ---
 keycloak:
   extraVolumes: |
-    - name: {{ .Values.name }}-realm
+    - name: "{{ .Values.name }}-realm"
       configMap:
-        name: {{ .Values.name }}-realm
+        name: "{{ .Values.name }}-realm"
 
   extraVolumeMounts: |
-    - name: {{ .Values.name }}-realm
+    - name: "{{ .Values.name }}-realm"
       mountPath: "/realm/"
       readOnly: true
 
