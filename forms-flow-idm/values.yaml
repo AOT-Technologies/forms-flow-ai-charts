@@ -33,7 +33,9 @@ keycloak:
     shmVolume:
       chmod:
         enabled: false
+    ## @param volumePermissions.enabled Enable init container that changes volume permissions in the data directory (for cases where the default k8s `runAsUser` and `fsUser` values do not work)
     volumePermissions:
+      enabled: true
       securityContext:
         runAsUser: "auto"
   
