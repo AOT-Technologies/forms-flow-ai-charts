@@ -25,7 +25,8 @@ keycloak:
     fsGroup: 1000650000
   
   postgresql:
-    runAsUser: "auto"
+    securityContext:
+      runAsUser: "auto"
   
   route:
     enabled: true
