@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: {{ .Chart.Name }}-realm
+    name: {{ .Values.name }}-realm
 data:
-  {{ .Chart.Name }}-realm.json: |- 
+  {{ .Values.name }}-realm.json: |- 
     {
       "id": "forms-flow-ai",
       "realm": "forms-flow-ai",

@@ -1,18 +1,18 @@
 ---
 keycloak:
   extraVolumes: |
-    - name: {{ .Chart.Name }}-realm
+    - name: {{ .Values.name }}-realm
       configMap:
-        name: {{ .Chart.Name }}-realm
+        name: {{ .Values.name }}-realm
 
   extraVolumeMounts: |
-    - name: {{ .Chart.Name }}-realm
+    - name: {{ .Values.name }}-realm
       mountPath: "/realm/"
       readOnly: true
 
   extraEnv: |
     - name: KEYCLOAK_IMPORT
-      value: "/realm/{{ .Chart.Name }}-realm.json"
+      value: "/realm/{{ .Values.name }}-realm.json"
     
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
@@ -53,3 +53,4 @@ keycloak:
   securityContext:
     runAsUser: 1000650000
     runAsNonRoot: true
+name: forms-flow-idm
