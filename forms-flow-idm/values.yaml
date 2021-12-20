@@ -14,8 +14,9 @@ keycloak:
     - name: KEYCLOAK_IMPORT
       value: /realm/realm.json
 
-  podSecurityContext: {"fsGroup":1000650000}
-
+  podSecurityContext: 
+    fsGroup: 1000650000
+  
   route:
     enabled: true
     path:  /
@@ -25,3 +26,7 @@ keycloak:
       enabled: true
       insecureEdgeTerminationPolicy: Redirect
       termination: edge
+
+  securityContext:
+    runAsUser: 1000650000
+    runAsNonRoot: true
