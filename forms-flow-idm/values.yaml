@@ -28,6 +28,8 @@ keycloak:
 ## You may want to use this volumePermissions.securityContext.runAsUser="auto" in combination with
 ## pod securityContext.enabled=false and shmVolume.chmod.enabled=false
   postgresql:
+    containerSecurityContext:
+        enabled: false
     securityContext:
       enabled: false 
     shmVolume:
