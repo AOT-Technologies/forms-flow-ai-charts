@@ -24,6 +24,9 @@ keycloak:
   podSecurityContext: 
     fsGroup: 1000650000
   
+  postgresql:
+    runAsUser: "auto"
+  
   route:
     enabled: true
     path:  /
