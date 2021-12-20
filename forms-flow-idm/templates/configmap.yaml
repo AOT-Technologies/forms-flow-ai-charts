@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
     name: "{{ .Values.name }}-realm"
 data:
-  {{ .Values.name }}-realm.json: |- 
+  "{{ .Values.name }}-realm.json": |- 
     {
       "id": "forms-flow-ai",
       "realm": "forms-flow-ai",
