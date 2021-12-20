@@ -16,10 +16,12 @@ keycloak:
 
   podSecurityContext: {"fsGroup":1000650000}
 
-  route.enabled: true
-  route.path:  /
-  route.labels: {"app":"forms-flow-idm"}
-  route.host: "formsflow.idm.apps.devops.aot-technologies.com"
-  route.tls.enabled: true
-  route.tls.insecureEdgeTerminationPolicy: Redirect
-  route.tls.termination: edge
+  route:
+    enabled: true
+    path:  /
+    labels: {"app":"forms-flow-idm"}
+    host: "formsflow.idm.apps.devops.aot-technologies.com"
+    tls:
+      enabled: true
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
