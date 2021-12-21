@@ -1,5 +1,13 @@
 ---
 keycloak:
+  extraEnv: |
+    - name: KEYCLOAK_IMPORT
+      value: "/realm/realm.json"
+    - name: KEYCLOAK_PASSWORD
+      value: admin
+    - name: KEYCLOAK_USER
+      value: admin
+
   extraVolumes: |
     - name: "{{ .Chart.Name }}-realm"
       configMap:
@@ -9,14 +17,12 @@ keycloak:
     - name: "{{ .Chart.Name }}-realm"
       mountPath: "/realm/"
       readOnly: true
-
-  extraEnv: |
-    - name: KEYCLOAK_IMPORT
-      value: "/realm/realm.json"
-    - name: KEYCLOAK_PASSWORD
-      value: admin
-    - name: KEYCLOAK_USER
-      value: admin
+  
+  ingress:
+    console:
+      enabled: true
+      rules:
+      - host: "formsflow.idm.apps.devops.aot-technologies.com"
     
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
