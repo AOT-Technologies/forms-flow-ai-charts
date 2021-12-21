@@ -13,6 +13,10 @@ keycloak:
   extraEnv: |
     - name: KEYCLOAK_IMPORT
       value: "/realm/realm.json"
+    - name: KEYCLOAK_PASSWORD
+      value: admin
+    - name: KEYCLOAK_USER
+      value: admin
     
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
