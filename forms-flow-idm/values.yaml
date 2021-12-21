@@ -21,8 +21,8 @@ keycloak:
   ingress:
     console:
       enabled: true
-      rules:
-      - host: "formsflow.idm.apps.devops.aot-technologies.com"
+      rules: |
+        - host: "formsflow.idm.apps.devops.aot-technologies.com"
     
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
