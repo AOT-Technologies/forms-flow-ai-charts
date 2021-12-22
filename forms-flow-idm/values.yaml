@@ -61,9 +61,4 @@ keycloak:
     runAsUser: 1000650000
     runAsNonRoot: true
   
-  service:
-    extraPorts:
-      - name: console
-        port: 8080
-        protocol: TCP
 name: forms-flow-idm
