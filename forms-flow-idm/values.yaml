@@ -7,6 +7,9 @@ keycloak:
       value: admin
     - name: KEYCLOAK_USER
       value: admin
+  
+  extraPorts:
+    - 8080
 
   extraVolumes: |
     - name: "{{ .Release.Name }}-realm-config"
