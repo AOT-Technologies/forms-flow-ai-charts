@@ -13,15 +13,9 @@ keycloak:
     - name: "{{ .Release.Name }}-realm-config"
       configMap:
         name: "{{ .Release.Name }}-realm-config"
-    - name: "{{ .Release.Name }}-realm-secret"
-      secret:
-        secretName: "{{ .Release.Name }}-realm-secret"
 
   extraVolumeMounts: |
     - name: "{{ .Release.Name }}-realm-config"
-      mountPath: "/realm/"
-      readOnly: true
-    - name: "{{ .Release.Name }}-realm-secret"
       mountPath: "/realm/"
       readOnly: true
     
@@ -69,7 +63,7 @@ keycloak:
   
   service:
     extraPorts:
-      - name: http
-        containerPort: 8080
+      - name: console
+        servicePort: 8080
         protocol: TCP
 name: forms-flow-idm
