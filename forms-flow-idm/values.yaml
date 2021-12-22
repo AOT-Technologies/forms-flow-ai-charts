@@ -18,6 +18,9 @@ keycloak:
     - name: "{{ .Release.Name }}-realm-config"
       mountPath: "/realm/"
       readOnly: true
+  image:
+    repository: "quay.io/keycloak/keycloak" 
+    tag: "14.0.0"
     
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
