@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: "keycloak-realm"
+    name: "{{.Release.Name }}-realm-config"
 data:
   "realm.json": |- 
     {

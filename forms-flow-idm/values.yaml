@@ -9,20 +9,20 @@ keycloak:
       value: admin
 
   extraVolumes: |
-    - name: "{{ .Chart.Name }}-realm"
+    - name: "{{ .Release.Name }}-realm-config"
       configMap:
-        name: "{{ .Chart.Name }}-realm"
+        name: "{{ .Release.Name }}-realm-config"
+    - name: "{{ .Release.Name }}-realm-secret"
+      secret:
+        secretName: "{{ .Release.Name }}-realm-secret"
 
   extraVolumeMounts: |
-    - name: "{{ .Chart.Name }}-realm"
+    - name: "{{ .Release.Name }}-realm-config"
       mountPath: "/realm/"
       readOnly: true
-  
-  ingress:
-    console:
-      enabled: true
-      rules: |
-        - host: "formsflow.idm.apps.devops.aot-technologies.com"
+    - name: "{{ .Release.Name }}-realm-secret"
+      mountPath: "/realm/"
+      readOnly: true
     
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
