@@ -7,16 +7,6 @@ keycloak:
       value: admin
     - name: KEYCLOAK_USER
       value: admin
-    - name: JAVA_OPTS
-      value: >-
-        -XX:+UseContainerSupport
-        -XX:MaxRAMPercentage=50.0
-        -Djava.net.preferIPv4Stack=true
-        -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS
-        -Djava.awt.headless=true
-        -Dkeycloak.profile.feature.scripts=enabled
-        -Dkeycloak.profile.feature.upload_scripts=enabled
-  
 
   extraVolumes: |
     - name: "{{ .Release.Name }}-realm-config"
@@ -27,9 +17,6 @@ keycloak:
     - name: "{{ .Release.Name }}-realm-config"
       mountPath: "/realm/"
       readOnly: true
-  image:
-    repository: "quay.io/keycloak/keycloak" 
-    tag: "14.0.0"
     
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
@@ -64,7 +51,7 @@ keycloak:
     labels: {"app":"forms-flow-idm"}
     host: "formsflow.idm.apps.devops.aot-technologies.com"
     tls:
-      enabled: true
+      enabled: false
       insecureEdgeTerminationPolicy: Redirect
       termination: edge
   
