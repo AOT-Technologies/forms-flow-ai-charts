@@ -1,5 +1,5 @@
-bpm_keycloak_clientid: keycloak
-bpm_keycloak_clientsecret: keycloak
+bpm_keycloak_clientid: forms-flow-bpm
+bpm_keycloak_clientsecret: '**********'
 formio_admin_email: me@defineme.com
 formio_admin_password: admin
 keycloak_realm: forms-flow-ai
