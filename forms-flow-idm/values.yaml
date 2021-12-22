@@ -8,8 +8,6 @@ keycloak:
     - name: KEYCLOAK_USER
       value: admin
   
-  extraPorts:
-    - 8080
 
   extraVolumes: |
     - name: "{{ .Release.Name }}-realm-config"
@@ -68,4 +66,10 @@ keycloak:
   securityContext:
     runAsUser: 1000650000
     runAsNonRoot: true
+  
+  service:
+    extraPorts:
+      - name: http
+        containerPort: 8080
+        protocol: TCP
 name: forms-flow-idm
