@@ -10,7 +10,7 @@ camunda_hik_idle_timeout: 600000
 camunda_hikari_connection_timeout: 30000
 camunda_hikari_maximum_poolsize: 10
 camunda_session_db_resource_name: camunda-session-postgresql
-camunda_url: "http://formsflow.bpm.apps.devops.aot-technologies.com"
+camunda_url: "formsflow.bpm.apps.devops.aot-technologies.com"
 database_port: 5432
 forms_url: "http://formio.apps.devops.aot-technologies.com"
 formsflow_config_name: forms-flow-ai
