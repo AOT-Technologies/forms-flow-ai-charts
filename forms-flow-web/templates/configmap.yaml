@@ -41,10 +41,10 @@ data:
         "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}",
         "REACT_APP_KEYCLOAK_URL_REALM": "{{ .Values.keycloak_realm }}",
         "REACT_APP_KEYCLOAK_URL": "{{ .Values.keycloak_url }}",
-        "REACT_APP_APPLICATION_NAME": "{{ .Values.application_name }}"
+        "REACT_APP_APPLICATION_NAME": "{{ .Values.name }}"
       }
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Values.app_name }}
+    app: {{ .Values.name }}
   name: {{ .Values.name }}-config
