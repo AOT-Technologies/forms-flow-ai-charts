@@ -114,9 +114,9 @@ spec:
         - name: CAMUNDA_APP_ROOT_LOG_FLAG
           value: "{{ .Values.camunda_app_root_log_flag }}"
         - name: FORMSFLOW_API_URL
-          value: "https://{{ .Values.web_api_url }}"
+          value: "{{ .Values.web_api_url }}"
         - name: FORMIO_URL
-          value: "https://{{ .Values.forms_url }}"
+          value: "{{ .Values.forms_url }}"
         - name: FORMIO_ROOT_EMAIL
           valueFrom:
             secretKeyRef:
