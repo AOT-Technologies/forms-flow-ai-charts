@@ -17,6 +17,8 @@ react_app_staff_reviewer_id: '61856bbc69b630f304977ae2'
 react_app_user_resource_form_id: '61856bbc69b6301d70977ae4'
 react_app_websocket_encrypt_key: "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}"
 redash_secret_key: '# TODO: must define a default value for .redash_secret_key'
+source_repository_ref: forms-flow-web
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai 
 tag_name: latest
 web_api_url: formsflow.webapi.apps.devops.aot-technologies.com
 web_url: formsflow.web.apps.devops.aot-technologies.com
