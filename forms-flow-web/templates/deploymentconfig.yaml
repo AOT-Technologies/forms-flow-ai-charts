@@ -58,4 +58,3 @@ spec:
           defaultMode: 420
           name: {{ .Values.name }}-config
         name: {{ .Values.name }}-config
-status: {}
