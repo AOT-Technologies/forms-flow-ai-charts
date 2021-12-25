@@ -109,4 +109,3 @@ spec:
       stdin: true
       tty: true
   test: false
-status: {}
