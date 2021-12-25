@@ -1,3 +1,4 @@
 source_context_dir: /forms-flow-ai/forms-flow-api
-source_repository_ref: feat/TAFT-668
-source_repository_url: https://github.com/AOT-Technologies/TAFT
+source_repository_ref: master
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
+web_api_url: https://formsflow.web.apps.devops.aot-technologies.com/

@@ -2,13 +2,13 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    app: forms-flow-webapi
-  name: forms-flow-webapi
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: forms-flow-webapi:latest
+      name: {{ .Chart.Name }}:latest
   resources:
     limits:
       cpu: "1"
