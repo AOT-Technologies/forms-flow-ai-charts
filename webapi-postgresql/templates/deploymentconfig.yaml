@@ -3,10 +3,10 @@ kind: DeploymentConfig
 metadata:
   generation: 1
   labels:
-    app: {{ .Values.name }}-{{ .Values.tag_name }}
-    app-group: {{ .Values.app_group }}
-    template: {{ .Values.name }}-deploy
-  name: {{ .Values.name }}-{{ .Values.tag_name }}
+    app: "{{ .Values.name }}-{{ .Values.tag_name }}"
+    app-group: "{{ .Values.app_group }}"
+    template: "{{ .Values.name }}-deploy"
+  name: "{{ .Values.name }}-{{ .Values.tag_name }}"
 spec:
   replicas: 1
   selector:
