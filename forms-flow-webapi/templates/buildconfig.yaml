@@ -2,13 +2,13 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: {{ .Chart.Name }}:latest
+      name: "{{ .Chart.Name }}:latest"
   resources:
     limits:
       cpu: "1"
@@ -18,10 +18,10 @@ spec:
       memory: 4Gi
   runPolicy: Serial
   source:
-    contextDir: {{ .Values.source_context_dir }}
+    contextDir: "{{ .Values.source_context_dir }}"
     git:
-      ref: {{ .Values.source_repository_ref }}
-      uri: {{ .Values.source_repository_url }}
+      ref: "{{ .Values.source_repository_ref }}"
+      uri: "{{ .Values.source_repository_url }}"
   strategy:
     dockerStrategy:
       dockerfilePath: Dockerfile

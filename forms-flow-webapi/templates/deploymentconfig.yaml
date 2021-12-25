@@ -1,11 +1,9 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations: null
-  creationTimestamp: null
   labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
 spec:
   replicas: 1
   selector:
@@ -22,9 +20,8 @@ spec:
     type: Rolling
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: {{ .Chart.Name }}
+        app: "{{ .Chart.Name }}"
     spec:
       containers:
       - env:
@@ -32,76 +29,76 @@ spec:
           valueFrom:
             secretKeyRef:
               key: MONGO_URI
-              name: {{ .Values.mongodb_secret_name }}-{{ .Values.instance }}-secret
+              name: "{{ .Values.mongodb_secret_name }}-{{ .Values.instance }}-secret"
         - name: BPM_API_BASE
           valueFrom:
             configMapKeyRef:
               key: CAMUNDA_API_URI
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: BPM_CLIENT_ID
           valueFrom:
             secretKeyRef:
               key: BPM_CLIENT_ID
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: BPM_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
               key: BPM_CLIENT_SECRET
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: BPM_TOKEN_API
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_TOKEN_URL
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: {{ .Values.webapi_db_resource_name }}-{{ .Values.image_tag }}-secret
+              name: "{{ .Values.webapi_db_resource_name }}-{{ .Values.image_tag }}-secret"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_ALGORITHMS
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: JWT_OIDC_AUDIENCE
           valueFrom:
             secretKeyRef:
               key: WEB_CLIENTID
-              name: {{ .Values.formsflow_secret }}
+              name: "{{ .Values.formsflow_secret }}"
         - name: JWT_OIDC_CACHING_ENABLED
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_CACHING_ENABLED
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: JWT_OIDC_ISSUER
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_ISSUER
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: JWT_OIDC_JWKS_CACHE_TIMEOUT
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: JWT_OIDC_JWKS_URI
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_JWKS_URI
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: JWT_OIDC_WELL_KNOWN_CONFIG
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_CONFIG
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: WEB_API_BASE_URL
           valueFrom:
             configMapKeyRef:
               key: WEB_API_BASE_URL
-              name: {{ .Values.formsflow_config_name }}-config
+              name: "{{ .Values.formsflow_config_name }}-config"
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}
-        name: {{ .Chart.Name }}
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}"
+        name: "{{ .Chart.Name }}"
       ports:
       - containerPort: 5000
       resources: {}
