@@ -3,14 +3,13 @@ kind: DeploymentConfig
 metadata:
   generation: 1
   labels:
-    app: {{ .Values.name }}
+    app: {{ .Chart.Name }}
     app-group: {{ .Values.app_group }}
-    template: {{ .Values.name }}-deploy
-  name: {{ .Values.name }}
+  name: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
-    name: {{ .Values.name }}
+    name: {{ .Chart.Name }}
   strategy:
     activeDeadlineSeconds: 21600
     recreateParams:
@@ -20,7 +19,7 @@ spec:
   template:
     metadata:
       labels:
-        name: {{ .Values.name }}
+        name: {{ .Chart.Name }}
     spec:
       containers:
       - env:
@@ -28,22 +27,22 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DATABASE_USER
-              name: {{ .Values.name }}-config
+              name: {{ .Chart.Name }}
         - name: POSTGRESQL_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: {{ .Values.name }}-secret
+              name: {{ .Chart.Name }}
         - name: POSTGRESQL_DATABASE
           valueFrom:
             configMapKeyRef:
               key: DATABASE_NAME
-              name: {{ .Values.name }}-config
+              name: {{ .Chart.Name }}
         - name: POSTGRESQL_ADMIN_DATABASE
           valueFrom:
             secretKeyRef:
               key: DATABASE_ADMIN_PASSWORD
-              name: {{ .Values.name }}-secret
+              name: {{ .Chart.Name }}
         image: "{{ .Values.image_url }}"
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -54,7 +53,7 @@ spec:
           tcpSocket:
             port: 5432
           timeoutSeconds: 1
-        name: {{ .Values.name }}
+        name: {{ .Chart.Name }}
         ports:
         - containerPort: 5432
           protocol: TCP
@@ -81,13 +80,13 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/lib/pgsql/data
-          name: {{ .Values.name }}-data
+          name: {{ .Chart.Name }}-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: {{ .Values.name }}-data
+      - name: {{ .Chart.Name }}-data
         persistentVolumeClaim:
-          claimName: {{ .Values.name }}
+          claimName: {{ .Chart.Name }}

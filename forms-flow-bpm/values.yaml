@@ -16,7 +16,7 @@ forms_url: "formio.apps.devops.aot-technologies.com"
 formsflow_config_name: forms-flow-ai
 formsflow_secret: forms-flow-ai
 hikari_valid_timeout: 5000
-image_tag: latest 
+image_tag: latest
 keycloak_url: "formsflow.idm.apps.devops.aot-technologies.com"
 mail_from: support@aot-technologies.com
 mail_password: YwJaMyhmHbBg0cp6

@@ -3,13 +3,13 @@ kind: DeploymentConfig
 metadata:
   annotations: null
   labels:
-    app: "{{ .Values.name }}"
-  name: "{{ .Values.name }}"
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
-    app: "{{ .Values.name }}"
+    app: "{{ .Chart.Name }}"
   strategy:
     activeDeadlineSeconds: 21600
     resources: {}
@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       labels:
-        app: "{{ .Values.name }}"
+        app: "{{ .Chart.Name }}"
     spec:
       affinity:
         podAntiAffinity:
@@ -33,7 +33,7 @@ spec:
               - key: name
                 operator: In
                 values:
-                - "{{ .Values.name }}"
+                - "{{ .Chart.Name }}"
             topologyKey: kubernetes.io/hostname
       containers:
       - env:
@@ -43,9 +43,9 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DATABASE_NAME
-              name: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-config"
+              name: "{{ .Values.camunda_db_resource_name }}"
         - name: CAMUNDA_DATABASE_SERVICE_NAME
-          value: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}"
+          value: "{{ .Values.camunda_db_resource_name }}"
         - name: CAMUNDA_JDBC_DRIVER
           value: "{{ .Values.postgre_db_driver }}"
         - name: CAMUNDA_JDBC_URL
@@ -56,12 +56,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DATABASE_USER
-              name: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-config"
+              name: "{{ .Values.camunda_db_resource_name }}"
         - name: CAMUNDA_JDBC_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.camunda_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.camunda_db_resource_name }}"
         - name: KEYCLOAK_URL
           value: "http://{{ .Values.keycloak_url }}"
         - name: KEYCLOAK_URL_REALM
@@ -89,7 +89,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: CAMUNDA_API_URI
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: CAMUNDA_HIKARI_CONN_TIMEOUT
           value: "{{ .Values.camunda_hikari_connection_timeout }}"
         - name: CAMUNDA_HIKARI_IDLE_TIMEOUT
@@ -99,12 +99,12 @@ spec:
         - name: CAMUNDA_HIKARI_VALID_TIMEOUT
           value: "{{ .Values.hikari_valid_timeout }}"
         - name: CAMUNDA_ANALYTICS_DATABASE_SERVICE_NAME
-          value: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}"
+          value: "{{ .Values.analytics_db_resource_name }}"
         - name: CAMUNDA_ANALYTICS_DATABASE_NAME
           valueFrom:
             configMapKeyRef:
               key: DATABASE_NAME
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-config"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: CAMUNDA_BPM_HISTORY_LEVEL
           value: none
         - name: CAMUNDA_AUTHORIZATION_FLAG
@@ -133,7 +133,7 @@ spec:
           value: "{{ .Values.websocket_message_type }}"
         - name: WEBSOCKET_SECURITY_ORIGIN
           value: "{{ .Values.websocket_security_origin }}"
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.name }}"
+          image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}:{{ .Values.image_tag }}"
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -145,7 +145,7 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 3
-        name: "{{ .Values.name }}"
+        name: "{{ .Chart.Name }}"
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -170,7 +170,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /app/mail-config.properties
-          name: "{{ .Values.name }}-mail-config"
+          name: "{{ .Chart.Name }}-mail-config"
           subPath: mail-config.properties
       dnsPolicy: ClusterFirst
       restartPolicy: Always
@@ -183,5 +183,5 @@ spec:
           items:
           - key: mail-config.properties
             path: mail-config.properties
-          name: "{{ .Values.name }}-mail-config"
-        name: "{{ .Values.name }}-mail-config"
+          name: "{{ .Chart.Name }}"
+        name: "{{ .Chart.Name }}-mail-config"

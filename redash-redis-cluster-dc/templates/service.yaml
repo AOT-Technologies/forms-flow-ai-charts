@@ -3,9 +3,8 @@ kind: Service
 metadata:
   labels:
     app: {{ .Values.app_name }}
-    name: {{ .Values.name }}
-    template: {{ .Values.name }}-template
-  name: {{ .Values.name }}
+    name: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
 spec:
   ports:
   - name: client

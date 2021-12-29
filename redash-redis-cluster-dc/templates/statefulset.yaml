@@ -3,14 +3,14 @@ kind: StatefulSet
 metadata:
   labels:
     app: {{ .Values.app_name }}
-    name: {{ .Values.name }}
-  name: {{ .Values.name }}
+    name: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.app_name }}
-  serviceName: {{ .Values.name }}
+  serviceName: {{ .Chart.Name }}
   template:
     metadata:
       annotations:
@@ -34,7 +34,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.name }}"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}"
         livenessProbe:
           failureThreshold: 5
           initialDelaySeconds: 30
@@ -72,7 +72,7 @@ spec:
       volumes:
       - configMap:
           defaultMode: 493
-          name: {{ .Values.name }}
+          name: {{ .Chart.Name }}
         name: conf
   volumeClaimTemplates:
   - metadata:

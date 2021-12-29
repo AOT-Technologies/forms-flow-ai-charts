@@ -2,8 +2,8 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   labels:
-    app: {{ .Values.name }}
-  name: {{ .Values.name }}
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
 spec:
   host: {{ .Values.camunda_url }}
   path: /camunda
@@ -12,5 +12,5 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: {{ .Values.name }}
+    name: {{ .Chart.Name }}
   wildcardPolicy: None

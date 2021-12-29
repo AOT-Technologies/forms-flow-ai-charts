@@ -5,7 +5,7 @@ metadata:
   creationTimestamp: null
   labels:
     app: {{ .Values.app_name }}
-  name: {{ .Values.name }}
+  name: {{ .Chart.Name }}
 spec:
   ports:
   - name: "8080"

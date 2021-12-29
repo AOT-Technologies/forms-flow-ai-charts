@@ -4,5 +4,5 @@ metadata:
   annotations:
     description: Keeps track of changes in the application image
   labels:
-    app: forms-flow-bpm
-  name: forms-flow-bpm
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}

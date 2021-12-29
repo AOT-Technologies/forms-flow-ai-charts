@@ -4,12 +4,12 @@ metadata:
   annotations: null
   creationTimestamp: null
   labels:
-    app: {{ .Values.name }}
-  name: {{ .Values.name }}
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
-    app: {{ .Values.name }}
+    app: {{ .Chart.Name }}
   strategy:
     rollingParams:
       intervalSeconds: 1
@@ -22,7 +22,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: {{ .Values.name }}
+        app: {{ .Chart.Name }}
     spec:
       containers:
       - env:
@@ -43,7 +43,7 @@ spec:
             secretKeyRef:
               key: FORMIO_ROOT_PASSWORD
               name: {{ .Values.formsflow_secret }}
-        image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.name }}
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -52,7 +52,7 @@ spec:
           tcpSocket:
             port: 3001
           timeoutSeconds: 1
-        name: {{ .Values.name }}
+        name: {{ .Chart.Name }}
         ports:
         - containerPort: 3001
         readinessProbe:

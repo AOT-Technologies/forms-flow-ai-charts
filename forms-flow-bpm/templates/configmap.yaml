@@ -26,5 +26,5 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Values.name }}
-  name: {{ .Values.name }}-mail-config
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}

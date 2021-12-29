@@ -1,6 +1,5 @@
 app_name: redash
 cpu: 500m
-name: redash-redis
 ram: 1Gi
 redis_exporter_image: oliver006/redis_exporter:v1.14.0-alpine 
 redis_exporter_name: redash-exporter

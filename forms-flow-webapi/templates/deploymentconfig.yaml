@@ -29,12 +29,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: MONGO_URI
-              name: "{{ .Values.mongodb_secret_name }}-secret"
+              name: "{{ .Values.mongodb_secret_name }}"
         - name: BPM_API_BASE
           valueFrom:
             configMapKeyRef:
               key: CAMUNDA_API_URI
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: BPM_CLIENT_ID
           valueFrom:
             secretKeyRef:
@@ -49,17 +49,17 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_TOKEN_URL
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.webapi_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.webapi_db_resource_name }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_ALGORITHMS
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: JWT_OIDC_AUDIENCE
           valueFrom:
             secretKeyRef:
@@ -69,32 +69,32 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_CACHING_ENABLED
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: JWT_OIDC_ISSUER
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_ISSUER
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: JWT_OIDC_JWKS_CACHE_TIMEOUT
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: JWT_OIDC_JWKS_URI
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_JWKS_URI
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: JWT_OIDC_WELL_KNOWN_CONFIG
           valueFrom:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_CONFIG
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: WEB_API_BASE_URL
           valueFrom:
             configMapKeyRef:
               key: WEB_API_BASE_URL
-              name: "{{ .Values.formsflow_config_name }}-config"
+              name: "{{ .Values.formsflow_config_name }}"
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'
         image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}"

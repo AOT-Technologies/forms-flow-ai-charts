@@ -2,15 +2,15 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    app: forms-flow-bpm
-  name: forms-flow-bpm
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
 spec:
   failedBuildsHistoryLimit: 2
   nodeSelector: null
   output:
     to:
       kind: ImageStreamTag
-      name: forms-flow-bpm:latest
+      name: "{{ .Chart.Name }}:{{ .Values.image_tag }}"
   postCommit: {}
   resources:
     limits:

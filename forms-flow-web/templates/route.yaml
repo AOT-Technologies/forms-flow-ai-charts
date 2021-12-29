@@ -3,7 +3,7 @@ kind: Route
 metadata:
   labels:
     app: {{ .Values.app_name }}
-  name: {{ .Values.name }}
+  name: {{ .Chart.Name }}
 spec:
   host: {{ .Values.web_url }}
   tls:
@@ -11,5 +11,5 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: {{ .Values.name }}
+    name: {{ .Chart.Name }}
   wildcardPolicy: None

@@ -15,7 +15,7 @@ kind: ConfigMap
 metadata:
   labels:
     app: {{ .Values.app_name }}
-  name: {{ .Values.name }}-keycloak-config
+  name: {{ .Chart.Name }}-keycloak-config
 ---
 apiVersion: v1
 data:
@@ -41,10 +41,10 @@ data:
         "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}",
         "REACT_APP_KEYCLOAK_URL_REALM": "{{ .Values.keycloak_realm }}",
         "REACT_APP_KEYCLOAK_URL": "{{ .Values.keycloak_url }}",
-        "REACT_APP_APPLICATION_NAME": "{{ .Values.name }}"
+        "REACT_APP_APPLICATION_NAME": "{{ .Chart.Name }}"
       }
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Values.name }}
-  name: {{ .Values.name }}-config
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}

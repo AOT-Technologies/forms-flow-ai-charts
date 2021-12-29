@@ -4,17 +4,16 @@ metadata:
   annotations:
     template.openshift.io/expose-uri: postgres://{.spec.clusterIP}:{.spec.ports[?(.name=="postgresql")].port}
   labels:
-    app: {{ .Values.name }}
+    app: {{ .Chart.Name }}
     app-group: {{ .Values.app_group }}
-    template: {{ .Values.name }}-deploy
-  name: {{ .Values.name }}
+  name: {{ .Chart.Name }}
 spec:
   ports:
-  - name: {{ .Values.name }}
+  - name: {{ .Chart.Name }}
     port: 5432
     protocol: TCP
     targetPort: 5432
   selector:
-    name: {{ .Values.name }}
+    name: {{ .Chart.Name }}
   sessionAffinity: None
   type: ClusterIP

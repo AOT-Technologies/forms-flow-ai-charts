@@ -11,7 +11,7 @@ keycloak:
   extraVolumes: |
     - name: "{{ .Release.Name }}-realm-config"
       configMap:
-        name: "{{ .Release.Name }}-realm-config"
+        name: "{{ .Release.Name }}"
 
   extraVolumeMounts: |
     - name: "{{ .Release.Name }}-realm-config"

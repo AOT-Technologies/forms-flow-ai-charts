@@ -7,7 +7,6 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app: "{{ .Values.name }}"
+    app: "{{ .Chart.Name }}"
     app-group: "{{ .Values.app_group }}"
-    template: "{{ .Values.name }}-deploy"
-  name: "{{ .Values.name }}-config"
+  name: "{{ .Chart.Name }}"

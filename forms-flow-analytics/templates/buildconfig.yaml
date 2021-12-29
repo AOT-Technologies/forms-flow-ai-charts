@@ -2,13 +2,13 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    app: "{{ .Values.name }}"
-  name: "{{ .Values.name }}"
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: "{{ .Values.redash_image_name }}:{{ .Values.redash_image_tag }}"
+      name: "{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
   resources:
     limits:
       cpu: "2"

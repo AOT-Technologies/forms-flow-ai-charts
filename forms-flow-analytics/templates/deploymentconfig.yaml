@@ -2,12 +2,12 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    app: "{{ .Values.name }}-server"
-  name: "{{ .Values.name }}-server"
+    app: "{{ .Chart.Name }}-server"
+  name: "{{ .Chart.Name }}-server"
 spec:
   replicas: 1
   selector:
-    app: "{{ .Values.name }}-server"
+    app: "{{ .Chart.Name }}-server"
   strategy:
     activeDeadlineSeconds: 21600
     resources:
@@ -23,7 +23,7 @@ spec:
       maxUnavailable: 25%
       post:
         execNewPod:
-          containerName: "{{ .Values.name }}-server"
+          containerName: "{{ .Chart.Name }}-server"
           command:
           - /bin/sh
           - -c
@@ -35,8 +35,8 @@ spec:
   template:
     metadata:
       labels:
-        app: "{{ .Values.name }}-server"
-      name: "{{ .Values.name }}-server"
+        app: "{{ .Chart.Name }}-server"
+      name: "{{ .Chart.Name }}-server"
     spec:
       containers:
       - args:
@@ -46,51 +46,51 @@ spec:
           valueFrom:
             secretKeyRef:
               key: POSTGRES_HOST_AUTH_METHOD
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
               key: PYTHONUNBUFFERED
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_COOKIE_SECRET
           valueFrom:
             secretKeyRef:
               key: REDASH_COOKIE_SECRET
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
               key: REDASH_HOST
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_LOG_LEVEL
           valueFrom:
             secretKeyRef:
               key: REDASH_LOG_LEVEL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_REDIS_URL
           valueFrom:
             secretKeyRef:
               key: REDASH_REDIS_URL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: REDASH_SECRET_KEY
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_WEB_WORKERS
           value: "4"
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redash_image_name }}:{{ .Values.redash_image_tag }}"
-        name: "{{ .Values.name }}-server"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-server"
         ports:
         - containerPort: 5000
           protocol: TCP
@@ -101,28 +101,28 @@ spec:
   - imageChangeParams:
       automatic: true
       containerNames:
-      - "{{ .Values.name }}-server"
+      - "{{ .Chart.Name }}-server"
       from:
         kind: ImageStreamTag
-        name: "{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
     type: ImageChange
 ---
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    app: "{{ .Values.name }}-adhoc-worker"
-  name: "{{ .Values.name }}-adhoc-worker"
+    app: "{{ .Chart.Name }}-adhoc-worker"
+  name: "{{ .Chart.Name }}-adhoc-worker"
 spec:
   replicas: 1
   selector:
-    app: "{{ .Values.name }}-adhoc-worker"
+    app: "{{ .Chart.Name }}-adhoc-worker"
   strategy:
     resources: {}
   template:
     metadata:
       labels:
-        app: "{{ .Values.name }}-adhoc-worker"
+        app: "{{ .Chart.Name }}-adhoc-worker"
     spec:
       containers:
       - args:
@@ -132,53 +132,53 @@ spec:
           valueFrom:
             secretKeyRef:
               key: POSTGRES_HOST_AUTH_METHOD
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
               key: PYTHONUNBUFFERED
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: QUEUES
           value: "queries"
         - name: REDASH_COOKIE_SECRET
           valueFrom:
             secretKeyRef:
               key: REDASH_COOKIE_SECRET
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
               key: REDASH_HOST
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_LOG_LEVEL
           valueFrom:
             secretKeyRef:
               key: REDASH_LOG_LEVEL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_REDIS_URL
           valueFrom:
             secretKeyRef:
               key: REDASH_REDIS_URL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: REDASH_SECRET_KEY
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: WORKERS_COUNT
           value: "2"
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
-        name: "{{ .Values.name }}-adhoc-worker"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-adhoc-worker"
         resources: {}
       restartPolicy: Always
   test: false
@@ -187,10 +187,10 @@ spec:
   - imageChangeParams:
       automatic: true
       containerNames:
-      - "{{ .Values.name }}-adhoc-worker"
+      - "{{ .Chart.Name }}-adhoc-worker"
       from:
         kind: ImageStreamTag
-        name: "{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -198,18 +198,18 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    app: "{{ .Values.name }}-scheduled-worker"
-  name: "{{ .Values.name }}-scheduled-worker"
+    app: "{{ .Chart.Name }}-scheduled-worker"
+  name: "{{ .Chart.Name }}-scheduled-worker"
 spec:
   replicas: 1
   selector:
-    app: "{{ .Values.name }}-scheduled-worker"
+    app: "{{ .Chart.Name }}-scheduled-worker"
   strategy:
     resources: {}
   template:
     metadata:
       labels:
-        app: "{{ .Values.name }}-scheduled-worker"
+        app: "{{ .Chart.Name }}-scheduled-worker"
     spec:
       containers:
       - args:
@@ -219,53 +219,53 @@ spec:
           valueFrom:
             secretKeyRef:
               key: POSTGRES_HOST_AUTH_METHOD
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
               key: PYTHONUNBUFFERED
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: QUEUES
           value: "scheduled_queries,schemas"
         - name: REDASH_COOKIE_SECRET
           valueFrom:
             secretKeyRef:
               key: REDASH_COOKIE_SECRET
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
               key: REDASH_HOST
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_LOG_LEVEL
           valueFrom:
             secretKeyRef:
               key: REDASH_LOG_LEVEL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_REDIS_URL
           valueFrom:
             secretKeyRef:
               key: REDASH_REDIS_URL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: REDASH_SECRET_KEY
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: WORKERS_COUNT
           value: "1"
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
-        name: "{{ .Values.name }}-scheduled-worker"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-scheduled-worker"
         resources: {}
       restartPolicy: Always
   test: false
@@ -274,10 +274,10 @@ spec:
   - imageChangeParams:
       automatic: true
       containerNames:
-      - "{{ .Values.name }}-scheduled-worker"
+      - "{{ .Chart.Name }}-scheduled-worker"
       from:
         kind: ImageStreamTag
-        name: "{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -285,18 +285,18 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    app: "{{ .Values.name }}-scheduler"
-  name: "{{ .Values.name }}-scheduler"
+    app: "{{ .Chart.Name }}-scheduler"
+  name: "{{ .Chart.Name }}-scheduler"
 spec:
   replicas: 1
   selector:
-    app: "{{ .Values.name }}-scheduler"
+    app: "{{ .Chart.Name }}-scheduler"
   strategy:
     resources: {}
   template:
     metadata:
       labels:
-        app: "{{ .Values.name }}-scheduler"
+        app: "{{ .Chart.Name }}-scheduler"
     spec:
       containers:
       - args:
@@ -306,49 +306,49 @@ spec:
           valueFrom:
             secretKeyRef:
               key: POSTGRES_HOST_AUTH_METHOD
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
               key: PYTHONUNBUFFERED
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_COOKIE_SECRET
           valueFrom:
             secretKeyRef:
               key: REDASH_COOKIE_SECRET
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
               key: REDASH_HOST
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_LOG_LEVEL
           valueFrom:
             secretKeyRef:
               key: REDASH_LOG_LEVEL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_REDIS_URL
           valueFrom:
             secretKeyRef:
               key: REDASH_REDIS_URL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: REDASH_SECRET_KEY
-              name: "{{ .Values.name }}"
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
-        name: "{{ .Values.name }}-scheduler"
+              name: "{{ .Chart.Name }}"
+        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-scheduler"
         resources: {}
       restartPolicy: Always
   test: false
@@ -357,10 +357,10 @@ spec:
   - imageChangeParams:
       automatic: true
       containerNames:
-      - "{{ .Values.name }}-scheduler"
+      - "{{ .Chart.Name }}-scheduler"
       from:
         kind: ImageStreamTag
-        name: "{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -368,18 +368,18 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    app: "{{ .Values.name }}-worker"
-  name: "{{ .Values.name }}-worker"
+    app: "{{ .Chart.Name }}-worker"
+  name: "{{ .Chart.Name }}-worker"
 spec:
   replicas: 1
   selector:
-    app: "{{ .Values.name }}-worker"
+    app: "{{ .Chart.Name }}-worker"
   strategy:
     resources: {}
   template:
     metadata:
       labels:
-        app: "{{ .Values.name }}-worker"
+        app: "{{ .Chart.Name }}-worker"
     spec:
       containers:
       - args:
@@ -389,53 +389,53 @@ spec:
           valueFrom:
             secretKeyRef:
               key: POSTGRES_HOST_AUTH_METHOD
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
               key: PYTHONUNBUFFERED
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: QUEUES
           value: "periodic emails default"
         - name: REDASH_COOKIE_SECRET
           valueFrom:
             secretKeyRef:
               key: REDASH_COOKIE_SECRET
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
               key: REDASH_HOST
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_LOG_LEVEL
           valueFrom:
             secretKeyRef:
               key: REDASH_LOG_LEVEL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_REDIS_URL
           valueFrom:
             secretKeyRef:
               key: REDASH_REDIS_URL
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: REDASH_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: REDASH_SECRET_KEY
-              name: "{{ .Values.name }}"
+              name: "{{ .Chart.Name }}"
         - name: WORKERS_COUNT
           value: "1"
         image: ' '
-        name: "{{ .Values.name }}-worker"
+        name: "{{ .Chart.Name }}-worker"
         resources: {}
       restartPolicy: Always
   test: false
@@ -444,9 +444,9 @@ spec:
   - imageChangeParams:
       automatic: true
       containerNames:
-      - "{{ .Values.name }}-worker"
+      - "{{ .Chart.Name }}-worker"
       from:
         kind: ImageStreamTag
-        name: "{{ .Values.redash_image_name }}:{{ .Values.image_tag }}"
+        name: "{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange

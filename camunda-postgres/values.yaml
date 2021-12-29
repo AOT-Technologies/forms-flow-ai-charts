@@ -5,7 +5,6 @@ database_port: "5432"
 database_user: user
 image_url: "image-registry.openshift-image-registry.svc:5000/openshift/postgresql:12"
 memory_limit: 512Mi
-name: camunda-postgresql
 persistent_volume_class: nfs-client
 persistent_volume_size: 1Gi
 postgresql_admin_password: admin
