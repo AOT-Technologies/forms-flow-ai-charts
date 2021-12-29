@@ -1,7 +1,7 @@
 formsflow_config_name: forms-flow-ai
 formsflow_secret: forms-flow-ai
 image_tag: latest
-mongodb_secret_name:
+mongodb_secret_name: formio-mongodb
 source_context_dir: /forms-flow-ai/forms-flow-api
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai

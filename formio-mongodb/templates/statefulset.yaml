@@ -33,32 +33,32 @@ spec:
           valueFrom:
             secretKeyRef:
               key: username
-              name: {{ .Values.mongodb_secret_name }}
+              name: {{ .Values.mongodb_secret_name }}-secret
         - name: MONGODB_PASSWORD
           valueFrom:
             secretKeyRef:
               key: password
-              name: {{ .Values.mongodb_secret_name }}
+              name: {{ .Values.mongodb_secret_name }}-secret
         - name: MONGODB_DATABASE
           valueFrom:
             secretKeyRef:
               key: database
-              name: {{ .Values.mongodb_secret_name }}
+              name: {{ .Values.mongodb_secret_name }}-secret
         - name: MONGODB_ADMIN_PASSWORD
           valueFrom:
             secretKeyRef:
               key: admin-password
-              name: {{ .Values.mongodb_secret_name }}
+              name: {{ .Values.mongodb_secret_name }}-secret
         - name: MONGO_OPLOG_URL
           valueFrom:
             secretKeyRef:
               key: mongo-oplog-url
-              name: {{ .Values.mongodb_secret_name }}
+              name: {{ .Values.mongodb_secret_name }}-secret
         - name: MONGODB_REPLICA_NAME
           valueFrom:
             secretKeyRef:
               key: replica-name
-              name: {{ .Values.mongodb_secret_name }}
+              name: {{ .Values.mongodb_secret_name }}-secret
         - name: MONGODB_KEYFILE_VALUE
           value: {{ .Values.mongodb_keyfile_value }}
         - name: MONGODB_SERVICE_NAME

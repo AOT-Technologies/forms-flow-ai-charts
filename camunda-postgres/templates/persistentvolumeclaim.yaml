@@ -2,10 +2,10 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: {{ .Values.name }}-{{ .Values.tag_name }}
+    app: {{ .Values.name }}
     app-group: {{ .Values.app_group }}
     template: {{ .Values.name }}-deploy
-  name: {{ .Values.name }}-{{ .Values.tag_name }}
+  name: {{ .Values.name }}
 spec:
   accessModes:
   - ReadWriteOnce
