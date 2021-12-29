@@ -19,6 +19,6 @@ react_app_websocket_encrypt_key: "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}"
 redash_secret_key: '# TODO: must define a default value for .redash_secret_key'
 source_context_dir: /forms-flow-web 
 source_repository_ref: master
-source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai 
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
 web_api_url: formsflow.webapi.apps.devops.aot-technologies.com
 web_url: formsflow.web.apps.devops.aot-technologies.com
