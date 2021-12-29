@@ -51,7 +51,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -66,7 +66,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -137,7 +137,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -154,7 +154,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -224,7 +224,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -241,7 +241,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -311,7 +311,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -326,7 +326,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
@@ -394,7 +394,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: PYTHONUNBUFFERED
           valueFrom:
             secretKeyRef:
@@ -411,7 +411,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: DATABASE_URL
-              name: "{{ .Values.analytics_db_resource_name }}-{{ .Values.image_tag }}-secret"
+              name: "{{ .Values.analytics_db_resource_name }}-secret"
         - name: REDASH_HOST
           valueFrom:
             secretKeyRef:
