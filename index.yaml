@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   camunda-postgres:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1469566-08:00"
+    created: "2021-12-29T15:07:16.4429735-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: 5425e61f8824318f4cc9d99d3369fcbbdda6e5e14ab95b7160972f0b85e3302b
     name: camunda-postgres
@@ -12,7 +12,7 @@ entries:
     version: v0.0.1
   formio-mongodb:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.147724-08:00"
+    created: "2021-12-29T15:07:16.4436791-08:00"
     description: MongoDB database running as replicate set
     digest: b9c19caa962f5c996f3e03fc0071bafd1e0719dbf2f8c83d19b13b5900933322
     name: formio-mongodb
@@ -22,7 +22,7 @@ entries:
     version: v0.0.1
   forms-flow-ai:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1576133-08:00"
+    created: "2021-12-29T15:07:16.4578785-08:00"
     dependencies:
     - name: camunda-postgres
       repository: https://cberg-aot.github.io/helm-charts/
@@ -48,7 +48,7 @@ entries:
     - name: forms-flow-webapi
       repository: https://cberg-aot.github.io/helm-charts/
       version: v0.0.1
-    digest: 564832c8e758e6bef093eecd9790aab5eec28e2d4616d86262e1f0e3e1d1ae5e
+    digest: 7bb23011e61d28faa9039a77068304cc3b71dad3e294e435fdd42e409f678568
     icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
     name: forms-flow-ai
     urls:
@@ -56,7 +56,7 @@ entries:
     version: v0.0.1
   forms-flow-analytics:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1621949-08:00"
+    created: "2021-12-29T15:07:16.4606506-08:00"
     dependencies:
     - name: forms-flow-analytics-postgresql-deploy
       repository: https://cberg-aot.github.io/helm-charts/
@@ -72,7 +72,7 @@ entries:
     version: v0.0.1
   forms-flow-analytics-postgresql-deploy:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1584952-08:00"
+    created: "2021-12-29T15:07:16.458773-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: 88b0d626afdf991bcd02a899c55027677fc608b9539645e84a162ae73bcb7641
     name: forms-flow-analytics-postgresql-deploy
@@ -81,7 +81,7 @@ entries:
     version: v0.0.1
   forms-flow-bpm:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1630145-08:00"
+    created: "2021-12-29T15:07:16.4614832-08:00"
     digest: 03ee329de64a6708513060529752bd26fee8e86a27a322587954f8ade0c1532f
     name: forms-flow-bpm
     urls:
@@ -89,7 +89,7 @@ entries:
     version: v0.0.1
   forms-flow-forms:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1637376-08:00"
+    created: "2021-12-29T15:07:16.4622455-08:00"
     digest: e4f7aa850da393a5a93e5fc8a4daa08aab9c5516f3fac16413909e4b4c2b7587
     name: forms-flow-forms
     urls:
@@ -97,7 +97,7 @@ entries:
     version: v0.0.1
   forms-flow-idm:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1726377-08:00"
+    created: "2021-12-29T15:07:16.4707873-08:00"
     dependencies:
     - name: keycloak
       repository: https://codecentric.github.io/helm-charts
@@ -110,7 +110,7 @@ entries:
     version: v0.0.1
   forms-flow-web:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1734704-08:00"
+    created: "2021-12-29T15:07:16.4716171-08:00"
     digest: fbb0ba684bc6b9468357c1f69becec2cd39d6559d49364a1d18519b8df1b0e1e
     name: forms-flow-web
     urls:
@@ -118,7 +118,7 @@ entries:
     version: v0.0.1
   forms-flow-webapi:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1741541-08:00"
+    created: "2021-12-29T15:07:16.472318-08:00"
     digest: 3657cdcbf50347b09425a9925ea183e6ae4276b9d142ad7be82168cd80bebd0b
     name: forms-flow-webapi
     tags: forms-flow-webapi
@@ -127,7 +127,7 @@ entries:
     version: v0.0.1
   redash-redis-cluster-dc:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1748188-08:00"
+    created: "2021-12-29T15:07:16.4729852-08:00"
     description: Redis master/slave templates based on Statefulsets
     digest: d7240b7f5d4665fd6f32fbec28a8c69ab2ffaad71f6bee8b839088b199e08f82
     name: redash-redis-cluster-dc
@@ -136,7 +136,7 @@ entries:
     version: v0.0.1
   webapi-postgresql:
   - apiVersion: v2
-    created: "2021-12-29T15:00:23.1754856-08:00"
+    created: "2021-12-29T15:07:16.4736479-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: c7f9aefd8c4ce89677076c0f65a52d05b1c6493bac0cc64c26bb931c226c1451
     name: webapi-postgresql
@@ -144,4 +144,4 @@ entries:
     urls:
     - webapi-postgresql-v0.0.1.tgz
     version: v0.0.1
-generated: "2021-12-29T15:00:23.1458724-08:00"
+generated: "2021-12-29T15:07:16.4418532-08:00"
