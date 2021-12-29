@@ -1,13 +1,13 @@
 apiVersion: v1
 data:
-  DATABASE_HOST: "{{ .Values.database_host }}-{{ .Values.instance }}"
+  DATABASE_HOST: "{{ .Values.database_host }}"
   DATABASE_NAME: "{{ .Values.database_name }}"
   DATABASE_PORT: "{{ .Values.database_port }}"
   DATABASE_USER: "{{ .Values.database_user }}"
 kind: ConfigMap
 metadata:
   labels:
-    app: "{{ .Values.name }}-{{ .Values.instance }}"
+    app: "{{ .Values.name }}"
     app-group: "{{ .Values.app_group }}"
     template: "{{ .Values.name }}-deploy"
-  name: "{{ .Values.name }}-{{ .Values.instance }}-config"
+  name: "{{ .Values.name }}-config"

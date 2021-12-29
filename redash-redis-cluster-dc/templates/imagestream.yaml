@@ -8,7 +8,7 @@ spec:
   - from:
       kind: DockerImage
       name: "{{ .Values.redis_image }}"
-    name: "{{ .Values.instance }}"
+    name: "{{ .Chart.Name }}"
     referencePolicy:
       type: Local
 ---
@@ -21,6 +21,6 @@ spec:
   - from:
       kind: DockerImage
       name: "registry.hub.docker.com/{{ .Values.redis_exporter_image }}"
-    name: "{{ .Values.instance }}"
+    name: "{{ .Chart.Name }}"
     referencePolicy:
       type: Local

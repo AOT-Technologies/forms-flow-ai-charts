@@ -17,7 +17,7 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Values.app_name }}-{{ .Values.instance }}
-    name: {{ .Values.name }}-{{ .Values.instance }}
-    template: {{ .Values.name }}-{{ .Values.instance }}-template
-  name: {{ .Values.name }}-{{ .Values.instance }}
+    app: {{ .Values.app_name }}
+    name: {{ .Values.name }}
+    template: {{ .Values.name }}-template
+  name: {{ .Values.name }}

@@ -29,7 +29,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: MONGO_URI
-              name: "{{ .Values.mongodb_secret_name }}-{{ .Values.instance }}-secret"
+              name: "{{ .Values.mongodb_secret_name }}-secret"
         - name: BPM_API_BASE
           valueFrom:
             configMapKeyRef:
@@ -105,4 +105,4 @@ spec:
       restartPolicy: Always
       stdin: true
       tty: true
-  test: false
+  test: falsflow/forms-flow-webapi/templates/deploymentconfig.yaml
