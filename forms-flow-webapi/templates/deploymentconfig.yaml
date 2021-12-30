@@ -99,10 +99,10 @@ spec:
           value: '*'
         image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}"
         name: "{{ .Chart.Name }}"
-      ports:
-      - containerPort: 5000
-      resources: {}
-      restartPolicy: Always
-      stdin: true
-      tty: true
+        ports:
+        - containerPort: 5000
+        resources: {}
+        restartPolicy: Always
+        stdin: true
+        tty: true
   test: false
