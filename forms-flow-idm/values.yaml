@@ -9,12 +9,12 @@ keycloak:
       value: admin
 
   extraVolumes: |
-    - name: "{{ .Release.Name }}-realm-config"
+    - name: "forms-flow-idm-realm-config"
       configMap:
-        name: "{{ .Release.Name }}"
+        name: "forms-flow-idm" 
 
   extraVolumeMounts: |
-    - name: "{{ .Release.Name }}-realm-config"
+    - name: "forms-flow-idm-realm-config"
       mountPath: "/realm/"
       readOnly: true
     
