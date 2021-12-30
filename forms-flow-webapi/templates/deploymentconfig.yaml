@@ -102,7 +102,7 @@ spec:
         ports:
         - containerPort: 5000
         resources: {}
-        restartPolicy: Always
         stdin: true
         tty: true
+      restartPolicy: Always
   test: false
