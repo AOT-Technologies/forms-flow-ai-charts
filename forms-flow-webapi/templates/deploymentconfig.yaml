@@ -105,4 +105,4 @@ spec:
       restartPolicy: Always
       stdin: true
       tty: true
-  test: falsflow/forms-flow-webapi/templates/deploymentconfig.yaml
+  test: false
