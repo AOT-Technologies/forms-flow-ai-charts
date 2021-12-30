@@ -1,6 +1,6 @@
 bpm_keycloak_clientid: forms-flow-bpm
 bpm_keycloak_clientsecret: '97eb25b0-78db-42e1-a4a2-a26fab23f7c1'
-camunda_bpm_url: "http://formsflow.bpm.apps.devops.aot-technologies.com" 
+camunda_bpm_url: formsflow.bpm.apps.devops.aot-technologies.com
 formio_admin_email: me@defineme.com
 formio_admin_password: admin
 keycloak_realm: forms-flow-ai
