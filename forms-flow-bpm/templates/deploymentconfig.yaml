@@ -63,7 +63,7 @@ spec:
               key: DATABASE_PASSWORD
               name: "{{ .Values.camunda_db_resource_name }}"
         - name: KEYCLOAK_URL
-          value: "{{ .Values.keycloak_url }}"
+          value: "http://{{ .Values.keycloak_url }}"
         - name: KEYCLOAK_URL_REALM
           valueFrom:
             secretKeyRef:
