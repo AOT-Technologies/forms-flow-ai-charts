@@ -2,15 +2,14 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: "{{ .Chart.Name }}"
+  name: {{ .Chart.Name }}
 spec:
   tags:
   - from:
       kind: ImageStreamImage
+      name: {{ .Values.redis_image }}
       namespace: openshift
     name: {{ .Values.redis_image }}
-    referencePolicy:
-      type: Local
 ---
 apiVersion: image.openshift.io/v1
 kind: ImageStream
