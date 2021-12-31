@@ -6,10 +6,10 @@ metadata:
 spec:
   tags:
   - from:
-      kind: ImageStreamImage
-      name: {{ .Values.redis_image }}
+      kind: ImageStreamTag
+      name: "{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
       namespace: openshift
-    name: {{ .Values.redis_image }}
+    name: "{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
 ---
 apiVersion: image.openshift.io/v1
 kind: ImageStream
