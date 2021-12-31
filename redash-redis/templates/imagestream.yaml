@@ -16,7 +16,7 @@ spec:
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: "registry.hub.docker.com/{{ .Values.redis_exporter_name }}"
+  name: "{{ .Values.redis_exporter_name }}"
 spec:
   tags:
   - from:
