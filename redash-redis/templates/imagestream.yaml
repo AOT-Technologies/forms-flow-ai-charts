@@ -2,14 +2,13 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ .Values.redis_image }}
 spec:
   tags:
   - from:
-      kind: ImageStreamTag
-      name: "{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
-      namespace: openshift
-    name: "{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
+      kind: DockerImage
+      name: "image-registry.openshift-image-registry.svc:5000/openshift/{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
+    name: "{{ .Values.redis_tag }}"
 ---
 apiVersion: image.openshift.io/v1
 kind: ImageStream
@@ -19,7 +18,5 @@ spec:
   tags:
   - from:
       kind: DockerImage
-      name: "registry.hub.docker.com/{{ .Values.redis_exporter_image }}"
-    name: {{ .Values.redis_exporter_image }}
-    referencePolicy:
-      type: Local
+      name: "registry.hub.docker.com/{{ .Values.redis_exporter_image }}:{{ .Values.redis_exporter_tag }}"
+    name: "{{ .Values.redis_exporter_tag }}"
