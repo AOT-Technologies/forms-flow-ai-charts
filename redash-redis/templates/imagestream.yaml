@@ -7,9 +7,8 @@ spec:
   tags:
   - from:
       kind: ImageStreamImage
-      name: "{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
       namespace: openshift
-    name: {{.Chart.Name }}
+    name: {{ .Values.redis_image }}
     referencePolicy:
       type: Local
 ---
