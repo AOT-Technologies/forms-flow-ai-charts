@@ -6,21 +6,22 @@ metadata:
 spec:
   tags:
   - from:
-      kind: DockerImage
-      name: "{{ .Values.redis_image }}"
-    name: "{{ .Chart.Name }}"
+      kind: ImageStreamImage
+      name: "{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
+      namespace: openshift
+    name: {{.Chart.Name }}
     referencePolicy:
       type: Local
 ---
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: "{{ .Values.redis_exporter_name }}"
+  name: "registry.hub.docker.com/{{ .Values.redis_exporter_name }}"
 spec:
   tags:
   - from:
       kind: DockerImage
       name: "registry.hub.docker.com/{{ .Values.redis_exporter_image }}"
-    name: "{{ .Chart.Name }}"
+    name: {{ .Values.redis_exporter_image }}
     referencePolicy:
       type: Local

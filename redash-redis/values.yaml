@@ -1,0 +1,10 @@
+app_name: redash
+cpu: 500m
+ram: 1Gi
+redis_exporter_image: oliver006/redis_exporter
+redis_exporter_name: redash-exporter
+redis_exporter_tag: v1.14.0-alpine
+redis_image: redis
+redis_tag: 6.0.12
+storage: 1Gi
+storage_class: nfs-client
