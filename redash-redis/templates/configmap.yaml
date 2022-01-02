@@ -9,7 +9,7 @@ data:
     appendonly yes
     protected-mode no
     maxmemory 1449551462
-  update-nodes.sh: |
+  update-node.sh: |
     #!/bin/sh
     CLUSTER_CONFIG="/data/nodes.conf"
     echo "creating nodes"
