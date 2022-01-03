@@ -64,7 +64,6 @@ spec:
             memory: 1.5Gi
         securityContext:
           runAsUser: 1000650000
-          fsGroup: 1000650000
         volumeMounts:
         - mountPath: /conf
           name: conf
