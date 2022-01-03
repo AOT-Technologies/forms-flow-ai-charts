@@ -85,5 +85,5 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 3Gi
+          storage: {{ .Values.storage_size }}
       storageClassName: {{ .Values.storage_class }}

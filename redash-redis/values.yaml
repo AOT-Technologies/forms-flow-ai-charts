@@ -8,3 +8,4 @@ redis_image: redis
 redis_tag: latest
 storage: 1Gi
 storage_class: nfs-client
+storage_size: 10Gi
