@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   camunda-postgresql:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6692968-08:00"
+    created: "2022-01-04T11:10:18.9104871-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: 9077a5a8660cab87a75075d4e48da9e2e893766c79211ea642effd3609ad46dd
     name: camunda-postgresql
@@ -12,7 +12,7 @@ entries:
     version: v0.0.1
   formio-mongodb:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6700614-08:00"
+    created: "2022-01-04T11:10:18.9112903-08:00"
     description: MongoDB database running as replicate set
     digest: b9c19caa962f5c996f3e03fc0071bafd1e0719dbf2f8c83d19b13b5900933322
     name: formio-mongodb
@@ -22,7 +22,7 @@ entries:
     version: v0.0.1
   forms-flow-ai:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6807224-08:00"
+    created: "2022-01-04T11:10:18.9219814-08:00"
     dependencies:
     - name: camunda-postgresql
       repository: https://cberg-aot.github.io/helm-charts/
@@ -56,7 +56,7 @@ entries:
     version: v0.0.1
   forms-flow-analytics:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.686296-08:00"
+    created: "2022-01-04T11:10:18.9297143-08:00"
     dependencies:
     - name: forms-flow-analytics-postgresql
       repository: https://cberg-aot.github.io/helm-charts/
@@ -64,7 +64,7 @@ entries:
     - name: redash-redis
       repository: https://cberg-aot.github.io/helm-charts/
       version: v0.0.1
-    digest: 481f8891745b5bee4833c421396dd57b42a9f1240d2c2d0cb5310895c15d003f
+    digest: a2dd75ccbc7a1e50645b182d65ea94a34b80c2e268f48be36c7d8996f45afb6f
     name: forms-flow-analytics
     tags: forms-flow-analytics
     urls:
@@ -72,7 +72,7 @@ entries:
     version: v0.0.1
   forms-flow-analytics-postgresql:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6851015-08:00"
+    created: "2022-01-04T11:10:18.9263164-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: 053eeb01354571110b32fbb35b09ca060dc735910ecba12fa42551742b6c831c
     name: forms-flow-analytics-postgresql
@@ -81,7 +81,7 @@ entries:
     version: v0.0.1
   forms-flow-analytics-postgresql-deploy:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.684321-08:00"
+    created: "2022-01-04T11:10:18.9255464-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: 88b0d626afdf991bcd02a899c55027677fc608b9539645e84a162ae73bcb7641
     name: forms-flow-analytics-postgresql-deploy
@@ -90,7 +90,7 @@ entries:
     version: v0.0.1
   forms-flow-bpm:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6871259-08:00"
+    created: "2022-01-04T11:10:18.9305599-08:00"
     digest: 80cb075a8038654084220160e45ce5f7ea39c346a45fbb12300f7596cac22859
     name: forms-flow-bpm
     urls:
@@ -98,7 +98,7 @@ entries:
     version: v0.0.1
   forms-flow-forms:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6878607-08:00"
+    created: "2022-01-04T11:10:18.9312798-08:00"
     digest: e4f7aa850da393a5a93e5fc8a4daa08aab9c5516f3fac16413909e4b4c2b7587
     name: forms-flow-forms
     urls:
@@ -106,7 +106,7 @@ entries:
     version: v0.0.1
   forms-flow-idm:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6965415-08:00"
+    created: "2022-01-04T11:10:18.9401855-08:00"
     dependencies:
     - name: keycloak
       repository: https://codecentric.github.io/helm-charts
@@ -119,7 +119,7 @@ entries:
     version: v0.0.1
   forms-flow-web:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6974015-08:00"
+    created: "2022-01-04T11:10:18.9410312-08:00"
     digest: fbb0ba684bc6b9468357c1f69becec2cd39d6559d49364a1d18519b8df1b0e1e
     name: forms-flow-web
     urls:
@@ -127,7 +127,7 @@ entries:
     version: v0.0.1
   forms-flow-webapi:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.6980872-08:00"
+    created: "2022-01-04T11:10:18.9417213-08:00"
     digest: 4ec2754d2f74a1b4674a740d6780b43ea5900b560be29e941bf71d7815170792
     name: forms-flow-webapi
     tags: forms-flow-webapi
@@ -136,7 +136,7 @@ entries:
     version: v0.0.1
   redash-redis:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.7040233-08:00"
+    created: "2022-01-04T11:10:18.9431368-08:00"
     description: Redis master/slave templates based on Statefulsets
     digest: 20bff30a37f4eff45ffd3735417c6998950da68bc06cf23efec7944a152fb52e
     name: redash-redis
@@ -145,7 +145,7 @@ entries:
     version: v0.0.1
   redash-redis-cluster-dc:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.7011453-08:00"
+    created: "2022-01-04T11:10:18.9424122-08:00"
     description: Redis master/slave templates based on Statefulsets
     digest: d7240b7f5d4665fd6f32fbec28a8c69ab2ffaad71f6bee8b839088b199e08f82
     name: redash-redis-cluster-dc
@@ -154,7 +154,7 @@ entries:
     version: v0.0.1
   webapi-postgresql:
   - apiVersion: v2
-    created: "2022-01-04T11:08:34.7067935-08:00"
+    created: "2022-01-04T11:10:18.9462475-08:00"
     description: Deployment template for a postgresql server with persistent storage.
     digest: c7f9aefd8c4ce89677076c0f65a52d05b1c6493bac0cc64c26bb931c226c1451
     name: webapi-postgresql
@@ -162,4 +162,4 @@ entries:
     urls:
     - webapi-postgresql-v0.0.1.tgz
     version: v0.0.1
-generated: "2022-01-04T11:08:34.6681908-08:00"
+generated: "2022-01-04T11:10:18.9091064-08:00"
