@@ -6,7 +6,7 @@ data:
     cluster-node-timeout 15000
     cluster-config-file /data/nodes.conf
     cluster-migration-barrier 1
-    appendonly yes
+    appendonly no
     protected-mode no
     maxmemory 1449551462
   update-node.sh: |
