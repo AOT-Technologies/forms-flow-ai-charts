@@ -71,6 +71,7 @@ spec:
           readOnly: false
       volumes:
       - configMap:
+          defaultMode: 0555
           name: {{ .Chart.Name }}
         name: conf
 
