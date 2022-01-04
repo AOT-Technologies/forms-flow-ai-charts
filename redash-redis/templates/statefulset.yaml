@@ -61,6 +61,9 @@ spec:
             memory: 1.5Gi
           requests:
             memory: 1.5Gi
+        securityContext:
+          runAsGroup: 1001
+          runAsUser: 1001
         volumeMounts:
         - mountPath: /conf
           name: conf
