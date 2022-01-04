@@ -28,7 +28,7 @@ spec:
       - command:
         - /conf/update-node.sh
         - redis-server
-        - /data/redis.conf
+        - /conf/redis.conf
         env:
         - name: POD_IP
           valueFrom:
@@ -62,22 +62,15 @@ spec:
             memory: 1.5Gi
           requests:
             memory: 1.5Gi
-        securityContext:
-          runAsUser: 1000650000
         volumeMounts:
         - mountPath: /conf
           name: conf
-          readOnly: false
+          readOnly: true
         - mountPath: /data
           name: redis-data
           readOnly: false
-      initContainers:
-      - name: copy
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
-        command: ["bash", "cp /conf/redis.conf /data/redis.conf"]
       volumes:
       - configMap:
-          defaultMode:  0755
           name: {{ .Chart.Name }}
         name: conf
 
