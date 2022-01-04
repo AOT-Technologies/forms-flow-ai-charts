@@ -28,14 +28,14 @@ spec:
       - command:
         - /conf/update-node.sh
         - redis-server \      
-          cluster-enabled no \
-          cluster-require-full-coverage no \
-          cluster-node-timeout 15000 \
-          cluster-config-file /data/nodes.conf \
-          cluster-migration-barrier 1 \
-          appendonly yes \
-          protected-mode no \
-          maxmemory 1449551462 
+          --cluster-enabled no \
+          --cluster-require-full-coverage no \
+          --cluster-node-timeout 15000 \
+          --cluster-config-file /data/nodes.conf \
+          --cluster-migration-barrier 1 \
+          --appendonly yes \
+          --protected-mode no \
+          --maxmemory 1449551462 
         env:
         - name: POD_IP
           valueFrom:
