@@ -883,7 +883,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "secret": "aot123",
+          "secret": "786001d6-68a8-4519-903c-bc5b5a870d68",
           "redirectUris": [
           "http://localhost:8000/camunda/*",
             "*"
