@@ -28,7 +28,7 @@ spec:
         - name: MONGODB_URI
           valueFrom:
             secretKeyRef:
-              key: MONGO_URI
+              key: MONGO_URL
               name: "{{ .Values.mongodb_secret_name }}"
         - name: BPM_API_BASE
           valueFrom:
