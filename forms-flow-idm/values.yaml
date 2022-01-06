@@ -38,6 +38,8 @@ keycloak:
   postgresql:
     containerSecurityContext:
         enabled: false
+    persistence:
+      enabled: false
     securityContext:
       enabled: false 
     shmVolume:
@@ -56,7 +58,7 @@ keycloak:
     host: "formsflow.idm.apps.devops.aot-technologies.com"
     tls:
       enabled: true
-      insecureEdgeTerminationPolicy: Redirect
+      insecureEdgeTerminationPolicy: Allow
       termination: edge
   
   # SecurityContext for the Keycloak container
