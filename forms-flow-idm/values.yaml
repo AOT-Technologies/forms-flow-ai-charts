@@ -55,7 +55,7 @@ keycloak:
     labels: {"app":"forms-flow-idm"}
     host: "formsflow.idm.apps.devops.aot-technologies.com"
     tls:
-      enabled: false
+      enabled: true
       insecureEdgeTerminationPolicy: Redirect
       termination: edge
   
