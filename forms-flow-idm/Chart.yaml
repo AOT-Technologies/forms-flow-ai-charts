@@ -5,5 +5,5 @@ version: v0.0.1
 icon: "https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png"
 dependencies:
   - name: keycloak
-    version: "16.0.4"
+    version: "14.0.0"
     repository: "https://codecentric.github.io/helm-charts"
