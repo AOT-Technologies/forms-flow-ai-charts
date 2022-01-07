@@ -1,0 +1,6 @@
+dependencies:
+- name: forms-flow-webapi-postgresql
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+digest: sha256:6363b8ed6d225786dda5149db47e21fa14ae47f5d09cf6f0f97b4b62bb7d58f1
+generated: "2022-01-07T11:05:47.8069989-08:00"
