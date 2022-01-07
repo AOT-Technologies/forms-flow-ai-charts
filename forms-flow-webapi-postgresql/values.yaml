@@ -4,10 +4,10 @@ database_name: postgres
 database_port: "5432"
 database_user: postgres
 memory_limit: 512Mi
-name: webapi-postgresql
-persistent_volume_class: netapp-file-standard
+persistent_volume_class: nfs-client
 persistent_volume_size: 1Gi
 postgresql_admin_password: admin
+postgresql_image_name: postgresql
+postgresql_image_tag: 12
 postgresql_password: admin
 postgresql_test_password: admin
-tag_name: latest 
