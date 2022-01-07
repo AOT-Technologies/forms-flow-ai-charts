@@ -98,7 +98,7 @@ spec:
       - {{ .Chart.Name }}
       from:
         kind: ImageStreamTag
-        name: postgresql:10
+        name: "{{ .Values.postgresql_image_name }}:{{ .Values.postgresql_image_tag }}"
         namespace: openshift
     type: ImageChange
   - type: ConfigChange

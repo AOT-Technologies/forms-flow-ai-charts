@@ -91,3 +91,14 @@ spec:
         persistentVolumeClaim:
           claimName: {{ .Chart.Name }}
   test: false
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Chart.Name }}
+      from:
+        kind: ImageStreamTag
+        name: "{{ .Values.postgresql_image_name }}:{{ .Values.postgresql_image_tag }}" 
+        namespace: openshift
+    type: ImageChange
+  - type: ConfigChange
