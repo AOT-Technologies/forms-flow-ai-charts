@@ -30,6 +30,7 @@ keycloak:
         enabled: false
     volumePermissions:
       securityContext:
+        enabled: true
         runAsUser: "auto"
 
   route:
