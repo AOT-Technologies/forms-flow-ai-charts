@@ -33,6 +33,16 @@ keycloak:
 ## pod securityContext.enabled=false and shmVolume.chmod.enabled=false
   postgresql:
     securityContext:
+      enabled: false
+    shmVolume:
+      chmod:
+        enabled: false
+    volumePermissions:
+      securityContext:
+        runAsUser: "auto"
+
+  postgresql:
+    securityContext:
       capabilities: {}
       privileged: false
   
