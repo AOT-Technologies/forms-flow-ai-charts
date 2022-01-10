@@ -5,7 +5,7 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
-  host: {{ .Values.analytics_url }}
+  host: {{ tpl .Values.analytics_url . }}
   path: /
   port:
     targetPort: "7000"

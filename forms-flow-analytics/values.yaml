@@ -1,5 +1,5 @@
 analytics_db_resource_name: forms-flow-analytics-postgresql
-analytics_url: "analytics.{{ $.Release.Name }}.{{ $.Release.Namespace }}.apps.devops.aot-technologies.com"
+analytics_url: analytics.{{ .Release.Name }}.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 cpu_limit: 750m
 cpu_request: 100m
 image_tag: latest
