@@ -25,12 +25,11 @@ keycloak:
   # Docker image used to check Postgresql readiness at startup 
   pgchecker:
     securityContext:
-      runAsUser: 1000650000
-      runAsGroup: 1000650000
-      runAsNonRoot: true
+      capabilities: {}
+      privileged: false
 
   podSecurityContext: 
-    fsGroup: 1000650000
+    enabled: false
   
 ## "auto" is especially useful for OpenShift which has scc with dynamic userids (and 0 is not allowed).
 ## You may want to use this volumePermissions.securityContext.runAsUser="auto" in combination with
@@ -63,7 +62,7 @@ keycloak:
   
   # SecurityContext for the Keycloak container
   securityContext:
-    runAsUser: 1000650000
-    runAsNonRoot: true
+    capabilities: {}
+    privileged: false
   
 name: forms-flow-idm
