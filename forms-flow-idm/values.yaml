@@ -32,20 +32,9 @@ keycloak:
 ## You may want to use this volumePermissions.securityContext.runAsUser="auto" in combination with
 ## pod securityContext.enabled=false and shmVolume.chmod.enabled=false
   postgresql:
-    containerSecurityContext:
-        enabled: false
-    persistence:
-      enabled: false
     securityContext:
-      enabled: false 
-    shmVolume:
-      chmod:
-        enabled: false
-    ## @param volumePermissions.enabled Enable init container that changes volume permissions in the data directory (for cases where the default k8s `runAsUser` and `fsUser` values do not work)
-    volumePermissions:
-      enabled: true
-      securityContext:
-        runAsUser: "auto"
+      capabilities: {}
+      privileged: false
   
   route:
     enabled: true
