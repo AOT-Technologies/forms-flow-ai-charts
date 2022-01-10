@@ -20,8 +20,7 @@ keycloak:
   extraVolumeMounts: |
     - name: "forms-flow-idm-realm-config"
       mountPath: "/realm/"
-      readOnly: true
-    
+      readOnly: true   
 
   postgresql:
     securityContext:
