@@ -29,9 +29,8 @@ keycloak:
       privileged: false
 
   podSecurityContext: 
-    securityContext:
-      capabilities: {}
-      privileged: false
+    capabilities: {}
+    privileged: false
   
 ## "auto" is especially useful for OpenShift which has scc with dynamic userids (and 0 is not allowed).
 ## You may want to use this volumePermissions.securityContext.runAsUser="auto" in combination with
