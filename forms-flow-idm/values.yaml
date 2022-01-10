@@ -22,15 +22,7 @@ keycloak:
       mountPath: "/realm/"
       readOnly: true
     
-  # Docker image used to check Postgresql readiness at startup 
-  pgchecker:
-    securityContext:
-      capabilities: {}
-      privileged: false
 
-## "auto" is especially useful for OpenShift which has scc with dynamic userids (and 0 is not allowed).
-## You may want to use this volumePermissions.securityContext.runAsUser="auto" in combination with
-## pod securityContext.enabled=false and shmVolume.chmod.enabled=false
   postgresql:
     securityContext:
       enabled: false
@@ -41,11 +33,6 @@ keycloak:
       securityContext:
         runAsUser: "auto"
 
-  postgresql:
-    securityContext:
-      capabilities: {}
-      privileged: false
-  
   route:
     enabled: true
     path:  /
@@ -55,10 +42,5 @@ keycloak:
       enabled: true
       insecureEdgeTerminationPolicy: Allow
       termination: edge
-  
-  # SecurityContext for the Keycloak container
-  securityContext:
-    capabilities: {}
-    privileged: false
   
 name: forms-flow-idm
