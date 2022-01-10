@@ -29,8 +29,8 @@ keycloak:
       chmod:
         enabled: false
     volumePermissions:
+      enabled: true
       securityContext:
-        enabled: true
         runAsUser: "auto"
 
   route:
