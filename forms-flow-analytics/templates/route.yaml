@@ -5,7 +5,7 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
-  host: formsflow.analytics.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+  host: {{ .Values.analytics_url }}
   path: /
   port:
     targetPort: "7000"
