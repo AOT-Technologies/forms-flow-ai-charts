@@ -23,6 +23,8 @@ keycloak:
       readOnly: true   
 
   postgresql:
+    containerSecurityContext:
+      enabled: false
     securityContext:
       enabled: false
     shmVolume:
