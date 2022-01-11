@@ -8,7 +8,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: forms-flow-forms:latest
+      name: "{{ .Chart.Name }}:{{ .Values.tag_name }}"
   source:
     contextDir: {{ .Values.source_context_dir }}
     git:
