@@ -5,7 +5,7 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
-  host: {{ .Values.camunda_url }}
+  host: {{ tpl .Values.camunda_url . }}
   path: /camunda
   tls:
     insecureEdgeTerminationPolicy: Redirect
