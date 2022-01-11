@@ -5,7 +5,7 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
-  host: {{ .Values.forms_url }}
+  host: {{ tpl .Values.forms_url . }}
   port:
     targetPort: "3001"
   tls:
