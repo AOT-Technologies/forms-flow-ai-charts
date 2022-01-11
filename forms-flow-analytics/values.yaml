@@ -1,12 +1,12 @@
 analytics_db_resource_name: forms-flow-analytics-postgresql
-analytics_url: analytics.{{ .Release.Name }}.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+analytics_url: analytics.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 cpu_limit: 750m
 cpu_request: 100m
 image_tag: latest
 memory_limit: 2Gi
 memory_request: 100Mi
 redash_database_url: postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres
-redash_host: analytics.{{ .Release.Name }}.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+redash_host: analytics.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 redash_image_src: https://github.com/AOT-Technologies/redash
 redash_redis_url: redis://redash-redis:6379/0
 source_context_dir: /
