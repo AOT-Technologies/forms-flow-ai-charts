@@ -5,4 +5,4 @@ source_context_dir: /forms-flow-api
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
 webapi_db_resource_name: forms-flow-webapi-postgresql
-web_api_url: formsflow.webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+web_api_url: webapi.{{ Release.Name }}.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
