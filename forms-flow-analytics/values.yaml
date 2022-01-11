@@ -6,7 +6,7 @@ image_tag: latest
 memory_limit: 2Gi
 memory_request: 100Mi
 redash_database_url: postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres
-redash_host: formsflow.analytics.apps.devops.aot-technologies.com
+redash_host: analytics.{{ .Release.Name }}.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 redash_image_src: https://github.com/AOT-Technologies/redash
 redash_redis_url: redis://redash-redis:6379/0
 source_context_dir: /
