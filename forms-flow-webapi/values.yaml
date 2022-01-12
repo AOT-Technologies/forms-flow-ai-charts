@@ -4,5 +4,6 @@ mongodb_secret_name: formio-mongodb
 source_context_dir: /forms-flow-api
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
+tag_name: latest
 webapi_db_resource_name: forms-flow-webapi-postgresql
 web_api_url: webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com

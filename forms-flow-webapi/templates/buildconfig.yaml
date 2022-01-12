@@ -8,7 +8,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: "{{ .Chart.Name }}:latest"
+      name: "{{ .Chart.Name }}:{{ .Values.tag_name }}"
   resources:
     limits:
       cpu: "1"
