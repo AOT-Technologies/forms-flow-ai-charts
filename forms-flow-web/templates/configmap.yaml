@@ -3,7 +3,7 @@ data:
   keycloak.json: |-
     {
       "realm": "{{ .Values.keycloak_realm }}",
-      "auth-server-url": "{{ .Values.keycloak_url }}/auth",
+      "auth-server-url": "{{ tpl .Values.keycloak_url . }}/auth",
       "ssl-required": "external",
       "resource": "forms-flow-web",
       "public-client": true,
@@ -30,17 +30,17 @@ data:
         "REACT_APP_STAFF_REVIEWER_ID": "{{ .Values.react_app_staff_reviewer_id }}",
         "REACT_APP_STAFF_DESIGNER_ID": "{{ .Values.react_app_staff_designer_id }}",
         "REACT_APP_USER_RESOURCE_FORM_ID": "{{ .Values.react_app_user_resource_form_id }}",
-        "REACT_APP_API_SERVER_URL": "https://{{ .Values.forms_url }}",
-        "REACT_APP_API_PROJECT_URL": "https://{{ .Values.forms_url }}",
-        "REACT_APP_CAMUNDA_API_URI": "https://{{ .Values.camunda_url }}/camunda",
+        "REACT_APP_API_SERVER_URL": "https://{{ tpl .Values.forms_url . }}",
+        "REACT_APP_API_PROJECT_URL": "https://{{ tpl .Values.forms_url . }}",
+        "REACT_APP_CAMUNDA_API_URI": "https://{{ tpl .Values.camunda_url . }}/camunda",
         "REACT_APP_KEYCLOAK_CLIENT": "forms-flow-web",
-        "REACT_APP_WEB_BASE_URL": "https://{{ .Values.web_api_url }}",
+        "REACT_APP_WEB_BASE_URL": "https://{{ tpl .Values.web_api_url . }}",
         "REACT_APP_ANONYMOUS_ID": "{{ .Values.react_app_anonymous_id }}",
         "REACT_APP_INSIGHT_API_BASE": "https://${ANALYTICS_URL}",
         "REACT_APP_INSIGHTS_API_KEY": "{{ .Values.redash_secret_key }}",
         "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}",
         "REACT_APP_KEYCLOAK_URL_REALM": "{{ .Values.keycloak_realm }}",
-        "REACT_APP_KEYCLOAK_URL": "{{ .Values.keycloak_url }}",
+        "REACT_APP_KEYCLOAK_URL": "{{ tpl .Values.keycloak_url . }}",
         "REACT_APP_APPLICATION_NAME": "{{ .Chart.Name }}"
       }
 kind: ConfigMap
