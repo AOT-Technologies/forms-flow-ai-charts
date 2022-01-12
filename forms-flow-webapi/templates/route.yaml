@@ -5,7 +5,7 @@ metadata:
     app: "{{ .Chart.Name }}"
   name: "{{ .Chart.Name }}"
 spec:
-  host: "{{ .Values.web_api_url }}"
+  host: "{{ tpl .Values.web_api_url . }}"
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
