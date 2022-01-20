@@ -1,5 +1,6 @@
 name: Forms-Flow-Ai Packaging 
-
+with:
+  charts_dir: /
 on:
   push:
     branches:
