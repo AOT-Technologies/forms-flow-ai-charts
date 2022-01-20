@@ -3,7 +3,7 @@ name: Forms-Flow-Ai Packaging
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   release:
