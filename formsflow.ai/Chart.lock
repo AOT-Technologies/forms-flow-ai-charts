@@ -1,0 +1,27 @@
+dependencies:
+- name: formio-mongodb
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-ai
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-analytics
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-bpm
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-forms
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-idm
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-web
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+- name: forms-flow-webapi
+  repository: https://cberg-aot.github.io/helm-charts/
+  version: v0.0.1
+digest: sha256:f6c80476d4bea9a3afe901f67c4b90c8bdb1c4a877a11f3ac507a0504fcbbe51
+generated: "2022-01-21T10:51:52.3168503-08:00"
