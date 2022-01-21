@@ -57,11 +57,6 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 3
           timeoutSeconds: 5
-        resources:
-          limits:
-            memory: 1.5Gi
-          requests:
-            memory: 1.5Gi
         volumeMounts:
         - mountPath: /conf
           name: conf
