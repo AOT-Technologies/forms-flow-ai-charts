@@ -27,6 +27,6 @@ jobs:
       - name: Package formio-mongodb
         uses: helm/chart-releaser-action@v1.2.1
         with:
-          charts_dir: formio-mongodb
+          charts_dir: /
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
