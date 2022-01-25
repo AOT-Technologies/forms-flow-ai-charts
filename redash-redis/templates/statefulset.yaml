@@ -79,4 +79,3 @@ spec:
       resources:
         requests:
           storage: {{ .Values.storage_size }}
-      storageClassName: {{ .Values.storage_class }}

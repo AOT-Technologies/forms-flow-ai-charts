@@ -1,14 +1,10 @@
 app_name: forms-flow-ai
 camunda_url: bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-cpu_limit: 750m
-cpu_request: 100m
 forms_url: formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 image_tag: latest
 kc_mount_path: /usr/share/nginx/html/config/kc
 keycloak_realm: forms-flow-ai
 keycloak_url: idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-memory_limit: 2Gi
-memory_request: 100Mi
 mount_path: /usr/share/nginx/html/config/
 react_app_anonymous_id: '61856bbc69b630461b977ae1'
 react_app_client_id: '61856bbc69b630461b977ae3'

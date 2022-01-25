@@ -1,9 +1,5 @@
-cpu_limit: 750m
-cpu_request: 100m
 forms_url: formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 formsflow_secret: forms-flow-ai
-memory_limit: 2Gi
-memory_request: 100Mi
 tag_name: latest
 mongodb_secret_name: formio-mongodb
 source_repository_ref: master 
