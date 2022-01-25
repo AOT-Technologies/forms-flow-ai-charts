@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Configure Git
         run: |
@@ -24,7 +22,7 @@ jobs:
         with:
           version: v3.4.0
 
-      - name: Package formio-mongodb
+      - name: Package Formsflow
         uses: helm/chart-releaser-action@v1.2.1
         with:
           charts_dir: .
