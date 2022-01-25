@@ -25,6 +25,6 @@ jobs:
       - name: Package Formsflow
         uses: helm/chart-releaser-action@v1.2.1
         with:
-          charts_dir: formio-mongodb
+          charts_dir: /home/runner/work/helm-charts/helm-charts/
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
