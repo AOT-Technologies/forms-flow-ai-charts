@@ -26,7 +26,7 @@ jobs:
       
       - name: Add Helm dependency repos
         run: |
-          helm repo add aot https://cberg-aot.github.io/helm-charts/
+          helm repo add aot https://cberg-aot.github.io/helm-charts
           helm repo update
 
       - name: Run chart-releaser
