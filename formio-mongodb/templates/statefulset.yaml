@@ -72,6 +72,13 @@ spec:
             command:
             - stat
             - /tmp/
+        resources:
+          limits:
+            cpu: {{ .Values.cpu_limit }}
+            memory: {{ .Values.memory_limit }}
+          requests:
+            cpu: {{ .Values.cpu_request }}
+            memory: {{ .Values.memory_request }}
         volumeMounts:
         - mountPath: /var/lib/mongodb/data
           name: mongo-data

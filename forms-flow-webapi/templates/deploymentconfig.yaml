@@ -10,6 +10,7 @@ spec:
     app: {{ .Chart.Name }}
   strategy:
     activeDeadlineSeconds: 21600
+    resources: {}
     rollingParams:
       intervalSeconds: 1
       maxSurge: 25%
@@ -100,6 +101,7 @@ spec:
         name: "{{ .Chart.Name }}"
         ports:
         - containerPort: 5000
+        resources: {}
         stdin: true
         tty: true
       restartPolicy: Always

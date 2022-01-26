@@ -9,6 +9,13 @@ spec:
     to:
       kind: ImageStreamTag
       name: "{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
+  resources:
+    limits:
+      cpu: "2"
+      memory: 8Gi
+    requests:
+      cpu: "1"
+      memory: 4Gi
   source:
     git:
       ref: {{ .Values.source_repository_ref }}

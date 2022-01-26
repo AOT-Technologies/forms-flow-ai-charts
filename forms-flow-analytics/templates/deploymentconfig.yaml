@@ -10,6 +10,13 @@ spec:
     app: "{{ .Chart.Name }}-server"
   strategy:
     activeDeadlineSeconds: 21600
+    resources:
+      limits:
+        cpu: "{{ .Values.cpu_limit }}"
+        memory: "{{ .Values.memory_limit }}"
+      requests:
+        cpu: "{{ .Values.cpu_request }}"
+        memory: "{{ .Values.memory_request }}"
     rollingParams:
       intervalSeconds: 1
       maxSurge: 25%
@@ -87,6 +94,7 @@ spec:
         ports:
         - containerPort: 5000
           protocol: TCP
+        resources: {}
       restartPolicy: Always
   triggers:
   - type: ConfigChange
@@ -110,6 +118,7 @@ spec:
   selector:
     app: "{{ .Chart.Name }}-adhoc-worker"
   strategy:
+    resources: {}
   template:
     metadata:
       labels:
@@ -170,6 +179,7 @@ spec:
           value: "2"
         image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-adhoc-worker"
+        resources: {}
       restartPolicy: Always
   test: false
   triggers:
@@ -195,6 +205,7 @@ spec:
   selector:
     app: "{{ .Chart.Name }}-scheduled-worker"
   strategy:
+    resources: {}
   template:
     metadata:
       labels:
@@ -255,6 +266,7 @@ spec:
           value: "1"
         image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-scheduled-worker"
+        resources: {}
       restartPolicy: Always
   test: false
   triggers:
@@ -280,6 +292,7 @@ spec:
   selector:
     app: "{{ .Chart.Name }}-scheduler"
   strategy:
+    resources: {}
   template:
     metadata:
       labels:
@@ -336,6 +349,7 @@ spec:
               name: "{{ .Chart.Name }}"
         image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}-redash:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-scheduler"
+        resources: {}
       restartPolicy: Always
   test: false
   triggers:
@@ -361,6 +375,7 @@ spec:
   selector:
     app: "{{ .Chart.Name }}-worker"
   strategy:
+    resources: {}
   template:
     metadata:
       labels:
@@ -421,6 +436,7 @@ spec:
           value: "1"
         image: ' '
         name: "{{ .Chart.Name }}-worker"
+        resources: {}
       restartPolicy: Always
   test: false
   triggers:
