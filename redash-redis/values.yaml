@@ -1,8 +1,0 @@
-app_name: redash
-redis_exporter_image: oliver006/redis_exporter
-redis_exporter_name: redash-exporter
-redis_exporter_tag: v1.14.0-alpine
-redis_image: redis
-redis_tag: latest
-storage: 1Gi
-storage_size: 2Gi
