@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+name: forms-flow-idm
+version: v0.1.0
+icon: "https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png"
+dependencies:
+  - name: keycloak
+    version: "14.0.0"
+    repository: "https://codecentric.github.io/helm-charts"

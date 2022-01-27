@@ -1,0 +1,60 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations: null
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.app_name }}
+  name: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    app: {{ .Values.app_name }}
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources:
+      limits:
+        cpu: {{ .Values.cpu_limit }}
+        memory: {{ .Values.memory_limit }}
+      requests:
+        cpu: {{ .Values.cpu_request }}
+        memory: {{ .Values.memory_request }}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app_name }}
+    spec:
+      containers:
+      - env: null
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}
+        imagePullPolicy: Always
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: 8080
+        resources: {}
+        tty: true
+        volumeMounts:
+        - mountPath: {{ .Values.kc_mount_path }}
+          name: {{ .Chart.Name }}-keycloak-config
+          readOnly: true
+        - mountPath: {{ .Values.mount_path }}
+          name: {{ .Chart.Name }}
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: {{ .Chart.Name }}-keycloak-config
+        name: {{ .Chart.Name }}-keycloak-config
+      - configMap:
+          defaultMode: 420
+          name: {{ .Chart.Name }}
+        name: {{ .Chart.Name }}

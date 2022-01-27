@@ -1,0 +1,48 @@
+---
+keycloak:
+  extraEnv: |
+    - name: KEYCLOAK_IMPORT
+      value: "/realm/realm.json"
+    - name: KEYCLOAK_PASSWORD
+      value: admin
+    - name: KEYCLOAK_USER
+      value: admin
+    - name: JAVA_OPTS 
+      value: >-
+        -Dkeycloak.profile.feature.scripts=enabled
+        -Dkeycloak.profile.feature.upload_scripts=enabled
+
+  extraVolumes: |
+    - name: "forms-flow-idm-realm-config"
+      configMap:
+        name: "forms-flow-idm" 
+
+  extraVolumeMounts: |
+    - name: "forms-flow-idm-realm-config"
+      mountPath: "/realm/"
+      readOnly: true   
+
+  postgresql:
+    containerSecurityContext:
+      enabled: false
+    securityContext:
+      enabled: false
+    shmVolume:
+      chmod:
+        enabled: false
+    volumePermissions:
+      enabled: true
+      securityContext:
+        runAsUser: "auto"
+
+  route:
+    enabled: true
+    path:  /
+    labels: {"app":"forms-flow-idm"}
+    host: "idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+    tls:
+      enabled: true
+      insecureEdgeTerminationPolicy: Allow
+      termination: edge
+  
+name: forms-flow-idm
