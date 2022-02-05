@@ -1,12 +1,12 @@
 camunda-postgres/
 formio-mongodb/
-#formsflow.ai/
-#forms-flow-ai
-#forms-flow-analytics-postgresql/
+formsflow.ai/
+forms-flow-ai
+forms-flow-analytics-postgresql/
 forms-flow-analytics/
 forms-flow-bpm/
 forms-flow-forms/
 forms-flow-idm/
-#forms-flow-web/
+forms-flow-web/
 forms-flow-webapi/
-#redash-redis/
+redash-redis/
