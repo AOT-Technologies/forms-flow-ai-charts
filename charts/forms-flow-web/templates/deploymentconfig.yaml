@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - env: null
-        image: "{{ tpl .Values.image_url }}:{{ .Values.image_tag }}"
+        image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}
         imagePullPolicy: Always
         name: {{ .Chart.Name }}
         ports:

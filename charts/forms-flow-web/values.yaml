@@ -2,7 +2,6 @@ app_name: forms-flow-ai
 camunda_url: bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 forms_url: formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 image_tag: latest
-image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}
 kc_mount_path: /usr/share/nginx/html/config/kc
 keycloak_realm: forms-flow-ai
 keycloak_url: idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
@@ -14,5 +13,8 @@ react_app_staff_reviewer_id: '61856bbc69b630f304977ae2'
 react_app_user_resource_form_id: '61856bbc69b6301d70977ae4'
 react_app_websocket_encrypt_key: "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}"
 redash_secret_key: c2FY1BNNNGQP1sjaKGNIu8wXai1irSKqRIv3h1nb 
+source_context_dir: /forms-flow-web 
+source_repository_ref: master
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
 web_api_url: webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 web_url: web.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
