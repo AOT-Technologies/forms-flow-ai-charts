@@ -1,10 +1,8 @@
 analytics_db_resource_name: forms-flow-analytics-postgresql
 analytics_url: analytics.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 image_tag: latest
+image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tool/{{ .Chart.Name }}-redash
 redash_database_url: postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres
 redash_host: analytics.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 redash_image_src: https://github.com/AOT-Technologies/redash
 redash_redis_url: redis://redash-redis:6379/0
-source_context_dir: /
-source_repository_ref: master
-source_repository_url: https://github.com/AOT-Technologies/redash

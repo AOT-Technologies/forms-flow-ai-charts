@@ -1,7 +1,5 @@
 forms_url: formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 formsflow_secret: forms-flow-ai
-tag_name: latest
+image_tag: latest
+image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}
 mongodb_secret_name: formio-mongodb
-source_repository_ref: master 
-source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
-source_context_dir: /forms-flow-forms

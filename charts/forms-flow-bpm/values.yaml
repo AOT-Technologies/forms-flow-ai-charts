@@ -17,6 +17,7 @@ formsflow_config_name: forms-flow-ai
 formsflow_secret: forms-flow-ai
 hikari_valid_timeout: 5000
 image_tag: latest
+image_url: ".image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Chart.Name }}" 
 keycloak_url: "idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 mail_from: support@aot-technologies.com
 mail_password: YwJaMyhmHbBg0cp6
