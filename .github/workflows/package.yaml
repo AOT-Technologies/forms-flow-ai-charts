@@ -24,7 +24,42 @@ jobs:
         with:
           version: v3.4.0
       
-      - name: Run chart-releaser
+      - name: Package Dependancies 
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
+          charts_dir: charts/camunda-postgresql
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Package Dependancies 
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
+          charts_dir: charts/formio-mongodb
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+       
+      - name: Package Dependancies 
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
+          charts_dir: charts/forms-flow-analytics-postgresql
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Package Dependancies 
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
+          charts_dir: charts/forms-flow-webapi-postgresql
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Package Dependancies 
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
+          charts_dir: charts/redash-redis
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Package Formsflow 
         uses: helm/chart-releaser-action@v1.2.1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
