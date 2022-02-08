@@ -21,6 +21,15 @@ entries:
     version: v0.0.1
   formio-mongodb:
   - apiVersion: v2
+    created: "2022-02-08T17:45:18.417303032Z"
+    description: MongoDB database running as replicate set
+    digest: a4b646d979a934c27585716745297f7e215c0d9cb2b94a660b896c65e129a97f
+    name: formio-mongodb
+    tags: nodejs,mongodb,replication,instant-app
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/formio-mongodb-v0.1.1/formio-mongodb-v0.1.1.tgz
+    version: v0.1.1
+  - apiVersion: v2
     created: "2022-02-07T22:49:40.609027543Z"
     description: MongoDB database running as replicate set
     digest: 7fdadb1b7df825ebbb14c4ced4fea12899a694a29bd0b46f54b1a81af819c697
@@ -365,4 +374,4 @@ entries:
     urls:
     - webapi-postgresql-v0.0.1.tgz
     version: v0.0.1
-generated: "2022-02-07T22:49:43.698480103Z"
+generated: "2022-02-08T17:45:18.417347733Z"
