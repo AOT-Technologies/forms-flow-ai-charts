@@ -14,4 +14,5 @@ mongodb_replicas: "2"
 mongodb_secret_name: formio-mongodb
 mongodb_service_name: mongodb
 mongodb_user: mongodb
-volume_capacity: 1Gi
+sc_mongo: nfs-client
+volume_capacity: 10Gi

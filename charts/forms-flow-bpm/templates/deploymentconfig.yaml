@@ -161,11 +161,11 @@ spec:
           timeoutSeconds: 3
         resources:
           limits:
-            cpu: 3
-            memory: 5Gi
+            cpu: "{{ cpu_limit }}"
+            memory: "{{ memory_limit }}"
           requests:
-            cpu: 1
-            memory: 2Gi
+            cpu: "{{ cpu_request }}"
+            memory: "{{ memory_request }}"
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:

@@ -94,3 +94,4 @@ spec:
       resources:
         requests:
           storage: {{ .Values.volume_capacity }}
+      storageClassName: {{ .Values.sc_mongo }}

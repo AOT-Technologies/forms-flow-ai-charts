@@ -1,4 +1,8 @@
 image_tag: latest
+cpu_request: 1
+cpu_limit: 2
+memory_limit: 8Gi
+memory_request: 4Gi 
 source_context_dir: /forms-flow-web 
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai

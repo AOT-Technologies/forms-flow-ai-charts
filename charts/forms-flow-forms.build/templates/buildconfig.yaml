@@ -9,6 +9,13 @@ spec:
     to:
       kind: ImageStreamTag
       name: "{{ .Chart.Name }}:{{ .Values.tag_name }}"
+  resources:
+    limits:
+      cpu: "{{ cpu_limit }}"
+      memory: "{{ memory_limit }}"
+    requests:
+      cpu: "{{ cpu_request }}"
+      memory:"{{ memory_request }}"
   source:
     contextDir: {{ .Values.source_context_dir }}
     git:

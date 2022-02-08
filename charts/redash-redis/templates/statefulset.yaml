@@ -59,9 +59,11 @@ spec:
           timeoutSeconds: 5
         resources:
           limits:
-            memory: 1.5Gi
+						cpu: "{{ cpu_limit }}"
+            memory: "{{ memory_limit }}"
           requests:
-            memory: 1.5Gi
+						cpu: "{{ cpu_request }}"
+            memory: "{{ memory_request }}"
         volumeMounts:
         - mountPath: /conf
           name: conf
@@ -84,3 +86,4 @@ spec:
       resources:
         requests:
           storage: {{ .Values.storage_size }}
+      storageClassName: {{ .Values.storage_class }}

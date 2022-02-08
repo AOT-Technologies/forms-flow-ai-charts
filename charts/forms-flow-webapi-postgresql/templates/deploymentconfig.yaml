@@ -71,7 +71,11 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
         resources:
+          requests:
+            cpu: {{ .Values.cpu_request }}
+            memory: {{ .Values.memory_request }}
           limits:
+            cpu: {{ .Values.cpu_limit }}
             memory: {{ .Values.memory_limit }}
         securityContext:
           capabilities: {}

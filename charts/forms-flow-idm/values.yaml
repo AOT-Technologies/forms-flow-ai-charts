@@ -34,6 +34,14 @@ keycloak:
       enabled: true
       securityContext:
         runAsUser: "auto"
+    
+resources:
+  limits:
+    cpu: 500m
+    memory: 700M
+  requests:
+    cpu: 300m
+    memory: 512M
 
   route:
     enabled: true

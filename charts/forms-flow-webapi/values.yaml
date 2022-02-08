@@ -1,5 +1,9 @@
+cpu_limit: 100m
+cpu_request: 50m
 formsflow_config_name: forms-flow-ai
 formsflow_secret: forms-flow-ai
+memory_limit: 400Mi
+memory_request: 300Mi
 mongodb_secret_name: formio-mongodb
 tag_name: latest
 webapi_db_resource_name: forms-flow-webapi-postgresql
