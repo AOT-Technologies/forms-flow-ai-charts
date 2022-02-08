@@ -1,4 +1,8 @@
 app_group: formio-rpas
+cpu_limit: 20m
+cpu_request: 10m
+memory_limit: 400M
+memory_request: 300M
 mongodb_admin_password: admin
 mongodb_database: formio-mongodb
 mongodb_image: image-registry.openshift-image-registry.svc:5000/openshift/mongodb
