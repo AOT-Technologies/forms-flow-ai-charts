@@ -36,13 +36,13 @@ keycloak:
       securityContext:
         runAsUser: "auto"
     
-resources:
-  limits:
-    cpu: 500m
-    memory: 700M
-  requests:
-    cpu: 350m
-    memory: 512M
+  resources:
+    limits:
+      cpu: 500m
+      memory: 700M
+    requests:
+      cpu: 350m
+      memory: 512M
 
   route:
     enabled: true
