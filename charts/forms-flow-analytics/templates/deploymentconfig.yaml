@@ -104,7 +104,8 @@ spec:
       - "{{ .Chart.Name }}-server"
       from:
         kind: ImageStreamTag
-        name: "{{ .Chart.Name }}.build-redash:{{ .Values.image_tag }}"
+        name: "redash-redis:{{ .Values.image_tag }}"
+        namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
 apiVersion: apps.openshift.io/v1
@@ -196,7 +197,7 @@ spec:
       - "{{ .Chart.Name }}-adhoc-worker"
       from:
         kind: ImageStreamTag
-        name: "{{ .Chart.Name }}.build-redash:{{ .Values.image_tag }}"
+        name: "redash-redis:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -289,7 +290,7 @@ spec:
       - "{{ .Chart.Name }}-scheduled-worker"
       from:
         kind: ImageStreamTag
-        name: "{{ .Chart.Name }}.build-redash:{{ .Values.image_tag }}"
+        name: "redash-redis:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -378,7 +379,7 @@ spec:
       - "{{ .Chart.Name }}-scheduler"
       from:
         kind: ImageStreamTag
-        name: "{{ .Chart.Name }}.build-redash:{{ .Values.image_tag }}"
+        name: "redash-redis:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -471,6 +472,6 @@ spec:
       - "{{ .Chart.Name }}-worker"
       from:
         kind: ImageStreamTag
-        name: "{{ .Chart.Name }}.build-redash:{{ .Values.image_tag }}"
+        name: "redash-redis:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
