@@ -38,10 +38,10 @@ keycloak:
     
 resources:
   limits:
-    cpu: 400m
+    cpu: 500m
     memory: 700M
   requests:
-    cpu: 300m
+    cpu: 350m
     memory: 512M
 
   route:
