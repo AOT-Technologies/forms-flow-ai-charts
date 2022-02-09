@@ -3,7 +3,8 @@ name: Release Charts
 on:
   push:
     branches:
-      - main
+      - master
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -22,16 +23,10 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.4.0
-
-      - name: Add Helm dependency repos
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo update
-
-      - name: Run chart-releaser
+      
+      - name: Package Formsflow 
         uses: helm/chart-releaser-action@v1.2.1
         with:
           charts_dir: charts
-
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
