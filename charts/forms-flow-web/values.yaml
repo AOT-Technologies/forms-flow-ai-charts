@@ -1,7 +1,7 @@
 app_name: forms-flow-ai
 camunda_url: bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 cpu_limit: 300m
-cpu_request: 200m
+cpu_request: 250m
 forms_url: formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 image_tag: latest
 image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build

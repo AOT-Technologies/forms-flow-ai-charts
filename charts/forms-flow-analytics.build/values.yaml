@@ -1,7 +1,7 @@
 image_tag: latest
 cpu_limit: 800m
 cpu_request: 700m
-memory_limit: 2Gi
+memory_limit: 1.2Gi
 memory_request: 1Gi 
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/redash

@@ -1,4 +1,4 @@
-app_group: formio-rpas
+app_group: formio
 cpu_limit: 100m
 cpu_request: 60m
 memory_limit: 400M
