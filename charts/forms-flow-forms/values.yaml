@@ -4,6 +4,6 @@ forms_url: formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 formsflow_secret: forms-flow-ai
 image_tag: latest
 image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build
-memory_limit: 512Mi
-memory_request: 256Mi
+memory_limit: 1Gi
+memory_request: 512Mi
 mongodb_secret_name: formio-mongodb

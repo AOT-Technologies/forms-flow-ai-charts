@@ -1,6 +1,6 @@
 image_tag: latest
 cpu_limit: 700m
-cpu_request: 500m
+cpu_request: 550m
 memory_limit: 1Gi
 memory_request: 512Mi
 source_context_dir: /forms-flow-bpm

@@ -1,6 +1,6 @@
 image_tag: latest
 cpu_limit: 700m
-cpu_request: 600m
+cpu_request: 650m
 memory_limit: 2Gi
 memory_request: 1Gi 
 source_context_dir: /forms-flow-web 

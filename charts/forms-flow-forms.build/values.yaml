@@ -1,6 +1,6 @@
 cpu_limit: 850m
 cpu_request: 700m
-memory_limit: 2Gi
+memory_limit: 1.2Gi
 memory_request: 1Gi
 tag_name: latest
 source_repository_ref: master 

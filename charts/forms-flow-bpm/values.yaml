@@ -12,7 +12,7 @@ camunda_hikari_maximum_poolsize: 10
 camunda_session_db_resource_name: camunda-session-postgresql
 camunda_url: "bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 cpu_limit: 700m
-cpu_request: 500m
+cpu_request: 550m
 memory_limit: 1Gi 
 memory_request: 512Mi
 database_port: 5432

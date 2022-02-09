@@ -1,6 +1,6 @@
 app_group: formio-rpas
 cpu_limit: 100m
-cpu_request: 50m
+cpu_request: 60m
 memory_limit: 400M
 memory_request: 300M
 mongodb_admin_password: admin
