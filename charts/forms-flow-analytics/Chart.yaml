@@ -1,6 +1,5 @@
 ---
 apiVersion: v2
-dependencies:
 name: forms-flow-analytics
 tags: forms-flow-analytics
 version: v0.1.0
