@@ -104,7 +104,7 @@ spec:
       - "{{ .Chart.Name }}-server"
       from:
         kind: ImageStreamTag
-        name: "redash-redis:{{ .Values.image_tag }}"
+        name: "{{ imagestream_name }}:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -197,7 +197,7 @@ spec:
       - "{{ .Chart.Name }}-adhoc-worker"
       from:
         kind: ImageStreamTag
-        name: "redash-redis:{{ .Values.image_tag }}"
+        name: "{{ imagestream_name }}:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -290,7 +290,7 @@ spec:
       - "{{ .Chart.Name }}-scheduled-worker"
       from:
         kind: ImageStreamTag
-        name: "redash-redis:{{ .Values.image_tag }}"
+        name: "{{ imagestream_name }}:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -379,7 +379,7 @@ spec:
       - "{{ .Chart.Name }}-scheduler"
       from:
         kind: ImageStreamTag
-        name: "redash-redis:{{ .Values.image_tag }}"
+        name: "{{ imagestream_name }}:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange
 ---
@@ -472,6 +472,6 @@ spec:
       - "{{ .Chart.Name }}-worker"
       from:
         kind: ImageStreamTag
-        name: "redash-redis:{{ .Values.image_tag }}"
+        name: "{{ imagestream_name }}:{{ .Values.image_tag }}"
         namespace: "{{ .Release.Namespace }}"
     type: ImageChange

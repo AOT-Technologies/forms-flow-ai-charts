@@ -3,4 +3,4 @@ apiVersion: v2
 description: Deployment template for a postgresql server with persistent storage.
 name: forms-flow-webapi-postgresql
 tags: forms-flow-webapi-postgresql-dev
-version: v0.1.2
+version: v0.1.3

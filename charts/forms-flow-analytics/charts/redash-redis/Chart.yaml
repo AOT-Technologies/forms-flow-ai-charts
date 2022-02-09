@@ -2,4 +2,4 @@
 apiVersion: v2
 description: Redis master/slave templates based on Statefulsets
 name: redash-redis
-version: v0.1.2
+version: v0.1.3

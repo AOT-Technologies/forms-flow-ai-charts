@@ -4,7 +4,7 @@ cpu_limit: 600m
 cpu_request: 500m
 image_tag: latest
 image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build-redash
-image_stream: redash-redis
+imagestream_name: redis
 memory_limit: 512Mi
 memory_request: 256Mi
 redash_database_url: postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres
