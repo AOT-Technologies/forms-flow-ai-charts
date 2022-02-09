@@ -10,13 +10,7 @@ spec:
     app: "{{ .Chart.Name }}-server"
   strategy:
     activeDeadlineSeconds: 21600
-    resources:
-      limits:
-        cpu: "{{ .Values.cpu_limit }}"
-        memory: "{{ .Values.memory_limit }}"
-      requests:
-        cpu: "{{ .Values.cpu_request }}"
-        memory: "{{ .Values.memory_request }}"
+    resources: {}
     rollingParams:
       intervalSeconds: 1
       maxSurge: 25%
@@ -94,7 +88,13 @@ spec:
         ports:
         - containerPort: 5000
           protocol: TCP
-        resources: {}
+				resources:
+					limits:
+						cpu: "{{ .Values.cpu_limit }}"
+						memory: "{{ .Values.memory_limit }}"
+					requests:
+						cpu: "{{ .Values.cpu_request }}"
+						memory: "{{ .Values.memory_request }}"
       restartPolicy: Always
   triggers:
   - type: ConfigChange
@@ -179,7 +179,13 @@ spec:
           value: "2"
         image: "{{ tpl .Values.image_url . }}:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-adhoc-worker"
-        resources: {}
+				resources:
+					limits:
+						cpu: "{{ .Values.cpu_limit }}"
+						memory: "{{ .Values.memory_limit }}"
+					requests:
+						cpu: "{{ .Values.cpu_request }}"
+						memory: "{{ .Values.memory_request }}"
       restartPolicy: Always
   test: false
   triggers:
@@ -266,7 +272,13 @@ spec:
           value: "1"
         image: "{{ tpl .Values.image_url . }}:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-scheduled-worker"
-        resources: {}
+				resources:
+					limits:
+						cpu: "{{ .Values.cpu_limit }}"
+						memory: "{{ .Values.memory_limit }}"
+					requests:
+						cpu: "{{ .Values.cpu_request }}"
+						memory: "{{ .Values.memory_request }}"
       restartPolicy: Always
   test: false
   triggers:
@@ -349,7 +361,13 @@ spec:
               name: "{{ .Chart.Name }}"
         image: "{{ tpl .Values.image_url . }}:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-scheduler"
-        resources: {}
+				resources:
+					limits:
+						cpu: "{{ .Values.cpu_limit }}"
+						memory: "{{ .Values.memory_limit }}"
+					requests:
+						cpu: "{{ .Values.cpu_request }}"
+						memory: "{{ .Values.memory_request }}"
       restartPolicy: Always
   test: false
   triggers:
@@ -436,7 +454,13 @@ spec:
           value: "1"
         image: ' '
         name: "{{ .Chart.Name }}-worker"
-        resources: {}
+				resources:
+					limits:
+						cpu: "{{ .Values.cpu_limit }}"
+						memory: "{{ .Values.memory_limit }}"
+					requests:
+						cpu: "{{ .Values.cpu_request }}"
+						memory: "{{ .Values.memory_request }}"
       restartPolicy: Always
   test: false
   triggers:
