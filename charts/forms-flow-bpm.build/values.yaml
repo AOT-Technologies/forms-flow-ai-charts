@@ -1,5 +1,5 @@
 image_tag: latest
-cpu_limit: 800m
+cpu_limit: 700m
 cpu_request: 500m
 memory_limit: 1Gi
 memory_request: 512Mi

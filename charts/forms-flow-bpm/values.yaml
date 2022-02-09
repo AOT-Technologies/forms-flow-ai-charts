@@ -11,10 +11,10 @@ camunda_hikari_connection_timeout: 30000
 camunda_hikari_maximum_poolsize: 10
 camunda_session_db_resource_name: camunda-session-postgresql
 camunda_url: "bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-cpu_limit: 800m
-cpu_request: 400m
+cpu_limit: 700m
+cpu_request: 500m
 memory_limit: 1Gi 
-memory_request: 512M
+memory_request: 512Mi
 database_port: 5432
 forms_url: "formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 formsflow_config_name: forms-flow-ai

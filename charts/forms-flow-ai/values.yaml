@@ -4,6 +4,6 @@ camunda_bpm_url: bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 formio_admin_email: me@defineme.com
 formio_admin_password: admin
 keycloak_realm: forms-flow-ai
-keycloak_url: idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+keycloak_url: "idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 keycloak_web_clientid: forms-flow-web
-web_api_url: webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+web_api_url: "webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
