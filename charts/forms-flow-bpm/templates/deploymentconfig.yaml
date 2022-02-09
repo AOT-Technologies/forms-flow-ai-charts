@@ -63,7 +63,7 @@ spec:
               key: DATABASE_PASSWORD
               name: "{{ .Values.camunda_db_resource_name }}"
         - name: KEYCLOAK_URL
-          value: "https://{{ tpl .Values.keycloak_url . }}"
+          value: "{{ tpl .Values.keycloak_url . }}"
         - name: KEYCLOAK_URL_REALM
           valueFrom:
             secretKeyRef:
@@ -114,9 +114,9 @@ spec:
         - name: CAMUNDA_APP_ROOT_LOG_FLAG
           value: "{{ .Values.camunda_app_root_log_flag }}"
         - name: FORMSFLOW_API_URL
-          value: "https://{{ tpl .Values.web_api_url . }}"
+          value: "{{ tpl .Values.web_api_url . }}"
         - name: FORMIO_URL
-          value: "https://{{ tpl .Values.forms_url . }}"
+          value: "{{ tpl .Values.forms_url . }}"
         - name: FORMIO_ROOT_EMAIL
           valueFrom:
             secretKeyRef:
