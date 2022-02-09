@@ -1,6 +1,6 @@
 app_group: formio
 cpu_limit: 100m
-cpu_request: 50m
+cpu_request: 60m
 database_host: forms-flow-bpm-session-db
 database_name: postgres
 database_port: "5432"

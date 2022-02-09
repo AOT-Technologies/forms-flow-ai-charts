@@ -1,6 +1,6 @@
 app_name: redash
-cpu_limit: 200m
-cpu_request: 100m
+cpu_limit: 400m
+cpu_request: 300m
 memory_limit: 256Mi
 memory_request: 128Mi
 redis_exporter_image: oliver006/redis_exporter

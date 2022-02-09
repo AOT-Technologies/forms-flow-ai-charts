@@ -1,6 +1,6 @@
 app_group: webapi
 cpu_limit: 100m
-cpu_request: 50m
+cpu_request: 60m
 database_host: postgresql
 database_name: postgres
 database_port: "5432"
