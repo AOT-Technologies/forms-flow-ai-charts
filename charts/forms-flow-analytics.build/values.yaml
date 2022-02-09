@@ -1,6 +1,6 @@
 image_tag: latest
 cpu_limit: 800m
-cpu_request: 500m
+cpu_request: 600m
 memory_limit: 2Gi
 memory_request: 1Gi 
 source_repository_ref: master
