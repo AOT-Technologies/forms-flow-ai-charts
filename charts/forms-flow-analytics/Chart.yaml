@@ -1,5 +1,12 @@
 ---
 apiVersion: v2
+dependencies:
+  - name: forms-flow-analytics-postgresql
+    version: "0.1.0"
+    repository: "file://charts/forms-flow-analytics-postgresql"
+  - name: redash-redis
+    version: "0.1.0"
+    repository: "file://charts/redash-redis"
 name: forms-flow-analytics
 tags: forms-flow-analytics
 version: v0.1.0
