@@ -89,7 +89,7 @@ spec:
               name: "{{ .Chart.Name }}"
         - name: REDASH_WEB_WORKERS
           value: "4"
-        image: "{{ tpl .Values.image_url }}:{{ .Values.image_tag }}"
+        image: "{{ .Values.image_url }}:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-server"
         ports:
         - containerPort: 5000
