@@ -105,7 +105,7 @@ spec:
       from:
         kind: ImageStreamTag
         name: "{{ .Values.imagestream_name }}:{{ .Values.image_tag }}"
-        namespace: "{{ .Release.Namespace }}"
+        namespace: "{{ .Release.Namespace }}-tools"
     type: ImageChange
 ---
 apiVersion: apps.openshift.io/v1
@@ -198,7 +198,7 @@ spec:
       from:
         kind: ImageStreamTag
         name: "{{ .Values.imagestream_name }}:{{ .Values.image_tag }}"
-        namespace: "{{ .Release.Namespace }}"
+        namespace: "{{ .Release.Namespace }}-tools"
     type: ImageChange
 ---
 apiVersion: apps.openshift.io/v1
@@ -291,7 +291,7 @@ spec:
       from:
         kind: ImageStreamTag
         name: "{{ .Values.imagestream_name }}:{{ .Values.image_tag }}"
-        namespace: "{{ .Release.Namespace }}"
+        namespace: "{{ .Release.Namespace }}-tools"
     type: ImageChange
 ---
 apiVersion: apps.openshift.io/v1
@@ -380,7 +380,7 @@ spec:
       from:
         kind: ImageStreamTag
         name: "{{ .Values.imagestream_name }}:{{ .Values.image_tag }}"
-        namespace: "{{ .Release.Namespace }}"
+        namespace: "{{ .Release.Namespace }}-tools"
     type: ImageChange
 ---
 apiVersion: apps.openshift.io/v1
@@ -473,5 +473,5 @@ spec:
       from:
         kind: ImageStreamTag
         name: "{{ .Values.imagestream_name }}:{{ .Values.image_tag }}"
-        namespace: "{{ .Release.Namespace }}"
+        namespace: "{{ .Release.Namespace }}-tools"
     type: ImageChange

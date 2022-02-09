@@ -2,9 +2,9 @@
 apiVersion: v2
 dependencies:
   - name: redash-redis
-    version: 0.1.4
+    version: 0.1.5
   - name: forms-flow-analytics-postgresql
-    version: 0.1.4
+    version: 0.1.5
 name: forms-flow-analytics
 tags: forms-flow-analytics
-version: v0.1.4
+version: v0.1.5
