@@ -3,4 +3,4 @@ apiVersion: v2
 description: MongoDB database running as replicate set
 name: formio-mongodb
 tags: nodejs,mongodb,replication,instant-app
-version: v0.1.0
+version: v0.1.1
