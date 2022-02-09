@@ -1,0 +1,108 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  generation: 1
+  labels:
+    app: "{{ .Chart.Name }}"
+    app-group: "{{ .Values.app_group }}"
+  name: "{{ .Chart.Name }}"
+spec:
+  replicas: 1
+  selector:
+    name: {{ .Chart.Name }}
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: {{ .Chart.Name }}
+    spec:
+      containers:
+      - env:
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_USER
+              name: {{ .Chart.Name }}
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_PASSWORD
+              name: {{ .Chart.Name }}
+        - name: POSTGRESQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_NAME
+              name: {{ .Chart.Name }}
+        - name: POSTGRESQL_ADMIN_DATABASE
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_ADMIN_PASSWORD
+              name: {{ .Chart.Name }}
+        image: "image-registry.openshift-image-registry.svc:5000/openshift/{{ .Values.postgresql_image_name }}:{{ .Values.postgresql_image_tag }}"
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 5432
+          timeoutSeconds: 1
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -i
+            - -c
+            - psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c
+              'SELECT 1'
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          requests:
+            cpu: {{ .Values.cpu_request }}
+            memory: {{ .Values.memory_request }}
+          limits:
+            cpu: {{ .Values.cpu_limit }}
+            memory: {{ .Values.memory_limit }}
+        securityContext:
+          capabilities: {}
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/pgsql/data
+          name: {{ .Chart.Name }}-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: {{ .Chart.Name }}-data
+        persistentVolumeClaim:
+          claimName: {{ .Chart.Name }}
+  test: false
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Chart.Name }}
+      from:
+        kind: ImageStreamTag
+        name: "{{ .Values.postgresql_image_name }}:{{ .Values.postgresql_image_tag }}"
+        namespace: openshift
+    type: ImageChange
+  - type: ConfigChange

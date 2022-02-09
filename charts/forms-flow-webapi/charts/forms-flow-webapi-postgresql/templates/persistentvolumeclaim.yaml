@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: "{{ .Chart.Name }}"
+    app-group: "{{ .Values.app_group }}"
+  name: "{{ .Chart.Name }}"
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: "{{ .Values.persistent_volume_size }}"
+  storageClassName: "{{ .Values.persistent_volume_class }}"
