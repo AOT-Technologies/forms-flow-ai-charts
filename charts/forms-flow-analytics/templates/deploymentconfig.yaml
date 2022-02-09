@@ -177,7 +177,7 @@ spec:
               name: "{{ .Chart.Name }}"
         - name: WORKERS_COUNT
           value: "2"
-        image: "{{ tpl .Values.image_url }}:{{ .Values.image_tag }}"
+        image: "{{ .Values.image_url }}:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-adhoc-worker"
         resources: {}
       restartPolicy: Always
@@ -264,7 +264,7 @@ spec:
               name: "{{ .Chart.Name }}"
         - name: WORKERS_COUNT
           value: "1"
-        image: "{{ tpl .Values.image_url }}:{{ .Values.image_tag }}"
+        image: "{{ .Values.image_url }}:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-scheduled-worker"
         resources: {}
       restartPolicy: Always
@@ -347,7 +347,7 @@ spec:
             secretKeyRef:
               key: REDASH_SECRET_KEY
               name: "{{ .Chart.Name }}"
-        image: "{{ tpl .Values.image_url }}:{{ .Values.image_tag }}"
+        image: "{{ .Values.image_url }}:{{ .Values.image_tag }}"
         name: "{{ .Chart.Name }}-scheduler"
         resources: {}
       restartPolicy: Always
