@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - env: null
-        image: "{{ tpl .Values.image_url }}:{{ .Values.image_tag }}"
+        image: "{{ tpl .Values.image_url . }}:{{ .Values.image_tag }}"
         imagePullPolicy: Always
         name: {{ .Chart.Name }}
         ports:

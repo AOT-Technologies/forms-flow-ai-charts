@@ -133,7 +133,7 @@ spec:
           value: "{{ .Values.websocket_message_type }}"
         - name: WEBSOCKET_SECURITY_ORIGIN
           value: "{{ .Values.websocket_security_origin }}"
-        image: "{{ tpl .Values.image_url }}:{{ .Values.image_tag }}"
+        image: "{{ tpl .Values.image_url . }}:{{ .Values.image_tag }}"
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -161,11 +161,11 @@ spec:
           timeoutSeconds: 3
         resources:
           limits:
-            cpu: "{{ cpu_limit }}"
-            memory: "{{ memory_limit }}"
+            cpu: "{{ .Values.cpu_limit }}"
+            memory: "{{ .Values.memory_limit }}"
           requests:
-            cpu: "{{ cpu_request }}"
-            memory: "{{ memory_request }}"
+            cpu: "{{ .Values.cpu_request }}"
+            memory: "{{ .Values.memory_request }}"
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:

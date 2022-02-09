@@ -59,11 +59,11 @@ spec:
           timeoutSeconds: 5
         resources:
           limits:
-						cpu: "{{ cpu_limit }}"
-            memory: "{{ memory_limit }}"
+            cpu: "{{ .Values.cpu_limit }}"
+            memory: "{{ .Values.memory_limit }}"
           requests:
-						cpu: "{{ cpu_request }}"
-            memory: "{{ memory_request }}"
+            cpu: "{{ .Values.cpu_request }}"
+            memory: "{{ .Values.memory_request }}"
         volumeMounts:
         - mountPath: /conf
           name: conf

@@ -74,7 +74,7 @@ spec:
           limits:
             cpu: {{ .Values.cpu_limit }}
             memory: {{ .Values.memory_limit }}
-					requests:
+          requests:
             cpu: {{ .Values.cpu_request }}
             memory: {{ .Values.memory_request }}
         securityContext:

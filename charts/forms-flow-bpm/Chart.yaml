@@ -2,8 +2,6 @@
 apiVersion: v2
 dependencies:
   - name: camunda-postgresql
-    #repository: 'https://cberg-aot.github.io/helm-charts'
-    repositorty: 'file://../camunda-postgresql'
     version: 0.1.0
 name: forms-flow-bpm
 version: v0.1.0
