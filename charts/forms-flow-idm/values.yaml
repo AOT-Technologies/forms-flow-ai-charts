@@ -11,6 +11,7 @@ keycloak:
       value: >-
         -Dkeycloak.profile.feature.scripts=enabled
         -Dkeycloak.profile.feature.upload_scripts=enabled
+        -Djava.net.preferIPv4Stack=true 
 
   extraVolumes: |
     - name: "forms-flow-idm-realm-config"
