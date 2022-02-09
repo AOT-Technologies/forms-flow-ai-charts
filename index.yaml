@@ -21,6 +21,15 @@ entries:
     version: v0.0.1
   formio-mongodb:
   - apiVersion: v2
+    created: "2022-02-09T21:51:30.803742376Z"
+    description: MongoDB database running as replicate set
+    digest: 2553f96f2a8192a66af8ef9b491db161e3a3fc958d79fab44d99fb9e4a29c55d
+    name: formio-mongodb
+    tags: nodejs,mongodb,replication,instant-app
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/formio-mongodb-v0.1.3/formio-mongodb-v0.1.3.tgz
+    version: v0.1.3
+  - apiVersion: v2
     created: "2022-02-09T21:42:17.13372977Z"
     description: MongoDB database running as replicate set
     digest: f2f1985f0a16edc266c30deab7f3c8fe271b847842e50b4c6161ab1e331ce1fe
@@ -58,6 +67,14 @@ entries:
     version: v0.0.1
   forms-flow-ai:
   - apiVersion: v2
+    created: "2022-02-09T21:51:30.938541496Z"
+    digest: 5c88d4db47cb1828f92f640f26a94924b0f020432b8f1bd317848246797ee2fd
+    icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
+    name: forms-flow-ai
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-ai-v0.1.3/forms-flow-ai-v0.1.3.tgz
+    version: v0.1.3
+  - apiVersion: v2
     created: "2022-02-09T21:42:17.265826829Z"
     digest: 9b08b8b420d63abdafe9b5eebca193c141643c752cd8f1b19204e4cbc52ea832
     icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
@@ -90,6 +107,21 @@ entries:
     - forms-flow-ai-v0.0.1.tgz
     version: v0.0.1
   forms-flow-analytics:
+  - apiVersion: v2
+    created: "2022-02-09T21:51:31.063089033Z"
+    dependencies:
+    - name: redash-redis
+      repository: ""
+      version: 0.1.3
+    - name: forms-flow-analytics-postgresql
+      repository: ""
+      version: 0.1.3
+    digest: fabc69dd8b4993c0b199bff21e5738e08304e125352169e8a82568e47961fb91
+    name: forms-flow-analytics
+    tags: forms-flow-analytics
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-analytics-v0.1.3/forms-flow-analytics-v0.1.3.tgz
+    version: v0.1.3
   - apiVersion: v2
     created: "2022-02-09T21:42:17.389867682Z"
     dependencies:
@@ -171,6 +203,14 @@ entries:
     version: v0.0.1
   forms-flow-analytics.build:
   - apiVersion: v2
+    created: "2022-02-09T21:51:31.185423569Z"
+    digest: 01045d2f32c9a3dc739bc816f5f0764dbace6cdecaa4370ca14f6dcc05a00a05
+    name: forms-flow-analytics.build
+    tags: forms-flow-analytics.build
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-analytics.build-v0.1.3/forms-flow-analytics.build-v0.1.3.tgz
+    version: v0.1.3
+  - apiVersion: v2
     created: "2022-02-09T21:42:17.51364813Z"
     digest: fc77c43c0f46cc31cedd734ced6ba34218b79b5cabdfe94ee753bdd0c66aa802
     name: forms-flow-analytics.build
@@ -195,6 +235,17 @@ entries:
     - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-analytics.build-v0.1.0/forms-flow-analytics.build-v0.1.0.tgz
     version: v0.1.0
   forms-flow-bpm:
+  - apiVersion: v2
+    created: "2022-02-09T21:51:31.30902103Z"
+    dependencies:
+    - name: camunda-postgresql
+      repository: ""
+      version: 0.1.3
+    digest: e0d924d61697901890b80acf8fd0904d059aac8e06d02ad297c22219a5d9bc0a
+    name: forms-flow-bpm
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-bpm-v0.1.3/forms-flow-bpm-v0.1.3.tgz
+    version: v0.1.3
   - apiVersion: v2
     created: "2022-02-09T21:42:17.615680189Z"
     dependencies:
@@ -238,6 +289,13 @@ entries:
     version: v0.0.1
   forms-flow-bpm.build:
   - apiVersion: v2
+    created: "2022-02-09T21:51:31.444975877Z"
+    digest: 927ecdb22afdcb85bd9e5de804d8f50a3850ee4ea361d0183abecd7729758b11
+    name: forms-flow-bpm.build
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-bpm.build-v0.1.3/forms-flow-bpm.build-v0.1.3.tgz
+    version: v0.1.3
+  - apiVersion: v2
     created: "2022-02-09T21:42:17.718403858Z"
     digest: e1ac53d0c3b2059b1124fa42332a2e281e896d8af6d7607cf0ef8f19f8f6c4a6
     name: forms-flow-bpm.build
@@ -259,6 +317,13 @@ entries:
     - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-bpm.build-v0.1.0/forms-flow-bpm.build-v0.1.0.tgz
     version: v0.1.0
   forms-flow-forms:
+  - apiVersion: v2
+    created: "2022-02-09T21:51:31.581777806Z"
+    digest: 39c0cad4c12c15480c78a8e9d1c69a66a0d08eed54938d0f153e4a762281df62
+    name: forms-flow-forms
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-forms-v0.1.3/forms-flow-forms-v0.1.3.tgz
+    version: v0.1.3
   - apiVersion: v2
     created: "2022-02-09T21:42:17.825985491Z"
     digest: ad76568112c4f7e89d938e1fa092e49562a57ed754388741ca2b28feab82a6cc
@@ -289,6 +354,13 @@ entries:
     version: v0.0.1
   forms-flow-forms.build:
   - apiVersion: v2
+    created: "2022-02-09T21:51:31.68550436Z"
+    digest: d200fee25d23333c026982c642e75ff1abb110b4c7b067aa4ad6ddba1354db8a
+    name: forms-flow-forms.build
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-forms.build-v0.1.3/forms-flow-forms.build-v0.1.3.tgz
+    version: v0.1.3
+  - apiVersion: v2
     created: "2022-02-09T21:42:17.93777608Z"
     digest: d9d78c0fdd6206349a21382f34093f07c645ccece22da514ec5f23375d06d3a7
     name: forms-flow-forms.build
@@ -310,6 +382,18 @@ entries:
     - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-forms.build-v0.1.0/forms-flow-forms.build-v0.1.0.tgz
     version: v0.1.0
   forms-flow-idm:
+  - apiVersion: v2
+    created: "2022-02-09T21:51:31.82179884Z"
+    dependencies:
+    - name: keycloak
+      repository: https://codecentric.github.io/helm-charts
+      version: 14.0.0
+    digest: c113dec7418c4591190d2b9096690a4616bd307ca8251ef10a4b8fe672bac55a
+    icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
+    name: forms-flow-idm
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-idm-v0.1.3/forms-flow-idm-v0.1.3.tgz
+    version: v0.1.3
   - apiVersion: v2
     created: "2022-02-09T21:42:18.0668892Z"
     dependencies:
@@ -360,6 +444,13 @@ entries:
     version: v0.0.1
   forms-flow-web:
   - apiVersion: v2
+    created: "2022-02-09T21:51:31.947597913Z"
+    digest: 312c8805ce6cfc2d700a5b7c766b9622205275b57e7747171b6faf87e7359044
+    name: forms-flow-web
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-web-v0.1.3/forms-flow-web-v0.1.3.tgz
+    version: v0.1.3
+  - apiVersion: v2
     created: "2022-02-09T21:42:18.184113761Z"
     digest: 91cf06f43299a8c6c1eb62d95dda37484c0585d260751936cd13001a06321aca
     name: forms-flow-web
@@ -389,6 +480,13 @@ entries:
     version: v0.0.1
   forms-flow-web.build:
   - apiVersion: v2
+    created: "2022-02-09T21:51:32.186481938Z"
+    digest: a35311b5b70b385abf22e58df5008a55c96d86a29172ebbcdb49e00061e08999
+    name: forms-flow-web.build
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-web.build-v0.1.3/forms-flow-web.build-v0.1.3.tgz
+    version: v0.1.3
+  - apiVersion: v2
     created: "2022-02-09T21:42:18.296224754Z"
     digest: ee143acf101abdf4d9ddba7839ce6648036f5fde852821a5e798d0626db7bfc4
     name: forms-flow-web.build
@@ -410,6 +508,18 @@ entries:
     - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-web.build-v0.1.0/forms-flow-web.build-v0.1.0.tgz
     version: v0.1.0
   forms-flow-webapi:
+  - apiVersion: v2
+    created: "2022-02-09T21:51:32.308167216Z"
+    dependencies:
+    - name: forms-flow-webapi-postgresql
+      repository: ""
+      version: 0.1.3
+    digest: 1945426c5ff3285cc617f3d97f32db1f4e1ae25ece7aa5ddd27e581bbe314789
+    name: forms-flow-webapi
+    tags: forms-flow-webapi
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-webapi-v0.1.3/forms-flow-webapi-v0.1.3.tgz
+    version: v0.1.3
   - apiVersion: v2
     created: "2022-02-09T21:42:18.456164385Z"
     dependencies:
@@ -474,6 +584,14 @@ entries:
     - forms-flow-webapi-postgresql-v0.0.1.tgz
     version: v0.0.1
   forms-flow-webapi.build:
+  - apiVersion: v2
+    created: "2022-02-09T21:51:32.429250036Z"
+    digest: 2df0e469b55a9696cb86eb58719828efb0c481034946524be9f1a85413f42677
+    name: forms-flow-webapi.build
+    tags: forms-flow-webapi.build
+    urls:
+    - https://github.com/cberg-aot/helm-charts/releases/download/forms-flow-webapi.build-v0.1.3/forms-flow-webapi.build-v0.1.3.tgz
+    version: v0.1.3
   - apiVersion: v2
     created: "2022-02-09T21:42:18.569477094Z"
     digest: dbcc9eac0cbc259548933f0cb95d6a4fa41cd9e87a2fb0aa67c1d63779c6272a
@@ -601,4 +719,4 @@ entries:
     urls:
     - webapi-postgresql-v0.0.1.tgz
     version: v0.0.1
-generated: "2022-02-09T21:42:18.569619896Z"
+generated: "2022-02-09T21:51:32.429582168Z"
