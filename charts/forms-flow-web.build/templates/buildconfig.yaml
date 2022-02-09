@@ -11,11 +11,11 @@ spec:
       name: "{{ .Chart.Name }}:{{ .Values.image_tag }}"
   resources:
     limits:
-      cpu: "{{ cpu_limit }}"
-      memory: "{{ memory_limit }}"
+      cpu: "{{ .Values.cpu_limit }}"
+      memory: "{{ .Values.memory_limit }}"
     requests:
-      cpu: "{{ cpu_request }}"
-      memory:"{{ memory_request }}"
+      cpu: "{{ .Values.cpu_request }}"
+      memory:"{{ .Values.memory_request }}"
   runPolicy: Serial
   source:
     contextDir: {{ .Values.source_context_dir }}

@@ -11,11 +11,11 @@ spec:
       name: "{{ .Chart.Name }}:{{ .Values.tag_name }}"
   resources:
     limits:
-      cpu: "1"
-      memory: 8Gi
+      cpu: "{{ .Values.cpu_limit }}"
+      memory: "{{ .Values.memory_limit }}"
     requests:
-      cpu: "1"
-      memory: 4Gi
+      cpu: "{{ .Values.cpu_request }}"
+      memory:"{{ .Values.memory_request }}"
   runPolicy: Serial
   source:
     contextDir: "{{ .Values.source_context_dir }}"

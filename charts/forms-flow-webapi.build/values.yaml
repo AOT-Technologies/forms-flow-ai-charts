@@ -1,3 +1,7 @@
+cpu_request: 500m
+cpu_limit: 800m
+memory_limit: 500Mi
+memory_request: 1Gi 
 source_context_dir: /forms-flow-api
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
