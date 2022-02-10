@@ -15,7 +15,7 @@ spec:
       memory: "{{ .Values.memory_limit }}"
     requests:
       cpu: "{{ .Values.cpu_request }}"
-      memory:"{{ .Values.memory_request }}"
+      memory: "{{ .Values.memory_request }}"
   runPolicy: Serial
   source:
     contextDir: "{{ .Values.source_context_dir }}"
