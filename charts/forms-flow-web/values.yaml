@@ -1,13 +1,13 @@
 app_name: forms-flow-ai
-camunda_url: bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+camunda_url: http://bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 cpu_limit: 300m
 cpu_request: 250m
-forms_url: formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+forms_url: http://formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 image_tag: latest
 image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build
 kc_mount_path: /usr/share/nginx/html/config/kc
 keycloak_realm: forms-flow-ai
-keycloak_url: idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+keycloak_url: http://idm.{{ .Release.Namespace }}.apps.devops.aohttp://t-technologies.com
 memory_limit: 200Mi
 memory_request: 100Mi
 mount_path: /usr/share/nginx/html/config/
@@ -18,5 +18,5 @@ react_app_staff_reviewer_id: '61856bbc69b630f304977ae2'
 react_app_user_resource_form_id: '61856bbc69b6301d70977ae4'
 react_app_websocket_encrypt_key: "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}"
 redash_secret_key: c2FY1BNNNGQP1sjaKGNIu8wXai1irSKqRIv3h1nb 
-web_api_url: webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+web_api_url: http://webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 web_url: web.{{ .Release.Namespace }}.apps.devops.aot-technologies.com
