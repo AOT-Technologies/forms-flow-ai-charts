@@ -10,7 +10,7 @@ spec:
   port:
     targetPort: "7000"
   tls:
-    insecureEdgeTerminationPolicy: Redirect
+    insecureEdgeTerminationPolicy: Allow
     termination: edge
   to:
     kind: Service

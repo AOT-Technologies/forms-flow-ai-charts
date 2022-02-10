@@ -8,7 +8,7 @@ spec:
   host: {{ tpl .Values.camunda_url . }}
   path: /camunda
   tls:
-    insecureEdgeTerminationPolicy: Redirect
+    insecureEdgeTerminationPolicy: Allow
     termination: edge
   to:
     kind: Service
