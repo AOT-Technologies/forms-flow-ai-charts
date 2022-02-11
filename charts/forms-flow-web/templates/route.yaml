@@ -7,7 +7,7 @@ metadata:
 spec:
   host: {{ tpl .Values.web_url . }}
   tls:
-    insecureEdgeTerminationPolicy: Allow
+    insecureEdgeTerminationPolicy: Redirect
     termination: edge
   to:
     kind: Service

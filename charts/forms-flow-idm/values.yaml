@@ -48,7 +48,7 @@ keycloak:
     enabled: true
     path:  /
     labels: {"app":"forms-flow-idm"}
-    host: "idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+    host: "idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
     tls:
       enabled: true
       insecureEdgeTerminationPolicy: Allow

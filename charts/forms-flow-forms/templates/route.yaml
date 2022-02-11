@@ -9,7 +9,7 @@ spec:
   port:
     targetPort: "3001"
   tls:
-    insecureEdgeTerminationPolicy: Allow
+    insecureEdgeTerminationPolicy: Redirect
     termination: edge
   to:
     kind: Service

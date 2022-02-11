@@ -2,4 +2,4 @@
 apiVersion: v2
 name: forms-flow-analytics.build
 tags: forms-flow-analytics.build
-version: v0.1.9
+version: v0.1.10

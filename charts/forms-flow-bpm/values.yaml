@@ -10,19 +10,19 @@ camunda_hik_idle_timeout: 600000
 camunda_hikari_connection_timeout: 30000
 camunda_hikari_maximum_poolsize: 10
 camunda_session_db_resource_name: camunda-session-postgresql
-camunda_url: "bpm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+camunda_url: "bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 cpu_limit: 600m
 cpu_request: 500m
 memory_limit: 1Gi 
 memory_request: 512Mi
 database_port: 5432
-forms_url: "https://formio.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+forms_url: "https://formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 formsflow_config_name: forms-flow-ai
 formsflow_secret: forms-flow-ai
 hikari_valid_timeout: 5000
 image_tag: latest
 image_url: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build" 
-keycloak_url: "https://idm.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+keycloak_url: "https://idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 mail_from: support@aot-technologies.com
 mail_password: YwJaMyhmHbBg0cp6
 mail_user: support@aot-technologies.com
@@ -33,7 +33,7 @@ smtp_server: smtp-relay.sendinblue.com
 source_context_dir: /forms-flow-bpm
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
-web_api_url: "https://webapi.{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+web_api_url: "https://webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
 websocket_encrypt_key: FormsFlow.AI@Taft
 websocket_message_type: TASK_EVENT
 websocket_security_origin: "https://*.devops.aot-technologies.com"
