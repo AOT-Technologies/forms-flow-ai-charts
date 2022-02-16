@@ -1,5 +1,5 @@
 ---
 apiVersion: v2
 name: forms-flow-ai
-version: v0.1.10
+version: v0.2.0
 icon: "https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png"
