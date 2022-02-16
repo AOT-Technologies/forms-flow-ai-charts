@@ -1,6 +1,98 @@
 apiVersion: v1
 entries:
+  formio-mongodb:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:15.290084484Z"
+    description: MongoDB database running as replicate set
+    digest: 46f59d2c5113e4fc0eaa0ba4d60dea7743e5348dc134a8efa90b25957cd52368
+    name: formio-mongodb
+    tags: nodejs,mongodb,replication,instant-app
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/formio-mongodb-v0.2.0/formio-mongodb-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-ai:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:15.487703655Z"
+    digest: 82c4cc89785cdabb3231e5fccdf9487ed68ceca4fd6b40289d38bcacc7a60a82
+    icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
+    name: forms-flow-ai
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-ai-v0.2.0/forms-flow-ai-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-analytics:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:15.705229712Z"
+    dependencies:
+    - name: redash-redis
+      repository: ""
+      version: 0.2.0
+    - name: forms-flow-analytics-postgresql
+      repository: ""
+      version: 0.2.0
+    digest: 566743f92f150d1804a22856293031c35c068d155164e5a3ce2550b86bcce7af
+    name: forms-flow-analytics
+    tags: forms-flow-analytics
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-analytics-v0.2.0/forms-flow-analytics-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-analytics.build:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:15.919655987Z"
+    digest: 1fef791561e330236d1bcae38633eea7f6603d41b16e07627e08dbfeb908578d
+    name: forms-flow-analytics.build
+    tags: forms-flow-analytics.build
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-analytics.build-v0.2.0/forms-flow-analytics.build-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-bpm:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:16.116122264Z"
+    dependencies:
+    - name: camunda-postgresql
+      repository: ""
+      version: 0.2.0
+    digest: 8d182d23e4534f950030018f153b1f2f1139c8bf03f015a2c46025e484d78eb7
+    name: forms-flow-bpm
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-bpm-v0.2.0/forms-flow-bpm-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-bpm.build:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:16.307384671Z"
+    digest: f0079bf9989c9877e40b53b35e8569ad878ae530d24c776d9edbf664c5476f22
+    name: forms-flow-bpm.build
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-bpm.build-v0.2.0/forms-flow-bpm.build-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-forms:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:16.50188756Z"
+    digest: 43a74ef9b09c7a20af1677738dba4caacdf3dcc665d1f4b9c5584309a1c13628
+    name: forms-flow-forms
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-forms-v0.2.0/forms-flow-forms-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-forms.build:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:16.708731678Z"
+    digest: ef51408c2f1ad96cc24c0cdc4cf14212d7c0376637ae2a67d3042cd61959b9c1
+    name: forms-flow-forms.build
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-forms.build-v0.2.0/forms-flow-forms.build-v0.2.0.tgz
+    version: v0.2.0
   forms-flow-idm:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:16.948291772Z"
+    dependencies:
+    - name: keycloak
+      repository: https://codecentric.github.io/helm-charts
+      version: 14.0.0
+    digest: 51d985dc02578ef61a2c62cbb3b6b3dbe76b5933fd0f7042a18c0793911ee4b3
+    icon: https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png
+    name: forms-flow-idm
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-idm-v0.2.0/forms-flow-idm-v0.2.0.tgz
+    version: v0.2.0
   - apiVersion: v2
     created: "2022-02-16T18:13:57.642113113Z"
     dependencies:
@@ -13,4 +105,42 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-idm-v0.1.10/forms-flow-idm-v0.1.10.tgz
     version: v0.1.10
-generated: "2022-02-16T18:13:57.642126113Z"
+  forms-flow-web:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:17.153773259Z"
+    digest: b2d584fc9dbad8165704b6ae545791341eb59acaea7e8ffbacaf6bee156cb81c
+    name: forms-flow-web
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-web-v0.2.0/forms-flow-web-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-web.build:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:17.391255205Z"
+    digest: 587a6c52c1da485cd32fb9368c6dd37a3409651d59ae3528807e4701194111ee
+    name: forms-flow-web.build
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-web.build-v0.2.0/forms-flow-web.build-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-webapi:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:17.655759214Z"
+    dependencies:
+    - name: forms-flow-webapi-postgresql
+      repository: ""
+      version: 0.2.0
+    digest: 4adfb88b165467eec3a0ecca1fb4f06aa401d00def18e7ccb3424a839bf0526a
+    name: forms-flow-webapi
+    tags: forms-flow-webapi
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi-v0.2.0/forms-flow-webapi-v0.2.0.tgz
+    version: v0.2.0
+  forms-flow-webapi.build:
+  - apiVersion: v2
+    created: "2022-02-16T18:32:17.867806836Z"
+    digest: b3115e2614181c63d41eb9c34beb8d1c9243a6c294e700f1aebff9ade8684f0f
+    name: forms-flow-webapi.build
+    tags: forms-flow-webapi.build
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
+    version: v0.2.0
+generated: "2022-02-16T18:32:17.867842232Z"
