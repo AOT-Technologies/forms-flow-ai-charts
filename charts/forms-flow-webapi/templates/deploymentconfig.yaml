@@ -96,6 +96,11 @@ spec:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_CONFIG
               name: "{{ .Values.formsflow_config_name }}"
+        - name: KEYCLOAK_URL
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL
+              name: "{{ .Values.formsflow_config_name }}"
         - name: WEB_API_BASE_URL
           valueFrom:
             configMapKeyRef:

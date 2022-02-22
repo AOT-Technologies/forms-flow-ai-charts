@@ -36,9 +36,9 @@ data:
         "REACT_APP_KEYCLOAK_CLIENT": "forms-flow-web",
         "REACT_APP_WEB_BASE_URL": "{{ tpl .Values.web_api_url . }}",
         "REACT_APP_ANONYMOUS_ID": "{{ .Values.react_app_anonymous_id }}",
-        "REACT_APP_INSIGHT_API_BASE": "https://${ANALYTICS_URL}",
+        "REACT_APP_INSIGHT_API_BASE": "{{ .Values.redash_url }}",
         "REACT_APP_INSIGHTS_API_KEY": "{{ .Values.redash_secret_key }}",
-        "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "{REACT_APP_WEBSOCKET_ENCRYPT_KEY}",
+        "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "{{ .Values.react_app_websocket_encrypt_key }}",
         "REACT_APP_KEYCLOAK_URL_REALM": "{{ .Values.keycloak_realm }}",
         "REACT_APP_KEYCLOAK_URL": "{{ tpl .Values.keycloak_url . }}",
         "REACT_APP_APPLICATION_NAME": "{{ .Chart.Name }}"

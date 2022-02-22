@@ -63,7 +63,10 @@ spec:
               key: DATABASE_PASSWORD
               name: "{{ .Values.camunda_db_resource_name }}"
         - name: KEYCLOAK_URL
-          value: "{{ tpl .Values.keycloak_url . }}"
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL
+              name: "{{ .Values.formsflow_config_name }}"
         - name: KEYCLOAK_URL_REALM
           valueFrom:
             secretKeyRef:
@@ -114,9 +117,15 @@ spec:
         - name: CAMUNDA_APP_ROOT_LOG_FLAG
           value: "{{ .Values.camunda_app_root_log_flag }}"
         - name: FORMSFLOW_API_URL
-          value: "{{ tpl .Values.web_api_url . }}"
+          valueFrom:
+            configMapKeyRef:
+              key: WEB_API_BASE_URL
+              name: "{{ .Values.formsflow_config_name }}"
         - name: FORMIO_URL
-          value: "{{ tpl .Values.forms_url . }}"
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_URL
+              name: "{{ .Values.formsflow_config_name }}"
         - name: FORMIO_ROOT_EMAIL
           valueFrom:
             secretKeyRef:
@@ -128,7 +137,10 @@ spec:
               key: FORMIO_ROOT_PASSWORD
               name: "{{ .Values.formsflow_secret }}"
         - name: WEBSOCKET_ENCRYPT_KEY
-          value: "{{ .Values.websocket_encrypt_key }}"
+          valueFrom:
+            secretKeyRef:
+              key: WEBSOCKET_ENCRYPT_KEY
+              name: "{{ .Values.formsflow_secret }}"
         - name: WEBSOCKET_MESSAGE_TYPE
           value: "{{ .Values.websocket_message_type }}"
         - name: WEBSOCKET_SECURITY_ORIGIN

@@ -1,9 +1,11 @@
 bpm_keycloak_clientid: forms-flow-bpm
 bpm_keycloak_clientsecret: 786001d6-68a8-4519-903c-bc5b5a870d68
 camunda_bpm_url: bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+formio_url: formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 formio_admin_email: me@defineme.com
 formio_admin_password: admin
 keycloak_realm: forms-flow-ai
 keycloak_url: idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 keycloak_web_clientid: forms-flow-web
 web_api_url: webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+websocket_encrypt_key: FormsFlow.AI#{{ .Release.Namespace }}

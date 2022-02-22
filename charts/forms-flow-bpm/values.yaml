@@ -34,6 +34,5 @@ source_context_dir: /forms-flow-bpm
 source_repository_ref: master
 source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
 web_api_url: "https://webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-websocket_encrypt_key: FormsFlow.AI@Taft
 websocket_message_type: TASK_EVENT
 websocket_security_origin: "https://*.devops.aot-technologies.com"
