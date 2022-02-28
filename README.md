@@ -24,8 +24,10 @@ Builds and deploys should* be installed into seperate namespaces.
 Releases should be installed into ${PROJECT_NAMESPACE}. 
 Builds should be installed in ${PROJECT_NAMEPACE}-tools namespace.
 
-E.g 
+E.g
+ 
 	formsflow-demo 				- deploys
+
 	formsflow-demo-tools	-	builds 
 
 *This constraint can be adjusted by setting image_url in formsflow deploys 
@@ -62,14 +64,6 @@ helm install forms-flow-analytics formsflow/forms-flow-analytics --set redash_ho
 helm install forms-flow-bpm formsflow/forms-flow-bpm --set camunda_url="bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set forms_url="https://forms-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set keycloak_url="https://idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set web_api_url="https://webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set camunda-postgresql.persistent_volume_class=nfs-client --set cpu_limit=800m --set cpu_request=600m --set memory_limit=1.5Gi --set memory_request=1Gi --namespace formsflow-demo
 
 helm install forms-flow-web formsflow/forms-flow-web --set camunda_url="https://bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set forms_url="https://formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set keycloak_url="https://idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set web_api_url="https://webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set web_url="web-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set cpu_limit=301m --set cpu_request=250m --set memory_limit=512Mi --set memory_request=256Mi --namespace formsflow-abhilash-helm --version 0.1.10
-$ helm install formio-mongodb formsflow/formio-mongodb
-$ helm install forms-flow-ai formsflow/forms-flow-ai
-$ helm install forms-flow-analytics formsflow/forms-flow-analytics
-$ helm install forms-flow-bpm formsflow/forms-flow-bpm
-$ helm install forms-flow-forms formsflow/forms-flow-forms
-$ helm install forms-flow-idm formsflow/forms-flow-idm
-$ helm install forms-flow-web formsflow/forms-flow-web
-$ helm install forms-flow-webapi formsflow/forms-flow-webapi
 ```
 _See [configuration](#configuration) below._
 
