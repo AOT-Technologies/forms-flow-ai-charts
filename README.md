@@ -19,6 +19,16 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 $ helm install [RELEASE_NAME] formsflow/forms-flow-ai [flags]
 ```
 
+## Install Formsflow.ai builds
+```console
+# Helm 3
+$ helm install forms-flow-analytics.build formsflow/forms-flow-analytics.build
+$ helm install forms-flow-bpm.build formsflow/forms-flow-bpm.build
+$ helm install forms-flow-forms.build formsflow/forms-flow-forms.build
+$ helm install forms-flow-idm.build formsflow/forms-flow-idm.build
+$ helm install forms-flow-web.build formsflow/forms-flow-web.build
+$ helm install forms-flow-webapi.build formsflow/forms-flow-webapi.build
+```
 ## Install Formsflow.ai
 ```console
 # Helm 3
