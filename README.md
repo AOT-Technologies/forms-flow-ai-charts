@@ -13,13 +13,24 @@ helm repo update
 
 _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
-## Install Chart
-
+## Install Component Chart
 ```console
 # Helm 3
-$ helm install [RELEASE_NAME] forms-flow-ai/forms-flow-ai [flags]
+$ helm install [RELEASE_NAME] formsflow/forms-flow-ai [flags]
 ```
 
+## Install Formsflow.ai
+```console
+# Helm 3
+$ helm install formio-mongodb formsflow/formio-mongodb
+$ helm install forms-flow-ai formsflow/forms-flow-ai
+$ helm install forms-flow-analytics formsflow/forms-flow-analytics
+$ helm install forms-flow-bpm formsflow/forms-flow-bpm
+$ helm install forms-flow-forms formsflow/forms-flow-forms
+$ helm install forms-flow-idm formsflow/forms-flow-idm
+$ helm install forms-flow-web formsflow/forms-flow-web
+$ helm install forms-flow-webapi formsflow/forms-flow-webapi
+```
 _See [configuration](#configuration) below._
 
 _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documentation._
