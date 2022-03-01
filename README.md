@@ -51,7 +51,7 @@ helm install forms-flow-webapi.build formsflow/forms-flow-webapi.build --set cpu
 helm install formio-mongodb formsflow/formio-mongodb --set volume_capacity=2Gi --set sc_mongo=nfs-client --namespace formsflow-demo
 
 #OPTIONAL
-helm install forms-flow-idm formsflow/forms-flow-idm --set keycloak.podSecurityContext.fsGroup=1000710000 --set keycloak.securityContext.runAsUser=1000710000 --set keycloak.pgchecker.securityContext.runAsUser=1000710000 --set keycloak.postgresql.securityContext.runAsUser=1000710000 --set cpu_limit=1 --namespace formsflow-demo
+helm install forms-flow-idm formsflow/forms-flow-idm --set keycloak.podSecurityContext.fsGroup=1000800000 --set keycloak.securityContext.runAsUser=1000800000 --set keycloak.pgchecker.securityContext.runAsUser=1000800000 --set keycloak.postgresql.securityContext.runAsUser=1000800000 --set cpu_limit=1 --namespace formsflow-demo
 
 helm install forms-flow-ai formsflow/forms-flow-ai --set camunda_bpm_url="bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set keycloak_url="idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --set web_api_url="webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" --namespace formsflow-demo
 
