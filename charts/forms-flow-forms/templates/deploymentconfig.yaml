@@ -43,11 +43,17 @@ spec:
             secretKeyRef:
               key: FORMIO_ROOT_PASSWORD
               name: {{ .Values.formsflow_secret }}
+        - name: FORMIO_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_JWT_SECRET
+              name: {{ .Values.formsflow_secret }}
         image: "{{ tpl .Values.image_url . }}:{{ .Values.image_tag }}"
         imagePullPolicy: Always
         livenessProbe:
-          failureThreshold: 3
-          periodSeconds: 10
+          failureThreshold: 10
+          initialDelaySeconds: 120
+          periodSeconds: 60
           successThreshold: 1
           tcpSocket:
             port: 3001
@@ -56,8 +62,9 @@ spec:
         ports:
         - containerPort: 3001
         readinessProbe:
-          failureThreshold: 3
-          periodSeconds: 10
+          failureThreshold: 10
+          initialDelaySeconds: 120
+          periodSeconds: 60
           successThreshold: 1
           tcpSocket:
             port: 3001

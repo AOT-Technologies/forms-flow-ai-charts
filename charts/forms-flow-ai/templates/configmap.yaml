@@ -14,5 +14,6 @@ data:
   KEYCLOAK_JWT_OIDC_JWKS_URI: "https://{{ tpl .Values.keycloak_url . }}/auth/realms/{{ .Values.keycloak_realm }}/protocol/openid-connect/certs"
   KEYCLOAK_TOKEN_URL: "https://{{ tpl .Values.keycloak_url . }}/auth/realms/{{ .Values.keycloak_realm }}/protocol/openid-connect/token"
   WEB_API_BASE_URL: "https://{{ tpl .Values.web_api_url . }}"
-  KEYCLOAK_URL: "https://{{ .Values.keycloak_url . }}"
-  FORMIO_URL: "https://{{ .Values.formio_url . }}"
+  KEYCLOAK_URL: "https://{{ tpl .Values.keycloak_url . }}"
+  KEYCLOAK_URL_REALM: "{{ .Values.keycloak_realm }}"
+  FORMIO_URL: "https://{{ tpl .Values.formio_url . }}"

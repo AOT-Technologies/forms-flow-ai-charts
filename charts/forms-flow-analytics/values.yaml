@@ -1,13 +1,14 @@
 analytics_db_resource_name: forms-flow-analytics-postgresql
-analytics_url: analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-cpu_limit: 1
-cpu_request: 500m
+analytics_url: "analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+cpu_limit: 60m
+cpu_request: 50m
 image_tag: latest
-image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build-redash
+image_url: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build-redash"
 imagestream_name: forms-flow-analytics.build-redash
-memory_limit: 2Gi
+imagestream_namespace: "{{ .Release.Namespace }}-tools"
+memory_limit: 512Mi
 memory_request: 256Mi
-redash_database_url: postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres
-redash_host: analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-redash_image_src: https://github.com/AOT-Technologies/redash
-redash_redis_url: redis://redash-redis:6379/0
+redash_database_url: "postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres"
+redash_host: "analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+redash_image_src: "https://github.com/AOT-Technologies/redash"
+redash_redis_url: "redis://redash-redis:6379/0"

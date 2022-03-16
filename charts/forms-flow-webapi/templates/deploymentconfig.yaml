@@ -10,13 +10,7 @@ spec:
     app: {{ .Chart.Name }}
   strategy:
     activeDeadlineSeconds: 21600
-    resources:
-      limits:
-        cpu: "{{ .Values.cpu_limit }}"
-        memory: "{{ .Values.memory_limit }}"
-      requests:
-        cpu: "{{ .Values.cpu_request }}"
-        memory: "{{ .Values.memory_request }}"
+    resources: {}
     rollingParams:
       intervalSeconds: 1
       maxSurge: 25%
@@ -117,7 +111,13 @@ spec:
         name: "{{ .Chart.Name }}"
         ports:
         - containerPort: 5000
-        resources: {}
+        resources:
+          limits:
+            cpu: "{{ .Values.cpu_limit }}"
+            memory: "{{ .Values.memory_limit }}"
+          requests:
+            cpu: "{{ .Values.cpu_request }}"
+            memory: "{{ .Values.memory_request }}"
         stdin: true
         tty: true
       restartPolicy: Always

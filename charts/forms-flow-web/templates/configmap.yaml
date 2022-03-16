@@ -41,7 +41,9 @@ data:
         "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "{{ .Values.react_app_websocket_encrypt_key }}",
         "REACT_APP_KEYCLOAK_URL_REALM": "{{ .Values.keycloak_realm }}",
         "REACT_APP_KEYCLOAK_URL": "{{ tpl .Values.keycloak_url . }}",
-        "REACT_APP_APPLICATION_NAME": "{{ .Chart.Name }}"
+        "REACT_APP_APPLICATION_NAME": "{{ .Chart.Name }}",
+        "REACT_APP_USER_ACCESS_PERMISSIONS": { accessAllowApplications:false, accessAllowSubmissions:false },
+        "REACT_APP_FORMIO_JWT_SECRET": "{{ .Release.Namespace }}-jwt-secret" 
       }
 kind: ConfigMap
 metadata:
