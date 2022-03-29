@@ -1,18 +1,18 @@
-app_group: formio
-cpu_limit: 100m
-cpu_request: 60m
-memory_limit: 400M
-memory_request: 300M
-mongodb_admin_password: admin
-mongodb_database: formio-mongodb
-mongodb_image: image-registry.openshift-image-registry.svc:5000/openshift/mongodb
-mongodb_image_tag: "3.6"
-mongodb_keyfile_value: mongodb
-mongodb_password: mongodb
-mongodb_replica_name: rs0
-mongodb_replicas: "2"
-mongodb_secret_name: formio-mongodb
-mongodb_service_name: mongodb
-mongodb_user: mongodb
-sc_mongo: nfs-client
-volume_capacity: 10Gi
+app_group: formio # label denoting app group component belongs to (deprecated)
+cpu_limit: 100m # resource cpu limit 
+cpu_request: 60m  # resource cpu_request
+memory_limit: 400M  # resource memory_limit
+memory_request: 300M  # resource memory_request 
+mongodb_admin_password: admin # admin password for mongodb
+mongodb_database: formio-mongodb  # name of mongodb database to create/connect 
+mongodb_image: image-registry.openshift-image-registry.svc:5000/openshift/mongodb # mongodb image url
+mongodb_image_tag: "3.6"  # mongodb version 
+mongodb_keyfile_value: mongodb  # security between replicasets (https://www.mongodb.com/docs/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/)
+mongodb_password: mongodb # mongodb password
+mongodb_replica_name: rs0 # mongodb replicaset name
+mongodb_replicas: "2" # number of replicas 
+mongodb_secret_name: formio-mongodb # name of mongodb secret 
+mongodb_service_name: mongodb # name of mongodb service
+mongodb_user: mongodb # name of mongodb user
+sc_mongo: nfs-client # storage class name pvc 
+volume_capacity: 10Gi # storage request for pvc
