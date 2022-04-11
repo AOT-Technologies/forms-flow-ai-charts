@@ -1,14 +1,14 @@
-analytics_db_resource_name: forms-flow-analytics-postgresql
-analytics_url: "analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-cpu_limit: 60m
-cpu_request: 50m
-image_tag: latest
-image_url: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build-redash"
-imagestream_name: forms-flow-analytics.build-redash
-imagestream_namespace: "{{ .Release.Namespace }}-tools"
-memory_limit: 512Mi
-memory_request: 256Mi
-redash_database_url: "postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres"
-redash_host: "analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-redash_image_src: "https://github.com/AOT-Technologies/redash"
-redash_redis_url: "redis://redash-redis:6379/0"
+analytics_db_resource_name: forms-flow-analytics-postgresql # name of the database to use
+analytics_url: "analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" # forms-flow-analytics API url 
+cpu_limit: 60m # container: resources.cpu_limit
+cpu_request: 50m # container: resources.cpu_request
+image_tag: latest # tag of image being used
+image_url: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build-redash" # image url
+imagestream_name: forms-flow-analytics.build-redash # triggers: imagestream for redash image pulling 
+imagestream_namespace: "{{ .Release.Namespace }}-tools" # triggers: expected namespace to find images 
+memory_limit: 512Mi # container: resources.memory_limit
+memory_request: 256Mi # container: resources.memory_request
+redash_database_url: "postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres" # redash database url - i.e forms-flow-analytics-postgresql database url
+redash_host: "analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" # redash API url - i.e forms-flow-analytics API url 
+redash_image_src: "https://github.com/AOT-Technologies/redash" # source repoisitory for redash image (deprecated) 
+redash_redis_url: "redis://redash-redis:6379/0" # url of the redash-redis database to connect to  

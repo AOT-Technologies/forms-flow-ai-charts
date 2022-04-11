@@ -1,11 +1,11 @@
-bpm_keycloak_clientid: forms-flow-bpm
-bpm_keycloak_clientsecret: 786001d6-68a8-4519-903c-bc5b5a870d68
-camunda_bpm_url: bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-formio_url: forms-flow-forms-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-formio_admin_email: me@defineme.com
-formio_admin_password: admin
-keycloak_realm: forms-flow-ai
-keycloak_url: idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-keycloak_web_clientid: forms-flow-web
-web_api_url: webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-websocket_encrypt_key: FormsFlow.AI#{{ .Release.Namespace }}
+bpm_keycloak_clientid: forms-flow-bpm # BPM_CLIENT_ID 
+bpm_keycloak_clientsecret: 786001d6-68a8-4519-903c-bc5b5a870d68 # BPM_CLIENT_SECRET
+camunda_bpm_url: bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com # CAMUNDA_API_URI
+formio_url: forms-flow-forms-{{ .Release.Namespace }}.apps.devops.aot-technologies.com # FORMIO_URL 
+formio_admin_email: me@defineme.com # FORMIO_ROOT_EMAIL
+formio_admin_password: admin # FORMIO_ROOT_PASSWORD
+keycloak_realm: forms-flow-ai # KEYCLOAK_URL_REALM 
+keycloak_url: idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com # KEYCLOAK_URL
+keycloak_web_clientid: forms-flow-web #WEB_CLIENTID 
+web_api_url: webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com #WEB_API_BASEURL
+websocket_encrypt_key: FormsFlow.AI#{{ .Release.Namespace }} #WEBSOCKET_ENCRYPT_KEY 

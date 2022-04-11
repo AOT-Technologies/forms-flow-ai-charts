@@ -1,13 +1,13 @@
-app_name: redash
-cpu_limit: 60m
-cpu_request: 50m
-memory_limit: 512Mi
-memory_request: 256Mi
-redis_exporter_image: oliver006/redis_exporter
-redis_exporter_name: redash-exporter
-redis_exporter_tag: v1.14.0-alpine
-redis_image: redis
-redis_tag: latest
-storage: 1Gi
-storage_class: nfs-client
-storage_size: 10Gi
+app_name: redash # redash group application label 
+cpu_limit: 60m # resources.cpu_limit
+cpu_request: 50m # resources.cpu_request
+memory_limit: 512Mi # resources.memory_limit 
+memory_request: 256Mi # resources.memory_request 
+redis_exporter_image: oliver006/redis_exporter # redis_exporter image 
+redis_exporter_name: redash-exporter # redash-exporter imagestream name  
+redis_exporter_tag: v1.14.0-alpine # redis_exporter version 
+redis_image: redis # redis imagestream name
+redis_tag: latest # redis version 
+storage: 1Gi # storage
+storage_class: nfs-client # storage class name  
+storage_size: 10Gi # pvc request size 
