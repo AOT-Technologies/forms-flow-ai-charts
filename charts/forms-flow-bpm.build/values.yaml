@@ -1,8 +1,8 @@
-image_tag: latest
-cpu_limit: 600m
-cpu_request: 500m
-memory_limit: 1Gi
-memory_request: 512Mi
-source_context_dir: /forms-flow-bpm
-source_repository_ref: master
-source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
+image_tag: latest #imagestreamtag name
+cpu_limit: 600m #build container: cpu limit
+cpu_request: 500m #build container: cpu request 
+memory_limit: 1Gi #build container: memory limit
+memory_request: 512Mi #build container: memory request
+source_context_dir: /forms-flow-bpm #directory in repositroy to build 
+source_repository_ref: master #version of project to build from 
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai # the source repository to clone

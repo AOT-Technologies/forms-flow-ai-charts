@@ -1,38 +1,38 @@
-analytics_db_resource_name: forms-flow-analytics-postgresql 
-app_root_log_flag: INFO
-app_security_origin: "*"
-bpm_history_level: auto
-camunda_app_root_log_flag: info
-camunda_db_resource_name: camunda-postgresql
-camunda_formbuilder_pipeline_password: demo
-camunda_formbuilder_pipeline_username: demo
-camunda_hik_idle_timeout: 600000
-camunda_hikari_connection_timeout: 30000
-camunda_hikari_maximum_poolsize: 10
-camunda_session_db_resource_name: camunda-session-postgresql
-camunda_url: "bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-cpu_limit: 600m
-cpu_request: 500m
-memory_limit: 1Gi 
-memory_request: 512Mi
-database_port: 5432
-forms_url: "https://formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-formsflow_config_name: forms-flow-ai
-formsflow_secret: forms-flow-ai
-hikari_valid_timeout: 5000
-image_tag: latest
-image_url: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build" 
-keycloak_url: "https://idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
+analytics_db_resource_name: forms-flow-analytics-postgresql #the name of the analytics database to connect to 
+app_root_log_flag: INFO #deprecated
+app_security_origin: "*" #deprecated
+bpm_history_level: auto #deprecated
+camunda_app_root_log_flag: info #CAMUNDA_APP_ROOT_LOG_FLAG
+camunda_db_resource_name: camunda-postgresql #Name of database to connect to 
+camunda_formbuilder_pipeline_password: demo # CAMUNDA_FORMBUILDER_PIPELINE_PASSWORD
+camunda_formbuilder_pipeline_username: demo # CAMUNDA_FORMBUILDER_PIPELINE_USERNAME
+camunda_hik_idle_timeout: 600000 #CAMUNDA_HIKARI_IDLE_TIMEOUT
+camunda_hikari_connection_timeout: 30000 #CAMUNDA_HIKARI_CONNECTION_TIMEOUT
+camunda_hikari_maximum_poolsize: 10 #CAMUNDA_HIKARI_MAX_POOLSIZE
+camunda_session_db_resource_name: camunda-session-postgresql #deprecated
+camunda_url: "bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" #sets the route url for bpm
+cpu_limit: 600m #resources.cpu_limit
+cpu_request: 500m #resources.cpu_request
+memory_limit: 1Gi #resources.memory_limit
+memory_request: 512Mi #resources.memory_request
+database_port: 5432 #port of database connection
+forms_url: "https://formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" #url of forms-flow-forms
+formsflow_config_name: forms-flow-ai # name of formsflow.ai configmap
+formsflow_secret: forms-flow-ai #name of formsflow.ai secret 
+hikari_valid_timeout: 5000 #CAMUNDA_HIKARI_VALID_TIMEOUT
+image_tag: latest #The image tag to pull from 
+image_url: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build" #image url
+keycloak_url: "https://idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" #keycloak_url
 mail_from: support@aot-technologies.com
 mail_password: YwJaMyhmHbBg0cp6
 mail_user: support@aot-technologies.com
-name: forms-flow-bpm
-postgre_db_driver: org.postgresql.Driver
+name: forms-flow-bpm #deprecated
+postgre_db_driver: org.postgresql.Driver #CAMUNDA_JDBC_DRIVER
 smtp_port: 587 
 smtp_server: smtp-relay.sendinblue.com
-source_context_dir: /forms-flow-bpm
-source_repository_ref: master
-source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai
-web_api_url: "https://webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-websocket_message_type: TASK_EVENT
-websocket_security_origin: "https://*.devops.aot-technologies.com"
+source_context_dir: /forms-flow-bpm #deprecated
+source_repository_ref: master #deprecated
+source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai #deprecated
+web_api_url: "https://webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com" #webapi deprecated
+websocket_message_type: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
+websocket_security_origin: "https://*.devops.aot-technologies.com" #WEBSOCKET_SECURITY_ORIGIN

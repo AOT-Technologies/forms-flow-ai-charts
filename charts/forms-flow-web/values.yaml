@@ -1,5 +1,5 @@
-app_name: forms-flow-ai
-camunda_url: https://bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
+app_name: forms-flow-ai #label - deprecate soon
+camunda_url: https://bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com #bpm url 
 cpu_limit: 300m
 cpu_request: 250m
 forms_url: https://formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
