@@ -2,8 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: {{ .Values.app_name }}
-    name: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
   ports:
@@ -14,5 +13,5 @@ spec:
     port: 16379
     targetPort: 16379
   selector:
-    app: {{ .Values.app_name }}
+    app: {{ .Chart.Name }}
   type: ClusterIP

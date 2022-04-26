@@ -1,7 +1,0 @@
-image_tag: latest #imagestream tag name
-cpu_limit: 2 # build container: resources.cpu_limit
-cpu_request: 1 # build container: resources.cpu_request 
-memory_limit: 16Gi # build container: analytics builds require large ammounts of memory
-memory_request: 10Gi # build container: analytics builds require large ammounts of memory 
-source_repository_ref: master # source branch to build from 
-source_repository_url: https://github.com/getredash/redash # No longer pulling from aot-redash

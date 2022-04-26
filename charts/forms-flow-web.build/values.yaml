@@ -1,8 +1,0 @@
-image_tag: latest #image tag 
-cpu_limit: 700m #resources.cpu_limit
-cpu_request: 600m #resources.cpu_request
-memory_limit: 1.2Gi #resources.memory_limit
-memory_request: 1Gi  #resources.memory_request
-source_context_dir: /forms-flow-web # comonent dir to build
-source_repository_ref: master # branch to build from
-source_repository_url: https://github.com/AOT-Technologies/forms-flow-ai #repository url 

@@ -29,6 +29,5 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Values.app_name }}
-    name: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}

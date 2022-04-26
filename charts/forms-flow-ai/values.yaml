@@ -5,7 +5,7 @@ formio_url: forms-flow-forms-{{ .Release.Namespace }}.apps.devops.aot-technologi
 formio_admin_email: me@defineme.com # FORMIO_ROOT_EMAIL
 formio_admin_password: admin # FORMIO_ROOT_PASSWORD
 keycloak_realm: forms-flow-ai # KEYCLOAK_URL_REALM 
-keycloak_url: idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com # KEYCLOAK_URL
+keycloak_url: forms-flow-idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com # KEYCLOAK_URL
 keycloak_web_clientid: forms-flow-web #WEB_CLIENTID 
 web_api_url: webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com #WEB_API_BASEURL
 websocket_encrypt_key: FormsFlow.AI#{{ .Release.Namespace }} #WEBSOCKET_ENCRYPT_KEY 

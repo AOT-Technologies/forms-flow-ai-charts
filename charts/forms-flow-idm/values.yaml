@@ -1,59 +1,83 @@
 ---
 keycloak:
-  extraEnv: |
-    - name: KEYCLOAK_IMPORT
-      value: "/realm/realm.json"
-    - name: KEYCLOAK_PASSWORD
+  extraEnvVars: 
+    - name: KEYCLOAK_ADMIN_USER
       value: admin
-    - name: KEYCLOAK_USER
-      value: admin
-    - name: JAVA_OPTS 
+    - name: JAVA_OPTS
       value: >-
         -Dkeycloak.profile.feature.scripts=enabled
         -Dkeycloak.profile.feature.upload_scripts=enabled
-        -Djava.net.preferIPv4Stack=true 
-    - name: PROXY_ADDRESS_FORWARDING
+        -Dkeycloak.migration.file=/realm/realm.json
+        -Djava.net.preferIPv4Stack=true
+    - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
       value: "true"
+    - name: KEYCLOAK_FRONTEND_URL
+      value: "https://{{ tpl .Values.ingress.hostname . }}/auth"
 
-  extraVolumes: |
+  extraVolumes: 
     - name: "forms-flow-idm-realm-config"
       configMap:
-        name: "forms-flow-idm" 
+        name: "forms-flow-idm"
 
-  extraVolumeMounts: |
+  extraVolumeMounts: 
     - name: "forms-flow-idm-realm-config"
       mountPath: "/realm/"
-      readOnly: true   
+      readOnly: true
 
   postgresql:
-    containerSecurityContext:
-      enabled: false
-    securityContext:
-      enabled: false
-    shmVolume:
-      chmod:
+    auth:
+      database: forms-flow-idm # Name for custom database to create
+      postgresPassword: postgres # Password for the "postgres" admin user
+      password: forms-flow-idm  # Password for the custom user to create
+      userName: forms-flow-idm  # Name for a custom user to create
+    image:
+      registry: "docker.io"
+      repository: "bitnami/postgresql" 
+      tag: 14.2.0-debian-10-r57
+    primary:
+      containerSecurityContext:
         enabled: false
+      persistence:
+        mountPath: /var/lib/pgsql/data
+        storageClass: nfs-client 
+        size: 2Gi 
+      podSecurityContext:
+        enabled: false
+      service:
+        ports:
+          postgresql: 5432  # PostgreSQL service port
+      shmVolume:
+        chmod:
+          enabled: false
     volumePermissions:
-      enabled: true
-      securityContext:
+      containerSecurityContext:
         runAsUser: "auto"
-    
+
   resources:
     limits:
-      cpu: 700m
+      cpu: 2
       memory: 1Gi
     requests:
-      cpu: 500m
+      cpu: 1
       memory: 512Mi
 
-  route:
-    enabled: true
-    path:  /
-    labels: {"app":"forms-flow-idm"}
-    host: "idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-    tls:
-      enabled: true
-      insecureEdgeTerminationPolicy: Redirect
-      termination: edge
+  containerSecurityContext:
+    enabled: false
+  podSecurityContext:
+    enabled: false
+
+  keycloakConfigCli:
+    containerSecurityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
   
-name: forms-flow-idm
+  ingress:
+    enabled: true
+    extraTls:
+      - {}
+    hostname: "forms-flow-idm-formsflow-ai.apps.devops.aot-technologies.com"
+    path: /auth
+    pathType: Prefix
+    servicePort: http
+    tls: true

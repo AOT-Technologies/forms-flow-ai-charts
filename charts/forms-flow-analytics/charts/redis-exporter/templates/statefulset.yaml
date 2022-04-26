@@ -2,14 +2,13 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    app: {{ .Values.app_name }}
-    name: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.app_name }}
+      app: {{ .Chart.Name }}
   serviceName: {{ .Chart.Name }}
   template:
     metadata:
@@ -17,11 +16,11 @@ spec:
         prometheus.io/port: "9121"
         prometheus.io/scrape: "true"
       labels:
-        app: {{ .Values.app_name }}
+        app: {{ .Chart.Name }}
     spec:
       containers:
-      - image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redis_exporter_name }}:{{ .Values.redis_exporter_tag }}"
-        name: "{{ .Values.redis_exporter_name }}"
+      - image: "{{ .Values.exporter.image.registry }}/{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
+        name: "{{ .Chart.Name }}"
         ports:
         - containerPort: 9121
           name: exporter
@@ -34,7 +33,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.redis_image }}:{{ .Values.redis_tag }}"
+        image: "{{ .Values.redis.image.registry }}/{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
         livenessProbe:
           failureThreshold: 5
           initialDelaySeconds: 30
@@ -59,11 +58,11 @@ spec:
           timeoutSeconds: 5
         resources:
           limits:
-            cpu: "{{ .Values.cpu_limit }}"
-            memory: "{{ .Values.memory_limit }}"
+            cpu: "{{ .Values.resources.limits.cpu }}"
+            memory: "{{ .Values.resources.limits.memory }}"
           requests:
-            cpu: "{{ .Values.cpu_request }}"
-            memory: "{{ .Values.memory_request }}"
+            cpu: "{{ .Values.resources.requests.cpu }}"
+            memory: "{{ .Values.resources.requests.memory }}"
         volumeMounts:
         - mountPath: /conf
           name: conf
@@ -85,5 +84,5 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: {{ .Values.storage_size }}
-      storageClassName: {{ .Values.storage_class }}
+          storage: {{ .Values.persistentVolumeClaim.size }}
+      storageClassName: {{ .Values.persistentVolumeClaim.storageClass }}
