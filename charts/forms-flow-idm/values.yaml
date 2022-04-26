@@ -3,16 +3,17 @@ keycloak:
   extraEnvVars: 
     - name: KEYCLOAK_ADMIN_USER
       value: admin
-    - name: JAVA_OPTS
-      value: >-
-        -Dkeycloak.profile.feature.scripts=enabled
-        -Dkeycloak.profile.feature.upload_scripts=enabled
-        -Dkeycloak.migration.file=/realm/realm.json
-        -Djava.net.preferIPv4Stack=true
+    - name: KEYCLOAK_EXTRA_ARGS
+      value: "-Dkeycloak.import=/realm/realm.json" 
     - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
       value: "true"
     - name: KEYCLOAK_FRONTEND_URL
       value: "https://{{ tpl .Values.ingress.hostname . }}/auth"
+    - name: JAVA_OPTS
+      value: >-
+        -Dkeycloak.profile.feature.scripts=enabled
+        -Dkeycloak.profile.feature.upload_scripts=enabled
+        -Djava.net.preferIPv4Stack=true
 
   extraVolumes: 
     - name: "forms-flow-idm-realm-config"
