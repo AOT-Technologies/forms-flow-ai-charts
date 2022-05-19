@@ -1,0 +1,8 @@
+---
+apiVersion: v2
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 11.1.20
+name: forms-flow-bpm
+version: v1.0.0

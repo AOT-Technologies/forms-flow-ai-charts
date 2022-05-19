@@ -1,9 +1,0 @@
-cpu_limit: 200m #requires.cpu_limit
-cpu_request: 100m #requires. cou_request
-forms_url: formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com #forms-flow-forms url
-formsflow_secret: forms-flow-ai # formsflow.ai secret
-image_tag: latest # image tag
-image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build # image url
-memory_limit: 1Gi # requires.memory_limit
-memory_request: 512Mi #requires.memory_request
-mongodb_secret_name: formio-mongodb #NODE_CONFIG

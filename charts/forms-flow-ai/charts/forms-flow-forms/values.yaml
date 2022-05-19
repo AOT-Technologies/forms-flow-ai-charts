@@ -1,0 +1,20 @@
+Domain: "apps.devops.aot-technologies.com"
+formsflow:
+  configmap: forms-flow-ai #integration env vars
+  secret: forms-flow-ai # integration env vars secret
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-forms
+  tag: latest #The image tag to pull from
+
+ingress: 
+  enabled: true # create an ingress for this component 
+  port: 3001
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 512Mi
