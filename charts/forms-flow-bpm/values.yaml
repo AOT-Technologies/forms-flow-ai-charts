@@ -38,7 +38,7 @@ formsflow:
 
 ingress: 
   enabled: true # create an ingress for this component 
-  port: 7000
+  port: 8080
 mail:
   from: support@aot-technologies.com
   password: YwJaMyhmHbBg0cp6

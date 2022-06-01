@@ -1,4 +1,7 @@
 Domain: "apps.devops.aot-technologies.com"
+admin:
+  email: "me@defineme.com"
+  password: "admin"
 formsflow:
   configmap: forms-flow-ai #integration env vars
   secret: forms-flow-ai # integration env vars secret

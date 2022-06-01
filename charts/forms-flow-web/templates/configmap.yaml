@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ .Values.app_name }}
+  name: {{ .Chart.Name }}-keycloak-config
 data:
   keycloak.json: |-
     {
@@ -11,13 +16,13 @@ data:
       "use-resource-role-mappings": true,
       "confidential-port": 0
     }
+---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Values.app_name }}
-  name: {{ .Chart.Name }}-keycloak-config
----
-apiVersion: v1
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
 data:
   config.js: |-
     // runtime-config.js vars
@@ -45,8 +50,3 @@ data:
         "REACT_APP_USER_ACCESS_PERMISSIONS": { accessAllowApplications:false, accessAllowSubmissions:false },
         "REACT_APP_FORMIO_JWT_SECRET": "{{ .Release.Namespace }}-jwt-secret" 
       }
-kind: ConfigMap
-metadata:
-  labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}

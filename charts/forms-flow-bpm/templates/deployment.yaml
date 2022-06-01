@@ -34,11 +34,60 @@ spec:
         - configMapRef:
             name: "{{ .Chart.Name }}" # bpm environment variables 
         - secretRef:
-            name: "{{ .Chart.Name }}" # bpm environment variables 
-        - configMapRef:
-            name: "{{ .Values.formsflow.configmap }}" # bpm environment variables 
-        - secretRef:
-            name: "{{ .Values.formsflow.secret }}" # integration environment secrets 
+            name: "{{ .Chart.Name }}" # bpm environment variables
+        env:
+        - name: KEYCLOAK_URL
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: KEYCLOAK_URL_REALM
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL_REALM
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: KEYCLOAK_CLIENTID
+          valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_CLIENTID
+              name: "{{ .Values.formsflow.secret }}"
+        - name: KEYCLOAK_CLIENTSECRET
+          valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_CLIENTSECRET
+              name: "{{ .Values.formsflow.secret }}"
+        - name: MAIL_CONFIG
+          value: /app/mail-config.properties
+        - name: CAMUNDA_FORMBUILDER_PIPELINE_BPM_URL
+          valueFrom:
+            configMapKeyRef:
+              key: CAMUNDA_API_URI
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMSFLOW_API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: WEB_API_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMIO_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMIO_ROOT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_EMAIL
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_PASSWORD
+              name: "{{ .Values.formsflow.secret }}"
+        - name: WEBSOCKET_ENCRYPT_KEY
+          valueFrom:
+            secretKeyRef:
+              key: WEBSOCKET_ENCRYPT_KEY
+              name: "{{ .Values.formsflow.secret }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:
@@ -53,7 +102,7 @@ spec:
           timeoutSeconds: 3
         name: "{{ .Chart.Name }}"
         ports:
-        - containerPort: 8080
+        - containerPort: {{ int .Values.ingress.port }}
           protocol: TCP
         readinessProbe:
           failureThreshold: 5

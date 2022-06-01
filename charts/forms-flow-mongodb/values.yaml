@@ -1,0 +1,24 @@
+---
+mongodb:
+  arbiter: 
+    containerSecurityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
+  architecture: replicaset
+  auth:
+    databases: 
+      - formsflow 
+    passwords:
+      - mongodb
+    usernames:
+      - mongodb
+  containerSecurityContext:
+    enabled: false
+  service:
+    nameOverride: forms-flow-mongodb
+    ports:
+      mongodb: 27017
+  replicaSetName: forms-flow-mongodb
+  podSecurityContext:
+    enabled: false

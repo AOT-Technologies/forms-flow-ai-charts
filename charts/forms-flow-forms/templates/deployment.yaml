@@ -22,6 +22,10 @@ spec:
       containers:
       - envFrom:
         - configMapRef:
+            name: "{{ .Chart.Name }}" # forms environment variables 
+        - secretRef:
+            name: "{{ .Chart.Name }}" # forms environment secrets
+        - configMapRef:
             name: "{{ .Values.formsflow.configmap }}" # integration environment variables 
         - secretRef:
             name: "{{ .Values.formsflow.secret }}" # integration environment secrets 
@@ -37,7 +41,7 @@ spec:
           timeoutSeconds: 1
         name: {{ .Chart.Name }}
         ports:
-        - containerPort: 3001
+        - containerPort: {{ int .Values.ingress.port }}
         readinessProbe:
           failureThreshold: 10
           initialDelaySeconds: 120

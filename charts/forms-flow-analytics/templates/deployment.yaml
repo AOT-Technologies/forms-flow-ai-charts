@@ -38,7 +38,7 @@ spec:
               command: ["/bin/sh", "-c", "python -v ./manage.py database create_tables"]
         name: "{{ .Chart.Name }}-server"
         ports:
-        - containerPort: 5000
+        - containerPort: {{ int .Values.ingress.port }}
           protocol: TCP
         resources:
           limits:

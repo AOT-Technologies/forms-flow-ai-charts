@@ -1,8 +1,0 @@
----
-apiVersion: v2
-dependencies:
-  - name: forms-flow-webapi-postgresql
-    version: 1.0.0
-name: forms-flow-webapi
-tags: forms-flow-webapi
-version: v1.0.0

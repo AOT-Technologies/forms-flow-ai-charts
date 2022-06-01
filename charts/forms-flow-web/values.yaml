@@ -1,13 +1,12 @@
-app_name: forms-flow-ai #label - deprecate soon
 camunda_url: https://bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com #bpm url 
+keycloak_realm: forms-flow-ai
+keycloak_url: https://idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 cpu_limit: 300m
 cpu_request: 250m
 forms_url: https://formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 image_tag: latest
 image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build
 kc_mount_path: /usr/share/nginx/html/config/kc
-keycloak_realm: forms-flow-ai
-keycloak_url: https://idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
 memory_limit: 200Mi
 memory_request: 100Mi
 mount_path: /usr/share/nginx/html/config/

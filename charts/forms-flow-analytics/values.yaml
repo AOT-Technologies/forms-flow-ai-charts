@@ -1,7 +1,7 @@
 Domain: "apps.devops.aot-technologies.com"
 ingress: 
   enabled: true # create an ingress for this component 
-  port: 7000
+  port: 5000
 
 postgresql:
   auth:
