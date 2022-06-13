@@ -16,6 +16,7 @@ data:
   KEYCLOAK_URL_REALM: {{ index .Values "forms-flow-idm" "realm" }}
   FORMIO_URL: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
   FORMIO_DOMAIN: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
-  WEB_API_URL: "https://forms-flow-webapi-{{.Release.Namespace}}.{{.Values.Domain}}"
+  WEB_API_URL: "https://forms-flow-api-{{.Release.Namespace}}.{{.Values.Domain}}"
   MONGODB_URI: "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"
   NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"}'
+  NODE_ENV: "production"
