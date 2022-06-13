@@ -19,3 +19,9 @@ data:
   WEB_API_URL: "https://forms-flow-webapi-{{.Release.Namespace}}.{{.Values.Domain}}"
   MONGODB_URI: "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"
   NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"}'
+  FORMSFLOW_WEB_URL: "https://forms-flow-web-{{.Release.Namespace}}.{{.Values.Domain}}"
+  FORMSFLOW_ADMIN_URL: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}"
+  MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
+  INSIGHT_API_URL: "https://forms-flow-analytics-{{.Release.Namespace}}.{{.Values.Domain}}"
+  KEYCLOAK_ENABLE_CLIENT_AUTH: "True"
+  MULTI_TENANCY_ENABLED: "True"

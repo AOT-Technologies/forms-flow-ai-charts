@@ -1,4 +1,4 @@
-Domain: "apps.devops.aot-technologies.com"
+Domain: "apps.gitops.aot-technologies.com"
 ingress: 
   enabled: true # create an ingress for this component 
   port: 5000
