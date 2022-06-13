@@ -1,5 +1,5 @@
 ---
-Domain: "apps.gitops.aot-technologies.com"
+Domain: "apps.silver.devops.gov.bc.ca"
 resources:
   limits:
     cpu: 600m
@@ -36,7 +36,7 @@ postgresql:
       enabled: false
     persistence:
       mountPath: /var/lib/pgsql/data
-      storageClass: nfs-client 
+      storageClass: netapp-file-standard 
       size: 1Gi 
     podSecurityContext:
       enabled: false

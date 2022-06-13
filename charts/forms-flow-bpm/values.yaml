@@ -1,4 +1,4 @@
-Domain: "apps.gitops.aot-technologies.com"
+Domain: "apps.silver.devops.gov.bc.ca"
 camunda:
   analytics:
     database: forms-flow-analytics-postgresql
@@ -25,7 +25,7 @@ camunda:
     url: "jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
   websocket:
     messageType: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
-    securityOrigin: "https://*.gitops.aot-technologies.com" #WEBSOCKET_SECURITY_ORIGIN
+    securityOrigin: "https://*.apps.silver.devops.gov.bc.ca" #WEBSOCKET_SECURITY_ORIGIN
 
 image:
   registry: docker.io
@@ -63,7 +63,7 @@ postgresql:
       enabled: false
     persistence:
       mountPath: /var/lib/pgsql/data
-      storageClass: nfs-client 
+      storageClass: netapp-file-standard 
       size: 1Gi 
     podSecurityContext:
       enabled: false

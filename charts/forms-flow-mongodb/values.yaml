@@ -22,3 +22,5 @@ mongodb:
   replicaSetName: forms-flow-mongodb
   podSecurityContext:
     enabled: false
+  persistence:
+    size: 2Gi
