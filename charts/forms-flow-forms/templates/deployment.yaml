@@ -21,14 +21,33 @@ spec:
     spec:
       containers:
       - envFrom:
-        - configMapRef:
-            name: "{{ .Chart.Name }}" # forms environment variables 
-        - secretRef:
-            name: "{{ .Chart.Name }}" # forms environment secrets
-        - configMapRef:
-            name: "{{ .Values.formsflow.configmap }}" # integration environment variables 
-        - secretRef:
-            name: "{{ .Values.formsflow.secret }}" # integration environment secrets 
+        env:
+        - name: NODE_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              key: NODE_CONFIG
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: ROOT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_EMAIL
+              name: "{{ .Values.formsflow.secret }}"
+        - name: ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_PASSWORD
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_JWT_SECRET
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_DOMAIN
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_DOMAIN
+              name: "{{ .Values.formsflow.configmap }}"
+        
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:
