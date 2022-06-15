@@ -75,7 +75,7 @@ spec:
         - name: REACT_APP_CAMUNDA_API_URI
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URL
+              key: CAMUNDA_API_URI
               name: "{{ .Values.formsflow.configmap }}"
         - name: REACT_APP_KEYCLOAK_CLIENT
           valueFrom:
@@ -86,7 +86,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: WEB_API_URL
-              name: "{{ .Chart.Name }}"
+              name: "{{ .Values.formsflow.configmap }}"
         - name: REACT_APP_ANONYMOUS_ID
           valueFrom:
             configMapKeyRef:
@@ -109,12 +109,12 @@ spec:
               name: "{{ .Values.analytics.configmap }}"
         - name: REACT_APP_INSIGHTS_API_KEY
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: REDASH_SECRET_KEY
               name: "{{ .Values.analytics.secret }}"
         - name: REACT_APP_WEBSOCKET_ENCRYPT_KEY
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: WEBSOCKET_ENCRYPT_KEY
               name: "{{ .Values.formsflow.secret }}"
         - name: REACT_APP_KEYCLOAK_URL_REALM
@@ -129,17 +129,16 @@ spec:
               name: "{{ .Values.formsflow.configmap }}"
         - name: REACT_APP_FORMIO_JWT_SECRET
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: FORMIO_JWT_SECRET
               name: "{{ .Values.formsflow.secret }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         lifecycle:
           postStart:
             exec:
-              command:
-              - "envsubst < /tmp/{{.Chart.Name}}-keycloak-config.template > {{.Values.kc_config_path}}/{{.Chart.Name}}-keycloak-config;"
-              - "envsubst < /tmp/{{.Chart.Name}}-config.template > {{.Values.config_path}}/{{.Chart.Name}}-config;"
-              - "nginx -g daemon off;"
+              command: ["/bin/sh", "-c", "mkdir -p {{.Values.kc_config_path}}; \
+                                              envsubst < /tmp/{{.Chart.Name}}-keycloak-config.template/keycloak.json > {{.Values.kc_config_path}}/{{.Chart.Name}}-keycloak-config; \
+                                              envsubst < /tmp/{{.Chart.Name}}-config.template/config.js > {{.Values.config_path}}/{{.Chart.Name}}-config;" ]
         imagePullPolicy: Always
         name: {{ .Chart.Name }}
         ports:
@@ -166,7 +165,7 @@ spec:
       volumes:
       - configMap:
           defaultMode: 420
-          name: {{ .Chart.Name }}-keycloak-config
+          name: {{ .Chart.Name }}-keycloak-config.template
         name: {{ .Chart.Name }}-keycloak-config-template
       - configMap:
           defaultMode: 420
