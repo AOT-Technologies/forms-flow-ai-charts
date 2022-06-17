@@ -22,11 +22,11 @@ spec:
     spec:
       containers:
       - env:
-        - name: DATABASE_URL
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_URL
-              name: "{{ .Chart.Name }}"
+        # - name: DATABASE_URL
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       key: DATABASE_URL
+        #       name: "{{ .Chart.Name }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:
@@ -62,48 +62,17 @@ spec:
             configMapKeyRef:
               key: KEYCLOAK_JWT_OIDC_CONFIG
               name: "{{ .Values.formsflow.configmap }}"
-        - name: KEYCLOAK_URL
+        - name: DATABASE_SUPPORT
           valueFrom:
             configMapKeyRef:
-              key: KEYCLOAK_URL
-              name: "{{ .Values.formsflow.configmap }}"
-        - name: FORMSFLOW_WEB_URL
+              key: DATABASE_SUPPORT
+              name: "{{ .Chart.Name }}"
+        - name: MODEL_ID
           valueFrom:
             configMapKeyRef:
-              key: FORMSFLOW_WEB_URL
+              key: MODEL_ID
               name: "{{ .Values.formsflow.configmap }}"
-        - name: KEYCLOAK_URL_REALM
-          valueFrom:
-            configMapKeyRef:
-              key: KEYCLOAK_URL_REALM
-              name: "{{ .Values.formsflow.configmap }}"
-        - name: INSIGHT_API_URL
-          valueFrom:
-            configMapKeyRef:
-              key: INSIGHT_API_URL
-              name: "{{ .Values.formsflow.configmap }}"
-        - name: INSIGHT_API_KEY
-          valueFrom:
-            secretKeyRef:
-              key: REDASH_SECRET_KEY
-              name: "{{ .Values.formsflow.analytics }}"
-        - name: CAMUNDA_API_URI
-          valueFrom:
-            configMapKeyRef:
-              key: CAMUNDA_API_URI
-              name: "{{ .Values.formsflow.configmap }}"
-        - name: KEYCLOAK_ADMIN_CLIENT
-          valueFrom:
-            secretKeyRef:
-              key: KEYCLOAK_CLIENTID
-              name: "{{ .Values.formsflow.secret }}"
-        - name: KEYCLOAK_ADMIN_SECRET
-          valueFrom:
-            secretKeyRef:
-              key: KEYCLOAK_CLIENTSECRET
-              name: "{{ .Values.formsflow.secret }}"
-        - name: FORMSFLOW_ADMIN_API_CORS_ORIGINS
-          value: '*'
+
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         name: "{{ .Chart.Name }}"
         ports:

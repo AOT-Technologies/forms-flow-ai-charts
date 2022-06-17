@@ -25,3 +25,4 @@ data:
   INSIGHT_API_URL: "https://forms-flow-analytics-{{.Release.Namespace}}.{{.Values.Domain}}"
   KEYCLOAK_ENABLE_CLIENT_AUTH: "True"
   MULTI_TENANCY_ENABLED: "True"
+  DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{.Values.Domain}}"

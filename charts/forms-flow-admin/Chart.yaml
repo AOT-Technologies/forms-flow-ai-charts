@@ -4,6 +4,6 @@ dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
     version: 11.1.20
-name: forms-flow-api
-tags: forms-flow-api
+name: forms-flow-admin
+tags: forms-flow-admin
 version: v1.0.0

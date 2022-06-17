@@ -88,6 +88,11 @@ spec:
             secretKeyRef:
               key: WEBSOCKET_ENCRYPT_KEY
               name: "{{ .Values.formsflow.secret }}"
+        - name: DATA_ANALYSIS_URL
+          valueFrom:
+            configMapKeyRef:
+              key: DATA_ANALYSIS_URL
+              name: "{{ .Values.formsflow.configmap }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:

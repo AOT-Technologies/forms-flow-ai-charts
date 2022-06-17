@@ -1,0 +1,21 @@
+---
+Domain: "apps.gitops.aot-technologies.com"
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
+formsflow:
+  configmap: forms-flow-ai # name of formsflow.ai configmap
+  secret: forms-flow-ai #name of formsflow.ai secret
+ingress: 
+  enabled: true # create an ingress for this component 
+  port: 5000
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-data-analysis-api
+  tag: v4.0.6-alpha #The image tag to pull from
+

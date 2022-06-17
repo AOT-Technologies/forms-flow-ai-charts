@@ -2,10 +2,10 @@
 Domain: "apps.gitops.aot-technologies.com"
 resources:
   limits:
-    cpu: 600m
+    cpu: 500m
     memory: 1Gi
   requests:
-    cpu: 500m
+    cpu: 250m
     memory: 512Mi
 
 formsflow:
@@ -17,26 +17,25 @@ ingress:
   port: 5000
 image:
   registry: docker.io
-  repository: formsflow/forms-flow-webapi
-  tag: v4.0.6-alpha #The image tag to pull from
+  repository: formsflow/forms-flow-ai-admin
+  tag: v1.0.0-alpha #The image tag to pull from
 
 postgresql:
   auth:
-    database: forms-flow-api # name for custom database to create
+    database: forms-flow-admin # name for custom database to create
     postgresPassword: postgres # password for the "postgres" admin user
-    password: forms-flow-api  # password for the custom user to create
-    username: forms-flow-api  # name for a custom user to create
+    password: forms-flow-admin  # password for the custom user to create
+    username: forms-flow-admin  # name for a custom user to create
   image:
     registry: docker.io
     repository: bitnami/postgresql
     tag: 14.2.0-debian-10-r57
-  fullnameoverride: "forms-flow-api-postgresql"
+  fullnameoverride: "forms-flow-admin-postgresql"
   primary:
     containerSecurityContext:
       enabled: false
     persistence:
       mountPath: /var/lib/pgsql/data
-      storageClass: nfs-client 
       size: 1Gi 
     podSecurityContext:
       enabled: false
