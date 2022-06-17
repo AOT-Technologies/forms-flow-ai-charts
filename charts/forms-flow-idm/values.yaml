@@ -83,7 +83,7 @@ keycloak:
     enabled: true
     extraTls:
       - {}
-    hostname: "forms-flow-idm-formsflow-ai.apps.gitops.aot-technologies.com"
+    hostname: "forms-flow-idm-formsflow-ai.apps.devops.aot-technologies.com"
     path: /auth
     pathType: Prefix
     servicePort: http

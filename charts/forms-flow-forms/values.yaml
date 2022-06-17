@@ -1,4 +1,4 @@
-Domain: "apps.gitops.aot-technologies.com"
+Domain: "apps.devops.aot-technologies.com"
 admin:
   email: "me@defineme.com"
   password: "admin"
@@ -8,7 +8,7 @@ formsflow:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-forms
-  tag: v4.0.6-alpha #The image tag to pull from
+  tag: latest #The image tag to pull from
 
 ingress: 
   enabled: true # create an ingress for this component 

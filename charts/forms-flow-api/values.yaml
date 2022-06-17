@@ -1,5 +1,5 @@
 ---
-Domain: "apps.gitops.aot-technologies.com"
+Domain: "apps.devops.aot-technologies.com"
 resources:
   limits:
     cpu: 600m
@@ -18,7 +18,7 @@ ingress:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-webapi
-  tag: v4.0.6-alpha #The image tag to pull from
+  tag: latest #The image tag to pull from
 
 postgresql:
   auth:
