@@ -4,7 +4,7 @@ keycloak_url: https://idm-{{ .Release.Namespace }}.apps.gitops.aot-technologies.
 cpu_limit: 300m
 cpu_request: 250m
 forms_url: https://formio-{{ .Release.Namespace }}.apps.gitops.aot-technologies.com
-image_tag: latest
+image_tag: v4.0.6-alpha
 image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build
 kc_mount_path: /usr/share/nginx/html/config/kc
 memory_limit: 200Mi
