@@ -28,7 +28,7 @@ forms-flow-idm:
   keycloak:
     ingress:
       enabled: true
-      hostname: "forms-flow-idm-formsflow-ai.apps.gitops.aot-technologies.com"
+      hostname: "forms-flow-idm-forms-flow-ai.apps.gitops.aot-technologies.com"
   realm: forms-flow-ai
 forms-flow-web:
   clientid: forms-flow-web

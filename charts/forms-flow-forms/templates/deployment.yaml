@@ -47,7 +47,6 @@ spec:
             configMapKeyRef:
               key: FORMIO_DOMAIN
               name: "{{ .Values.formsflow.configmap }}"
-        
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:

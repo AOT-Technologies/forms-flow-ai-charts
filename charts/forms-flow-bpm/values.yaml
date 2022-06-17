@@ -1,4 +1,4 @@
-Domain: "apps.gitops.aot-technologies.com"
+Domain: "apps.devops.aot-technologies.com"
 camunda:
   analytics:
     database: forms-flow-analytics-postgresql

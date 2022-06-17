@@ -6,3 +6,4 @@ metadata:
     app: "{{ .Chart.Name }}"
   name: "{{ .Chart.Name }}"
 data:
+  REDASH_HOST: "{{ .Values.ingress.url }}"

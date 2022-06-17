@@ -1,0 +1,175 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Chart.Name }}"
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}"
+    spec:
+      containers:
+      - env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              key: NODE_ENV
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_CLIENT_ROLE
+          valueFrom:
+            configMapKeyRef:
+              key: CLIENT_ROLE
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_STAFF_DESIGNER_ROLE
+          valueFrom:
+            configMapKeyRef:
+              key: STAFF_DESIGNER_ROLE
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_STAFF_REVIEWER_ROLE
+          valueFrom:
+            configMapKeyRef:
+              key: STAFF_REVIEWER_ROLE
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              key: CLIENT_ID
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_STAFF_REVIEWER_ID
+          valueFrom:
+            configMapKeyRef:
+              key: STAFF_REVIEWER_ID
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_STAFF_DESIGNER_ID
+          valueFrom:
+            configMapKeyRef:
+              key: STAFF_DESIGNER_ID
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_USER_RESOURCE_FORM_ID
+          valueFrom:
+            configMapKeyRef:
+              key: USER_RESOURCE_FORM_ID
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_API_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_API_PROJECT_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_CAMUNDA_API_URI
+          valueFrom:
+            configMapKeyRef:
+              key: CAMUNDA_API_URI
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_KEYCLOAK_CLIENT
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_CLIENT
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_WEB_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: WEB_API_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_ANONYMOUS_ID
+          valueFrom:
+            configMapKeyRef:
+              key: ANONYMOUS_ID
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: APPLICATION_NAME
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_USER_ACCESS_PERMISSIONS
+          valueFrom:
+            configMapKeyRef:
+              key: USER_ACCESS_PERMISSIONS
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_INSIGHTS_API_BASE
+          valueFrom:
+            configMapKeyRef:
+              key: REDASH_HOST
+              name: "{{ .Values.analytics.configmap }}"
+        - name: REACT_APP_INSIGHTS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_SECRET_KEY
+              name: "{{ .Values.analytics.secret }}"
+        - name: REACT_APP_WEBSOCKET_ENCRYPT_KEY
+          valueFrom:
+            secretKeyRef:
+              key: WEBSOCKET_ENCRYPT_KEY
+              name: "{{ .Values.formsflow.secret }}"
+        - name: REACT_APP_KEYCLOAK_URL_REALM
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL_REALM
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_KEYCLOAK_URL
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_FORMIO_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_JWT_SECRET
+              name: "{{ .Values.formsflow.secret }}"
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "mkdir -p {{.Values.kc_config_path}}; \
+                                              envsubst < /tmp/{{.Chart.Name}}-keycloak-config.template/keycloak.json > {{.Values.kc_config_path}}/{{.Chart.Name}}-keycloak-config; \
+                                              envsubst < /tmp/{{.Chart.Name}}-config.template/config.js > {{.Values.config_path}}/{{.Chart.Name}}-config;" ]
+        imagePullPolicy: Always
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: {{ int .Values.ingress.port }}
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "{{ .Values.resources.limits.cpu }}"
+            memory: "{{ .Values.resources.limits.memory }}"
+          requests:
+            cpu: "{{ .Values.resources.requests.cpu }}"
+            memory: "{{ .Values.resources.requests.memory }}"
+        tty: true
+        volumeMounts:
+        - mountPath: {{.Values.config_path}}
+          name: tmpfs
+        - mountPath: /tmp/{{ .Chart.Name }}-keycloak-config.template
+          name: {{ .Chart.Name }}-keycloak-config-template
+          readOnly: true
+        - mountPath: /tmp/{{ .Chart.Name }}-config.template
+          name: {{ .Chart.Name }}-config-template
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: {{ .Chart.Name }}-keycloak-config.template
+        name: {{ .Chart.Name }}-keycloak-config-template
+      - configMap:
+          defaultMode: 420
+          name: {{ .Chart.Name }}-config.template
+        name: {{ .Chart.Name }}-config-template
+      - emptyDir: {}
+        name: tmpfs

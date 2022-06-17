@@ -1,14 +1,35 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Values.app_name }}
-  name: {{ .Chart.Name }}-keycloak-config
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+data:
+  CLIENT_ROLE: "formsflow-client"
+  STAFF_DESIGNER_ROLE: "formsflow-designer"
+  STAFF_REVIEWER_ROLE: "formsflow-reviewer"
+  ANONYMOUS_ID: "61856bbc69b6301d70977ae1"
+  STAFF_REVIEWER_ID: "61856bbc69b630461b977ae2"
+  CLIENT_ID: "61856bbc69b630461b977ae3"
+  USER_RESOURCE_FORM_ID: "61856bbc69b6301d70977ae4"
+  STAFF_DESIGNER_ID: "61856bbc69b630f304977adf"
+  KEYCLOAK_CLIENT: "{{ .Chart.Name }}"
+  APPLICATION_NAME: "{{ .Chart.Name }}"
+  USER_ACCESS_PERMISSIONS: '{ accessAllowApplications:false, accessAllowSubmissions:false }'
+  
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ .Chart.Name }}-keycloak-config.template
+  name: {{ .Chart.Name }}-keycloak-config.template
 data:
   keycloak.json: |-
     {
-      "realm": "{{ .Values.keycloak_realm }}",
-      "auth-server-url": "{{ tpl .Values.keycloak_url . }}/auth",
+      "realm": "${REACT_APP_KEYCLOAK_URL_REALM}",
+      "auth-server-url": "${REACT_APP_KEYCLOAK_URL}/auth",
       "ssl-required": "external",
       "resource": "forms-flow-web",
       "public-client": true,
@@ -21,32 +42,32 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}-config.template
+  name: {{ .Chart.Name }}-config.template
 data:
   config.js: |-
     // runtime-config.js vars
       window["_env_"] =  {
-        "NODE_ENV": "production",
-        "REACT_APP_CLIENT_ROLE": "formsflow-client",
-        "REACT_APP_STAFF_DESIGNER_ROLE": "formsflow-designer",
-        "REACT_APP_STAFF_REVIEWER_ROLE": "formsflow-reviewer",
-        "REACT_APP_CLIENT_ID": "{{ .Values.react_app_client_id }}",
-        "REACT_APP_STAFF_REVIEWER_ID": "{{ .Values.react_app_staff_reviewer_id }}",
-        "REACT_APP_STAFF_DESIGNER_ID": "{{ .Values.react_app_staff_designer_id }}",
-        "REACT_APP_USER_RESOURCE_FORM_ID": "{{ .Values.react_app_user_resource_form_id }}",
-        "REACT_APP_API_SERVER_URL": "{{ tpl .Values.forms_url . }}",
-        "REACT_APP_API_PROJECT_URL": "{{ tpl .Values.forms_url . }}",
-        "REACT_APP_CAMUNDA_API_URI": "{{ tpl .Values.camunda_url . }}/camunda",
-        "REACT_APP_KEYCLOAK_CLIENT": "forms-flow-web",
-        "REACT_APP_WEB_BASE_URL": "{{ tpl .Values.web_api_url . }}",
-        "REACT_APP_ANONYMOUS_ID": "{{ .Values.react_app_anonymous_id }}",
-        "REACT_APP_INSIGHT_API_BASE": "{{ .Values.redash_url }}",
-        "REACT_APP_INSIGHTS_API_KEY": "{{ .Values.redash_secret_key }}",
-        "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "{{ .Values.react_app_websocket_encrypt_key }}",
-        "REACT_APP_KEYCLOAK_URL_REALM": "{{ .Values.keycloak_realm }}",
-        "REACT_APP_KEYCLOAK_URL": "{{ tpl .Values.keycloak_url . }}",
-        "REACT_APP_APPLICATION_NAME": "{{ .Chart.Name }}",
-        "REACT_APP_USER_ACCESS_PERMISSIONS": { accessAllowApplications:false, accessAllowSubmissions:false },
-        "REACT_APP_FORMIO_JWT_SECRET": "{{ .Release.Namespace }}-jwt-secret" 
+        "NODE_ENV": "${NODE_ENV}",
+        "REACT_APP_CLIENT_ROLE": "${REACT_APP_CLIENT_ROLE}",
+        "REACT_APP_STAFF_DESIGNER_ROLE": "${REACT_APP_STAFF_DESIGNER_ROLE}",
+        "REACT_APP_STAFF_REVIEWER_ROLE": "${REACT_APP_STAFF_REVIEWER_ROLE}",
+        "REACT_APP_CLIENT_ID": "${REACT_APP_CLIENT_ID}",
+        "REACT_APP_STAFF_REVIEWER_ID": "${REACT_APP_STAFF_REVIEWER_ID}",
+        "REACT_APP_STAFF_DESIGNER_ID": "${REACT_APP_STAFF_DESIGNER_ID}",
+        "REACT_APP_USER_RESOURCE_FORM_ID": "${REACT_APP_USER_RESOURCE_FORM_ID}",
+        "REACT_APP_API_SERVER_URL": "${REACT_APP_API_SERVER_URL}",
+        "REACT_APP_API_PROJECT_URL": "${REACT_APP_API_PROJECT_URL}", 
+        "REACT_APP_CAMUNDA_API_URI": "${REACT_APP_CAMUNDA_API_URI}", 
+        "REACT_APP_KEYCLOAK_CLIENT": "${REACT_APP_KEYCLOAK_CLIENT}", 
+        "REACT_APP_WEB_BASE_URL": "${REACT_APP_WEB_BASE_URL}", 
+        "REACT_APP_ANONYMOUS_ID": "${REACT_APP_ANONYMOUS_ID}", 
+        "REACT_APP_INSIGHT_API_BASE": "${REACT_APP_INSIGHT_API_BASE}", 
+        "REACT_APP_INSIGHTS_API_KEY": "${REACT_APP_INSIGHTS_API_KEY}", 
+        "REACT_APP_WEBSOCKET_ENCRYPT_KEY": "${REACT_APP_WEBSOCKET_ENCRYPT_KEY}", 
+        "REACT_APP_KEYCLOAK_URL_REALM": "${REACT_APP_KEYCLOAK_URL_REALM}", 
+        "REACT_APP_KEYCLOAK_URL": "${REACT_APP_KEYCLOAK_URL}",
+        "REACT_APP_APPLICATION_NAME": "${REACT_APP_APPLICATION_NAME}",
+        "REACT_APP_USER_ACCESS_PERMISSIONS": "${REACT_APP_USER_ACCESS_PERMISSIONS}",
+        "REACT_APP_FORMIO_JWT_SECRET": "${REACT_APP_FORMIO_JWT_SECRET}",
       }
