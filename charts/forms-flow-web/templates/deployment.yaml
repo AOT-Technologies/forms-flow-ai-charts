@@ -132,6 +132,12 @@ spec:
             secretKeyRef:
               key: FORMIO_JWT_SECRET
               name: "{{ .Values.formsflow.secret }}"
+        - name: REACT_APP_MT_ADMIN_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMSFLOW_ADMIN_BASE
+              name: "{{ .Values.formsflow.configmap }}"
+
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         lifecycle:
           postStart:
