@@ -122,6 +122,21 @@ spec:
             configMapKeyRef:
               key: MULTI_TENANCY_ENABLED
               name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMIO_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMIO_ROOT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_EMAIL
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_PASSWORD
+              name: "{{ .Values.formsflow.secret }}"
 
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'

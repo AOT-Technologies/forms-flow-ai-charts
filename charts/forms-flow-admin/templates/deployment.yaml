@@ -102,6 +102,21 @@ spec:
             secretKeyRef:
               key: KEYCLOAK_CLIENTSECRET
               name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_ROOT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_EMAIL
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_PASSWORD
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_URL
+              name: "{{ .Values.formsflow.configmap }}"
         - name: FORMSFLOW_ADMIN_API_CORS_ORIGINS
           value: '*'
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
