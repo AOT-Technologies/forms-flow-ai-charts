@@ -19,7 +19,7 @@ resources:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-web
-  tag: latest
+  tag: v5.0.0-alpha
 kc_config_path: /usr/share/nginx/html/config/kc
 config_path: /usr/share/nginx/html/config/
 redash_secret_key: c2FY1BNNNGQP1sjaKGNIu8wXai1irSKqRIv3h1nb 

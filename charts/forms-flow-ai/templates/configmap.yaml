@@ -24,7 +24,7 @@ data:
   FORMSFLOW_ADMIN_BASE: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}/api"
   MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
   INSIGHT_API_URL: "https://forms-flow-analytics-{{.Release.Namespace}}.{{.Values.Domain}}"
-  KEYCLOAK_ENABLE_CLIENT_AUTH: "False"
+  KEYCLOAK_ENABLE_CLIENT_AUTH: "True"
   MULTI_TENANCY_ENABLED: "False"
   DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{.Values.Domain}}"
   NODE_ENV: "production"
