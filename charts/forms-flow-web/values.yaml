@@ -1,5 +1,5 @@
 ---
-Domain: "apps.devops.aot-technologies.com"
+Domain: "apps.gitops.aot-technologies.com"
 analytics:
   configmap: forms-flow-analytics # name of formsflow analytics configmap
   secret: forms-flow-analytics #name of formsflow analytics secret 

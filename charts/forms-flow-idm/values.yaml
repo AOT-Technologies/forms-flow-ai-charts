@@ -1,4 +1,5 @@
 ---
+Domain: apps.gitops.aot-technologies.com
 keycloak:
   extraEnvVars: 
     - name: KEYCLOAK_ADMIN_USER
@@ -8,7 +9,7 @@ keycloak:
     - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
       value: "true"
     - name: KEYCLOAK_FRONTEND_URL
-      value: "https://{{ tpl .Values.ingress.hostname . }}/auth"
+      value: "https://{{tpl .Values.ingress.hostname .}}/auth"
     - name: JAVA_OPTS
       value: >-
         -Dkeycloak.profile.feature.scripts=enabled
@@ -45,8 +46,7 @@ keycloak:
       containerSecurityContext:
         enabled: false
       persistence:
-        mountPath: /var/lib/pgsql/data
-        storageClass: nfs-client 
+        storageClass: ""
         size: 2Gi 
       podSecurityContext:
         enabled: false
@@ -83,7 +83,7 @@ keycloak:
     enabled: true
     extraTls:
       - {}
-    hostname: "forms-flow-idm-formsflow-ai.apps.devops.aot-technologies.com"
+    hostname: forms-flow-idm-cberg-test.apps.gitops.aot-technologies.com
     path: /auth
     pathType: Prefix
     servicePort: http
