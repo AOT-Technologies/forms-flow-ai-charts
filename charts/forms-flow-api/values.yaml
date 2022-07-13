@@ -1,5 +1,5 @@
 ---
-Domain: "apps.devops.aot-technologies.com"
+Domain: "apps.gitops.aot-technologies.com"
 resources:
   limits:
     cpu: 600m
@@ -34,8 +34,7 @@ postgresql:
     containerSecurityContext:
       enabled: false
     persistence:
-      mountPath: /var/lib/pgsql/data
-      storageClass: nfs-client 
+      storageClass: ""
       size: 1Gi 
     podSecurityContext:
       enabled: false
