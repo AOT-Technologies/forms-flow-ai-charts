@@ -6,4 +6,4 @@ metadata:
     app: "{{ .Chart.Name }}"
   name: "{{ .Chart.Name }}"
 data:
-  REDASH_HOST: "{{ .Values.ingress.url }}"
+  REDASH_HOST: "{{ tpl .Values.ingress.hostname . }}"
