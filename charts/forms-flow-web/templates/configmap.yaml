@@ -16,27 +16,8 @@ data:
   STAFF_DESIGNER_ID: "61856bbc69b630f304977adf"
   KEYCLOAK_CLIENT: "{{ .Chart.Name }}"
   APPLICATION_NAME: "{{ .Chart.Name }}"
-  USER_ACCESS_PERMISSIONS: '{ accessAllowApplications:false, accessAllowSubmissions:false }'
+  USER_ACCESS_PERMISSIONS: ''
   
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  labels:
-    app: {{ .Chart.Name }}-keycloak-config.template
-  name: {{ .Chart.Name }}-keycloak-config.template
-data:
-  keycloak.json: |-
-    {
-      "realm": "${REACT_APP_KEYCLOAK_URL_REALM}",
-      "auth-server-url": "${REACT_APP_KEYCLOAK_URL}/auth",
-      "ssl-required": "external",
-      "resource": "forms-flow-web",
-      "public-client": true,
-      "verify-token-audience": true,
-      "use-resource-role-mappings": true,
-      "confidential-port": 0
-    }
 ---
 apiVersion: v1
 kind: ConfigMap
