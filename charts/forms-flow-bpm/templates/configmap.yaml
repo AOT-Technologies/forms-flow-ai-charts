@@ -20,6 +20,7 @@ data:
   WAIT_FOR: " {{ .Values.waitFor }}"  
   WEBSOCKET_MESSAGE_TYPE: "{{ .Values.camunda.websocket.messageType }}"
   WEBSOCKET_SECURITY_ORIGIN: "{{ .Values.camunda.websocket.securityOrigin }}"
+  BPM_BASE_URL: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}"
 kind: ConfigMap
 metadata:
   labels:

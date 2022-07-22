@@ -11,7 +11,7 @@ data:
   KEYCLOAK_JWT_OIDC_CONFIG: https://{{ index .Values "forms-flow-idm" "keycloak" "ingress" "hostname"  }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/.well-known/openid-configuration
   KEYCLOAK_JWT_OIDC_ISSUER: https://{{ index .Values "forms-flow-idm" "keycloak" "ingress" "hostname"  }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}
   KEYCLOAK_JWT_OIDC_JWKS_URI: https://{{ index .Values "forms-flow-idm" "keycloak" "ingress" "hostname"  }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/certs
-  KEYCLOAK_TOKEN_URL: https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}/auth/realms/{{ index .Values "forms-flow-idm" "keycloak" "ingress" "hostname"  }}/protocol/openid-connect/token
+  KEYCLOAK_TOKEN_URL: https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/token
   KEYCLOAK_URL: "https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}"
   KEYCLOAK_URL_REALM: {{ index .Values "forms-flow-idm" "realm" }}
   FORMIO_URL: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
@@ -19,4 +19,12 @@ data:
   WEB_API_URL: "https://forms-flow-api-{{.Release.Namespace}}.{{.Values.Domain}}"
   MONGODB_URI: "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"
   NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"}'
+  FORMSFLOW_WEB_URL: "https://forms-flow-web-{{.Release.Namespace}}.{{.Values.Domain}}"
+  FORMSFLOW_ADMIN_URL: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}/api/v1"
+  FORMSFLOW_ADMIN_BASE: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}/api"
+  MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
+  INSIGHT_API_URL: "https://forms-flow-analytics-{{.Release.Namespace}}.{{.Values.Domain}}"
+  KEYCLOAK_ENABLE_CLIENT_AUTH: "True"
+  MULTI_TENANCY_ENABLED: "False"
+  DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{.Values.Domain}}"
   NODE_ENV: "production"

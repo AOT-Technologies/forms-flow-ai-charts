@@ -102,16 +102,6 @@ spec:
             configMapKeyRef:
               key: USER_ACCESS_PERMISSIONS
               name: "{{ .Chart.Name }}"
-        - name: REACT_APP_INSIGHTS_API_BASE
-          valueFrom:
-            configMapKeyRef:
-              key: REDASH_HOST
-              name: "{{ .Values.analytics.configmap }}"
-        - name: REACT_APP_INSIGHTS_API_KEY
-          valueFrom:
-            secretKeyRef:
-              key: REDASH_SECRET_KEY
-              name: "{{ .Values.analytics.secret }}"
         - name: REACT_APP_WEBSOCKET_ENCRYPT_KEY
           valueFrom:
             secretKeyRef:
@@ -132,13 +122,18 @@ spec:
             secretKeyRef:
               key: FORMIO_JWT_SECRET
               name: "{{ .Values.formsflow.secret }}"
+        - name: REACT_APP_MT_ADMIN_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMSFLOW_ADMIN_BASE
+              name: "{{ .Values.formsflow.configmap }}"
+
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "mkdir -p {{.Values.kc_config_path}}; \
-                                              envsubst < /tmp/{{.Chart.Name}}-keycloak-config.template/keycloak.json > {{.Values.kc_config_path}}/{{.Chart.Name}}-keycloak-config; \
-                                              envsubst < /tmp/{{.Chart.Name}}-config.template/config.js > {{.Values.config_path}}/{{.Chart.Name}}-config;" ]
+              command: ["/bin/sh", "-c", "\
+                                              envsubst < /tmp/{{.Chart.Name}}-config.template/config.js > {{.Values.config_path}}/config.js;" ]
         imagePullPolicy: Always
         name: {{ .Chart.Name }}
         ports:
@@ -155,18 +150,11 @@ spec:
         volumeMounts:
         - mountPath: {{.Values.config_path}}
           name: tmpfs
-        - mountPath: /tmp/{{ .Chart.Name }}-keycloak-config.template
-          name: {{ .Chart.Name }}-keycloak-config-template
-          readOnly: true
         - mountPath: /tmp/{{ .Chart.Name }}-config.template
           name: {{ .Chart.Name }}-config-template
           readOnly: true
       restartPolicy: Always
       volumes:
-      - configMap:
-          defaultMode: 420
-          name: {{ .Chart.Name }}-keycloak-config.template
-        name: {{ .Chart.Name }}-keycloak-config-template
       - configMap:
           defaultMode: 420
           name: {{ .Chart.Name }}-config.template
