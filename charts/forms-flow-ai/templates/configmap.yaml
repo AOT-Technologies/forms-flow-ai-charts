@@ -4,15 +4,27 @@ kind: ConfigMap
 metadata:
   name: {{ .Chart.Name }}
 data:
-  CAMUNDA_API_URI: "https://{{ tpl .Values.camunda_bpm_url . }}/camunda"
-  FORMIO_DEBUG: "formio:*"
+  CAMUNDA_API_URI: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}/camunda"
   KEYCLOAK_JWT_OIDC_ALGORITHMS: "RS256"
   KEYCLOAK_JWT_OIDC_CACHING_ENABLED: "True"
-  KEYCLOAK_JWT_OIDC_CONFIG: "https://{{ tpl .Values.keycloak_url . }}/auth/realms/{{ .Values.keycloak_realm }}/.well-known/openid-configuration"
-  KEYCLOAK_JWT_OIDC_ISSUER: "https://{{ tpl .Values.keycloak_url . }}/auth/realms/{{ .Values.keycloak_realm }}"
   KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT: "300"
-  KEYCLOAK_JWT_OIDC_JWKS_URI: "https://{{ tpl .Values.keycloak_url . }}/auth/realms/{{ .Values.keycloak_realm }}/protocol/openid-connect/certs"
-  KEYCLOAK_TOKEN_URL: "https://{{ tpl .Values.keycloak_url . }}/auth/realms/{{ .Values.keycloak_realm }}/protocol/openid-connect/token"
-  WEB_API_BASE_URL: "https://{{ tpl .Values.web_api_url . }}"
-  KEYCLOAK_URL: "https://{{ .Values.keycloak_url . }}"
-  FORMIO_URL: "https://{{ .Values.formio_url . }}"
+  KEYCLOAK_JWT_OIDC_CONFIG: https://{{ index .Values "forms-flow-idm" "keycloak" "ingress" "hostname"  }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/.well-known/openid-configuration
+  KEYCLOAK_JWT_OIDC_ISSUER: https://{{ index .Values "forms-flow-idm" "keycloak" "ingress" "hostname"  }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}
+  KEYCLOAK_JWT_OIDC_JWKS_URI: https://{{ index .Values "forms-flow-idm" "keycloak" "ingress" "hostname"  }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/certs
+  KEYCLOAK_TOKEN_URL: https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/token
+  KEYCLOAK_URL: "https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}"
+  KEYCLOAK_URL_REALM: {{ index .Values "forms-flow-idm" "realm" }}
+  FORMIO_URL: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
+  FORMIO_DOMAIN: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
+  WEB_API_URL: "https://forms-flow-api-{{.Release.Namespace}}.{{.Values.Domain}}"
+  MONGODB_URI: "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"
+  NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}?replicaSet={{ .Values.mongodb.replicaSetName }}"}'
+  FORMSFLOW_WEB_URL: "https://forms-flow-web-{{.Release.Namespace}}.{{.Values.Domain}}"
+  FORMSFLOW_ADMIN_URL: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}/api/v1"
+  FORMSFLOW_ADMIN_BASE: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}/api"
+  MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
+  INSIGHT_API_URL: "https://forms-flow-analytics-{{.Release.Namespace}}.{{.Values.Domain}}"
+  KEYCLOAK_ENABLE_CLIENT_AUTH: "True"
+  MULTI_TENANCY_ENABLED: "False"
+  DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{.Values.Domain}}"
+  NODE_ENV: "production"

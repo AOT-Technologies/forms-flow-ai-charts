@@ -1,13 +1,73 @@
-analytics_db_resource_name: forms-flow-analytics-postgresql
-analytics_url: analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-cpu_limit: 1
-cpu_request: 500m
-image_tag: latest
-image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build-redash
-imagestream_name: forms-flow-analytics.build-redash
-memory_limit: 2Gi
-memory_request: 256Mi
-redash_database_url: postgresql://postgres:postgresql@forms-flow-analytics-postgresql:5432/postgres
-redash_host: analytics-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-redash_image_src: https://github.com/AOT-Technologies/redash
-redash_redis_url: redis://redash-redis:6379/0
+Domain: "apps.gitops.aot-technologies.com"
+ingress: 
+  enabled: true # create an ingress for this component
+  hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"
+  port: 5000
+
+postgresql:
+  auth:
+    database: forms-flow-analytics # Name for custom database to create
+    postgresPassword: postgres # Password for the "postgres" admin user
+    password: forms-flow-analytics  # Password for the custom user to create
+    userName: forms-flow-analytics  # Name for a custom user to create
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 14.2.0-debian-10-r57
+  fullnameOverride: "forms-flow-analytics-postgresql"
+  primary:
+    containerSecurityContext:
+      enabled: false
+    persistence:
+      storageClass: ""
+      size: 1Gi 
+    podSecurityContext:
+      enabled: false
+    service:
+      ports:
+        postgresql: 5432  # PostgreSQL service port
+    shmVolume:
+      chmod:
+        enabled: false
+  volumePermissions:
+    containerSecurityContext:
+      runAsUser: "auto"
+
+redisExporter:
+  exporter:
+    image:  
+      registry: docker.io
+      repository: oliver006/redis_exporter
+      tag: v1.14.0-alpine
+  redis:
+    image:  
+      registry: docker.io
+      repository: redis
+      tag: 7.0-rc3-alpine
+  persistentVolumeClaim:
+    size: 2Gi # storage class name 
+    storageClass: nfs-client # pvc request size
+  resources:
+    limits:
+      cpu: 60m
+      memory: 512Mi
+    requests:
+      cpu: 50m
+      memory: 256Mi
+redash:
+  image:
+    registry: docker.io #registry to use
+    repository: formsflow/redash # repoisitory for redash image  
+    tag: 10.1.0 # tag of image being used
+  database:
+    password: postgres # admin password
+    url: "postgresql://postgres:postgres@forms-flow-analytics-postgresql:5432/postgres" # redash database url - i.e forms-flow-analytics-postgresql
+
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 2Gi
+  requests:
+    cpu: 180m
+    memory: 1Gi

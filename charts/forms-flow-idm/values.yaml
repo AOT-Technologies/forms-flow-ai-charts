@@ -1,59 +1,90 @@
 ---
+Domain: apps.gitops.aot-technologies.com
 keycloak:
-  extraEnv: |
-    - name: KEYCLOAK_IMPORT
-      value: "/realm/realm.json"
-    - name: KEYCLOAK_PASSWORD
+  extraEnvVars: 
+    - name: KEYCLOAK_ADMIN_USER
       value: admin
-    - name: KEYCLOAK_USER
-      value: admin
-    - name: JAVA_OPTS 
+    - name: KEYCLOAK_EXTRA_ARGS
+      value: "-Dkeycloak.import=/realm/realm.json" 
+    - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
+      value: "true"
+    - name: KEYCLOAK_FRONTEND_URL
+      value: "https://{{tpl .Values.ingress.hostname .}}/auth"
+    - name: JAVA_OPTS
       value: >-
         -Dkeycloak.profile.feature.scripts=enabled
         -Dkeycloak.profile.feature.upload_scripts=enabled
-        -Djava.net.preferIPv4Stack=true 
-    - name: PROXY_ADDRESS_FORWARDING
-      value: "true"
+        -Djava.net.preferIPv4Stack=true
 
-  extraVolumes: |
+  extraVolumes: 
     - name: "forms-flow-idm-realm-config"
       configMap:
-        name: "forms-flow-idm" 
+        name: "forms-flow-idm"
 
-  extraVolumeMounts: |
+  extraVolumeMounts: 
     - name: "forms-flow-idm-realm-config"
       mountPath: "/realm/"
-      readOnly: true   
+      readOnly: true
+    
+  image:
+    registry: "docker.io"
+    repository: "bitnami/keycloak" 
+    tag: 14.0.0
 
   postgresql:
-    containerSecurityContext:
-      enabled: false
-    securityContext:
-      enabled: false
-    shmVolume:
-      chmod:
+    auth:
+      database: forms-flow-idm # Name for custom database to create
+      postgresPassword: postgres # Password for the "postgres" admin user
+      password: forms-flow-idm  # Password for the custom user to create
+      username: forms-flow-idm  # Name for a custom user to create
+    image:
+      registry: "docker.io"
+      repository: "bitnami/postgresql" 
+      tag: 14.2.0-debian-10-r57
+    fullnameOverride: "forms-flow-idm-postgresql"
+    primary:
+      containerSecurityContext:
         enabled: false
+      persistence:
+        storageClass: ""
+        size: 2Gi 
+      podSecurityContext:
+        enabled: false
+      service:
+        ports:
+          postgresql: 5432  # PostgreSQL service port
+      shmVolume:
+        chmod:
+          enabled: false
     volumePermissions:
-      enabled: true
-      securityContext:
+      containerSecurityContext:
         runAsUser: "auto"
-    
+
   resources:
     limits:
-      cpu: 700m
-      memory: 1Gi
+      cpu: 2
+      memory: 3Gi
     requests:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 1.6
+      memory: 2Gi
 
-  route:
-    enabled: true
-    path:  /
-    labels: {"app":"forms-flow-idm"}
-    host: "idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com"
-    tls:
-      enabled: true
-      insecureEdgeTerminationPolicy: Redirect
-      termination: edge
+  containerSecurityContext:
+    enabled: false
+  podSecurityContext:
+    enabled: false
+
+  keycloakConfigCli:
+    containerSecurityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
   
-name: forms-flow-idm
+  ingress:
+    enabled: true
+    extraTls:
+      - {}
+    hostname: forms-flow-idm-cberg-test.apps.gitops.aot-technologies.com
+    path: /auth
+    pathType: Prefix
+    servicePort: http
+    tls: true

@@ -1,11 +1,59 @@
-bpm_keycloak_clientid: forms-flow-bpm
-bpm_keycloak_clientsecret: 786001d6-68a8-4519-903c-bc5b5a870d68
-camunda_bpm_url: bpm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-formio_url: formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-formio_admin_email: me@defineme.com
-formio_admin_password: admin
-keycloak_realm: forms-flow-ai
-keycloak_url: idm-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-keycloak_web_clientid: forms-flow-web
-web_api_url: webapi-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-websocket_encrypt_key: FormsFlow.AI#{{ .Release.Namespace }}
+---
+Domain: "apps.devops.aot-technologies.com"
+websocket_encrypt_key: "FormsFlow.AI"
+forms-flow-analytics:
+  ingress: 
+    enabled: true
+    tls: 
+      hosts: 
+        - "apps.devops.aot-technologies.com"
+forms-flow-bpm:
+  ingress: 
+    enabled: true 
+    tls: 
+      hosts: 
+        - "apps.devops.aot-technologies.com"
+  clientid: "forms-flow-bpm"
+  clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
+forms-flow-forms:
+  ingress: 
+    enabled: true # create an ingress for this component 
+    tls: 
+      hosts: 
+        - "apps.devops.aot-technologies.com"
+  admin:
+    email: "me@defineme.com"
+    password: "admin"
+forms-flow-idm:
+  keycloak:
+    ingress:
+      enabled: true
+      hostname: "forms-flow-idm-forms-flow-ai.apps.devops.aot-technologies.com"
+  realm: forms-flow-ai
+forms-flow-web:
+  clientid: forms-flow-web
+mongodb:
+  arbiter: 
+    containerSecurityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
+  architecture: replicaset
+  auth:
+    databases: 
+      - formsflow 
+    passwords:
+      - mongodb
+    usernames:
+      - mongodb
+  containerSecurityContext:
+    enabled: false
+  service:
+    nameOverride: forms-flow-mongodb
+    ports:
+      mongodb: 27017
+  replicaSetName: forms-flow-mongodb
+  podSecurityContext:
+    enabled: false
+
+

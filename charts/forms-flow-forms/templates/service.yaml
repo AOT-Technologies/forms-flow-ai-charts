@@ -6,10 +6,8 @@ metadata:
   name: {{ .Chart.Name }}
 spec:
   ports:
-  - name: "3001"
-    port: 3001
-    targetPort: 3001
+  - name: {{ .Chart.Name }}
+    port: {{.Values.ingress.port}}
+    targetPort: {{.Values.ingress.port}}
   selector:
     app: {{ .Chart.Name }}
-status:
-  loadBalancer: {}

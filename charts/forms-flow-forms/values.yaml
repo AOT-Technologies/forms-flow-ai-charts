@@ -1,9 +1,23 @@
-cpu_limit: 200m
-cpu_request: 100m 
-forms_url: formio-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-formsflow_secret: forms-flow-ai
-image_tag: latest
-image_url: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}-tools/{{ .Chart.Name }}.build
-memory_limit: 1Gi
-memory_request: 512Mi
-mongodb_secret_name: formio-mongodb
+Domain: "apps.gitops.aot-technologies.com"
+admin:
+  email: "me@defineme.com"
+  password: "admin"
+formsflow:
+  configmap: forms-flow-ai #integration env vars
+  secret: forms-flow-ai # integration env vars secret
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-forms
+  tag: v5.0.0-alpha #The image tag to pull from
+
+ingress: 
+  enabled: true # create an ingress for this component 
+  port: 3001
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 512Mi

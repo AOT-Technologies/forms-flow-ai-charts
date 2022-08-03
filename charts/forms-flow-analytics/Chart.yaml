@@ -1,10 +1,11 @@
 ---
 apiVersion: v2
 dependencies:
-  - name: redash-redis
-    version: 0.2.0
-  - name: forms-flow-analytics-postgresql
-    version: 0.2.0
+  - name: redis-exporter
+    version: 1.0.0
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami/postgresql
+    version: 11.6.15
 name: forms-flow-analytics
 tags: forms-flow-analytics
-version: v0.2.0
+version: v1.0.0

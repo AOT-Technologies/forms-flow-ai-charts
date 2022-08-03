@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+name: forms-flow-mongodb
+version: v1.0.0
+dependencies:
+  - name: mongodb
+    repository: https://charts.bitnami.com/bitnami
+    version: 11.1.10
+version: v1.0.0
+icon: "https://github.com/cberg-aot/helm-charts/blob/gh-pages/icons/icon.large.png"

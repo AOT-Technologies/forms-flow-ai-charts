@@ -6,8 +6,8 @@ metadata:
   name: {{ .Chart.Name }}
 spec:
   ports:
-  - name: camunda
-    port: 8080
-    targetPort: 8080
+  - name: {{ .Chart.Name }}
+    port: {{.Values.ingress.port}}
+    targetPort: {{.Values.ingress.port}}
   selector:
     app: {{ .Chart.Name }}

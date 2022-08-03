@@ -1,7 +1,8 @@
 ---
 apiVersion: v2
 dependencies:
-  - name: camunda-postgresql
-    version: 0.2.0
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami/postgresql
+    version: 11.6.15
 name: forms-flow-bpm
-version: v0.2.0
+version: v1.0.0
