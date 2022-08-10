@@ -20,8 +20,4 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-web
   tag: v5.0.0-alpha
-kc_config_path: /usr/share/nginx/html/config/kc
 config_path: /usr/share/nginx/html/config/
-redash_secret_key: c2FY1BNNNGQP1sjaKGNIu8wXai1irSKqRIv3h1nb 
-web_api_url: https://forms-flow-api-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
-web_url: forms-flow-web-{{ .Release.Namespace }}.apps.devops.aot-technologies.com
