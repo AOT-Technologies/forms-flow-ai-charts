@@ -38,7 +38,6 @@ mongodb:
       enabled: false
     podSecurityContext:
       enabled: false
-  architecture: replicaset
   auth:
     databases: 
       - formsflow 
@@ -55,5 +54,5 @@ mongodb:
   replicaSetName: forms-flow-mongodb
   podSecurityContext:
     enabled: false
-
-
+  useStatefulSet : false
+  architecture: standalone
