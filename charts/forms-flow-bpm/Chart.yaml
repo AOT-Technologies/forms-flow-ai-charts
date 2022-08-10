@@ -6,3 +6,4 @@ dependencies:
     version: 11.6.15
 name: forms-flow-bpm
 version: v1.0.0
+icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

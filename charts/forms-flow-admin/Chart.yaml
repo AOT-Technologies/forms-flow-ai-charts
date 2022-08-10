@@ -6,4 +6,5 @@ dependencies:
     version: 11.6.15
 name: forms-flow-admin
 tags: forms-flow-admin
-version: v1.0.0
+icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
+version: 1.0.0
