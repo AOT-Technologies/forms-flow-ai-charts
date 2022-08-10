@@ -15,6 +15,7 @@ formsflow:
 ingress: 
   enabled: true # create an ingress for this component 
   port: 5000
+  path: /api/v1/
 image:
   registry: docker.io
   repository: formsflow/forms-flow-ai-admin
