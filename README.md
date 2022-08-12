@@ -20,7 +20,7 @@ $ helm install [RELEASE_NAME] formsflow/[COMPONENT_NAME] [flags]
 ```
 
 
-## Install Formsflow.ai builds
+## Install Formsflow.ai
 ```console
 # Helm 3
 helm install forms-flow-admin formsflow/forms-flow-admin \
