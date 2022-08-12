@@ -83,7 +83,7 @@ keycloak:
     enabled: true
     extraTls:
       - {}
-    hostname: forms-flow-idm-cberg-test.apps.gitops.aot-technologies.com
+    hostname: forms-flow-idm-{{tpl .Release.Namespace .}}-{{tpl .Values.Domain .}}
     path: /auth
     pathType: Prefix
     servicePort: http
