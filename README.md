@@ -23,31 +23,50 @@ $ helm install [RELEASE_NAME] formsflow/[COMPONENT_NAME] [flags]
 ## Install Formsflow.ai builds
 ```console
 # Helm 3
-helm install forms-flow-admin formsflow/forms-flow-admin --set Domain=$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-admin formsflow/forms-flow-admin \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
 
-helm install forms-flow-ai formsflow/forms-flow-ai --set Domain=$DOMAIN_NAME \ 
-	--set forms-flow-analytics.ingress.tls.hosts=[$DOMAIN_NAME] --namespace $NAMESPACE \
-	--set forms-flow-bpm.ingress.tls.hosts=[$DOMAIN_NAME] --namespace $NAMESPACE \
-	--set forms-flow-forms.ingress.tls.hosts=[$DOMAIN_NAME] --namespace $NAMESPACE \
-	--set forms-flow-idm.keycloak.ingress.hostname=forms-flow-idm-$NAMESPACE.$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-ai formsflow/forms-flow-ai \
+	--set Domain=$DOMAIN_NAME \ 
+	--set forms-flow-analytics.ingress.tls.hosts=[$DOMAIN_NAME] \
+	--set forms-flow-bpm.ingress.tls.hosts=[$DOMAIN_NAME] \
+	--set forms-flow-forms.ingress.tls.hosts=[$DOMAIN_NAME] \ 
+	--set forms-flow-idm.keycloak.ingress.hostname=forms-flow-idm-$NAMESPACE.$DOMAIN_NAME \
+	--namespace $NAMESPACE
  
-helm install forms-flow-analytics formsflow/forms-flow-analytics --set Domain=$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-analytics formsflow/forms-flow-analytics \
+	--set Domain=$DOMAIN_NAME 
+	--namespace $NAMESPACE
 
-helm install forms-flow-api formsflow/forms-flow-api --set Domain=$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-api formsflow/forms-flow-api \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
 
-helm install forms-flow-bpm formsflow/forms-flow-bpm --set Domain=$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-bpm formsflow/forms-flow-bpm \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
 
-helm install forms-flow-data-analysis formsflow/forms-flow-data-analysis --set Domain=$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-data-analysis formsflow/forms-flow-data-analysis \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
 
-helm install forms-flow-forms formsflow/forms-flow-forms --set Domain=$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-forms formsflow/forms-flow-forms \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
 
-helm install forms-flow-idm formsflow/forms-flow-idm --set Domain=$DOMAIN_NAME --namespace $NAMESPACE \
-	--set keycloak.ingress.hostname=forms-flow-idm-$NAMESPACE.$DOMAIN_NAME
+helm install forms-flow-idm formsflow/forms-flow-idm \
+	--set Domain=$DOMAIN_NAME \
+	--set keycloak.ingress.hostname=forms-flow-idm-$NAMESPACE.$DOMAIN_NAME \
+	--namespace $NAMESPACE 
 
-helm install forms-flow-mongodb formsflow/forms-flow-mongodb --namespace $NAMESPACE
+helm install forms-flow-mongodb formsflow/forms-flow-mongodb \
+	--namespace $NAMESPACE
 
 
-helm install forms-flow-web formsflow/forms-flow-web --set Domain=$DOMAIN_NAME --namespace $NAMESPACE
+helm install forms-flow-web formsflow/forms-flow-web \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
 
 ```
 ## Uninstall Chart
