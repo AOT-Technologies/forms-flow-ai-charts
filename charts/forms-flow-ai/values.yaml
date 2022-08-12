@@ -19,6 +19,7 @@ forms-flow-idm:
   keycloak:
     ingress:
       enabled: true
+      hostname: "forms-flow-idm-cberg-test-apps.gitops.aot-technologies.com"
   realm: forms-flow-ai
 forms-flow-web:
   clientid: forms-flow-web
