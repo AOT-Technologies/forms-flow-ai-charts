@@ -4,23 +4,14 @@ websocket_encrypt_key: "FormsFlow.AI"
 forms-flow-analytics:
   ingress: 
     enabled: true
-    tls: 
-      hosts: 
-        - "{{tpl .Values.Domain .}}"
 forms-flow-bpm:
   ingress: 
     enabled: true 
-    tls: 
-      hosts: 
-        - "{{tpl .Values.Domain .}}"
   clientid: "forms-flow-bpm"
   clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
 forms-flow-forms:
   ingress: 
     enabled: true # create an ingress for this component 
-    tls: 
-      hosts: 
-        - "{{tpl .Values.Domain .}}"
   admin:
     email: "me@defineme.com"
     password: "admin"
@@ -28,7 +19,6 @@ forms-flow-idm:
   keycloak:
     ingress:
       enabled: true
-      hostname: "forms-flow-idm-{{tpl .Release.Namespace .}}.{{tpl .Values.Domain .}}"
   realm: forms-flow-ai
 forms-flow-web:
   clientid: forms-flow-web

@@ -1,5 +1,5 @@
 ---
-Domain: apps.gitops.aot-technologies.com
+Domain: "apps.gitops.aot-technologies.com"
 keycloak:
   extraEnvVars: 
     - name: KEYCLOAK_ADMIN_USER
@@ -83,8 +83,5 @@ keycloak:
     enabled: true
     extraTls:
       - {}
-    hostname: forms-flow-idm-{{tpl .Release.Namespace .}}-{{tpl .Values.Domain .}}
     path: /auth
     pathType: Prefix
-    servicePort: http
-    tls: true
