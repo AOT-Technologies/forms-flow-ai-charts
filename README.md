@@ -45,6 +45,7 @@ helm install forms-flow-api formsflow/forms-flow-api \
 
 helm install forms-flow-bpm formsflow/forms-flow-bpm \
 	--set Domain=$DOMAIN_NAME \
+	--set camunda.websocket.securityOrigin=https://*.$DOMAIN_NAME
 	--namespace $NAMESPACE
 
 helm install forms-flow-data-analysis formsflow/forms-flow-data-analysis \
