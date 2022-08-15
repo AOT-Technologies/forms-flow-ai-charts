@@ -1,5 +1,5 @@
 ---
-Domain: "apps.gitops.aot-technologies.com"
+Domain: #<DEFINE_ME>
 websocket_encrypt_key: "FormsFlow.AI"
 forms-flow-analytics:
   ingress: 
@@ -19,7 +19,7 @@ forms-flow-idm:
   keycloak:
     ingress:
       enabled: true
-      hostname: "forms-flow-idm-cberg-test-apps.gitops.aot-technologies.com"
+      hostname: #<DEFINE_ME>
   realm: forms-flow-ai
 forms-flow-web:
   clientid: forms-flow-web
