@@ -12,6 +12,19 @@ entries:
     version: v0.2.0
   forms-flow-admin:
   - apiVersion: v2
+    created: "2022-08-15T16:43:34.379079729Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: 5a747060ce80bdab21cbcde3d4d551cfb02caae8183c8357c4ca79c504fa2485
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-admin
+    tags: forms-flow-admin
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-admin-v1.0.1/forms-flow-admin-v1.0.1.tgz
+    version: v1.0.1
+  - apiVersion: v2
     created: "2022-08-03T21:57:28.71445351Z"
     dependencies:
     - name: postgresql
@@ -24,6 +37,14 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-admin-v1.0.0/forms-flow-admin-v1.0.0.tgz
     version: v1.0.0
   forms-flow-ai:
+  - apiVersion: v2
+    created: "2022-08-15T16:43:34.513431333Z"
+    digest: 68e8ec94bc4770ea54fd7b75c3e9887153099a5e2083532376b6ef847b8d6914
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-ai
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-ai-v1.0.1/forms-flow-ai-v1.0.1.tgz
+    version: v1.0.1
   - apiVersion: v2
     created: "2022-08-03T21:57:28.994115816Z"
     digest: e40c198b28d6b70cef162987f47674cb2446784f93b9a00c174bfd0770a83057
@@ -41,6 +62,22 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-ai-v0.2.0/forms-flow-ai-v0.2.0.tgz
     version: v0.2.0
   forms-flow-analytics:
+  - apiVersion: v2
+    created: "2022-08-15T16:43:34.661899058Z"
+    dependencies:
+    - name: redis-exporter
+      repository: ""
+      version: 1.0.1
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: 0512dbfbe46fb1f917e3bf9331a19ad84c2f264c5949391992287c1c72ed2f8d
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-analytics
+    tags: forms-flow-analytics
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-analytics-v1.0.1/forms-flow-analytics-v1.0.1.tgz
+    version: v1.0.1
   - apiVersion: v2
     created: "2022-08-03T21:57:29.287432846Z"
     dependencies:
@@ -82,6 +119,19 @@ entries:
     version: v0.2.0
   forms-flow-api:
   - apiVersion: v2
+    created: "2022-08-15T16:43:34.871746845Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: f5bcac0be9cf91718bebf3797e2b596c238ac75c1f26b68c7f3f175966bd080d
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-api
+    tags: forms-flow-api
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-api-v1.0.1/forms-flow-api-v1.0.1.tgz
+    version: v1.0.1
+  - apiVersion: v2
     created: "2022-08-03T21:57:29.591243396Z"
     dependencies:
     - name: postgresql
@@ -94,6 +144,18 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-api-v1.0.0/forms-flow-api-v1.0.0.tgz
     version: v1.0.0
   forms-flow-bpm:
+  - apiVersion: v2
+    created: "2022-08-15T16:43:35.022974613Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: 7fd473b14fe65b10ea8399c2a647d883bd5eced79b05f2f98d4f96ffe3b397f6
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-bpm
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-bpm-v1.0.1/forms-flow-bpm-v1.0.1.tgz
+    version: v1.0.1
   - apiVersion: v2
     created: "2022-08-03T21:57:29.883730527Z"
     dependencies:
@@ -126,6 +188,15 @@ entries:
     version: v0.2.0
   forms-flow-data-analysis:
   - apiVersion: v2
+    created: "2022-08-15T16:43:35.207694906Z"
+    digest: 7aaa29dfac231473b07f3d5d9fd767dc43913dfafe63ad64d29cf7a1c670e519
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-data-analysis
+    tags: forms-flow-data-analysis
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-data-analysis-v1.0.1/forms-flow-data-analysis-v1.0.1.tgz
+    version: v1.0.1
+  - apiVersion: v2
     created: "2022-08-03T21:57:30.224549947Z"
     digest: 86038da1d93cb96cd0251d76372b1c92bb2a530cddbdbe2c4b8076d7813a76e6
     name: forms-flow-data-analysis
@@ -134,6 +205,14 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-data-analysis-v1.0.0/forms-flow-data-analysis-v1.0.0.tgz
     version: v1.0.0
   forms-flow-forms:
+  - apiVersion: v2
+    created: "2022-08-15T16:43:35.329711317Z"
+    digest: 05e33aedb91b8e8bc42a4ba88f976f6639ba3cda59a4ba90a95290c2c2b1b1ba
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-forms
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-forms-v1.0.1/forms-flow-forms-v1.0.1.tgz
+    version: v1.0.1
   - apiVersion: v2
     created: "2022-08-03T21:57:30.507227861Z"
     digest: 65360a75c6e46ace53654e267995328fe6b6003866f4414b852859206b11cc6a
@@ -157,6 +236,18 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-forms.build-v0.2.0/forms-flow-forms.build-v0.2.0.tgz
     version: v0.2.0
   forms-flow-idm:
+  - apiVersion: v2
+    created: "2022-08-15T16:43:35.482765614Z"
+    dependencies:
+    - name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 7.1.16
+    digest: 517ead3f4e01fbd3cca5763982f67319f29aa1f103a0426993db4d06760f143b
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-idm
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-idm-v1.0.1/forms-flow-idm-v1.0.1.tgz
+    version: v1.0.1
   - apiVersion: v2
     created: "2022-08-03T21:57:30.830401849Z"
     dependencies:
@@ -194,6 +285,18 @@ entries:
     version: v0.1.10
   forms-flow-mongodb:
   - apiVersion: v2
+    created: "2022-08-15T16:43:35.622013995Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.10
+    digest: 0428b149e9d7c193c3260d68bebdaa77f7588c4999c395caff2e53223314230b
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-mongodb
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-mongodb-v1.0.1/forms-flow-mongodb-v1.0.1.tgz
+    version: v1.0.1
+  - apiVersion: v2
     created: "2022-08-03T21:57:31.087661517Z"
     dependencies:
     - name: mongodb
@@ -206,6 +309,14 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-mongodb-v1.0.0/forms-flow-mongodb-v1.0.0.tgz
     version: v1.0.0
   forms-flow-web:
+  - apiVersion: v2
+    created: "2022-08-15T16:43:35.745629331Z"
+    digest: 7540ef8155854fb22bfcb2146815010ebf94ffabdc766c86d34bcb9c98aebfa9
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-web
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-web-v1.0.1/forms-flow-web-v1.0.1.tgz
+    version: v1.0.1
   - apiVersion: v2
     created: "2022-08-03T21:57:31.387530362Z"
     digest: cf21156e3be1ff8dad373c3b7627ec6ebe8ef5686886b434a5e96c2da91bc894
@@ -250,4 +361,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-08-03T21:57:31.387557963Z"
+generated: "2022-08-15T16:43:35.745696232Z"
