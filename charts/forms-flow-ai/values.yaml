@@ -1,26 +1,17 @@
 ---
-Domain: "apps.gitops.aot-technologies.com"
+Domain: #<DEFINE_ME>
 websocket_encrypt_key: "FormsFlow.AI"
 forms-flow-analytics:
   ingress: 
     enabled: true
-    tls: 
-      hosts: 
-        - "apps.gitops.aot-technologies.com"
 forms-flow-bpm:
   ingress: 
     enabled: true 
-    tls: 
-      hosts: 
-        - "apps.gitops.aot-technologies.com"
   clientid: "forms-flow-bpm"
   clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
 forms-flow-forms:
   ingress: 
     enabled: true # create an ingress for this component 
-    tls: 
-      hosts: 
-        - "apps.gitops.aot-technologies.com"
   admin:
     email: "me@defineme.com"
     password: "admin"
@@ -28,7 +19,7 @@ forms-flow-idm:
   keycloak:
     ingress:
       enabled: true
-      hostname: "forms-flow-idm-cberg-test.apps.gitops.aot-technologies.com"
+      hostname: #<DEFINE_ME>
   realm: forms-flow-ai
 forms-flow-web:
   clientid: forms-flow-web

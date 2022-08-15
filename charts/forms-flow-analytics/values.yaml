@@ -1,4 +1,4 @@
-Domain: "apps.gitops.aot-technologies.com"
+Domain: #<DEFINE_ME>
 ingress: 
   enabled: true # create an ingress for this component
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"

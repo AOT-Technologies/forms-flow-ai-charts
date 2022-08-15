@@ -1,4 +1,4 @@
-Domain: "apps.gitops.aot-technologies.com"
+Domain: #<DEFINE_ME>
 admin:
   email: "me@defineme.com"
   password: "admin"

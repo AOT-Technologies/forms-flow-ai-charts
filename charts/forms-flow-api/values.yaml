@@ -1,5 +1,5 @@
 ---
-Domain: "apps.gitops.aot-technologies.com"
+Domain: #<DEFINE_ME>
 resources:
   limits:
     cpu: 600m
