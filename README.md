@@ -29,14 +29,11 @@ helm install forms-flow-admin formsflow/forms-flow-admin \
 
 helm install forms-flow-ai formsflow/forms-flow-ai \
 	--set Domain=$DOMAIN_NAME \ 
-	--set forms-flow-analytics.ingress.tls.hosts=[$DOMAIN_NAME] \
-	--set forms-flow-bpm.ingress.tls.hosts=[$DOMAIN_NAME] \
-	--set forms-flow-forms.ingress.tls.hosts=[$DOMAIN_NAME] \ 
 	--set forms-flow-idm.keycloak.ingress.hostname=forms-flow-idm-$NAMESPACE.$DOMAIN_NAME \
 	--namespace $NAMESPACE
  
 helm install forms-flow-analytics formsflow/forms-flow-analytics \
-	--set Domain=$DOMAIN_NAME 
+	--set Domain=$DOMAIN_NAME \
 	--namespace $NAMESPACE
 
 helm install forms-flow-api formsflow/forms-flow-api \
@@ -45,7 +42,7 @@ helm install forms-flow-api formsflow/forms-flow-api \
 
 helm install forms-flow-bpm formsflow/forms-flow-bpm \
 	--set Domain=$DOMAIN_NAME \
-	--set camunda.websocket.securityOrigin=https://*.$DOMAIN_NAME
+	--set camunda.websocket.securityOrigin=https://*.$DOMAIN_NAME \
 	--namespace $NAMESPACE
 
 helm install forms-flow-data-analysis formsflow/forms-flow-data-analysis \
