@@ -9,7 +9,7 @@ keycloak:
     - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
       value: "true"
     - name: KEYCLOAK_FRONTEND_URL
-      value: "https://forms-flow-idm-{{tpl .Release.Namespace .}}.apps.gitops.aot-technologies.com/auth"
+      value: "https://forms-flow-idm-cberg-test.apps.gitops.aot-technologies.com/auth"
     - name: JAVA_OPTS
       value: >-
         -Dkeycloak.profile.feature.scripts=enabled
@@ -83,6 +83,8 @@ keycloak:
     enabled: true
     extraTls:
       - {}
-    hostname: #DEFINEME
+    hostname: forms-flow-idm-cberg-test.apps.gitops.aot-technologies.com
     path: /auth
     pathType: Prefix
+    servicePort: http
+    tls: true
