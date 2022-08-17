@@ -27,10 +27,10 @@ spec:
             configMapKeyRef:
               key: MONGODB_URI
               name: "{{ .Values.formsflow.configmap }}"
-        - name: BPM_API_BASE
+        - name: BPM_API_URL
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URI
+              key: BPM_API_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: BPM_CLIENT_ID
           valueFrom:

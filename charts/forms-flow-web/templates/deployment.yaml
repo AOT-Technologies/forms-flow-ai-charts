@@ -72,10 +72,10 @@ spec:
             configMapKeyRef:
               key: FORMIO_URL
               name: "{{ .Values.formsflow.configmap }}"
-        - name: REACT_APP_CAMUNDA_API_URI
+        - name: REACT_APP_BPM_URL
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URI
+              key: BPM_API_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: REACT_APP_KEYCLOAK_CLIENT
           valueFrom:
