@@ -137,6 +137,11 @@ spec:
             secretKeyRef:
               key: FORMIO_ROOT_PASSWORD
               name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_JWT_SECRET
+              name: "{{ .Values.formsflow.secret }}"
 
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'
