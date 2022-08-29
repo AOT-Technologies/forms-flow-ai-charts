@@ -1,7 +1,7 @@
 ---
 apiVersion: v1
 data:
-  APP_SECURITY_ORIGIN: "{{ .Values.camunda.securityOrigin }}"
+  APP_SECURITY_ORIGIN: "*.{{ .Values.Domain }}"
   CAMUNDA_ANALYTICS_DATABASE_SERVICE_NAME: "{{ .Values.camunda.analytics.database }}"
   CAMUNDA_APP_ROOT_LOG_FLAG: "{{ .Values.camunda.logLevel }}"
   CAMUNDA_AUTHORIZATION_FLAG: "{{ .Values.camunda.auth.enabled }}"
