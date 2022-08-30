@@ -27,41 +27,6 @@ spec:
             configMapKeyRef:
               key: NODE_ENV
               name: "{{ .Values.formsflow.configmap }}"
-        - name: REACT_APP_CLIENT_ROLE
-          valueFrom:
-            configMapKeyRef:
-              key: CLIENT_ROLE
-              name: "{{ .Chart.Name }}"
-        - name: REACT_APP_STAFF_DESIGNER_ROLE
-          valueFrom:
-            configMapKeyRef:
-              key: STAFF_DESIGNER_ROLE
-              name: "{{ .Chart.Name }}"
-        - name: REACT_APP_STAFF_REVIEWER_ROLE
-          valueFrom:
-            configMapKeyRef:
-              key: STAFF_REVIEWER_ROLE
-              name: "{{ .Chart.Name }}"
-        - name: REACT_APP_CLIENT_ID
-          valueFrom:
-            configMapKeyRef:
-              key: CLIENT_ID
-              name: "{{ .Chart.Name }}"
-        - name: REACT_APP_STAFF_REVIEWER_ID
-          valueFrom:
-            configMapKeyRef:
-              key: STAFF_REVIEWER_ID
-              name: "{{ .Chart.Name }}"
-        - name: REACT_APP_STAFF_DESIGNER_ID
-          valueFrom:
-            configMapKeyRef:
-              key: STAFF_DESIGNER_ID
-              name: "{{ .Chart.Name }}"
-        - name: REACT_APP_USER_RESOURCE_FORM_ID
-          valueFrom:
-            configMapKeyRef:
-              key: USER_RESOURCE_FORM_ID
-              name: "{{ .Chart.Name }}"
         - name: REACT_APP_API_SERVER_URL
           valueFrom:
             configMapKeyRef:
@@ -72,10 +37,10 @@ spec:
             configMapKeyRef:
               key: FORMIO_URL
               name: "{{ .Values.formsflow.configmap }}"
-        - name: REACT_APP_CAMUNDA_API_URI
+        - name: REACT_APP_BPM_URL
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URI
+              key: BPM_API_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: REACT_APP_KEYCLOAK_CLIENT
           valueFrom:
@@ -87,11 +52,6 @@ spec:
             configMapKeyRef:
               key: WEB_API_URL
               name: "{{ .Values.formsflow.configmap }}"
-        - name: REACT_APP_ANONYMOUS_ID
-          valueFrom:
-            configMapKeyRef:
-              key: ANONYMOUS_ID
-              name: "{{ .Chart.Name }}"
         - name: REACT_APP_APPLICATION_NAME
           valueFrom:
             configMapKeyRef:
@@ -126,6 +86,16 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: FORMSFLOW_ADMIN_BASE
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_MULTI_TENANCY_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: MULTI_TENANCY_ENABLED
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_KEYCLOAK_ENABLE_CLIENT_AUTH
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_ENABLE_CLIENT_AUTH
               name: "{{ .Values.formsflow.configmap }}"
 
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"

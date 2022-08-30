@@ -61,7 +61,7 @@ spec:
         - name: CAMUNDA_FORMBUILDER_PIPELINE_BPM_URL
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URI
+              key: BPM_API_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: FORMSFLOW_API_URL
           valueFrom:

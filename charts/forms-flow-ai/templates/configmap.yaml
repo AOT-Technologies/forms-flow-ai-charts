@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Chart.Name }}
 data:
-  CAMUNDA_API_URI: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}/camunda"
+  BPM_API_URL: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}/camunda"
   KEYCLOAK_JWT_OIDC_ALGORITHMS: "RS256"
   KEYCLOAK_JWT_OIDC_CACHING_ENABLED: "True"
   KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT: "300"
