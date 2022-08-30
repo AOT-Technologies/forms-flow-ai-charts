@@ -28,3 +28,10 @@ data:
   MULTI_TENANCY_ENABLED: "False"
   DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{.Values.Domain}}"
   NODE_ENV: "production"
+  CUSTOM_SUBMISSION_URL: ""
+  CUSTOM_SUBMISSION_ENABLED: "false"
+  FORMSFLOW_DOC_API_URL: "https://forms-flow-documents-api-{{.Release.Namespace}}.{{.Values.Domain}}"
+  DRAFT_ENABLED: "false"
+  DRAFT_POLLING_RATE: "15000"
+  EXPORT_PDF_ENABLED: "false"
+

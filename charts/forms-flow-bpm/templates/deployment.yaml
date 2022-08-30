@@ -113,6 +113,16 @@ spec:
             configMapKeyRef:
               key: FORMSFLOW_ADMIN_URL
               name: "{{ .Values.formsflow.configmap }}"
+        - name: CUSTOM_SUBMISSION_URL
+          valueFrom:
+            configMapKeyRef:
+              key: CUSTOM_SUBMISSION_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: CUSTOM_SUBMISSION_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: CUSTOM_SUBMISSION_ENABLED
+              name: "{{ .Values.formsflow.configmap }}"
 
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
