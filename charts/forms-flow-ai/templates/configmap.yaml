@@ -8,11 +8,11 @@ data:
   KEYCLOAK_JWT_OIDC_ALGORITHMS: "RS256"
   KEYCLOAK_JWT_OIDC_CACHING_ENABLED: "True"
   KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT: "300"
-  KEYCLOAK_JWT_OIDC_CONFIG: https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/.well-known/openid-configuration
-  KEYCLOAK_JWT_OIDC_ISSUER: https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}
-  KEYCLOAK_JWT_OIDC_JWKS_URI: https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/certs
-  KEYCLOAK_TOKEN_URL: https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/token
-  KEYCLOAK_URL: "https://forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}"
+  KEYCLOAK_JWT_OIDC_CONFIG: https://{{tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname" ) .}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/.well-known/openid-configuration
+  KEYCLOAK_JWT_OIDC_ISSUER: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}
+  KEYCLOAK_JWT_OIDC_JWKS_URI: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/certs
+  KEYCLOAK_TOKEN_URL: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/token
+  KEYCLOAK_URL: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}
   KEYCLOAK_URL_REALM: {{ index .Values "forms-flow-idm" "realm" }}
   FORMIO_URL: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
   FORMIO_DOMAIN: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"

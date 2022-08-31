@@ -19,7 +19,7 @@ forms-flow-idm:
   keycloak:
     ingress:
       enabled: true
-      hostname: #<DEFINE_ME>
+      hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"
   realm: forms-flow-ai
 forms-flow-web:
   clientid: forms-flow-web
