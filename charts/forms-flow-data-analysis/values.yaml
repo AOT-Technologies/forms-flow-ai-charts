@@ -17,5 +17,5 @@ ingress:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-data-analysis-api
-  tag: v4.0.6-alpha #The image tag to pull from
+  tag: v5.0.0 #The image tag to pull from
 
