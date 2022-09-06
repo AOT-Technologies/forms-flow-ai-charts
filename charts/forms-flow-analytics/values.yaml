@@ -33,7 +33,7 @@ postgresql:
     containerSecurityContext:
       runAsUser: "auto"
 
-redisExporter:
+redis-exporter:
   exporter:
     image:  
       registry: docker.io
