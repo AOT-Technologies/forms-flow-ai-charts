@@ -153,4 +153,24 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
         stdin: true
         tty: true
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /
+            port: {{ int .Values.ingress.port }}
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 3
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /
+            port: {{ int .Values.ingress.port }}
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 3
       restartPolicy: Always
