@@ -153,6 +153,22 @@ spec:
         - mountPath: /tmp/{{ .Chart.Name }}-config.template
           name: {{ .Chart.Name }}-config-template
           readOnly: true
+        livenessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 120
+          periodSeconds: 60
+          successThreshold: 1
+          tcpSocket:
+            port: {{ int .Values.ingress.port }}
+          timeoutSeconds: 1
+        readinessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 120
+          periodSeconds: 60
+          successThreshold: 1
+          tcpSocket:
+            port: {{ int .Values.ingress.port }}
+          timeoutSeconds: 1
       restartPolicy: Always
       volumes:
       - configMap:
