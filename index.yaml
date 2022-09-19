@@ -12,6 +12,19 @@ entries:
     version: v0.2.0
   forms-flow-admin:
   - apiVersion: v2
+    created: "2022-09-19T19:43:55.098777734Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: 4a4767a1f04b627daaeadf7037dd7ac3ab764a1b24fe49d629c28db55c478b9b
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-admin
+    tags: forms-flow-admin
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-admin-v1.0.2/forms-flow-admin-v1.0.2.tgz
+    version: v1.0.2
+  - apiVersion: v2
     created: "2022-08-15T16:43:34.379079729Z"
     dependencies:
     - name: postgresql
@@ -38,6 +51,14 @@ entries:
     version: v1.0.0
   forms-flow-ai:
   - apiVersion: v2
+    created: "2022-09-19T19:43:55.224922223Z"
+    digest: f4b0ad02b336bffb68f177dae7942472a1a913113a264ea4ac76015c333ad304
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-ai
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-ai-v1.0.2/forms-flow-ai-v1.0.2.tgz
+    version: v1.0.2
+  - apiVersion: v2
     created: "2022-08-15T16:43:34.513431333Z"
     digest: 68e8ec94bc4770ea54fd7b75c3e9887153099a5e2083532376b6ef847b8d6914
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -62,6 +83,22 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-ai-v0.2.0/forms-flow-ai-v0.2.0.tgz
     version: v0.2.0
   forms-flow-analytics:
+  - apiVersion: v2
+    created: "2022-09-19T19:43:55.355217404Z"
+    dependencies:
+    - name: redis-exporter
+      repository: ""
+      version: 1.0.1
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: 7141b02dcb421c4e8d9d7d2f0892d44fababdbffaae6d6bd7967ff8357aa7879
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-analytics
+    tags: forms-flow-analytics
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-analytics-v1.0.2/forms-flow-analytics-v1.0.2.tgz
+    version: v1.0.2
   - apiVersion: v2
     created: "2022-08-15T16:43:34.661899058Z"
     dependencies:
@@ -119,6 +156,19 @@ entries:
     version: v0.2.0
   forms-flow-api:
   - apiVersion: v2
+    created: "2022-09-19T19:43:55.510799044Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: 9e40715583367727ded0546eac075157902ecb5427663b690e8bb4e03369e7db
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-api
+    tags: forms-flow-api
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-api-v1.0.2/forms-flow-api-v1.0.2.tgz
+    version: v1.0.2
+  - apiVersion: v2
     created: "2022-08-15T16:43:34.871746845Z"
     dependencies:
     - name: postgresql
@@ -144,6 +194,18 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-api-v1.0.0/forms-flow-api-v1.0.0.tgz
     version: v1.0.0
   forms-flow-bpm:
+  - apiVersion: v2
+    created: "2022-09-19T19:43:55.68704524Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    digest: c4ab39b609089a066c59002d3147b2df1cdb4ac55a34e0a51f18a8a9e6dca195
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-bpm
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-bpm-v1.0.2/forms-flow-bpm-v1.0.2.tgz
+    version: v1.0.2
   - apiVersion: v2
     created: "2022-08-15T16:43:35.022974613Z"
     dependencies:
@@ -188,6 +250,15 @@ entries:
     version: v0.2.0
   forms-flow-data-analysis:
   - apiVersion: v2
+    created: "2022-09-19T19:43:55.817862933Z"
+    digest: e073fbf3e93013791be96539e7bac4a899b927937717a6575c4993c590d86589
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-data-analysis
+    tags: forms-flow-data-analysis
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-data-analysis-v1.0.2/forms-flow-data-analysis-v1.0.2.tgz
+    version: v1.0.2
+  - apiVersion: v2
     created: "2022-08-15T16:43:35.207694906Z"
     digest: 7aaa29dfac231473b07f3d5d9fd767dc43913dfafe63ad64d29cf7a1c670e519
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -204,7 +275,25 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-data-analysis-v1.0.0/forms-flow-data-analysis-v1.0.0.tgz
     version: v1.0.0
+  forms-flow-documents-api:
+  - apiVersion: v2
+    created: "2022-09-19T19:43:55.956577399Z"
+    digest: 2cf8ed3b649c42bb64f93a9c541405f98c3d6bf6f869c7b83e547a72db9894c2
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-documents-api
+    tags: forms-flow-documents-api
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-documents-api-v1.0.2/forms-flow-documents-api-v1.0.2.tgz
+    version: v1.0.2
   forms-flow-forms:
+  - apiVersion: v2
+    created: "2022-09-19T19:43:56.086931681Z"
+    digest: b4db0d51f4672b43b5eeea280e913d3a408f1689497acbe1a3ed55fdcfd7f9e3
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-forms
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-forms-v1.0.2/forms-flow-forms-v1.0.2.tgz
+    version: v1.0.2
   - apiVersion: v2
     created: "2022-08-15T16:43:35.329711317Z"
     digest: 05e33aedb91b8e8bc42a4ba88f976f6639ba3cda59a4ba90a95290c2c2b1b1ba
@@ -236,6 +325,18 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-forms.build-v0.2.0/forms-flow-forms.build-v0.2.0.tgz
     version: v0.2.0
   forms-flow-idm:
+  - apiVersion: v2
+    created: "2022-09-19T19:43:56.246748215Z"
+    dependencies:
+    - name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 7.1.16
+    digest: 4fae16d141fbf9e63849b77a8f08f87cc28aa5c9590a3b125bed03681090dec2
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-idm
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-idm-v1.0.2/forms-flow-idm-v1.0.2.tgz
+    version: v1.0.2
   - apiVersion: v2
     created: "2022-08-15T16:43:35.482765614Z"
     dependencies:
@@ -285,6 +386,18 @@ entries:
     version: v0.1.10
   forms-flow-mongodb:
   - apiVersion: v2
+    created: "2022-09-19T19:43:56.394513782Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.10
+    digest: 410cb93923fccec1671e2cebdebdb0923ad5c9ff64a72ac13ffe47f612f14513
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-mongodb
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-mongodb-v1.0.2/forms-flow-mongodb-v1.0.2.tgz
+    version: v1.0.2
+  - apiVersion: v2
     created: "2022-08-15T16:43:35.622013995Z"
     dependencies:
     - name: mongodb
@@ -309,6 +422,14 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-mongodb-v1.0.0/forms-flow-mongodb-v1.0.0.tgz
     version: v1.0.0
   forms-flow-web:
+  - apiVersion: v2
+    created: "2022-09-19T19:43:56.603922211Z"
+    digest: 66041972f6106412c80e1289821582320f79d5630129ea4962e03ca48f1b7c6f
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-web
+    urls:
+    - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-web-v1.0.2/forms-flow-web-v1.0.2.tgz
+    version: v1.0.2
   - apiVersion: v2
     created: "2022-08-15T16:43:35.745629331Z"
     digest: 7540ef8155854fb22bfcb2146815010ebf94ffabdc766c86d34bcb9c98aebfa9
@@ -361,4 +482,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-08-15T16:43:35.745696232Z"
+generated: "2022-09-19T19:43:56.604050914Z"
