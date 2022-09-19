@@ -1,5 +1,12 @@
 ---
 apiVersion: v2
 name: forms-flow-ai
-version: v1.0.1
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami/postgresql
+    version: 11.6.15
+  - name: mongodb
+    repository: https://charts.bitnami.com/bitnami
+    version: 11.1.10
+version: v1.1.0
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

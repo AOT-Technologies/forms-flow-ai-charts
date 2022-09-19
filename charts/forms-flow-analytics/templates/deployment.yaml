@@ -24,6 +24,8 @@ spec:
       - args:
         - server
         envFrom:
+        - configMapRef:
+            name: "{{ .Chart.Name }}" # default redash environment variables
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         env:
@@ -70,6 +72,8 @@ spec:
       - args:
         - worker
         envFrom:
+        - configMapRef:
+            name: "{{ .Chart.Name }}" # default redash environment variables
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         env: 
@@ -107,6 +111,8 @@ spec:
       - args:
         - worker
         envFrom:
+        - configMapRef:
+            name: "{{ .Chart.Name }}" # default redash environment variables
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         env:
@@ -144,6 +150,8 @@ spec:
       - args:
         - scheduler
         envFrom:
+        - configMapRef:
+            name: "{{ .Chart.Name }}" # default redash environment variables
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
@@ -178,6 +186,8 @@ spec:
       - args:
         - worker
         envFrom:
+        - configMapRef:
+            name: "{{ .Chart.Name }}" # default redash environment variables
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         env:

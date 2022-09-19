@@ -4,6 +4,9 @@ kind: ConfigMap
 metadata:
   name: {{ .Chart.Name }}
 data:
+  DATABASE_NAME: "{{tpl .Values.postgresql.auth.database .}}"
+  DATABASE_PORT: "{{.Values.postgresql.primary.service.ports.postgresql}} "
+  DATABASE_SERVICE_NAME: "{{tpl .Values.postgresql.fullnameoverride .}}"
   CAMUNDA_API_URI: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}/camunda"
   KEYCLOAK_JWT_OIDC_ALGORITHMS: "RS256"
   KEYCLOAK_JWT_OIDC_CACHING_ENABLED: "True"

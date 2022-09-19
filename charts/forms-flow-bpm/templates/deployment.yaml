@@ -36,6 +36,21 @@ spec:
         - secretRef:
             name: "{{ .Chart.Name }}" # bpm environment variables
         env:
+        - name: CAMUNDA_DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: CAMUNDA_DATABASE_NAME
+              name: "{{ .Chart.Name }}"
+        - name: CAMUNDA_DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: CAMUNDA_DATABASE_PORT
+              name: "{{ .Chart.Name }}"
+        - name: CAMUNDA_DATABASE_SERVICE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_SERVICE_NAME
+              name: "{{ .Values.formsflow.configmap }}"
         - name: KEYCLOAK_URL
           valueFrom:
             configMapKeyRef:

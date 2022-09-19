@@ -6,4 +6,4 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 data:
-  DATABASE_URL: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Values.postgresql.fullnameoverride }}:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
+  DATABASE_URL: "{{tpl .Values.database.url .}}"

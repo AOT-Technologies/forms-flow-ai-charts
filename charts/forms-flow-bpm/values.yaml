@@ -1,11 +1,12 @@
 Domain: #<DEFINE_ME>
 camunda:
   analytics:
-    database: forms-flow-analytics-postgresql
+    database: forms-flow-analytics
   auth:
     enabled: true
     revokeCheck: auto
   database:
+    name: forms-flow-bpm
     port: 5432
   historyLevel: auto
   securityOrigin: '*'
@@ -22,6 +23,8 @@ camunda:
       max: 10 #CAMUNDA_HIKARI_MAX_POOLSIZE
   jdbc:
     driver: org.postgresql.Driver
+    username: postgres
+    password: postgres
     url: "jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
   websocket:
     messageType: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
@@ -46,35 +49,6 @@ mail:
   smtp:
     port: 587
     server: smtp-relay.sendinblue.com
-
-postgresql:
-  auth:
-    database: forms-flow-bpm # Name for custom database to create
-    postgresPassword: postgres # Password for the "postgres" admin user
-    password: forms-flow-bpm  # Password for the custom user to create
-    username: forms-flow-bpm  # Name for a custom user to create
-  image:
-    registry: docker.io
-    repository: bitnami/postgresql
-    tag: 14.2.0-debian-10-r57
-  fullnameOverride: "forms-flow-bpm-postgresql"
-  primary:
-    containerSecurityContext:
-      enabled: false
-    persistence:
-      storageClass: "" 
-      size: 1Gi 
-    podSecurityContext:
-      enabled: false
-    service:
-      ports:
-        postgresql: 5432  # PostgreSQL service port
-    shmVolume:
-      chmod:
-        enabled: false
-  volumePermissions:
-    containerSecurityContext:
-      runAsUser: "auto"
 
 resources:
   limits:

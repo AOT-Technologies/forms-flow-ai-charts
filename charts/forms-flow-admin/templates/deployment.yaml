@@ -22,11 +22,26 @@ spec:
     spec:
       containers:
       - env:
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_NAME
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_PORT
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: DATABASE_SERVICE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_SERVICE_NAME
+              name: "{{ .Values.formsflow.configmap }}"
         - name: DATABASE_URL
           valueFrom:
             configMapKeyRef:
               key: DATABASE_URL
-              name: "{{ .Chart.Name }}"
+              name: "{{ .Chart.Name}}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:

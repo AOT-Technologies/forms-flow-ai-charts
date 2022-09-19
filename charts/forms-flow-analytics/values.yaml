@@ -1,37 +1,17 @@
 Domain: #<DEFINE_ME>
+
+database:
+  username: postgres 
+  password: postgres
+  servicename: forms-flow-ai-postgresql
+  port: 5432
+  url: "postgresql://{{.Values.database.username}}:{{.Values.database.password}}@{{.Values.database.servicename}}:{{.Values.database.port}}/{{.Chart.Name}}"
+
+
 ingress: 
   enabled: true # create an ingress for this component
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"
   port: 5000
-
-postgresql:
-  auth:
-    database: forms-flow-analytics # Name for custom database to create
-    postgresPassword: postgres # Password for the "postgres" admin user
-    password: forms-flow-analytics  # Password for the custom user to create
-    userName: forms-flow-analytics  # Name for a custom user to create
-  image:
-    registry: docker.io
-    repository: bitnami/postgresql
-    tag: 14.2.0-debian-10-r57
-  fullnameOverride: "forms-flow-analytics-postgresql"
-  primary:
-    containerSecurityContext:
-      enabled: false
-    persistence:
-      storageClass: ""
-      size: 1Gi 
-    podSecurityContext:
-      enabled: false
-    service:
-      ports:
-        postgresql: 5432  # PostgreSQL service port
-    shmVolume:
-      chmod:
-        enabled: false
-  volumePermissions:
-    containerSecurityContext:
-      runAsUser: "auto"
 
 redis-exporter:
   exporter:
@@ -59,10 +39,6 @@ redash:
     registry: docker.io #registry to use
     repository: formsflow/redash # repoisitory for redash image  
     tag: 10.1.0 # tag of image being used
-  database:
-    password: postgres # admin password
-    url: "postgresql://postgres:postgres@forms-flow-analytics-postgresql:5432/postgres" # redash database url - i.e forms-flow-analytics-postgresql
-
 
 resources:
   limits:
