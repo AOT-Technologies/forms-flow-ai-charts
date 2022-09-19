@@ -122,6 +122,11 @@ spec:
             secretKeyRef:
               key: FORMIO_JWT_SECRET
               name: "{{ .Values.formsflow.secret }}"
+        - name: BPM_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_CLIENTSECRET
+              name: "{{ .Values.formsflow.secret }}"
         - name: FORMSFLOW_ADMIN_API_CORS_ORIGINS
           value: '*'
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
