@@ -2,10 +2,10 @@
 Domain: #<DEFINE_ME>
 resources:
   limits:
-    cpu: 500m
+    cpu: 600m
     memory: 1Gi
   requests:
-    cpu: 250m
+    cpu: 500m
     memory: 512Mi
 
 formsflow:
@@ -13,9 +13,8 @@ formsflow:
   secret: forms-flow-ai #name of formsflow.ai secret
 ingress: 
   enabled: true # create an ingress for this component 
-  port: 5000
+  port: 5006
 image:
   registry: docker.io
-  repository: formsflow/forms-flow-data-analysis-api
+  repository: formsflow/forms-flow-documents-api
   tag: v5.0.0 #The image tag to pull from
-

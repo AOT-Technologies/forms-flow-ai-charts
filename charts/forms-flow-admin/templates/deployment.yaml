@@ -102,10 +102,10 @@ spec:
             secretKeyRef:
               key: REDASH_SECRET_KEY
               name: "{{ .Values.formsflow.analytics }}"
-        - name: CAMUNDA_API_URI
+        - name: BPM_API_URL
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URI
+              key: BPM_API_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: KEYCLOAK_ADMIN_CLIENT
           valueFrom:
@@ -132,6 +132,16 @@ spec:
             configMapKeyRef:
               key: FORMIO_URL
               name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMIO_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_JWT_SECRET
+              name: "{{ .Values.formsflow.secret }}"
+        - name: BPM_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_CLIENTSECRET
+              name: "{{ .Values.formsflow.secret }}"
         - name: FORMSFLOW_ADMIN_API_CORS_ORIGINS
           value: '*'
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
