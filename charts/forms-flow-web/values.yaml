@@ -19,5 +19,5 @@ resources:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-web
-  tag: v5.0.1
+  tag: v5.0.0
 config_path: /usr/share/nginx/html/config/
