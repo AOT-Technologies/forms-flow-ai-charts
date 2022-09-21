@@ -1,30 +1,27 @@
 ---
 Domain: #<DEFINE_ME>
-websocket_encrypt_key: "FormsFlow.AI"
-forms-flow-analytics:
-  ingress: 
-    enabled: true
+
 forms-flow-bpm:
-  ingress: 
-    enabled: true 
   clientid: "forms-flow-bpm"
   clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
+
 forms-flow-forms:
-  ingress: 
-    enabled: true # create an ingress for this component 
   admin:
     email: "me@defineme.com"
     password: "admin"
+
 forms-flow-idm:
   keycloak:
     ingress:
-      enabled: true
-      hostname: #<DEFINE_ME>
+      hostname: "forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}"
   realm: forms-flow-ai
+
 forms-flow-web:
   clientid: forms-flow-web
+
 mongodb:
   arbiter: 
+    enabled: false
     containerSecurityContext:
       enabled: false
     podSecurityContext:
@@ -39,11 +36,48 @@ mongodb:
   containerSecurityContext:
     enabled: false
   service:
-    nameOverride: forms-flow-mongodb
+    nameOverride: "forms-flow-ai-mongodb"
     ports:
       mongodb: 27017
-  replicaSetName: forms-flow-mongodb
+  replicaSetName: "forms-flow-ai-mongodb"
   podSecurityContext:
     enabled: false
   useStatefulSet : false
   architecture: standalone
+ 
+postgresql:
+  auth:
+    database: forms-flow-ai
+    postgresPassword: postgres # password for the "postgres" admin user
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 14.2.0-debian-10-r57
+  fullnameoverride: "{{.Release.Name}}-postgresql"
+  primary:
+    initdb:
+      user: postgres
+      password: postgres
+      scripts:
+        0001_create_databases.sql: |
+          CREATE DATABASE "forms-flow-admin";
+          CREATE DATABASE "forms-flow-analytics";
+          CREATE DATABASE "forms-flow-api";
+          CREATE DATABASE "forms-flow-bpm";
+    containerSecurityContext:
+      enabled: false
+    persistence:
+      storageClass: ""
+    podSecurityContext:
+      enabled: false
+    service:
+      ports:
+        postgresql: 5432  # PostgreSQL service port
+    shmVolume:
+      chmod:
+        enabled: false
+  volumePermissions:
+    containerSecurityContext:
+      runAsUser: "auto"
+
+websocket_encrypt_key: "FormsFlow.AI"

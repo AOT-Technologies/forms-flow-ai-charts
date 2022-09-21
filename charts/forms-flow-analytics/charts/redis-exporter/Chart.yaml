@@ -2,4 +2,4 @@
 apiVersion: v2
 description: Redis and exporter master/slave templates based on Statefulsets
 name: redis-exporter
-version: v1.0.1
+version: v1.1.0

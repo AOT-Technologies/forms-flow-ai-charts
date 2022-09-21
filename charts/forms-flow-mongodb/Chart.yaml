@@ -1,9 +1,0 @@
----
-apiVersion: v2
-name: forms-flow-mongodb
-version: v1.0.2
-dependencies:
-  - name: mongodb
-    repository: https://charts.bitnami.com/bitnami
-    version: 11.1.10
-icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

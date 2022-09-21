@@ -1,5 +1,8 @@
 ---
 Domain: #<DEFINE ME>
+postgresql:
+  url: "postgresql://postgres:postgres@forms-flow-ai-postgresql:5432/{{.Chart.Name}}"
+
 resources:
   limits:
     cpu: 500m
@@ -11,40 +14,15 @@ resources:
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret
-  analytics: forms-flow-analytics
+  analytics: forms-flow-analytics #name of analytics component 
+  
+
 ingress: 
   enabled: true # create an ingress for this component 
   port: 5000
   path: /
+
 image:
   registry: docker.io
   repository: formsflow/forms-flow-ai-admin
-  tag: v5.0.0 #The image tag to pull from
-
-postgresql:
-  auth:
-    database: forms-flow-admin # name for custom database to create
-    postgresPassword: postgres # password for the "postgres" admin user
-    password: forms-flow-admin  # password for the custom user to create
-    username: forms-flow-admin  # name for a custom user to create
-  image:
-    registry: docker.io
-    repository: bitnami/postgresql
-    tag: 14.2.0-debian-10-r57
-  fullnameoverride: "forms-flow-admin-postgresql"
-  primary:
-    containerSecurityContext:
-      enabled: false
-    persistence:
-      storageClass: ""
-    podSecurityContext:
-      enabled: false
-    service:
-      ports:
-        postgresql: 5432  # PostgreSQL service port
-    shmVolume:
-      chmod:
-        enabled: false
-  volumePermissions:
-    containerSecurityContext:
-      runAsUser: "auto"
+  tag: v5.0.1 #The image tag to pull from
