@@ -1,5 +1,5 @@
 #!/bin/bash
-read -p "Please enter a namespace (ex: devin):" NAMESPACE
+read -p "Please enter a namespace (ex: forms-flow):" NAMESPACE
 
 echo "Uninstalling forms flow ..."
 
