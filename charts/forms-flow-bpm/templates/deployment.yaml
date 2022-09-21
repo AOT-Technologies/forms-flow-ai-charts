@@ -76,7 +76,7 @@ spec:
         - name: CAMUNDA_FORMBUILDER_PIPELINE_BPM_URL
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URI
+              key: BPM_API_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: FORMSFLOW_API_URL
           valueFrom:
@@ -127,6 +127,16 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: FORMSFLOW_ADMIN_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: CUSTOM_SUBMISSION_URL
+          valueFrom:
+            configMapKeyRef:
+              key: CUSTOM_SUBMISSION_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: CUSTOM_SUBMISSION_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: CUSTOM_SUBMISSION_ENABLED
               name: "{{ .Values.formsflow.configmap }}"
 
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"

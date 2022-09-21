@@ -1,6 +1,6 @@
 ---
 apiVersion: v2
-name: forms-flow-admin
-tags: forms-flow-admin
+name: forms-flow-documents-api
+tags: forms-flow-documents-api
+version: v1.0.2
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
-version: v1.1.0
