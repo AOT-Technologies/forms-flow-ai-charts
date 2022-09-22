@@ -18,7 +18,7 @@ data:
   CAMUNDA_JDBC_USER: "{{ .Values.camunda.jdbc.username}}"
   WAIT_FOR: " {{ .Values.waitFor }}"  
   WEBSOCKET_MESSAGE_TYPE: "{{ .Values.camunda.websocket.messageType }}"
-  WEBSOCKET_SECURITY_ORIGIN: "{{ .Values.camunda.websocket.securityOrigin }}"
+  WEBSOCKET_SECURITY_ORIGIN: {{ ternary  (.Values.camunda.websocket.securityOrigin | quote) (randAlphaNum 6 | quote) (kindIs "string" .Values.camunda.websocket.securityOrigin) }}
   BPM_BASE_URL: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}"
 kind: ConfigMap
 metadata:
