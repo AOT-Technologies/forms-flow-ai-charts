@@ -7,7 +7,7 @@ data:
   DATABASE_NAME: {{ ternary (tpl .Values.postgresql.auth.database .) "<DEFINE_ME>" .Values.postgresql.enabled | quote }}
   DATABASE_PORT: {{ ternary .Values.postgresql.primary.service.ports.postgresql "<DEFINE_ME>" .Values.postgresql.enabled | quote }}
   DATABASE_SERVICE_NAME: {{ ternary (tpl .Values.postgresql.fullnameoverride .) "<DEFINE_ME>" .Values.postgresql.enabled | quote }}
-  CAMUNDA_API_URI: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}/camunda"
+  BPM_API_URL: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}/camunda"
   KEYCLOAK_JWT_OIDC_ALGORITHMS: "RS256"
   KEYCLOAK_JWT_OIDC_CACHING_ENABLED: "True"
   KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT: "300"
@@ -31,3 +31,10 @@ data:
   MULTI_TENANCY_ENABLED: "False"
   DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{.Values.Domain}}"
   NODE_ENV: "production"
+  CUSTOM_SUBMISSION_URL: ""
+  CUSTOM_SUBMISSION_ENABLED: "false"
+  FORMSFLOW_DOC_API_URL: "https://forms-flow-documents-api-{{.Release.Namespace}}.{{.Values.Domain}}"
+  DRAFT_ENABLED: "false"
+  DRAFT_POLLING_RATE: "15000"
+  EXPORT_PDF_ENABLED: "false"
+
