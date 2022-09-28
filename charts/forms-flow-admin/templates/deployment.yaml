@@ -100,8 +100,8 @@ spec:
         - name: INSIGHT_API_KEY
           valueFrom:
             secretKeyRef:
-              key: REDASH_SECRET_KEY
-              name: "{{ .Values.formsflow.analytics }}"
+              key: INSIGHT_API_KEY
+              name: "{{ .Values.formsflow.secret }}"
         - name: BPM_API_URL
           valueFrom:
             configMapKeyRef:

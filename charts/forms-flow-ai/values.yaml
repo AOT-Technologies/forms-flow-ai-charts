@@ -81,3 +81,4 @@ postgresql:
       runAsUser: "auto"
 
 websocket_encrypt_key: "FormsFlow.AI"
+insight_api_key: ""
