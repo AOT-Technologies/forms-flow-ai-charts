@@ -2,8 +2,8 @@
 apiVersion: v2
 dependencies:
   - name: redis-exporter
-    version: 2.0.1
+    version: 2.0.3
 name: forms-flow-analytics
 tags: forms-flow-analytics
-version: v2.0.2
+version: v2.0.3
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
