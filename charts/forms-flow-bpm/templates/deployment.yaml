@@ -138,6 +138,26 @@ spec:
             configMapKeyRef:
               key: CUSTOM_SUBMISSION_ENABLED
               name: "{{ .Values.formsflow.configmap }}"
+        - name: REDIS_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_ENABLED
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_HOST
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_PORT
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REDIS_PASSCODE
+          valueFrom:
+            secretKeyRef:
+              key: REDIS_PASSCODE
+              name: "{{ .Values.formsflow.secret }}"
 
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
