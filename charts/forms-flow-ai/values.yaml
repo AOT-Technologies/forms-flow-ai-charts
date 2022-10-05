@@ -82,3 +82,7 @@ postgresql:
       runAsUser: "auto"
 
 websocket_encrypt_key: "FormsFlow.AI"
+insight_api_key: ""
+redis_host: ""
+redis_port: ""
+redis_pass_code: ""

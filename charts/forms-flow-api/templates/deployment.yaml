@@ -125,8 +125,8 @@ spec:
         - name: INSIGHT_API_KEY
           valueFrom:
             secretKeyRef:
-              key: REDASH_SECRET_KEY
-              name: "{{ .Values.formsflow.analytics }}"
+              key: INSIGHT_API_KEY
+              name: "{{ .Values.formsflow.secret }}"
         - name: KEYCLOAK_ENABLE_CLIENT_AUTH
           valueFrom:
             configMapKeyRef:

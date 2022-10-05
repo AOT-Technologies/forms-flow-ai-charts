@@ -37,4 +37,8 @@ data:
   DRAFT_ENABLED: "false"
   DRAFT_POLLING_RATE: "15000"
   EXPORT_PDF_ENABLED: "false"
+  REDIS_HOST: "{{.Values.redis_host}}"
+  REDIS_PORT: "{{.Values.redis_port}}"
+  REDIS_ENABLED: "false"
+
 
