@@ -50,6 +50,7 @@ postgresql:
   auth:
     database: forms-flow-ai
     postgresPassword: postgres # password for the "postgres" admin user
+  enabled: true #extra struct var for installation logic
   image:
     registry: docker.io
     repository: bitnami/postgresql
@@ -82,3 +83,7 @@ postgresql:
       runAsUser: "auto"
 
 websocket_encrypt_key: "FormsFlow.AI"
+insight_api_key: ""
+redis_host: ""
+redis_port: ""
+redis_pass_code: ""

@@ -46,6 +46,11 @@ spec:
             configMapKeyRef:
               key: FORMIO_DOMAIN
               name: "{{ .Values.formsflow.configmap }}"
+        - name: MULTI_TENANCY_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: MULTI_TENANCY_ENABLED
+              name: "{{ .Values.formsflow.configmap }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:

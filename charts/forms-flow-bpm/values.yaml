@@ -28,12 +28,12 @@ camunda:
     url: "jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
   websocket:
     messageType: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
-    securityOrigin: #<DEFINE_ME> #WEBSOCKET_SECURITY_ORIGIN
+    securityOrigin:   #WEBSOCKET_SECURITY_ORIGIN
 
 image:
   registry: docker.io
   repository: formsflow/forms-flow-bpm
-  tag: v5.0.0-alpha #The image tag to pull from
+  tag: v5.0.1 #The image tag to pull from
 
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap

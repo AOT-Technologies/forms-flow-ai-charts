@@ -27,10 +27,10 @@ spec:
             configMapKeyRef:
               key: MONGODB_URI
               name: "{{ .Values.formsflow.configmap }}"
-        - name: BPM_API_BASE
+        - name: BPM_API_URL
           valueFrom:
             configMapKeyRef:
-              key: CAMUNDA_API_URI
+              key: BPM_API_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: BPM_CLIENT_ID
           valueFrom:
@@ -125,8 +125,8 @@ spec:
         - name: INSIGHT_API_KEY
           valueFrom:
             secretKeyRef:
-              key: REDASH_SECRET_KEY
-              name: "{{ .Values.formsflow.analytics }}"
+              key: INSIGHT_API_KEY
+              name: "{{ .Values.formsflow.secret }}"
         - name: KEYCLOAK_ENABLE_CLIENT_AUTH
           valueFrom:
             configMapKeyRef:
@@ -151,6 +151,11 @@ spec:
           valueFrom:
             secretKeyRef:
               key: FORMIO_ROOT_PASSWORD
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_JWT_SECRET
               name: "{{ .Values.formsflow.secret }}"
 
         - name: FORMSFLOW_API_CORS_ORIGINS
