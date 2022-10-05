@@ -49,6 +49,7 @@ postgresql:
   auth:
     database: forms-flow-ai
     postgresPassword: postgres # password for the "postgres" admin user
+  enabled: true #extra struct var for installation logic
   image:
     registry: docker.io
     repository: bitnami/postgresql
