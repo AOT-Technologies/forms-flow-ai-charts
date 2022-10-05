@@ -20,8 +20,8 @@ data:
   FORMIO_URL: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
   FORMIO_DOMAIN: "https://forms-flow-forms-{{.Release.Namespace}}.{{.Values.Domain}}"
   WEB_API_URL: "https://forms-flow-api-{{.Release.Namespace}}.{{.Values.Domain}}"
-  MONGODB_URI: "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}"
-  NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}" }'
+  MONGODB_URI:  {{ ternary (tpl "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }} 
+  NODE_CONFIG:  {{ ternary (tpl "{mongo:mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }}
   FORMSFLOW_WEB_URL: "https://forms-flow-web-{{.Release.Namespace}}.{{.Values.Domain}}"
   FORMSFLOW_ADMIN_URL: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}/api/v1"
   FORMSFLOW_ADMIN_BASE: "https://forms-flow-admin-{{.Release.Namespace}}.{{.Values.Domain}}/api"

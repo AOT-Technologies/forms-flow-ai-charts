@@ -35,6 +35,7 @@ mongodb:
       - mongodb
   containerSecurityContext:
     enabled: false
+  enabled: true
   service:
     nameOverride: "forms-flow-ai-mongodb"
     ports:
