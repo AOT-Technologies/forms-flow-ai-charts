@@ -1,7 +1,7 @@
 ---
 Domain: #<DEFINE_ME>
 database:
-  url: "postgresql://postgres:postgres@forms-flow-ai:5432/{{.Chart.Name}}"
+  url: "postgresql://postgres:postgres@forms-flow-ai-postgresql:5432/{{.Chart.Name}}"
 resources:
   limits:
     cpu: 600m
