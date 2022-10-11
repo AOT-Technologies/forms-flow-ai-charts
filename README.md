@@ -23,9 +23,6 @@ $ helm install [RELEASE_NAME] formsflow/[COMPONENT_NAME] [flags]
 ## Install Formsflow.ai
 ```console
 # Helm 3
-helm install forms-flow-admin formsflow/forms-flow-admin \
-	--set Domain=$DOMAIN_NAME \
-	--namespace $NAMESPACE
 
 helm install forms-flow-ai formsflow/forms-flow-ai \
 	--set Domain=$DOMAIN_NAME \ 
@@ -33,6 +30,19 @@ helm install forms-flow-ai formsflow/forms-flow-ai \
 	--namespace $NAMESPACE
  
 helm install forms-flow-analytics formsflow/forms-flow-analytics \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
+
+helm install forms-flow-forms formsflow/forms-flow-forms \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
+
+helm install forms-flow-idm formsflow/forms-flow-idm \
+	--set Domain=$DOMAIN_NAME \
+	--set keycloak.ingress.hostname=forms-flow-idm-$NAMESPACE.$DOMAIN_NAME \
+	--namespace $NAMESPACE 
+
+helm install forms-flow-admin formsflow/forms-flow-admin \
 	--set Domain=$DOMAIN_NAME \
 	--namespace $NAMESPACE
 
@@ -49,20 +59,11 @@ helm install forms-flow-data-analysis formsflow/forms-flow-data-analysis \
 	--set Domain=$DOMAIN_NAME \
 	--namespace $NAMESPACE
 
-helm install forms-flow-forms formsflow/forms-flow-forms \
-	--set Domain=$DOMAIN_NAME \
-	--namespace $NAMESPACE
-
-helm install forms-flow-idm formsflow/forms-flow-idm \
-	--set Domain=$DOMAIN_NAME \
-	--set keycloak.ingress.hostname=forms-flow-idm-$NAMESPACE.$DOMAIN_NAME \
-	--namespace $NAMESPACE 
-
-helm install forms-flow-mongodb formsflow/forms-flow-mongodb \
-	--namespace $NAMESPACE
-
-
 helm install forms-flow-web formsflow/forms-flow-web \
+	--set Domain=$DOMAIN_NAME \
+	--namespace $NAMESPACE
+
+helm install forms-flow-documents-api formsflow/forms-flow-documents-api \
 	--set Domain=$DOMAIN_NAME \
 	--namespace $NAMESPACE
 
@@ -72,9 +73,32 @@ helm install forms-flow-web formsflow/forms-flow-web \
 ```console
 # Helm 3
 $ helm uninstall [RELEASE_NAME]
+
+helm uninstall forms-flow-admin -n $NAMESPACE
+
+helm uninstall forms-flow-ai -n $NAMESPACE
+
+helm uninstall forms-flow-api -n $NAMESPACE
+
+helm uninstall forms-flow-analytics -n $NAMESPACE
+
+helm uninstall forms-flow-bpm -n $NAMESPACE
+
+helm uninstall forms-flow-data-analysis -n $NAMESPACE
+
+helm uninstall forms-flow-forms -n $NAMESPACE
+
+helm uninstall forms-flow-idm -n $NAMESPACE
+
+helm uninstall forms-flow-web -n $NAMESPACE
+
+helm uninstall forms-flow-documents-api -n $NAMESPACE
+
 ```
 
 This removes all the Kubernetes components associated with the chart and deletes the release.
+
+Note: Kubernetes Persistent Volumes Claims are not deleted using the helm uninstall command.
 
 _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command documentation._
 
