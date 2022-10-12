@@ -43,12 +43,12 @@ ingress:
   enabled: true # create an ingress for this component 
   port: 8080
 mail:
-  from: support@aot-technologies.com
-  password: YwJaMyhmHbBg0cp6
-  user: support@aot-technologies.com
+  from:
+  password:
+  user:
   smtp:
-    port: 587
-    server: smtp-relay.sendinblue.com
+    port:
+    server:
 
 resources:
   limits:
