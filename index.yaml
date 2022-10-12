@@ -520,6 +520,14 @@ entries:
     version: v1.0.0
   forms-flow-bpm:
   - apiVersion: v2
+    created: "2022-10-12T17:12:44.170735059Z"
+    digest: 6ba6551c9c07b52ae6e3c203f3e4d66e84ef2ad5265ed9c91c0e1ccea6cf8980
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-bpm
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-bpm-v2.0.8/forms-flow-bpm-v2.0.8.tgz
+    version: v2.0.8
+  - apiVersion: v2
     created: "2022-10-07T18:12:19.783333973Z"
     digest: cbb645192a5722758bb7e4b547885bae9d0dace4aab521b29bad1f2069a034bd
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -1185,4 +1193,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-10-07T18:12:20.502432675Z"
+generated: "2022-10-12T17:12:44.171152358Z"
