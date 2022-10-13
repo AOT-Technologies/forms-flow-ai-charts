@@ -43,12 +43,15 @@ ingress:
   enabled: true # create an ingress for this component 
   port: 8080
 mail:
-  from:
-  password:
-  user:
+  from: "<DEFINE_ME>"
+  password: "<DEFINE_ME>"
+  user: "<DEFINE_ME>"
   smtp:
-    port:
-    server:
+    auth: true
+    port: 5432
+    server: "<DEFINE_ME>"
+    ssl:
+      enable: false
 
 resources:
   limits:
