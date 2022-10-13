@@ -10,6 +10,7 @@ DIRECTORY="../charts"
 
 if [[ $IS_FROM_REGISTRY =~ ^[Yy]$ ]]
 then
+	helm repo remove formsflow
 	helm repo add formsflow https://aot-technologies.github.io/forms-flow-ai-charts
 	helm repo update formsflow
 	DIRECTORY="formsflow"
