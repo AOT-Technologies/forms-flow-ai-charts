@@ -12,6 +12,15 @@ entries:
     version: v0.2.0
   forms-flow-admin:
   - apiVersion: v2
+    created: "2022-10-17T20:55:52.453019797Z"
+    digest: 51de454c3d72c642f30883133e7989c851c449b4b4bf676a48a480a9e43be3ab
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-admin
+    tags: forms-flow-admin
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-admin-v2.0.8/forms-flow-admin-v2.0.8.tgz
+    version: v2.0.8
+  - apiVersion: v2
     created: "2022-10-07T18:12:19.162933462Z"
     digest: b1663436f52f1932445254f02ea178f071d3f99c0487dc464f71483fc7142a38
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -1225,4 +1234,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-10-13T18:42:23.291570339Z"
+generated: "2022-10-17T20:55:52.453388302Z"
