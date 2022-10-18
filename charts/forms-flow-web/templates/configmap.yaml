@@ -6,8 +6,8 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 data:
-  KEYCLOAK_CLIENT: "{{tpl .Values.webclient .}}"
-  APPLICATION_NAME: "{{tpl .Values.webname .}}"
+  KEYCLOAK_CLIENT: "{{ .Chart.Name }}"
+  APPLICATION_NAME: "{{ .Chart.Name }}"
   USER_ACCESS_PERMISSIONS: ''
   
 ---

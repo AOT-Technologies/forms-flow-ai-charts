@@ -1,11 +1,11 @@
 ---
-Domain: #<DEFINE_ME>
+Domain: formsflow-eks.aot-technologies.com
 resources:
   limits:
-    cpu: 600m
-    memory: 1Gi
+    cpu: 400m
+    memory: 600Mi
   requests:
-    cpu: 500m
+    cpu: 300m
     memory: 512Mi
 
 formsflow:

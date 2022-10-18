@@ -1,5 +1,5 @@
 ---
-Domain: #<DEFINE_ME>
+Domain: formsflow-eks.aot-technologies.com
 analytics:
   configmap: forms-flow-analytics # name of formsflow analytics configmap
   secret: forms-flow-analytics #name of formsflow analytics secret 
@@ -11,15 +11,13 @@ ingress:
   port: 8080
 resources:
   limits:
-    cpu: 600m
+    cpu: 400m
     memory: 1Gi
   requests:
-    cpu: 500m
+    cpu: 300m
     memory: 512Mi
 image:
   registry: docker.io
   repository: formsflow/forms-flow-web
   tag: v5.0.1
 config_path: /usr/share/nginx/html/config/
-webclient: "{{.Chart.Name}}"
-webname: formsflow

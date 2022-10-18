@@ -1,4 +1,4 @@
-Domain: #<DEFINE_ME>
+Domain: formsflow-eks.aot-technologies.com
 camunda:
   analytics:
     database: forms-flow-analytics
@@ -43,22 +43,19 @@ ingress:
   enabled: true # create an ingress for this component 
   port: 8080
 mail:
-  from: "<DEFINE_ME>"
-  password: "<DEFINE_ME>"
-  user: "<DEFINE_ME>"
+  from: support@aot-technologies.com
+  password: YwJaMyhmHbBg0cp6
+  user: support@aot-technologies.com
   smtp:
-    auth: true
-    port: 5432
-    server: "<DEFINE_ME>"
-    ssl:
-      enable: false
+    port: 587
+    server: smtp-relay.sendinblue.com
 
 resources:
   limits:
-    cpu: 600m
+    cpu: 200m
     memory: 1Gi
   requests:
-    cpu: 500m
+    cpu: 100m
     memory: 512Mi
 
 waitFor: "${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}"

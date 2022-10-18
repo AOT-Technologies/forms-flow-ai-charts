@@ -19,7 +19,7 @@ data:
   WAIT_FOR: " {{ .Values.waitFor }}"  
   WEBSOCKET_MESSAGE_TYPE: "{{ .Values.camunda.websocket.messageType }}"
   WEBSOCKET_SECURITY_ORIGIN: {{ ternary  (.Values.camunda.websocket.securityOrigin | quote) (randAlphaNum 6 | quote) (kindIs "string" .Values.camunda.websocket.securityOrigin) }}
-  BPM_BASE_URL: "https://forms-flow-bpm-{{.Release.Namespace}}.{{.Values.Domain}}"
+  BPM_BASE_URL: "https://{{.Values.Domain}}/camunda"
 kind: ConfigMap
 metadata:
   labels:
@@ -31,10 +31,10 @@ data:
   mail-config.properties: |
     # send mails via SMTP
     mail.transport.protocol=smtp
+    mail.smtp.host={{ .Values.mail.smtp.server }}
+    mail.smtp.port={{ .Values.mail.smtp.port }}
     mail.smtp.auth=true
-    mail.smtp.host={{.Values.mail.smtp.server}}
-    mail.smtp.port={{.Values.mail.smtp.port}}
-    mail.smtp.ssl.enable={{.Values.mail.smtp.ssl.enable}}
+    mail.smtp.ssl.enable=true
     mail.smtp.socketFactory.port=465
     mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory
     # poll mails via IMAPS
@@ -44,14 +44,13 @@ data:
     mail.imaps.timeout=1000
     # additional config
     #mail.poll.folder=INBOX
-    mail.sender={{.Values.mail.from}}
+    mail.sender={{ .Values.mail.from }}
     mail.sender.alias=DoNotReply
     mail.attachment.download=true
     mail.attachment.path=attachments
     # credentials
-    mail.user={{.Values.mail.user}}
-    mail.password={{.Values.mail.password}}
-
+    mail.user={{ .Values.mail.user }}
+    mail.password={{ .Values.mail.password }}
 kind: ConfigMap
 metadata:
   labels:

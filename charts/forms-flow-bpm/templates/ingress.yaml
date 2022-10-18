@@ -1,21 +1,33 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: {{ .Chart.Name }}
   labels:
     app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 60m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+   # nginx.ingress.kubernetes.io/rewrite-target: /$1$2
+    nginx.org/redirect-to-https: "yes"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Content-Security-Policy: upgrade-insecure-requests";
+      more_set_headers 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload';
 spec:
   tls:
-    - {}
+    - hosts:
+      - {{ .Values.Domain }}
+      secretName: formsflow-eks.aot-technologies.com-tls
   rules:
-    -
-      host: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"
+    - host: {{ .Values.Domain }}
       http:
         paths:
-          - path: /camunda
+          - path: /camunda()(.*)
             pathType: Prefix
             backend:
               service:
-                name: {{ .Chart.Name }}
-                port:
-                  number: {{ .Values.ingress.port }}
+                 name: {{ .Chart.Name }}
+                 port:
+                    number: 8080

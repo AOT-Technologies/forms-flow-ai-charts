@@ -19,7 +19,6 @@ formsflow:
 
 ingress: 
   enabled: true # create an ingress for this component 
-  hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"
   port: 5000
   path: /
 
