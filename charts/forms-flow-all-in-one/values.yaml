@@ -1,0 +1,6 @@
+---
+global:
+  Domain:  #<DEFINE_ME>
+
+forms-flow-admin:
+  Domain: "{{.Values.global.Domain}}"

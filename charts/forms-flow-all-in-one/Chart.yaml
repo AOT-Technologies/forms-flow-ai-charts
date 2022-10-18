@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+name: forms-flow-ai
+dependencies:
+  - name: forms-flow-admin
+    #repository: https://aot-technologies.github.io/forms-flow-ai-charts
+    repository: "file://../forms-flow-admin"
+    version: v2.0.8
+version: v1.0.0
+icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
