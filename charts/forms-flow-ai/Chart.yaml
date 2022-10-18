@@ -9,5 +9,5 @@ dependencies:
   - name: mongodb
     repository: https://charts.bitnami.com/bitnami
     version: 11.1.10
-version: v2.0.8
+version: v2.0.9
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
