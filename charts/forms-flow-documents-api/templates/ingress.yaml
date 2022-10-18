@@ -9,7 +9,7 @@ spec:
     - {}
   rules:
     -
-      host: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"
+      host: "{{tpl .Values.ingress.hostname .}}"
       http:
         paths:
           - path: /
