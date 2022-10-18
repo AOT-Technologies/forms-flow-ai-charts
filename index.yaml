@@ -705,6 +705,15 @@ entries:
     version: v0.2.0
   forms-flow-data-analysis:
   - apiVersion: v2
+    created: "2022-10-18T19:40:27.777470301Z"
+    digest: 9ee2c03b270f2490036425dad7440f2e694726b1299372b94538f3f04870591e
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-data-analysis
+    tags: forms-flow-data-analysis
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-data-analysis-v2.0.8/forms-flow-data-analysis-v2.0.8.tgz
+    version: v2.0.8
+  - apiVersion: v2
     created: "2022-10-07T18:12:19.934836298Z"
     digest: ebc4f3bc042fd0008329605cb1c5981b0745aac0b1c2ad3b03918bbab711fb5a
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -1267,4 +1276,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-10-18T19:26:03.260064632Z"
+generated: "2022-10-18T19:40:27.777812197Z"
