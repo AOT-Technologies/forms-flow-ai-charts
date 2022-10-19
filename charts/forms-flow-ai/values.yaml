@@ -42,7 +42,9 @@ mongodb:
       mongodb: 27017
   replicaSetName: "forms-flow-ai-mongodb"
   podSecurityContext:
-    enabled: false
+    enabled: true
+    fsGroup: 1001
+    runAsUser: 1001
   useStatefulSet : false
   architecture: standalone
  
@@ -71,7 +73,9 @@ postgresql:
     persistence:
       storageClass: ""
     podSecurityContext:
-      enabled: false
+      enabled: true
+      fsGroup: 1001
+      runAsUser: 1001
     service:
       ports:
         postgresql: 5432  # PostgreSQL service port

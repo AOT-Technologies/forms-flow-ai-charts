@@ -9,7 +9,9 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-forms
   tag: v5.0.1 #The image tag to pull from
-
+sslcertificate:
+    secretName: formsflow-eks.aot-technologies.com-tls # Name for tls secretname
+    issuer: letsencrypt-prod   # Name for tls issuer name 
 ingress: 
   enabled: true # create an ingress for this component 
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"

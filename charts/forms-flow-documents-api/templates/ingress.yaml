@@ -1,21 +1,34 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: {{ .Chart.Name }}
   labels:
     app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 60m
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/cluster-issuer: {{ .Values.sslcertificate.issuer }}
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1$2
+    nginx.org/redirect-to-https: "yes"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Content-Security-Policy: upgrade-insecure-requests";
+      more_set_headers 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload';
+      proxy_set_header Accept-Encoding "";
 spec:
   tls:
-    - {}
+    - hosts:
+      - {{ .Values.Domain }}
+      secretName: {{ .Values.sslcertificate.secretName }}
   rules:
-    -
-      host: "{{tpl .Values.ingress.hostname .}}"
+    - host: {{ .Values.Domain }}
       http:
         paths:
-          - path: /
+          - path: /document()(.*)
             pathType: Prefix
             backend:
               service:
-                name: {{ .Chart.Name }}
-                port:
-                  number: {{ .Values.ingress.port }}
+                 name: {{ .Chart.Name }}
+                 port:
+                    number: 5006

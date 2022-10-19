@@ -6,28 +6,24 @@ metadata:
     app: {{ .Chart.Name }}
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/proxy-body-size: 60m
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    cert-manager.io/cluster-issuer: {{ .Values.sslcertificate.issuer }}
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/cluster-issuer: {{ .Values.keycloak.sslcertificate.issuer }}
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^\/(forms)$ $1/ permanent; 
       more_set_headers "Content-Security-Policy: upgrade-insecure-requests";
       more_set_headers 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload';
 spec:
   tls:
     - hosts:
       - {{ .Values.Domain }}
-      secretName: {{ .Values.sslcertificate.secretName }}
+      secretName: {{ .Values.keycloak.sslcertificate.secretName }}
   rules:
     - host: {{ .Values.Domain }}
       http:
         paths:
-          - path: /forms(/|$)(.*)
+          - path: /auth
             pathType: Prefix
             backend:
               service:
-                 name: {{ .Chart.Name }}
+                 name: {{ .Chart.Name }}-keycl
                  port:
-                    number: 3001
+                    number: 80

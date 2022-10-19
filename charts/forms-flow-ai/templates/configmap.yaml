@@ -7,19 +7,19 @@ data:
   DATABASE_NAME: {{ ternary (tpl .Values.postgresql.auth.database .) "<DEFINE_ME>" .Values.postgresql.enabled | quote }}
   DATABASE_PORT: {{ ternary .Values.postgresql.primary.service.ports.postgresql "<DEFINE_ME>" .Values.postgresql.enabled | quote }}
   DATABASE_SERVICE_NAME: {{ ternary (tpl .Values.postgresql.fullnameoverride .) "<DEFINE_ME>" .Values.postgresql.enabled | quote }}
-  BPM_API_URL: "https://forms-flow-bpm-{{.Release.Namespace}}.{{tpl .Values.Domain .}}/camunda"
+  BPM_API_URL: "https://{{ .Values.Domain }}/camunda"
   KEYCLOAK_JWT_OIDC_ALGORITHMS: "RS256"
   KEYCLOAK_JWT_OIDC_CACHING_ENABLED: "True"
   KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT: "300"
-  KEYCLOAK_JWT_OIDC_CONFIG: https://{{tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname" ) .}}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/.well-known/openid-configuration
-  KEYCLOAK_JWT_OIDC_ISSUER: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}
-  KEYCLOAK_JWT_OIDC_JWKS_URI: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/certs
-  KEYCLOAK_TOKEN_URL: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/token
-  KEYCLOAK_URL: https://{{ tpl (index .Values "forms-flow-idm" "keycloak" "ingress" "hostname") . }}
+  KEYCLOAK_JWT_OIDC_CONFIG: https://{{ .Values.Domain }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/.well-known/openid-configuration
+  KEYCLOAK_JWT_OIDC_ISSUER: https://{{ .Values.Domain }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}
+  KEYCLOAK_JWT_OIDC_JWKS_URI: https://{{ .Values.Domain }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/certs
+  KEYCLOAK_TOKEN_URL: https://{{ .Values.Domain }}/auth/realms/{{ index .Values "forms-flow-idm" "realm" }}/protocol/openid-connect/token
+  KEYCLOAK_URL: https://{{ .Values.Domain }}
   KEYCLOAK_URL_REALM: {{ index .Values "forms-flow-idm" "realm" }}
-  FORMIO_URL: "https://forms-flow-forms-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
-  FORMIO_DOMAIN: "https://forms-flow-forms-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
-  WEB_API_URL: "https://forms-flow-api-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
+  FORMIO_URL: "https://{{ .Values.Domain }}/forms"
+  FORMIO_DOMAIN: "https://{{ .Values.Domain }}/forms"
+  WEB_API_URL: "https://{{ .Values.Domain }}"
   MONGODB_URI:  {{ ternary (tpl "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }} 
   {{- if .Values.mongodb.enabled }} 
   NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}"}'
@@ -31,8 +31,8 @@ data:
   FORMSFLOW_ADMIN_BASE: "https://forms-flow-admin-{{.Release.Namespace}}.{{tpl .Values.Domain .}}/api"
   MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
   INSIGHT_API_URL: "https://forms-flow-analytics-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
-  KEYCLOAK_ENABLE_CLIENT_AUTH: "True"
-  MULTI_TENANCY_ENABLED: "False"
+  KEYCLOAK_ENABLE_CLIENT_AUTH: "false"
+  MULTI_TENANCY_ENABLED: "false"
   DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   NODE_ENV: "production"
   CUSTOM_SUBMISSION_URL: ""
