@@ -13,7 +13,7 @@ forms-flow-forms:
 forms-flow-idm:
   keycloak:
     ingress:
-      hostname: "forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}"
+      hostname: forms-flow-idm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
   realm: forms-flow-ai
 
 forms-flow-web:
