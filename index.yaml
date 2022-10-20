@@ -1070,6 +1070,18 @@ entries:
     version: v0.2.0
   forms-flow-idm:
   - apiVersion: v2
+    created: "2022-10-20T22:55:01.115269915Z"
+    dependencies:
+    - name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.8.0
+    digest: 57a971aad76f19650d255c36ea8187c049ff82f031a31c76be3130bb86fd0e26
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-idm
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-idm-v2.1.2/forms-flow-idm-v2.1.2.tgz
+    version: v2.1.2
+  - apiVersion: v2
     created: "2022-10-20T18:01:37.588030958Z"
     dependencies:
     - name: keycloak
@@ -1402,4 +1414,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-10-20T18:01:37.846088344Z"
+generated: "2022-10-20T22:55:01.115924935Z"
