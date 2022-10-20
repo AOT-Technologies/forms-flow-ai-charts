@@ -85,7 +85,7 @@ keycloak:
     extraTls:
       - {}
     hostname:  #DEFINE_ME
-    pathType: Prefix
+    pathtype: prefix
     servicePort: http
     tls: true
 
