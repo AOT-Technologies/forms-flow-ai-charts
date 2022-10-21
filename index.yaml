@@ -513,6 +513,15 @@ entries:
     version: v0.2.0
   forms-flow-api:
   - apiVersion: v2
+    created: "2022-10-21T17:47:39.160309881Z"
+    digest: 26aa18bd1c2d6570a96629511b8171cd0a660f54151d2ce8a5935a17831fd058
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-api
+    tags: forms-flow-api
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-api-v2.1.2/forms-flow-api-v2.1.2.tgz
+    version: v2.1.2
+  - apiVersion: v2
     created: "2022-10-20T18:01:36.05638393Z"
     digest: 02bbc91678154fb29caedde0cab9e0c51374bd515920b98d729fcd6bc51ffb48
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
