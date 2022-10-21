@@ -55,7 +55,7 @@ postgresql:
     registry: docker.io
     repository: bitnami/postgresql
     tag: 14.2.0-debian-10-r57
-  fullnameoverride: "{{.Release.Name}}-postgresql"
+  fullnameOverride: "forms-flow-ai-postgresql"
   primary:
     initdb:
       user: postgres
