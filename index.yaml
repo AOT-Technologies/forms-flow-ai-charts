@@ -132,6 +132,22 @@ entries:
     version: v1.0.0
   forms-flow-ai:
   - apiVersion: v2
+    created: "2022-10-21T17:48:15.106709568Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami/postgresql
+      version: 11.6.15
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.10
+    digest: 1e60846ef264fd3d14ca5129375609d4ddaf41dc70b702f7a0bf360b7c75f3d9
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-ai
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-ai-v2.1.3/forms-flow-ai-v2.1.3.tgz
+    version: v2.1.3
+  - apiVersion: v2
     created: "2022-10-20T18:01:35.476441352Z"
     dependencies:
     - condition: postgresql.enabled
@@ -496,15 +512,6 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-analytics.build-v0.2.0/forms-flow-analytics.build-v0.2.0.tgz
     version: v0.2.0
   forms-flow-api:
-  - apiVersion: v2
-    created: "2022-10-21T17:47:39.160309881Z"
-    digest: 26aa18bd1c2d6570a96629511b8171cd0a660f54151d2ce8a5935a17831fd058
-    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
-    name: forms-flow-api
-    tags: forms-flow-api
-    urls:
-    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-api-v2.1.2/forms-flow-api-v2.1.2.tgz
-    version: v2.1.2
   - apiVersion: v2
     created: "2022-10-20T18:01:36.05638393Z"
     digest: 02bbc91678154fb29caedde0cab9e0c51374bd515920b98d729fcd6bc51ffb48
@@ -1423,4 +1430,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-10-21T17:47:39.160922285Z"
+generated: "2022-10-21T17:48:15.107395568Z"
