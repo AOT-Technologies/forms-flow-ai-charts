@@ -36,10 +36,10 @@ mongodb:
   containerSecurityContext:
     enabled: false
   enabled: true
+  fullnameOverride: "forms-flow-ai-mongodb"
   service:
     nameOverride: "forms-flow-ai-mongodb"
-    ports:
-      mongodb: 27017
+    port: 27017
   replicaSetName: "forms-flow-ai-mongodb"
   podSecurityContext:
     enabled: false
