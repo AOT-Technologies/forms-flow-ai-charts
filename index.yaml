@@ -351,6 +351,46 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-ai-v0.2.0/forms-flow-ai-v0.2.0.tgz
     version: v0.2.0
+  forms-flow-all-in-one:
+  - apiVersion: v2
+    created: "2022-10-25T18:24:29.635868648Z"
+    dependencies:
+    - name: forms-flow-admin
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.1
+    - name: forms-flow-ai
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.4
+    - name: forms-flow-analytics
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.1
+    - name: forms-flow-api
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.2
+    - name: forms-flow-bpm
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.1
+    - name: forms-flow-data-analysis
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.1
+    - name: forms-flow-documents-api
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.1
+    - name: forms-flow-forms
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.1
+    - name: forms-flow-idm
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.2
+    - name: forms-flow-web
+      repository: https://aot-technologies.github.io/forms-flow-ai-charts
+      version: v2.1.1
+    digest: 906d874034c807360f44750f72cf79a464aab846c21cd6d55cc4d601923db79f
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-all-in-one
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-all-in-one-v1.0.0/forms-flow-all-in-one-v1.0.0.tgz
+    version: v1.0.0
   forms-flow-analytics:
   - apiVersion: v2
     created: "2022-10-20T18:01:35.749374553Z"
@@ -1455,4 +1495,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2022-10-21T19:38:59.926762332Z"
+generated: "2022-10-25T18:24:29.636234449Z"
