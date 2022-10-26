@@ -30,7 +30,7 @@ data:
   FORMSFLOW_ADMIN_URL: "https://forms-flow-admin-{{.Release.Namespace}}.{{tpl .Values.Domain .}}/api/v1"
   FORMSFLOW_ADMIN_BASE: "https://forms-flow-admin-{{.Release.Namespace}}.{{tpl .Values.Domain .}}/api"
   MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
-  INSIGHT_API_URL: "https://forms-flow-analytics-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
+  INSIGHT_API_URL: "{{ .Values.Analytics.Domain }}"
   KEYCLOAK_ENABLE_CLIENT_AUTH: "false"
   MULTI_TENANCY_ENABLED: "false"
   DATA_ANALYSIS_URL:  "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
