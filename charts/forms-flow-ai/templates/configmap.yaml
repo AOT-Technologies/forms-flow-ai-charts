@@ -37,12 +37,12 @@ data:
   NODE_ENV: "production"
   CUSTOM_SUBMISSION_URL: ""
   CUSTOM_SUBMISSION_ENABLED: "true"
-  FORMSFLOW_DOC_API_URL: "https://{{ .Values.Domain }}/document"
+  FORMSFLOW_DOC_API_URL: "http://forms-flow-documents-api:5006"
   DRAFT_ENABLED: "{{.Values.draft_enabled}}"
   DRAFT_POLLING_RATE: "15000"
   EXPORT_PDF_ENABLED: "{{.Values.export_pdf_enabled}}"
   REDIS_HOST: "{{.Values.redis_host}}"
   REDIS_PORT: "{{.Values.redis_port}}"
   REDIS_ENABLED: "false"
-
+  CHROME_DRIVER_PATH: "/usr/local/bin/chromedriver"
 

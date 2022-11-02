@@ -22,6 +22,11 @@ spec:
     spec:
       containers:
       - env:
+        - name: CHROME_DRIVER_PATH
+          valueFrom:
+            configMapKeyRef:
+              key: CHROME_DRIVER_PATH
+              name: "{{ .Values.formsflow.configmap }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:
