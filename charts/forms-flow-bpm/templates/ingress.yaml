@@ -21,13 +21,13 @@ spec:
       - {{ .Values.Domain }}
       secretName: {{ .Values.sslcertificate.secretName }}
   rules:
-    - host: {{ .Values.Domain }}
+    - host: "{{tpl .Values.ingress.hostname .}}"
       http:
         paths:
-          - path: /camunda()(.*)
+          - path: /camunda
             pathType: Prefix
             backend:
               service:
                  name: {{ .Chart.Name }}
                  port:
-                    number: 8080
+                    number: {{ .Values.ingress.port }}

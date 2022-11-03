@@ -25,13 +25,13 @@ spec:
       - {{ .Values.Domain }}
       secretName: {{ .Values.sslcertificate.secretName }}
   rules:
-    - host: {{ .Values.Domain }}
+    - host: "{{tpl .Values.ingress.hostname .}}"
       http:
         paths:
-          - path: /api()(.*)
+          - path: /
             pathType: Prefix
             backend:
               service:
-                 name: forms-flow-api
+                 name: {{ .Chart.Name }}
                  port:
-                    number: 5000
+                    number: {{ .Values.ingress.port }}

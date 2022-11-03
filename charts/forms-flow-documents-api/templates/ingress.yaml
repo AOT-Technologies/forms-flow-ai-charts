@@ -22,13 +22,13 @@ spec:
       - {{ .Values.Domain }}
       secretName: {{ .Values.sslcertificate.secretName }}
   rules:
-    - host: {{ .Values.Domain }}
+    - host: "{{tpl .Values.ingress.hostname .}}"
       http:
         paths:
-          - path: /document()(.*)
+          - path: /document
             pathType: Prefix
             backend:
               service:
                  name: {{ .Chart.Name }}
                  port:
-                    number: 5006
+                    number: {{ .Values.ingress.port }}

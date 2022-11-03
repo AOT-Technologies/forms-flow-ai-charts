@@ -16,10 +16,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - {{ .Values.Domain }}
+      - "{{tpl .Values.ingress.hostname .}}"
       secretName: {{ .Values.sslcertificate.secretName }}
   rules:
-    - host: {{ .Values.Domain }}
+    - host: "{{tpl .Values.ingress.hostname .}}"
       http:
         paths:
           - path: /
@@ -28,4 +28,4 @@ spec:
               service:
                  name: {{ .Chart.Name }}
                  port:
-                    number: 8080
+                    number: {{ .Values.ingress.port }}
