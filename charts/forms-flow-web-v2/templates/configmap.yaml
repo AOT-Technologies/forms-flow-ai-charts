@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+data:
+  KEYCLOAK_CLIENT: "{{ .Chart.Name }}"
+  APPLICATION_NAME: "{{ .Chart.Name }}"
+  USER_ACCESS_PERMISSIONS: ''
+  MF_TASK_REMOTE_ENTRY: "tasks@https://minio.apps.bronze.aot-technologies.com/v2-artifacts/tasks/1.0.0/remoteEntry.js"
+  MF_PROCESS_REMOTE_ENTRY: "process@https://minio.apps.bronze.aot-technologies.com/v2-artifacts/process/1.0.0/remoteEntry.js"
+  MF_FORMS_REMOTE_ENTRY: "forms@https://minio.apps.bronze.aot-technologies.com/v2-artifacts/forms/1.0.0/remoteEntry.js"
+  MF_DASHBOARD_REMOTE_ENTRY: "dashboards@https://minio.apps.bronze.aot-technologies.com/v2-artifacts/dashboards/1.0.0/remoteEntry.js"
+  MF_APPLICATIONS_REMOTE_ENTRY: "applications@https://minio.apps.bronze.aot-technologies.com/v2-artifacts/applications/1.0.0/remoteEntry.js"
+  MF_ADMIN_REMOTE_ENTRY: "admin@https://minio.apps.bronze.aot-technologies.com/v2-artifacts/admin/1.0.0/remoteEntry.js"
+  MF_SERVICE_REMOTE_ENTRY: "services@https://minio.apps.bronze.aot-technologies.com/v2-artifacts/services/1.0.0/remoteEntry.js"
+
+  
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ .Chart.Name }}-config.template
+  name: {{ .Chart.Name }}-config.template
+data:
+  config.js: |-
+    // runtime-config.js vars
+      window["_env_"] =  {
+        "NODE_ENV": "${NODE_ENV}",
+        "MF_TASK_REMOTE_ENTRY": "${MF_TASK_REMOTE_ENTRY}",
+        "MF_PROCESS_REMOTE_ENTRY": "${MF_PROCESS_REMOTE_ENTRY}", 
+        "MF_FORMS_REMOTE_ENTRY": "${MF_FORMS_REMOTE_ENTRY}", 
+        "MF_DASHBOARD_REMOTE_ENTRY": "${MF_DASHBOARD_REMOTE_ENTRY}", 
+        "MF_APPLICATIONS_REMOTE_ENTRY": "${MF_APPLICATIONS_REMOTE_ENTRY}", 
+        "MF_ADMIN_REMOTE_ENTRY": "${MF_ADMIN_REMOTE_ENTRY}", 
+        "MF_SERVICE_REMOTE_ENTRY": "${MF_SERVICE_REMOTE_ENTRY}"
+      }

@@ -1,0 +1,5 @@
+---
+apiVersion: v2
+name: forms-flow-web-v2
+version: v2.0.7
+icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai-web/develop/.images/logo.png"

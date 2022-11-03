@@ -1,0 +1,98 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Chart.Name }}"
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}"
+    spec:
+      containers:
+      - env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              key: NODE_ENV
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: MF_TASK_REMOTE_ENTRY
+          valueFrom:
+            configMapKeyRef:
+              key: MF_TASK_REMOTE_ENTRY
+              name: "{{ .Chart.Name }}"
+        - name: MF_PROCESS_REMOTE_ENTRY
+          valueFrom:
+            configMapKeyRef:
+              key: MF_PROCESS_REMOTE_ENTRY
+              name: "{{ .Chart.Name }}"
+        - name: MF_FORMS_REMOTE_ENTRY
+          valueFrom:
+            configMapKeyRef:
+              key: MF_FORMS_REMOTE_ENTRY
+              name: "{{ .Chart.Name }}"
+        - name: MF_DASHBOARD_REMOTE_ENTRY
+          valueFrom:
+            configMapKeyRef:
+              key: MF_DASHBOARD_REMOTE_ENTRY
+              name: "{{ .Chart.Name }}"
+        - name: MF_APPLICATIONS_REMOTE_ENTRY
+          valueFrom:
+            configMapKeyRef:
+              key: MF_APPLICATIONS_REMOTE_ENTRY
+              name: "{{ .Chart.Name }}"
+        - name: MF_ADMIN_REMOTE_ENTRY
+          valueFrom:
+            configMapKeyRef:
+              key: MF_ADMIN_REMOTE_ENTRY
+              name: "{{ .Chart.Name }}"
+        - name: MF_SERVICE_REMOTE_ENTRY
+          valueFrom:
+            configMapKeyRef:
+              key: MF_SERVICE_REMOTE_ENTRY
+              name: "{{ .Chart.Name }}"   
+
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "\
+                                              envsubst < /tmp/{{.Chart.Name}}-config.template/config.js > {{.Values.config_path}}/config.js;" ]
+        imagePullPolicy: Always
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: {{ int .Values.ingress.port }}
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "{{ .Values.resources.limits.cpu }}"
+            memory: "{{ .Values.resources.limits.memory }}"
+          requests:
+            cpu: "{{ .Values.resources.requests.cpu }}"
+            memory: "{{ .Values.resources.requests.memory }}"
+        tty: true
+        volumeMounts:
+        - mountPath: {{.Values.config_path}}
+          name: tmpfs
+        - mountPath: /tmp/{{ .Chart.Name }}-config.template
+          name: {{ .Chart.Name }}-config-template
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: {{ .Chart.Name }}-config.template
+        name: {{ .Chart.Name }}-config-template
+      - emptyDir: {}
+        name: tmpfs
