@@ -12,7 +12,7 @@ sslcertificate:
     issuer: letsencrypt-staging   # Name for tls issuer name
 ingress: 
   enabled: true # create an ingress for this component
-  hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{.Values.Domain}}"
+  hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 5000
 
 redis-exporter:

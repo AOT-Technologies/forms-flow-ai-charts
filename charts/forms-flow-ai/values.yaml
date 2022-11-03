@@ -19,7 +19,7 @@ forms-flow-forms:
 forms-flow-idm:
   keycloak:
     ingress:
-      hostname: "forms-flow-idm-{{.Release.Namespace}}.{{.Values.Domain}}"
+      hostname: forms-flow-idm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
   realm: forms-flow-ai
 
 forms-flow-web:
@@ -42,10 +42,10 @@ mongodb:
   containerSecurityContext:
     enabled: false
   enabled: true
+  fullnameOverride: "forms-flow-ai-mongodb"
   service:
     nameOverride: "forms-flow-ai-mongodb"
-    ports:
-      mongodb: 27017
+    port: 27017
   replicaSetName: "forms-flow-ai-mongodb"
   podSecurityContext:
     enabled: true
@@ -63,7 +63,7 @@ postgresql:
     registry: docker.io
     repository: bitnami/postgresql
     tag: 14.2.0-debian-10-r57
-  fullnameoverride: "{{.Release.Name}}-postgresql"
+  fullnameOverride: "forms-flow-ai-postgresql"
   primary:
     initdb:
       user: postgres
