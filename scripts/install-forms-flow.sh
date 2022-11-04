@@ -1,21 +1,5 @@
 #!/bin/bash
 
-# Exit when script tries to use undeclared variables
-set -o nounset
-
-# Assign versions
-# See https://github.com/AOT-Technologies/forms-flow-ai-charts/releases
-version_ff_admin="v2.1.1"
-version_ff_ai="v2.1.4"
-version_ff_analytics="v2.1.1"
-version_ff_api="v2.1.2"
-version_ff_bpm="v2.1.1"
-version_ff_data_analysis="v2.1.1"
-version_ff_documents_api="v2.1.1"
-version_ff_forms="v2.1.1"
-version_ff_idm="v2.1.2"
-version_ff_web="v2.1.1"
-
 main() {
 
 	# Make sure that this is being run from the scripts folder
@@ -25,13 +9,18 @@ main() {
 	displayPrompts
 
 	# Make sure all prompts have been answered
-	# Checks if number of arguments = 4
-	checkEmptyInput $is_from_registry $domain_name $namespace $is_premium
+	# Checks if number of arguments = 5
+	checkEmptyInput $is_from_registry $domain_name $namespace $is_premium $is_latest_release
 
 	printf "\nInstalling forms flow ...\n"
 
 	# Decide whether to install from formsflow registry (https://aot-technologies.github.io/forms-flow-ai-charts) or from this local repo
 	configureInstall
+
+	# Decide whether to use latest Chart release
+	# The stable versions have been coded into this script, 
+	# you can customize the versions that you would like to install by editing the versions within this function
+	configureLatestOrStableReleases
 
 	# Run helm install commands
 	runHelmInstall
@@ -68,6 +57,33 @@ configureInstall() {
 	fi
 }
 
+configureLatestOrStableReleases() {
+	if [[ $is_latest_release =~ ^[Yy]$ ]]; then
+		version_ff_admin="latest"
+		version_ff_ai="latest"
+		version_ff_analytics="latest"
+		version_ff_api="latest"
+		version_ff_bpm="latest"
+		version_ff_data_analysis="latest"
+		version_ff_documents_api="latest"
+		version_ff_forms="latest"
+		version_ff_idm="latest"
+		version_ff_web="latest"
+	else
+		# See https://github.com/AOT-Technologies/forms-flow-ai-charts/releases
+		version_ff_admin="v2.1.1"
+		version_ff_ai="v2.1.4"
+		version_ff_analytics="v2.1.1"
+		version_ff_api="v2.1.2"
+		version_ff_bpm="v2.1.1"
+		version_ff_data_analysis="v2.1.1"
+		version_ff_documents_api="v2.1.1"
+		version_ff_forms="v2.1.1"
+		version_ff_idm="v2.1.2"
+		version_ff_web="v2.1.1"
+	fi
+}
+
 addRegistry() {
 	helm repo remove formsflow
 	helm repo add formsflow https://aot-technologies.github.io/forms-flow-ai-charts
@@ -93,6 +109,7 @@ displayPrompts() {
 	read -p "Please enter the domain name (ex: apps.bronze.aot-technologies.com):" domain_name
 	read -p "Please enter the namespace (ex: forms-flow):" namespace
 	read -p "Is this a premium installation? (y/n):" is_premium
+	read -p "Use the latest version release? (y) or stable release (n):" is_latest_release
 }
 
 checkdirectory() {
@@ -105,7 +122,7 @@ checkdirectory() {
 }
 
 checkEmptyInput() {
-	if [ ! ${#} = 4 ]; then
+	if [ ! ${#} = 5 ]; then
 		echo "Please provide input for all prompts."
 		exit 2
 	fi
