@@ -45,6 +45,8 @@ mongodb:
     enabled: false
   useStatefulSet : false
   architecture: standalone
+  persistence:
+    size: 4Gi
  
 postgresql:
   auth:
@@ -70,6 +72,7 @@ postgresql:
       enabled: false
     persistence:
       storageClass: ""
+      size: 8Gi
     podSecurityContext:
       enabled: false
     service:
