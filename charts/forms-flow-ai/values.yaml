@@ -48,7 +48,7 @@ mongodb:
   persistence:
     size: 4Gi
   image:
-    tag: 4.2.21-debian-10-r8
+    tag: 6.0.4-debian-11-r1 # Set 4.2.21-debian-10-r8 for openshift
 
  
 postgresql:
