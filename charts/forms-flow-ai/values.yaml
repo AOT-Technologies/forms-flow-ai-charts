@@ -47,6 +47,9 @@ mongodb:
   architecture: standalone
   persistence:
     size: 4Gi
+  image:
+    tag: 4.2.21-debian-10-r8
+
  
 postgresql:
   auth:

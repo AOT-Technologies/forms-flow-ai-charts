@@ -30,7 +30,7 @@ keycloak:
   image:
     registry: "docker.io"
     repository: "bitnami/keycloak" 
-    tag: 19.0.3
+    tag: 14.0.0
 
   postgresql:
     auth:
