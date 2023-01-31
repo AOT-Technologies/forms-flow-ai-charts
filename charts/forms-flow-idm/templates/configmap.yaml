@@ -282,6 +282,14 @@ data:
               "clientRole": true,
               
               "attributes": {}
+            },
+            {
+              "name": "formsflow-analytics",
+              "description": "",
+              "composite": false,
+              "clientRole": true,
+              
+              "attributes": {}
             }
           ],
           "security-admin-console": [],
