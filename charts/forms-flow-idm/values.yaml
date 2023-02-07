@@ -134,40 +134,45 @@ postgresql-ha:
          GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO repmgr;
 
          alter database "forms-flow-idm" set default_transaction_read_only = off;
-    pgpool:
-      image:
-        registry: docker.io
-        repository: bitnami/pgpool
-        tag: 4.3.3-debian-11-r28
-      podSecurityContext:
-        enabled: false
-      containerSecurityContext:
-        enabled: false
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
-      livenessProbe:
-        enabled: false
-      readinessProbe:
-        enabled: false
-      containerPorts:
-        postgresql: 5432
-      adminUsername: admin
-      adminPassword: ""
-      service:
-        type: ClusterIP
-        ports:
-          metrics: 9187
-    persistence:
-      enabled: true
-      storageClass: ""
-      mountPath: /bitnami/postgresql
-      accessModes:
-        - ReadWriteOnce
-      size: 8Gi
+  pgpool:
+    image:
+      registry: docker.io
+      repository: bitnami/pgpool
+      tag: 4.3.3-debian-11-r28
+      digest: ""
+      pullPolicy: IfNotPresent
+    replicaCount: 1
+    podSecurityContext:
+      enabled: false
+      fsGroup: 1001
+    containerSecurityContext:
+      enabled: false
+      runAsUser: 1001
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    containerPorts:
+      postgresql: 5432
+    adminUsername: admin
+    adminPassword: ""
     service:
       type: ClusterIP
       ports:
-        postgresql: 5432
-      portName: postgresql
-    volumePermissions:
-      enabled: true 
+        metrics: 9187
+  persistence:
+    enabled: true
+    storageClass: ""
+    mountPath: /bitnami/postgresql
+    accessModes:
+      - ReadWriteOnce
+    size: 8Gi
+  service:
+    type: ClusterIP
+    ports:
+      postgresql: 5432
+    portName: postgresql
+    nodePorts:
+      postgresql: ""
