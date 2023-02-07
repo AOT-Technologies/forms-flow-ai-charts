@@ -3,15 +3,21 @@ Domain: #<DEFINE_ME>
 database:
   username: postgres 
   password: postgres
-  servicename: forms-flow-ai-postgresql
+  servicename: forms-flow-ai-postgresql-ha-pgpool
   port: 5432
   url: "postgresql://{{.Values.database.username}}:{{.Values.database.password}}@{{.Values.database.servicename}}:{{.Values.database.port}}/{{.Chart.Name}}"
 
 
 ingress: 
+  annotations:
+#    kubernetes.io/ingress.class: nginx 
   enabled: true # create an ingress for this component
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 5000
+  tls: []
+#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
+#      hosts:
+#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 
 redis-exporter:
   exporter:
