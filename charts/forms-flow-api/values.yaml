@@ -4,10 +4,10 @@ database:
   url: "postgresql://postgres:postgres@forms-flow-ai-postgresql-ha-pgpool:5432/{{.Chart.Name}}"
 resources:
   limits:
-    cpu: 700m
+    cpu: 300m
     memory: 1Gi
   requests:
-    cpu: 600m
+    cpu: 200m
     memory: 512Mi
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
@@ -15,14 +15,14 @@ formsflow:
   analytics: forms-flow-analytics #name of forms-flow-analytics component 
 ingress:
   annotations:
-#    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: nginx
   enabled: true # create an ingress for this component
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 5000
-  tls: []
-#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
-#      hosts:
-#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
+  tls: 
+    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
+      hosts:
+        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 image:
   registry: docker.io
   repository: formsflow/forms-flow-webapi

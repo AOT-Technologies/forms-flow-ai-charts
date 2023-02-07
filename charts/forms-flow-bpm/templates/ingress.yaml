@@ -1,12 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }} 
   labels:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
+  {{- with .Values.ingress.tls }}
   tls:
-    - {}
+    {{- tpl (toYaml .) $ | nindent 4 }}
+  {{- end }}
   rules:
     -
       host: "{{tpl .Values.ingress.hostname .}}"

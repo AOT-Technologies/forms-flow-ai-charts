@@ -8,14 +8,14 @@ formsflow:
   secret: forms-flow-ai #name of formsflow.ai secret
 ingress:
   annotations:
-#    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: "nginx"
   enabled: true # create an ingress for this component 
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 8080
-  tls: []
-#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
-#      hosts:
-#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
+  tls: 
+    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
+      hosts:
+        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 resources:
   limits:
     cpu: 400m
