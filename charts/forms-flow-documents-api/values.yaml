@@ -17,7 +17,8 @@ ingress:
   enabled: true # create an ingress for this component 
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 5006
-  tls: []  
+  tls:
+   - {}  
 #    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
 #      hosts:
 #        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"

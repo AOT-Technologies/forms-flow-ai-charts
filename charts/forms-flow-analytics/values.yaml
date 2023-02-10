@@ -14,7 +14,8 @@ ingress:
   enabled: true # create an ingress for this component
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 5000
-  tls: [] 
+  tls: 
+    - {} 
 #    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
 #      hosts:
 #        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
@@ -49,7 +50,8 @@ redash:
     password: postgres # admin password
     url: "postgresql://postgres:postgres@forms-flow-analytics-postgresql:5432/postgres" # redash database url - i.e forms-flow-analytics-postgresql
 
-
+route:
+  enabled: true
 resources:
   limits:
     cpu: 200m
