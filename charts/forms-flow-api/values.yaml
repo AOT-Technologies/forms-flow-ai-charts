@@ -20,4 +20,4 @@ ingress:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-webapi
-  tag: v5.0.1 #The image tag to pull from
+  tag: v5.1.0 #The image tag to pull from
