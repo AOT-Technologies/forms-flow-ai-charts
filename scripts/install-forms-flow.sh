@@ -152,3 +152,6 @@ checkEmptyInput() {
 		exit 2
 	fi
 }
+
+
+main "$@"
