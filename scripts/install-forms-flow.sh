@@ -10,7 +10,7 @@ main() {
 
 	# Make sure all prompts have been answered
 	# Checks if number of arguments = 5
-	checkEmptyInput $is_from_registry $domain_name $namespace $is_premium $is_latest_release 
+	checkEmptyInput $is_from_registry $domain_name $namespace $is_premium $is_latest_release
 
 	printf "\nInstalling forms flow ...\n"
 
@@ -152,6 +152,3 @@ checkEmptyInput() {
 		exit 2
 	fi
 }
-
-
-main "$@"
