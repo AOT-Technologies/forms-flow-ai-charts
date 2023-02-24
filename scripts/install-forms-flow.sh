@@ -63,7 +63,20 @@ runHelmInstall() {
 	helm install forms-flow-api $directory/forms-flow-api --set Domain=$domain_name --namespace $namespace --version $version_ff_api
 	helm install forms-flow-bpm $directory/forms-flow-bpm --set Domain=$domain_name --set camunda.websocket.securityOrigin=https://*.$domain_name --namespace $namespace --version $version_ff_bpm
 	helm install forms-flow-data-analysis $directory/forms-flow-data-analysis --set Domain=$domain_name --namespace $namespace --version $version_ff_data_analysis
-	helm install forms-flow-web $directory/forms-flow-web --set Domain=$domain_name --namespace $namespace --version $version_ff_web
+	
+    if [[ $is_keycloak_enabled =~ ^[Yy]$ ]]; then
+	    helm install forms-flow-web $directory/forms-flow-web \
+            --set Domain=$domain_name \
+            --namespace $namespace \
+            --version $version_ff_web
+    else
+	    helm install forms-flow-web $directory/forms-flow-web \
+            --set Domain=$domain_name \
+            --set webclient=$web_clientid \
+            --namespace $namespace \
+            --version $version_ff_web
+    fi
+
 	helm install forms-flow-documents-api $directory/forms-flow-documents-api --set Domain=$domain_name --namespace $namespace --version $version_ff_documents_api
 }
 
