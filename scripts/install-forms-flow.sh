@@ -42,6 +42,7 @@ runHelmInstall() {
             --set Domain=$domain_name \
             --set forms-flow-idm.keycloak.ingress.hostname=$keycloak_hostname \
             --set forms-flow-idm.realm=$keycloak_realm \
+            --set forms-flow-web.clientid=$web_clientid \
             --set forms-flow-bpm.clientid=$bpm_clientid \
             --set forms-flow-bpm.clientsecret=$bpm_clientsecret \
             --namespace $namespace \
@@ -133,6 +134,7 @@ displayPrompts() {
 	if [[ $is_keycloak_enabled =~ ^[Nn]$ ]]; then
 	    read -p "Keycloak hostname:" keycloak_hostname
 	    read -p "Keycloak realm:" keycloak_realm
+	    read -p "formsflow.ai web client id:" web_clientid
 	    read -p "formsflow.ai bpm client id:" bpm_clientid
 	    read -p "formsflow.ai bpm client secret:" bpm_clientsecret
     fi
