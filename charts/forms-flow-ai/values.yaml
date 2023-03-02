@@ -28,8 +28,6 @@ forms-flow-web:
 
 mongodb:
   image:
-    registry: docker.io
-    repository: bitnami/mongodb
     tag: 4.2.21-debian-10-r8
   enabled: true
   fullnameOverride: "forms-flow-ai-mongodb"
@@ -63,7 +61,7 @@ mongodb:
   replicaSetName: rs0
   replicaSetHostnames: true
   directoryPerDB: false
-  replicaCount: 2
+  replicaCount: 3
   podSecurityContext:
     enabled: false
     fsGroup: 1001
