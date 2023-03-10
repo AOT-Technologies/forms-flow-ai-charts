@@ -180,7 +180,7 @@ postgresql-ha:
     containerPorts:
       postgresql: 5432
     adminUsername: admin
-    adminPassword: ""
+    adminPassword: "admin"
     service:
       type: ClusterIP
       ports:
