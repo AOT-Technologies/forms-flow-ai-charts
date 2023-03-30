@@ -7,9 +7,14 @@ metadata:
   annotations:
 {{ toYaml .Values.ingress.annotations | indent 4 }}
 spec:
-  {{- with .Values.ingress.tls }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- if or (and .Values.ingress.tls (or ( dict "annotations" .Values.ingress.annotations ) .Values.ingress.selfSigned .Values.ingress.secrets )) .Values.ingress.extraTls }}
   tls:
-    {{- tpl (toYaml .) $ | nindent 4 }}
+  {{- if and .Values.ingress.tls (or ( dict "annotations" .Values.ingress.annotations ) .Values.ingress.secrets .Values.ingress.selfSigned) }}
+    - hosts:
+        - {{ (tpl .Values.ingress.hostname .) | quote }}
+      secretName: {{ printf "%s-tls" (tpl .Values.ingress.hostname .) }}
+    {{- end }}
   {{- end }}
   rules:
     -

@@ -18,12 +18,15 @@ formsflow:
   
 
 ingress:
+  ingressClassName: ""
   annotations:
 #    kubernetes.io/ingress.class: nginx
   enabled: true # create an ingress for this component 
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 5000
-  tls:
+  tls: true
+  selfSigned: false
+  extraTls:
    - {}
 #    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
 #      hosts:
