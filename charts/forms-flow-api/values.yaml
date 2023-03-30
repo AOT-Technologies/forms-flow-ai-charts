@@ -29,5 +29,5 @@ ingress:
 #        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 image:
   registry: docker.io
-  repository: formsflow/forms-flow-webapi-ee
+  repository: formsflow/forms-flow-webapi
   tag: v5.1.0 #The image tag to pull from
