@@ -1,20 +1,4 @@
-# Default values for forms-flow-web 
-
-# Values for Issuer
-
+Domain: #<Domain_Name>
 issuer:
-  name: "{{.Chart.Name}}-{{.Release.Namespace}}"
   acmeEmail: ""
   ingressClass: nginx
-
-
-# Values for Cert
-
-certificate:
-  name: forms-flow-web-multitenant.aot-technologies.com
-  namespace: default
-
- 
-
-
-

@@ -1,23 +1,4 @@
-# Default values for forms-flow-documents-api 
-
-# Values for Cert
-
-certificate:
-  domainName: forms-flow-documents-api-multitenant.aot-technologies.com
-  namespace: multitenant
-  secretName: forms-flow-documents-api-multitenant.aot-technologies.com-tls
-  issuerName: letsencrypt-dev6
-  issuerKind: ClusterIssuer
-  commonName: forms-flow-documents-api-multitenant.aot-technologies.com
-  dnsNames: forms-flow-documents-api-multitenant.aot-technologies.com
-
-
-# Values for Issuer
-
+Domain: #<Domain_Name>
 issuer:
-  name: letsencrypt-dev6
-  namespace: default
   acmeEmail: ""
-  privateKeySecretName: letsencrypt-dev6
   ingressClass: nginx
-
