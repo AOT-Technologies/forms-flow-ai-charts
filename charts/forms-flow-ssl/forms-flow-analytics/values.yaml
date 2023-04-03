@@ -1,0 +1,22 @@
+# Default values for forms-flow-analytics 
+
+# Values for Cert
+
+certificate:
+  domainName: forms-flow-analytics-multitenant.aot-technologies.com
+  namespace: multitenant
+  secretName: forms-flow-analytics-multitenant.aot-technologies.com-tls
+  issuerName: letsencrypt-dev2
+  issuerKind: ClusterIssuer
+  commonName: forms-flow-analytics-multitenant.aot-technologies.com
+  dnsNames: forms-flow-analytics-multitenant.aot-technologies.com
+
+
+# Values for Issuer
+issuer:
+  name: letsencrypt-dev2
+  namespace: default
+  acmeEmail: ""
+  privateKeySecretName: letsencrypt-dev2
+  ingressClass: nginx
+

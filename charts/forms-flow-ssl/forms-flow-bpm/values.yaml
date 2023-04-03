@@ -1,0 +1,23 @@
+# Default values for forms-flow-bpm 
+
+# Values for Cert
+
+certificate:
+  domainName: forms-flow-bpm-multitenant.aot-technologies.com
+  namespace: multitenant
+  secretName: forms-flow-bpm-multitenant.aot-technologies.com-tls
+  issuerName: letsencrypt-dev3
+  issuerKind: ClusterIssuer
+  commonName: forms-flow-bpm-multitenant.aot-technologies.com
+  dnsNames: forms-flow-bpm-multitenant.aot-technologies.com
+
+
+# Values for Issuer
+
+issuer:
+  name: letsencrypt-dev3
+  namespace: default
+  acmeEmail: ""
+  privateKeySecretName: letsencrypt-dev3
+  ingressClass: nginx
+

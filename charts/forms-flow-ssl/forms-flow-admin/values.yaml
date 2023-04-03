@@ -1,0 +1,23 @@
+# Default values for forms-flow-admin 
+
+# Values for Cert
+
+certificate:
+  domainName: forms-flow-admin-multitenant.aot-technologies.com
+  namespace: multitenant
+  secretName: forms-flow-admin-multitenant.aot-technologies.com-tls
+  issuerName: letsencrypt-dev8
+  issuerKind: ClusterIssuer
+  commonName: forms-flow-admin-multitenant.aot-technologies.com
+  dnsNames: forms-flow-admin-multitenant.aot-technologies.com
+
+
+# Values for Issuer
+
+issuer:
+  name: letsencrypt-dev8
+  namespace: default
+  acmeEmail: ""
+  privateKeySecretName: letsencrypt-dev8
+  ingressClass: nginx
+
