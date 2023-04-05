@@ -34,6 +34,7 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-bpm
   tag: v5.1.0 #The image tag to pull from
+  secret: ""
 
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
@@ -50,9 +51,6 @@ ingress:
   selfSigned: false
   extraTls:
    - {}
-#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
-#      hosts:
-#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 mail:
   from: "<DEFINE_ME>"
   password: "<DEFINE_ME>"

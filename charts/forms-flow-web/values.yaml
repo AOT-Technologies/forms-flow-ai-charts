@@ -17,9 +17,6 @@ ingress:
   selfSigned: false
   extraTls:
    - {}
-#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
-#      hosts:
-#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 resources:
   limits:
     cpu: 400m
@@ -31,6 +28,7 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-web
   tag: v5.1.0
+  secret: ""
 config_path: /usr/share/nginx/html/config/
 webclient: "{{.Chart.Name}}"
 webname: formsflow

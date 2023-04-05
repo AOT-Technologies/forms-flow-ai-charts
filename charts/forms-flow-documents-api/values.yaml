@@ -22,10 +22,8 @@ ingress:
   selfSigned: false
   extraTls:
    - {}  
-#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
-#      hosts:
-#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 image:
   registry: docker.io
   repository: formsflow/forms-flow-documents-api
   tag: v5.1.0 #The image tag to pull from
+  secret: ""

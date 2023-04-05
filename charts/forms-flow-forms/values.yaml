@@ -9,7 +9,7 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-forms
   tag: v5.1.0 #The image tag to pull from
-
+  secret: ""
 ingress:
   ingressClassName: ""
   annotations:
@@ -21,9 +21,6 @@ ingress:
   selfSigned: false
   extraTls:
    - {} 
-#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
-#      hosts:
-#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 resources:
   limits:
     cpu: 200m

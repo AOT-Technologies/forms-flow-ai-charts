@@ -153,6 +153,8 @@ spec:
         - mountPath: /tmp/{{ .Chart.Name }}-config.template
           name: {{ .Chart.Name }}-config-template
           readOnly: true
+      imagePullSecrets:
+      - name: "{{ .Values.image.secret }}"
       restartPolicy: Always
       volumes:
       - configMap:
