@@ -114,5 +114,5 @@ spec:
         tty: true
       restartPolicy: Always
       imagePullSecrets:
-      - name: "{{ .Values.image.secret }}"
+      - name: "{{ .Values.formsflow.auth }}"
 

@@ -84,7 +84,7 @@ spec:
         terminationMessagePolicy: File
         tty: true
       imagePullSecrets:
-      - name: "{{ .Values.image.secret }}"
+      - name: "{{ .Values.formsflow.auth }}"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

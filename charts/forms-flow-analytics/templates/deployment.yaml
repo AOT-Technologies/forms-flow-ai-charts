@@ -51,7 +51,7 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
       imagePullSecrets:
-      - name: "{{ .Values.redash.image.secret }}"
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -92,7 +92,7 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
       imagePullSecrets:
-      - name: "{{ .Values.redash.image.secret }}"
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -133,7 +133,7 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
       imagePullSecrets:
-      - name: "{{ .Values.redash.image.secret }}"
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -171,7 +171,7 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
       imagePullSecrets:
-      - name: "{{ .Values.redash.image.secret }}"
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -214,4 +214,4 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
       imagePullSecrets:
-      - name: "{{ .Values.redash.image.secret }}"
+      - name: "{{ .Values.formsflow.auth}}"

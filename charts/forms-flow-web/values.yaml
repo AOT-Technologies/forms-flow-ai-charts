@@ -6,6 +6,7 @@ analytics:
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret
+  auth: forms-flow-ai-auth
 ingress:
   ingressClassName: ""
   annotations:
@@ -28,7 +29,6 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-web
   tag: v5.1.0
-  secret: ""
 config_path: /usr/share/nginx/html/config/
 webclient: "{{.Chart.Name}}"
 webname: formsflow

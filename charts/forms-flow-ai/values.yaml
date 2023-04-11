@@ -26,6 +26,10 @@ forms-flow-idm:
 forms-flow-web:
   clientid: forms-flow-web
 
+forms-flow-auth:
+  imagesecret: "eyJhdXRocyI6eyJkb2NrZXIuaW8iOnsidXNlcm5hbWUiOiJhbGFucmFqdTAwNyIsInBhc3N3b3JkIjoiZGNrcl9wYXRfQ0Z3OTdJeUpmY3hpblNfQXpaOGlBcDlvSVkwIiwiYXV0aCI6IllXeGhibkpoYW5Vd01EYzZaR05yY2w5d1lYUmZRMFozT1RkSmVVcG1ZM2hwYmxOZlFY"
+
+
 mongodb:
   image:
     tag: 4.2.21-debian-10-r8

@@ -154,7 +154,7 @@ spec:
           name: {{ .Chart.Name }}-config-template
           readOnly: true
       imagePullSecrets:
-      - name: "{{ .Values.image.secret }}"
+      - name: "{{ .Values.formsflow.auth }}"
       restartPolicy: Always
       volumes:
       - configMap:
