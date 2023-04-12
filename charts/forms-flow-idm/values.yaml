@@ -40,7 +40,7 @@ keycloak:
       command: ["/bin/sh","-c"]
       args:
       - "mkdir /opt/bitnami/keycloak/themes && \
-         cp -rf /formsflow-theme/* /opt/bitnami/keycloak/themes && \
+         cp -rf /my-theme/* /opt/bitnami/keycloak/themes && \
          ls -ltra /opt/bitnami/keycloak/themes"
       volumeMounts:
       - mountPath: /opt/bitnami/keycloak
