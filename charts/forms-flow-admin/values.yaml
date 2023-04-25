@@ -17,10 +17,17 @@ formsflow:
   analytics: forms-flow-analytics #name of analytics component 
   
 
-ingress: 
+ingress:
+  ingressClassName: ""
+  annotations:
+#    kubernetes.io/ingress.class: nginx 
   enabled: true # create an ingress for this component 
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
+  tls: true
+  selfSigned: false
   port: 5000
+  extraTls:
+   - {}
   path: /
 
 image:

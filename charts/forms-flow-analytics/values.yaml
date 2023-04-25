@@ -8,11 +8,16 @@ database:
   url: "postgresql://{{.Values.database.username}}:{{.Values.database.password}}@{{.Values.database.servicename}}:{{.Values.database.port}}/{{.Chart.Name}}"
 
 
-ingress: 
+ingress:
+  annotations:
+#    kubernetes.io/ingress.class: nginx 
   enabled: true # create an ingress for this component
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 5000
-
+  tls: true
+  selfSigned: false
+  extraTls:
+    - {}
 redis-exporter:
   exporter:
     image:  

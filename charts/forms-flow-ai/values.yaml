@@ -35,6 +35,8 @@ mongodb:
       - mongodb
   containerSecurityContext:
     enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
   enabled: true
   fullnameOverride: "forms-flow-ai-mongodb"
   service:
@@ -43,6 +45,7 @@ mongodb:
   replicaSetName: "forms-flow-ai-mongodb"
   podSecurityContext:
     enabled: false
+    fsGroup: 1001
   useStatefulSet : false
   architecture: standalone
   persistence:
@@ -73,11 +76,14 @@ postgresql:
           CREATE DATABASE "forms-flow-bpm";
     containerSecurityContext:
       enabled: false
+      runAsUser: 1001
+      runAsNonRoot: true
     persistence:
       storageClass: ""
       size: 8Gi
     podSecurityContext:
       enabled: false
+      fsGroup: 1001
     service:
       ports:
         postgresql: 5432  # PostgreSQL service port

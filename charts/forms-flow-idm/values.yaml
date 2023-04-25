@@ -63,10 +63,10 @@ keycloak:
 
   resources:
     limits:
-      cpu: 2
+      cpu: 700m
       memory: 3Gi
     requests:
-      cpu: 1.6
+      cpu: 500m
       memory: 2Gi
 
   containerSecurityContext:
@@ -79,9 +79,14 @@ keycloak:
       enabled: false
     podSecurityContext:
       enabled: false
-  
+  service:
+    type: ClusterIP
+
   ingress:
+    ingressClassName: ""
     enabled: true
+    annotations:
+#      kubernetes.io/ingress.class: nginx
     extraTls:
       - {}
     hostname: #DEFINE_ME
