@@ -45,7 +45,7 @@ redash:
   image:
     registry: docker.io #registry to use
     repository: formsflow/redash # repoisitory for redash image  
-    tag: 10.1.4 # tag of image being used
+    tag: 10.1.5 # tag of image being used
   database:
     password: postgres # admin password
     url: "postgresql://postgres:postgres@forms-flow-analytics-postgresql:5432/postgres" # redash database url - i.e forms-flow-analytics-postgresql
