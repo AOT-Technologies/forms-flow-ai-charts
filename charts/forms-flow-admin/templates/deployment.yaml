@@ -159,4 +159,4 @@ spec:
         tty: true
       restartPolicy: Always
       imagePullSecrets:
-      - name: "{{ .Chart.Name }}"
+      - name: "{{ .Values.formsflow.auth }}"

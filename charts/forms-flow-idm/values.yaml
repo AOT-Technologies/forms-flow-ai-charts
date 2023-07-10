@@ -121,10 +121,10 @@ postgresql-ha:
     username: postgres
     password: "postgres"
     database: "forms-flow-idm"
-    postgresPassword: "postgres"
+    postgresPassword: "changeme"
 
     repmgrUsername: repmgr
-    repmgrPassword: "repmgr"
+    repmgrPassword: "changeme"
     repmgrDatabase: repmgr
     repmgrLogLevel: NOTICE
     repmgrConnectTimeout: 5
@@ -174,7 +174,7 @@ postgresql-ha:
     containerPorts:
       postgresql: 5432
     adminUsername: admin
-    adminPassword: "admin"
+    adminPassword: "changeme"
     service:
       type: ClusterIP
       ports:
