@@ -173,11 +173,11 @@ spec:
               key: ENABLE_APPLICATIONS_MODULE
               name: "{{ .Chart.Name }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        #lifecycle:
-        #  postStart:
-        #    exec:
-        #      command: ["/bin/sh", "-c", "\
-        #                                      envsubst < /tmp/{{.Chart.Name}}-config.template/config.js > {{.Values.config_path}}/config.js;" ]
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "\
+                                              envsubst < /tmp/{{.Chart.Name}}-config.template/config.js > {{.Values.config_path}}/config.js;" ]
         imagePullPolicy: Always
         name: {{ .Chart.Name }}
         ports:
@@ -192,18 +192,18 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
         tty: true
         volumeMounts:
-#        - mountPath: {{.Values.config_path}}
-#          name: tmpfs
-#        - mountPath: /tmp/{{ .Chart.Name }}-config.template
-#          name: {{ .Chart.Name }}-config-template
-#          readOnly: true
+        - mountPath: {{.Values.config_path}}
+          name: tmpfs
+        - mountPath: /tmp/{{ .Chart.Name }}-config.template
+          name: {{ .Chart.Name }}-config-template
+          readOnly: true
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
       restartPolicy: Always
       volumes:
-#      - configMap:
-#          defaultMode: 420
-#          name: {{ .Chart.Name }}-config.template
-#        name: {{ .Chart.Name }}-config-template
-#      - emptyDir: {}
-#        name: tmpfs
+      - configMap:
+          defaultMode: 420
+          name: {{ .Chart.Name }}-config.template
+        name: {{ .Chart.Name }}-config-template
+      - emptyDir: {}
+        name: tmpfs
