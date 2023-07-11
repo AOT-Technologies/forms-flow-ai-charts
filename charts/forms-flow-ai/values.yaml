@@ -42,9 +42,9 @@ mongodb:
     databases: 
       - formsflow 
     passwords:
-      - mongodb
+      - changeme    #use the same password in initdbscript
     usernames:
-      - mongodb
+      - mongodb     #use the same username in initdbscript
     enabled: true
     rootUser: root
     rootPassword: "changeme"
@@ -53,8 +53,8 @@ mongodb:
      init-mongo.js: |
            use admin
            db.createUser({
-              user: 'mongodb',
-              pwd: 'mongodb',
+              user: 'mongodb',     
+              pwd: 'changeme',   
               roles: [
                 {
                    role: 'readWrite',
