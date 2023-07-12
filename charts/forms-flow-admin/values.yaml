@@ -33,5 +33,5 @@ ingress:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-ai-admin
-  tag: v5.1.0 #The image tag to pull from
+  tag: v5.2.0 #The image tag to pull from
 
