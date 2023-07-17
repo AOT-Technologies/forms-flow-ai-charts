@@ -26,10 +26,12 @@ forms-flow-idm:
 forms-flow-web:
   clientid: forms-flow-web
 
+forms-flow-auth:
+  imagesecret: "#DEFINE_ME"
+
+
 mongodb:
   image:
-    registry: docker.io
-    repository: bitnami/mongodb
     tag: 4.2.21-debian-10-r8
   enabled: true
   fullnameOverride: "forms-flow-ai-mongodb"
@@ -40,19 +42,19 @@ mongodb:
     databases: 
       - formsflow 
     passwords:
-      - mongodb
+      - changeme    #use the same password in initdbscript
     usernames:
-      - mongodb
+      - mongodb     #use the same username in initdbscript
     enabled: true
     rootUser: root
-    rootPassword: "aot123"
-    replicaSetKey: "aot123"
+    rootPassword: "changeme"
+    replicaSetKey: "formsflow"
   initdbScripts:
      init-mongo.js: |
            use admin
            db.createUser({
-              user: 'mongodb',
-              pwd: 'mongodb',
+              user: 'mongodb',     
+              pwd: 'changeme',   
               roles: [
                 {
                    role: 'readWrite',
@@ -63,7 +65,7 @@ mongodb:
   replicaSetName: rs0
   replicaSetHostnames: true
   directoryPerDB: false
-  replicaCount: 2
+  replicaCount: 3
   podSecurityContext:
     enabled: false
     fsGroup: 1001
@@ -102,7 +104,7 @@ insight_api_key: ""
 redis_host: ""
 redis_port: ""
 redis_pass_code: ""
-draft_enabled: "false"
+draft_enabled: "true"
 export_pdf_enabled: "false"
 
 postgresql-ha:
@@ -130,10 +132,10 @@ postgresql-ha:
     username: postgres
     password: "postgres"
     database: "forms-flow-ai"
-    postgresPassword: "postgres"
+    postgresPassword: "changeme"
 
     repmgrUsername: repmgr
-    repmgrPassword: "repmgr"
+    repmgrPassword: "changeme"
     repmgrDatabase: repmgr
     repmgrLogLevel: NOTICE
     repmgrConnectTimeout: 5
@@ -154,7 +156,6 @@ postgresql-ha:
             GRANT ALL PRIVILEGES ON DATABASE "forms-flow-api" to postgres;
             GRANT ALL PRIVILEGES ON DATABASE "forms-flow-bpm" to postgres;
             set transaction read write;
-            GRANT CONNECT ON DATABASE "forms-flow-idm" to postgres;
             alter database "forms-flow-bpm" set default_transaction_read_only = off;
             alter database "forms-flow-api" set default_transaction_read_only = off;
             alter database "forms-flow-analytics" set default_transaction_read_only = off;
@@ -182,7 +183,7 @@ postgresql-ha:
     containerPorts:
       postgresql: 5432
     adminUsername: admin
-    adminPassword: ""
+    adminPassword: "changeme"
     service:
       type: ClusterIP
       ports:

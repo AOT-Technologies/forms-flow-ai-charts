@@ -126,8 +126,52 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: EXPORT_PDF_ENABLED
-              name: "{{ .Values.formsflow.configmap }}"        
-
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_PUBLIC_WORKFLOW_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: PUBLIC_WORKFLOW_ENABLED
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_OPENTELEMETRY_SERVICE
+          valueFrom:
+            configMapKeyRef:
+              key: OPENTELEMETRY_SERVICE
+              name: "{{ .Chart.Name }}"
+        - name: REACT_APP_WEB_BASE_CUSTOM_URL
+          valueFrom:
+            configMapKeyRef:
+              key: WEB_BASE_CUSTOM_URL
+              name: "{{ .Chart.Name }}"
+        - name: CUSTOM_THEME_URL
+          valueFrom:
+            configMapKeyRef:
+              key: CUSTOM_THEME_URL
+              name: "{{ .Chart.Name }}"
+        - name: ENABLE_FORMS_MODULE
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_FORMS_MODULE
+              name: "{{ .Chart.Name }}"
+        - name: ENABLE_TASKS_MODULE
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_TASKS_MODULE
+              name: "{{ .Chart.Name }}"
+        - name: ENABLE_DASHBOARDS_MODULE
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_DASHBOARDS_MODULE
+              name: "{{ .Chart.Name }}"
+        - name: ENABLE_PROCESSES_MODULE
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_PROCESSES_MODULE
+              name: "{{ .Chart.Name }}"        
+        - name: ENABLE_APPLICATIONS_MODULE
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_APPLICATIONS_MODULE
+              name: "{{ .Chart.Name }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         lifecycle:
           postStart:
@@ -153,6 +197,8 @@ spec:
         - mountPath: /tmp/{{ .Chart.Name }}-config.template
           name: {{ .Chart.Name }}-config-template
           readOnly: true
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth }}"
       restartPolicy: Always
       volumes:
       - configMap:

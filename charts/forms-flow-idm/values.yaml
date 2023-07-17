@@ -22,12 +22,29 @@ keycloak:
     - name: "forms-flow-idm-realm-config"
       configMap:
         name: "forms-flow-idm"
-
+    - name: formsflow-themes
+      emptyDir: {}
   extraVolumeMounts: 
     - name: "forms-flow-idm-realm-config"
       mountPath: "/realm/"
       readOnly: false
-
+    - mountPath: /opt/bitnami/keycloak/themes
+      name: formsflow-themes
+      subPath: themes
+  initContainers:
+    - name: formsflow-themes
+      image: formsflow/forms-flow-idm-theme
+      imagePullPolicy: Always
+      securityContext:
+        runAsUser: 1001
+      command: ["/bin/sh","-c"]
+      args:
+      - "mkdir /opt/bitnami/keycloak/themes && \
+         cp -rf /my-theme/* /opt/bitnami/keycloak/themes && \
+         ls -ltra /opt/bitnami/keycloak/themes"
+      volumeMounts:
+      - mountPath: /opt/bitnami/keycloak
+        name: formsflow-themes
   image:
     registry: "docker.io"
     repository: "bitnami/keycloak" 
@@ -45,10 +62,10 @@ keycloak:
 
   resources:
     limits:
-      cpu: 500m
+      cpu: 700m
       memory: 3Gi
     requests:
-      cpu: 400m
+      cpu: 500m
       memory: 2Gi
   
   containerSecurityContext:
@@ -65,9 +82,9 @@ keycloak:
   service:
     type: ClusterIP
   ingress:
-    enabled: false
+    ingressClassName: ""
     annotations:
-#      kubernetes.io/ingress.class: nginx
+  #    kubernetes.io/ingress.class: nginx
     extraTls:
       - {}
     enabled: true
@@ -104,10 +121,10 @@ postgresql-ha:
     username: postgres
     password: "postgres"
     database: "forms-flow-idm"
-    postgresPassword: "postgres"
+    postgresPassword: "changeme"
 
     repmgrUsername: repmgr
-    repmgrPassword: "repmgr"
+    repmgrPassword: "changeme"
     repmgrDatabase: repmgr
     repmgrLogLevel: NOTICE
     repmgrConnectTimeout: 5
@@ -157,7 +174,7 @@ postgresql-ha:
     containerPorts:
       postgresql: 5432
     adminUsername: admin
-    adminPassword: ""
+    adminPassword: "changeme"
     service:
       type: ClusterIP
       ports:

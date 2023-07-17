@@ -32,7 +32,7 @@ data:
   MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
   INSIGHT_API_URL: https://forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
   KEYCLOAK_ENABLE_CLIENT_AUTH: "false"
-  MULTI_TENANCY_ENABLED: "False"
+  MULTI_TENANCY_ENABLED: "false"
   DATA_ANALYSIS_URL:  https://forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
   NODE_ENV: "production"
   CUSTOM_SUBMISSION_URL: ""

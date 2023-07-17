@@ -6,28 +6,31 @@ analytics:
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret
+  auth: forms-flow-ai-auth
+web:
+  base_custom_url: ""
+  custom_theme_url: ""
 ingress:
+  ingressClassName: ""
   annotations:
-#    kubernetes.io/ingress.class: "nginx"
   enabled: true # create an ingress for this component 
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 8080
-  tls:
+  tls: true
+  selfSigned: false
+  extraTls:
    - {}
-#    - secretName: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}-tls"
-#      hosts:
-#        - "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
 resources:
   limits:
-    cpu: 400m
+    cpu: 200m
     memory: 1Gi
   requests:
-    cpu: 300m
+    cpu: 100m
     memory: 512Mi
 image:
   registry: docker.io
   repository: formsflow/forms-flow-web
-  tag: v5.0.1
+  tag: v5.2.0
 config_path: /usr/share/nginx/html/config/
 webclient: "{{.Chart.Name}}"
 webname: formsflow
