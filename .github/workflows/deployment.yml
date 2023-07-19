@@ -1,9 +1,7 @@
 name: Deploy to EKS
 
 on:
-  push:
-    branches:
-      - kubernetes-ha-db-beta
+  workflow_dispatch:
 jobs:
   jobName:
     name: Update deploy
