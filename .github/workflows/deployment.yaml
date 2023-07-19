@@ -5,6 +5,10 @@ on:
     inputs:
       region:
         required: true
+      cluster:
+        required: true
+      ns:
+        required: true
 jobs:
   jobName:
     name: Update deploy
@@ -25,7 +29,18 @@ jobs:
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
       - name: Update Kube config
-        run: aws eks update-kubeconfig --region ca-central-1 --name forms-flow-eks-staging
+        run: aws eks update-kubeconfig --region ca-central-1 --name ${{ github.event.inputs.cluster }}
       - name: Deploy to eks
         run: |
-          kubectl -n qa rollout restart deployment/forms-flow-web
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-web
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-api
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-documents-api
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-bpm
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-forms
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-analytics-adhoc-worker
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-analytics-worker
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-analytics-server
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-analytics-scheduled-worker
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-analytics-scheduler
+          kubectl -n ${{ github.event.inputs.ns }} rollout restart deployment/forms-flow-admin
+          
