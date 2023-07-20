@@ -33,6 +33,8 @@ spec:
           value: "4"
         - name: GUNICORN_CMD_ARGS
           value: "--timeout 300"
+        - name: REDASH_MULTI_ORG
+          value: "false"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         lifecycle:
           postStart:
@@ -50,6 +52,8 @@ spec:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -89,6 +93,8 @@ spec:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -128,6 +134,8 @@ spec:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -164,6 +172,8 @@ spec:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth}}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -205,3 +215,5 @@ spec:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth}}"
