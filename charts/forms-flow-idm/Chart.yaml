@@ -4,7 +4,7 @@ name: forms-flow-idm
 version: v3.0.0
 dependencies:
   - name: keycloak
-    version: 9.8.0
+    version: 15.1.5
     repository: "https://charts.bitnami.com/bitnami"
   - name: postgresql-ha 
     repository: https://charts.bitnami.com/bitnami
