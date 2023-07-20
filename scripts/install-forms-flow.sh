@@ -71,16 +71,16 @@ configureLatestOrStableReleases() {
 		version_ff_web="latest"
 	else
 		# See https://github.com/AOT-Technologies/forms-flow-ai-charts/releases
-		version_ff_admin="v2.1.1"
-		version_ff_ai="v2.1.4"
-		version_ff_analytics="v2.1.1"
-		version_ff_api="v2.1.2"
-		version_ff_bpm="v2.1.1"
-		version_ff_data_analysis="v2.1.1"
-		version_ff_documents_api="v2.1.1"
-		version_ff_forms="v2.1.1"
-		version_ff_idm="v2.1.2"
-		version_ff_web="v2.1.1"
+		version_ff_admin="v2.2.0"
+		version_ff_ai="v2.2.0"
+		version_ff_analytics="v2.2.0"
+		version_ff_api="v2.2.0"
+		version_ff_bpm="v2.2.0"
+		version_ff_data_analysis="v2.2.0"
+		version_ff_documents_api="v2.2.0"
+		version_ff_forms="v2.2.0"
+		version_ff_idm="v2.2.0"
+		version_ff_web="v2.2.0"
 	fi
 }
 
