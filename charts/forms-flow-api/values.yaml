@@ -28,4 +28,3 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-webapi
   tag: v5.2.0 #The image tag to pull from
-  
