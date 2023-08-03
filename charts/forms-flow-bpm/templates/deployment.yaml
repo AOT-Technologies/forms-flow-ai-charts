@@ -63,7 +63,7 @@ spec:
         - name: CAMUNDA_DATABASE_SERVICE_NAME
           value: "{{ .Values.postgresql.host }}"
         - name: CAMUNDA_JDBC_URL
-          value: "jdbc:postgresql://@${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
+          value: "jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
         - name: KEYCLOAK_URL
           valueFrom:
             configMapKeyRef:
