@@ -61,10 +61,7 @@ spec:
           value: "{{ .Values.postgresql.password }}"
           {{- end }}
         - name: DATABASE_URL
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_URL
-              name: "postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}"
+          value: "postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:
