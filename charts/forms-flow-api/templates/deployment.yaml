@@ -22,11 +22,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: MONGODB_URI
-          valueFrom:
-            configMapKeyRef:
-              key: MONGODB_URI
-              name: "{{ .Values.formsflow.configmap }}"
         - name: BPM_API_URL
           valueFrom:
             configMapKeyRef:
@@ -47,26 +42,29 @@ spec:
             configMapKeyRef:
               key: KEYCLOAK_TOKEN_URL
               name: "{{ .Values.formsflow.configmap }}"
-        - name: DATABASE_NAME
+        - name: DATABASE_USERNAME
+          {{- if and .Values.postgresql.externalSecret .Values.postgresql.externalSecret.name .Values.postgresql.externalSecret.usernameKey }}
+          valueFrom:
+            secretKeyRef:
+              key: "{{ .Values.postgresql.externalSecret.usernameKey }}"
+              name: "{{ .Values.postgresql.externalSecret.name }}"
+          {{- else }}
+          value: "{{ .Values.postgresql.username }}"
+          {{- end }}
+        - name: DATABASE_PASSWORD
+          {{- if and .Values.postgresql.externalSecret .Values.postgresql.externalSecret.name .Values.postgresql.externalSecret.passwordKey }}
           valueFrom:
             configMapKeyRef:
-              key: DATABASE_NAME
-              name: "{{ .Values.formsflow.configmap }}"
-        - name: DATABASE_PORT
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_PORT
-              name: "{{ .Values.formsflow.configmap }}"
-        - name: DATABASE_SERVICE_NAME
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_SERVICE_NAME
-              name: "{{ .Values.formsflow.configmap }}"
+              key: {{ .Values.postgresql.externalSecret.passwordKey }}
+              name: "{{ .Values.postgresql.externalSecret.name }}"
+          {{- else }}
+          value: "{{ .Values.postgresql.password }}"
+          {{- end }}
         - name: DATABASE_URL
           valueFrom:
             configMapKeyRef:
               key: DATABASE_URL
-              name: "{{ .Chart.Name }}"
+              name: "postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:

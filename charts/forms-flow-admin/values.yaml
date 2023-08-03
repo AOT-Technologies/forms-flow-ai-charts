@@ -1,7 +1,16 @@
 ---
 Domain: #<DEFINE ME>
 postgresql:
-  url: "postgresql://postgres:postgres@forms-flow-ai-postgresql-ha-pgpool:5432/{{.Chart.Name}}"
+  host: forms-flow-ai-postgresql-ha-pgpool
+  port: 5432
+
+  username: 'postgres'
+  password: 'postgres'
+
+  externalSecret:
+    name: 
+    usernameKey: 'postgres'
+    passwordKey: 'postgres'
 
 resources:
   limits:

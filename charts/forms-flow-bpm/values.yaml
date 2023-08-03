@@ -1,13 +1,25 @@
 Domain: #<DEFINE_ME>
+
+postgresql:
+  host: forms-flow-ai-postgresql-ha-pgpool
+  port: 5432
+
+  jdbcDriver: org.postgresql.Driver
+  database: forms-flow-bpm
+
+  username: postgres
+  password: postgres
+
+  externalSecret:
+    name: 
+    usernameKey: username
+    passwordKey: password
+
 camunda:
-  analytics:
-    database: forms-flow-analytics
   auth:
     enabled: true
     revokeCheck: auto
-  database:
-    name: forms-flow-bpm
-    port: 5432
+
   historyLevel: auto
   securityOrigin: '*'
   logLevel: INFO
@@ -21,11 +33,6 @@ camunda:
       valid: 5000 #CAMUNDA_HIKARI_VALID_TIMEOUT
     poolsize:
       max: 10 #CAMUNDA_HIKARI_MAX_POOLSIZE
-  jdbc:
-    driver: org.postgresql.Driver
-    username: postgres
-    password: postgres
-    url: "jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
   websocket:
     messageType: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
     securityOrigin:   #WEBSOCKET_SECURITY_ORIGIN
@@ -49,6 +56,7 @@ ingress:
   selfSigned: false
   extraTls:
    - {}
+
 mail:
   from: "<DEFINE_ME>"
   password: "<DEFINE_ME>"

@@ -22,6 +22,24 @@ spec:
     spec:
       containers:
       - env:
+        - name: DATABASE_USERNAME
+          {{- if and .Values.postgresql.externalSecret .Values.postgresql.externalSecret.name .Values.postgresql.externalSecret.usernameKey }}
+          valueFrom:
+            secretKeyRef:
+              key: "{{ .Values.postgresql.externalSecret.usernameKey }}"
+              name: "{{ .Values.postgresql.externalSecret.name }}"
+          {{- else }}
+          value: "{{ .Values.postgresql.username }}"
+          {{- end }}
+        - name: DATABASE_PASSWORD
+          {{- if and .Values.postgresql.externalSecret .Values.postgresql.externalSecret.name .Values.postgresql.externalSecret.passwordKey }}
+          valueFrom:
+            configMapKeyRef:
+              key: {{ .Values.postgresql.externalSecret.passwordKey }}
+              name: "{{ .Values.postgresql.externalSecret.name }}"
+          {{- else }}
+          value: "{{ .Values.postgresql.password }}"
+          {{- end }}
         - name: DATABASE_NAME
           valueFrom:
             configMapKeyRef:
@@ -38,10 +56,7 @@ spec:
               key: DATABASE_SERVICE_NAME
               name: "{{ .Values.formsflow.configmap }}"
         - name: DATABASE_URL
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_URL
-              name: "{{ .Chart.Name}}"
+          value: "postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Chart.Name }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:
@@ -158,5 +173,7 @@ spec:
         stdin: true
         tty: true
       restartPolicy: Always
+      {{- if .Values.formsflow.auth }}
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
+      {{- end }}

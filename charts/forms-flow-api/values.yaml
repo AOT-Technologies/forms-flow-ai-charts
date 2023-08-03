@@ -1,7 +1,20 @@
 ---
 Domain: #<DEFINE_ME>
-database:
-  url: "postgresql://postgres:postgres@forms-flow-ai-postgresql-ha-pgpool:5432/{{.Chart.Name}}"
+
+postgresql:
+  host: forms-flow-ai-postgresql-ha-pgpool
+  port: 5432
+
+  database: "forms-flow-api"
+
+  username: postgres
+  password: postgres
+
+  externalSecret:
+    name: 
+    usernameKey: username
+    passwordKey: password
+
 resources:
   limits:
     cpu: 300m
@@ -9,10 +22,12 @@ resources:
   requests:
     cpu: 200m
     memory: 512Mi
+
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret
   auth: forms-flow-ai-auth 
+
 ingress:
   ingressClassName: ""
   annotations:
@@ -24,6 +39,7 @@ ingress:
   selfSigned: false
   extraTls:
     - {}
+
 image:
   registry: docker.io
   repository: formsflow/forms-flow-webapi

@@ -36,21 +36,34 @@ spec:
         - secretRef:
             name: "{{ .Chart.Name }}" # bpm environment variables
         env:
+        - name: CAMUNDA_JDBC_DRIVER
+          value: "{{ .Values.postgresql.jdbcDriver }}"
+        - name: CAMUNDA_JDBC_USER
+          {{- if and .Values.postgresql.externalSecret .Values.postgresql.externalSecret.name .Values.postgresql.externalSecret.usernameKey }}
+          valueFrom:
+            secretKeyRef:
+              key: "{{ .Values.postgresql.externalSecret.usernameKey }}"
+              name: "{{ .Values.postgresql.externalSecret.name }}"
+          {{- else }}
+          value: "{{ .Values.postgresql.username }}"
+          {{- end }}
+        - name: CAMUNDA_JDBC_PASSWORD
+          {{- if and .Values.postgresql.externalSecret .Values.postgresql.externalSecret.name .Values.postgresql.externalSecret.passwordKey }}
+          valueFrom:
+            configMapKeyRef:
+              key: {{ .Values.postgresql.externalSecret.passwordKey }}
+              name: "{{ .Values.postgresql.externalSecret.name }}"
+          {{- else }}
+          value: "{{ .Values.postgresql.password }}"
+          {{- end }}
         - name: CAMUNDA_DATABASE_NAME
-          valueFrom:
-            configMapKeyRef:
-              key: CAMUNDA_DATABASE_NAME
-              name: "{{ .Chart.Name }}"
+          value: "{{ .Values.postgresql.database }}"
         - name: CAMUNDA_DATABASE_PORT
-          valueFrom:
-            configMapKeyRef:
-              key: CAMUNDA_DATABASE_PORT
-              name: "{{ .Chart.Name }}"
+          value: "{{ .Values.postgresql.port }}"
         - name: CAMUNDA_DATABASE_SERVICE_NAME
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_SERVICE_NAME
-              name: "{{ .Values.formsflow.configmap }}"
+          value: "{{ .Values.postgresql.host }}"
+        - name: CAMUNDA_JDBC_URL
+          value: "jdbc:postgresql://@${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
         - name: KEYCLOAK_URL
           valueFrom:
             configMapKeyRef:
