@@ -1,5 +1,7 @@
 ---
 keycloak:
+  clientSecrets:
+    bpm: "e4bdbd25-1467-4f7f-b993-bc4b1944c943"
   auth:
     adminUser: admin
   tls:

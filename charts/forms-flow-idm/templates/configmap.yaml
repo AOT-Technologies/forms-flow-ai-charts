@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
     name: "forms-flow-idm"
 data:
-  "realm.json": |- 
+  "realm.json": |-
     {
       "id": "forms-flow-ai",
       "realm": "forms-flow-ai",
@@ -11,7 +11,7 @@ data:
       "revokeRefreshToken": false,
       "refreshTokenMaxReuse": 0,
       "accessTokenLifespan": 300,
-      "accessTokenLifespanForImplicitFlow": 900,
+      "accessTokeLifespanForImplicitFlow": 900,
       "ssoSessionIdleTimeout": 1800,
       "ssoSessionMaxLifespan": 36000,
       "ssoSessionIdleTimeoutRememberMe": 0,
@@ -268,6 +268,14 @@ data:
               "attributes": {}
             },
             {
+              "name": "formsflow-admin",
+              "description": "Provides admin access to use the formsflow.ai solution. Required to manage users and permissions.",
+              "composite": false,
+              "clientRole": true,
+              
+              "attributes": {}
+            },
+            {
               "name": "formsflow-designer",
               "description": "Provides access to use the formsflow.ai solution. Access to wok on form designer studio.",
               "composite": false,
@@ -278,14 +286,6 @@ data:
             {
               "name": "formsflow-reviewer",
               "description": "Provides access to use the formsflow.ai solution. Identifies the staff to work on applications and forms submissions.",
-              "composite": false,
-              "clientRole": true,
-              
-              "attributes": {}
-            },
-            {
-              "name": "formsflow-analytics",
-              "description": "",
               "composite": false,
               "clientRole": true,
               
@@ -402,6 +402,18 @@ data:
               "subGroups": []
             },
             {
+              "name": "formsflow-admin",
+              "path": "/formsflow/formsflow-admin",
+              "attributes": {},
+              "realmRoles": [],
+              "clientRoles": {
+                "forms-flow-web": [
+                  "formsflow-admin"
+                ]
+              },
+              "subGroups": []
+            },
+            {
               "name": "formsflow-designer",
               "path": "/formsflow/formsflow-designer",
               "attributes": {},
@@ -423,24 +435,49 @@ data:
                   "formsflow-reviewer"
                 ]
               },
-          "subGroups": [
-          {
-            "name": "clerk",
-            "path": "/formsflow/formsflow-reviewer/clerk",
-            "attributes": {},
-            "realmRoles": [],
-            "clientRoles": {},
-            "subGroups": []
-          },
-          {
-            "name": "approver",
-            "path": "/formsflow/formsflow-reviewer/approver",
-            "attributes": {},
-            "realmRoles": [],
-            "clientRoles": {},
-            "subGroups": []
-          }
+              "subGroups": [
+                {
+                    "name": "clerk",
+                    "path": "/formsflow/formsflow-reviewer/clerk",
+                    "attributes": {},
+                    "realmRoles": [],
+                    "clientRoles": {},
+                    "subGroups": []
+                },
+                {
+                    "name": "approver",
+                    "path": "/formsflow/formsflow-reviewer/approver",
+                    "attributes": {},
+                    "realmRoles": [],
+                    "clientRoles": {},
+                    "subGroups": []
+                }
+              ]
+            }
           ]
+        },
+        {
+          "name": "formsflow-analytics",
+          "path": "/formsflow-analytics",
+          "attributes": {},
+          "realmRoles": [],
+          "clientRoles": {},
+          "subGroups": [
+            {
+              "name": "group2",
+              "path": "/formsflow-analytics/group2",
+              "attributes": {},
+              "realmRoles": [],
+              "clientRoles": {},
+              "subGroups": []
+            },
+            {
+              "name": "group1",
+              "path": "/formsflow-analytics/group1",
+              "attributes": {},
+              "realmRoles": [],
+              "clientRoles": {},
+              "subGroups": []
             }
           ]
         }
@@ -451,7 +488,8 @@ data:
       ],
       "defaultGroups": [
         "/camunda-admin",
-        "/formsflow"
+        "/formsflow",
+        "/formsflow-analytics"
       ],
       "requiredCredentials": [
         "password"
@@ -513,6 +551,30 @@ data:
         },
         "notBefore" : 0,
         "groups" : [ "/camunda-admin", "/formsflow/formsflow-client" ]
+      },
+      {
+        "createdTimestamp" : 1621862607660,
+        "username" : "formsflow-admin",
+        "enabled" : true,
+        "totp" : false,
+        "emailVerified" : false,
+        "firstName" : "Admin",
+        "lastName" : "FFA",
+        "email" : "formsflow-admin@example.com",
+        "credentials" : [ {
+          "type" : "password",
+          "createdDate" : 1621863987325,
+          "secretData" : "{\"value\":\"9R9a8Onha7JcZt59SIq8ngfqwDJwPKiKb8mJ2WO6p2eI3S9qhzR1GPDFtKjOWq8qpm8vsGfp/a/DyHWQuIvmlA==\",\"salt\":\"R/OTBeSXHzsKtJOV/bufEA==\"}",
+          "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+        } ],
+        "disableableCredentialTypes" : [ ],
+        "requiredActions" : [ "UPDATE_PASSWORD" ],
+        "realmRoles" : [ "uma_authorization", "offline_access" ],
+        "clientRoles" : {
+          "account" : [ "view-profile", "manage-account" ]
+        },
+        "notBefore" : 0,
+        "groups" : [ "/camunda-admin", "/formsflow/formsflow-admin" ]
       }, {
         "createdTimestamp" : 1621862546931,
         "username" : "formsflow-designer",
@@ -535,7 +597,7 @@ data:
           "account" : [ "view-profile", "manage-account" ]
         },
         "notBefore" : 0,
-        "groups" : [ "/camunda-admin", "/formsflow/formsflow-designer" ]
+        "groups" : [ "/camunda-admin", "/formsflow/formsflow-designer", "/formsflow/formsflow-admin" ]
       }, {
         "createdTimestamp" : 1625009614956,
         "username" : "formsflow-approver",
@@ -554,7 +616,7 @@ data:
         "disableableCredentialTypes" : [ ],
         "requiredActions" : [ "UPDATE_PASSWORD" ],
         "notBefore" : 0,
-        "groups" : [ "/formsflow/formsflow-reviewer/approver", "/camunda-admin", "/formsflow" ]
+        "groups" : [ "/formsflow/formsflow-reviewer/approver", "/camunda-admin", "/formsflow" , "/formsflow-analytics/group1"]
       }, {
         "createdTimestamp" : 1625009564217,
         "username" : "formsflow-clerk",
@@ -573,7 +635,7 @@ data:
         "disableableCredentialTypes" : [ ],
         "requiredActions" : [ "UPDATE_PASSWORD" ],
         "notBefore" : 0,
-        "groups" : [ "/camunda-admin", "/formsflow/formsflow-reviewer/clerk", "/formsflow" ]
+        "groups" : [ "/camunda-admin", "/formsflow/formsflow-reviewer/clerk", "/formsflow", "/formsflow-analytics/group2" ]
       }, {
         "createdTimestamp" : 1621862578318,
         "username" : "formsflow-reviewer",
@@ -596,7 +658,7 @@ data:
           "account" : [ "view-profile", "manage-account" ]
         },
         "notBefore" : 0,
-        "groups" : [ "/camunda-admin", "/formsflow/formsflow-reviewer" ]
+        "groups" : [ "/camunda-admin", "/formsflow/formsflow-reviewer", "/formsflow-analytics/group1" ]
       }, {
         "createdTimestamp" : 1621585233480,
         "username" : "service-account-forms-flow-bpm",
@@ -609,7 +671,7 @@ data:
         "requiredActions" : [ ],
         "realmRoles" : [ "uma_authorization", "offline_access" ],
         "clientRoles" : {
-          "realm-management" : [ "query-users", "query-groups", "view-users", "view-clients" ],
+          "realm-management" : [ "manage-users", "query-users", "query-groups", "view-users" , "manage-clients"],
           "account" : [ "view-profile", "manage-account" ]
         },
         "notBefore" : 0,
@@ -804,14 +866,14 @@ data:
         {
           "clientId": "forms-flow-analytics",
           "description": "Redash-Analytics",
-          "adminUrl": "http://localhost:7000/saml/callback?org_slug=default",
+          "adminUrl": "http://localhost:7001/saml/callback?org_slug=default",
           "surrogateAuthRequired": false,
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "secret": "**********",
           "redirectUris": [
-          "http://localhost:7000/*",
+            "http://localhost:7001/*",
             "*"
           ],
           "webOrigins": [],
@@ -891,9 +953,9 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "secret":  "786001d6-68a8-4519-903c-bc5b5a870d68",
+          "secret": "{{.Values.keycloak.clientSecrets.bpm}}",
           "redirectUris": [
-          "http://localhost:8000/camunda/*",
+            "http://localhost:8000/camunda/*",
             "*"
           ],
           "webOrigins": [
@@ -968,7 +1030,7 @@ data:
                 "jsonType.label": "String"
               }
             },
-        {
+            {
               "name": "camunda-rest-api",
               "protocol": "openid-connect",
               "protocolMapper": "oidc-audience-mapper",
@@ -1045,7 +1107,7 @@ data:
           "clientAuthenticatorType": "client-secret",
           "secret": "**********",
           "redirectUris": [
-          "http://localhost:3000/*",
+            "http://localhost:3000/*",
             "*"
           ],
           "webOrigins": [
@@ -1114,6 +1176,21 @@ data:
                 "access.token.claim": "true",
                 "claim.name": "groups",
                 "userinfo.token.claim": "true"
+              }
+            },
+            {
+              "name": "dashboard-mapper",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "aggregate.attrs": "true",
+                "userinfo.token.claim": "true",
+                "multivalued": "true",
+                "user.attribute": "dashboards",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "dashboards"
               }
             }
           ],
