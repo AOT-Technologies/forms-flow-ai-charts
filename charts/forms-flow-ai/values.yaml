@@ -8,11 +8,36 @@ formsflowdb:
   service:
     ports:
       postgresql: 5432
+
+forms-flow-api:
+  ingress:
+    hostname: forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+
+forms-flow-admin:
+  ingress:
+    hostname: forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+
+forms-flow-analytics:
+  ingress:
+    hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+
+forms-flow-data-analysis:
+  ingress:
+    hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+
+forms-flow-documents-api:
+  ingress:
+    hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+
 forms-flow-bpm:
+  ingress:
+    hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
   clientid: "forms-flow-bpm"
   clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
 
 forms-flow-forms:
+  ingress:
+    hostname: forms-flow-forms-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
   admin:
     email: "me@defineme.com"
     password: "admin"
@@ -25,6 +50,8 @@ forms-flow-idm:
 
 forms-flow-web:
   clientid: forms-flow-web
+  ingress:
+    hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 
 forms-flow-auth:
   imagesecret: "#DEFINE_ME"
@@ -47,7 +74,7 @@ mongodb:
       - mongodb     #use the same username in initdbscript
     enabled: true
     rootUser: root
-    rootPassword: "changeme"
+    analyticsrootPassword: "changeme"
     replicaSetKey: "formsflow"
   initdbScripts:
      init-mongo.js: |
