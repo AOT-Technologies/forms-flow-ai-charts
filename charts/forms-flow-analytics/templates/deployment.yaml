@@ -36,6 +36,7 @@ spec:
         - name: REDASH_MULTI_ORG
           value: "false"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
+        imagePullPolicy: Always
         lifecycle:
           postStart:
             exec:
@@ -85,6 +86,7 @@ spec:
           value: "2"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         name: "{{ .Chart.Name }}-adhoc-worker"
+        imagePullPolicy: Always
         resources:
           limits:
             cpu: "{{ .Values.resources.limits.cpu }}"
@@ -164,6 +166,7 @@ spec:
             name: "{{ .Chart.Name }}" # default redash environment variables
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         name: "{{ .Chart.Name }}-scheduler"
+        imagePullPolicy: Always
         resources:
           limits:
             cpu: "{{ .Values.resources.limits.cpu }}"
@@ -207,6 +210,7 @@ spec:
           value: "1"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         name: "{{ .Chart.Name }}-worker"
+        imagePullPolicy: Always
         resources:
           limits:
             cpu: "{{ .Values.resources.limits.cpu }}"

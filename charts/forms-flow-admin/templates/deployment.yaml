@@ -146,6 +146,7 @@ spec:
           value: '*'
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         name: "{{ .Chart.Name }}"
+        imagePullPolicy: Always
         ports:
         - containerPort: {{ .Values.ingress.port }}
         resources:
