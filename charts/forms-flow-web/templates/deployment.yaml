@@ -27,6 +27,16 @@ spec:
             configMapKeyRef:
               key: NODE_ENV
               name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_ENABLE_CHATBOT
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_CHATBOT
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_CHATBOT_URL
+          valueFrom:
+            configMapKeyRef:
+              key: CHATBOT_URL
+              name: "{{ .Values.formsflow.configmap }}"
         - name: REACT_APP_API_SERVER_URL
           valueFrom:
             configMapKeyRef:

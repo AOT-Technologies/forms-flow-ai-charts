@@ -27,6 +27,41 @@ spec:
         #     configMapKeyRef:
         #       key: DATABASE_URL
         #       name: "{{ .Chart.Name }}"
+
+        - name: OPENAI_API_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: OPENAI_API_KEY
+              name: "{{ .Chart.Name }}"
+        - name: CHAT_BOT_MODEL_ID
+          valueFrom:
+            configMapKeyRef:
+              key: CHAT_BOT_MODEL_ID
+              name: "{{ .Chart.Name }}"
+
+        - name: KEYCLOAK_URL
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL
+              name: "{{ .Values.formsflow.configmap }}"
+
+        - name: KEYCLOAK_URL_REALM
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL_REALM
+              name: "{{ .Values.formsflow.configmap }}"
+        
+        - name: KEYCLOAK_WEB_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_WEB_CLIENT_ID
+              name: "{{ .Chart.Name }}" 
+
+        - name: DATA_ANALYSIS_API_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: DATA_ANALYSIS_URL
+              name: "{{ .Values.formsflow.configmap }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:

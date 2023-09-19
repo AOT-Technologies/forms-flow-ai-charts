@@ -7,3 +7,6 @@ metadata:
   name: {{ .Chart.Name }}
 data:
   DATABASE_SUPPORT: "DISABLED"
+  OPENAI_API_KEY: "{{ .Values.openApiKey }}"
+  CHAT_BOT_MODEL_ID: "{{ .Values.chatbotModelId }}"
+  KEYCLOAK_WEB_CLIENT_ID: "forms-flow-web"
