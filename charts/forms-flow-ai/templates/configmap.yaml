@@ -45,4 +45,6 @@ data:
   REDIS_PORT: "{{.Values.redis_port}}"
   REDIS_ENABLED: "false"
   CHROME_DRIVER_PATH: "/usr/local/bin/chromedriver"
+  ENABLE_CHATBOT: "false"
+  CHATBOT_URL: "https://forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}/conversations"
 
