@@ -34,3 +34,7 @@ image:
 config_path: /usr/share/nginx/html/config/
 webclient: "{{.Chart.Name}}"
 webname: formsflow
+# used to add extra environment variables
+# extraEnv:
+#   key: value
+extraEnv: {}
