@@ -41,6 +41,7 @@ redis-exporter:
       cpu: 50m
       memory: 256Mi
 redash:
+  multiorg: "false"
   image:
     registry: docker.io #registry to use
     repository: formsflow/redash # repoisitory for redash image  
