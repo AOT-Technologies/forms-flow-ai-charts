@@ -11,12 +11,29 @@ formsflowdb:
 forms-flow-bpm:
   clientid: "forms-flow-bpm"
   clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
-
+  ingress:
+      hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-forms:
   admin:
     email: "me@defineme.com"
     password: "admin"
-
+  ingress:
+    hostname: forms-flow-forms-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+forms-flow-api:
+  ingress:
+      hostname: forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+forms-flow-admin:
+  ingress:
+      hostname: forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+forms-flow-documents-api:
+  ingress:
+      hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+forms-flow-data-analysis:
+  ingress:
+      hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+forms-flow-analytics:
+  ingress:
+      hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-idm:
   keycloak:
     ingress:
@@ -25,7 +42,8 @@ forms-flow-idm:
 
 forms-flow-web:
   clientid: forms-flow-web
-
+  ingress:
+      hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-auth:
   imagesecret: "#DEFINE_ME"
 
@@ -108,6 +126,7 @@ draft_enabled: "true"
 export_pdf_enabled: "false"
 
 postgresql-ha:
+  enabled: true
   postgresql:
     image:
       registry: docker.io
