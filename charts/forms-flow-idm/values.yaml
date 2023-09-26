@@ -98,7 +98,8 @@ keycloak:
     enabled: false
 
 
-postgresql-ha:  
+postgresql-ha:
+  enabled: true  
   postgresql:
     enabled: true
     image:
