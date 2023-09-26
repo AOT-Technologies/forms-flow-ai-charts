@@ -24,7 +24,7 @@ data:
   NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}"}'
   MONGODB_URI:  {{ ternary (tpl "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }}
   {{- else }}
-  MONGODB_URI:  {{ ternary (tpl "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }} 
+  MONGODB_URI:  {{ ternary (tpl "mongodb+srv://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }} 
   NODE_CONFIG: '{"mongo":"mongodb+srv://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}/{{ .Values.mongodb.auth.databases | first }}"}'
   {{- end }}
   FORMSFLOW_WEB_URL: https://{{tpl (index .Values "forms-flow-web" "ingress" "hostname") .}}
