@@ -38,7 +38,10 @@ forms-flow-idm:
   keycloak:
     ingress:
       hostname: forms-flow-idm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+    client-auth: "false" 
   realm: forms-flow-ai
+  multitenancy-enabled: "false"
+    
 
 forms-flow-web:
   clientid: forms-flow-web
