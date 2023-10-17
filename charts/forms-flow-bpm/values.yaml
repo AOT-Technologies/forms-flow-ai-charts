@@ -67,5 +67,8 @@ resources:
   requests:
     cpu: 500m
     memory: 512Mi
+hpa: 
+  CpuAverageUtilization: 60
+  maxReplicas: 3
 
 waitFor: "${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}"
