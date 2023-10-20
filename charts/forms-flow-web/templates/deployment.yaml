@@ -172,6 +172,11 @@ spec:
             configMapKeyRef:
               key: ENABLE_APPLICATIONS_MODULE
               name: "{{ .Chart.Name }}"
+        {{- if .Values.extraEnv }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Chart.Name }}
+        {{- end }}
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         lifecycle:
           postStart:

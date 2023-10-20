@@ -19,7 +19,6 @@ data:
   ENABLE_PROCESSES_MODULE: "true"
   ENABLE_APPLICATIONS_MODULE: "true"
   {{- include "Values.extractKeyValuePairs" . | nindent 2 }}
-
 ---
 apiVersion: v1
 kind: ConfigMap
