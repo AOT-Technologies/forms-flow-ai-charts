@@ -38,3 +38,5 @@ webname: formsflow
 # extraEnv:
 #   key: value
 extraEnv: {}
+extraVolumes: []
+extraVolumeMounts: []
