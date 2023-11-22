@@ -123,3 +123,5 @@ spec:
         stdin: true
         tty: true
       restartPolicy: Always
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth }}"
