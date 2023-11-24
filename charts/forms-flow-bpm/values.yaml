@@ -33,7 +33,7 @@ camunda:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-bpm
-  tag: v5.2.1 #The image tag to pull from
+  tag: v5.3.0 #The image tag to pull from
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret 
@@ -41,7 +41,8 @@ formsflow:
 ingress:
   ingressClassName: ""
   annotations:
-
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "session"
   enabled: true # create an ingress for this component
   hostname: "{{.Chart.Name}}-{{.Release.Namespace}}.{{tpl .Values.Domain .}}"
   port: 8080
@@ -67,5 +68,8 @@ resources:
   requests:
     cpu: 500m
     memory: 512Mi
+hpa: 
+  CpuAverageUtilization: 60
+  maxReplicas: 3
 
 waitFor: "${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}"

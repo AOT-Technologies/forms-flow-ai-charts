@@ -34,7 +34,7 @@ spec:
         - name: GUNICORN_CMD_ARGS
           value: "--timeout 300"
         - name: REDASH_MULTI_ORG
-          value: "false"
+          value: "{{ .Values.redash.multiorg}}"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         imagePullPolicy: Always
         lifecycle:

@@ -7,3 +7,25 @@ metadata:
   name: {{ .Chart.Name }}
 data:
   DATABASE_URL: "{{tpl .Values.database.url .}}"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-fb-config
+data:
+  "filebeat.yml": |-
+    filebeat.inputs:
+    - type: log
+      enabled: true
+      paths:
+        - /forms-flow-api/app/logs/*
+    output.elasticsearch:
+      hosts: "${ELASTIC_SERVER}"
+      index: "forms-flow-webapi-%{+yyyy.MM.dd}"
+    setup.template.name: "forms-flow-webapi"
+    setup.template.pattern: "forms-flow-webapi-*"
+    setup.template.overwrite: true
+    setup.template.enabled: false
+    setup.template.settings:
+      index.number_of_shards: 1
+    setup.ilm.enabled: false
