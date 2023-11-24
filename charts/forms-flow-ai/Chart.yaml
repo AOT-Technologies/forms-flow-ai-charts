@@ -10,5 +10,5 @@ dependencies:
     condition: mongodb.enabled 
     repository: https://charts.bitnami.com/bitnami
     version: 13.6.3
-version: v3.0.1
+version: v4.0.0
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
