@@ -30,6 +30,20 @@ spec:
                 - "{{ .Chart.Name }}"
             topologyKey: kubernetes.io/hostname
       containers:
+      - name: filebeat-bpm
+        image: docker.elastic.co/beats/filebeat:7.14.0
+        env:
+          - name: ELASTIC_SERVER
+            valueFrom:
+            configMapKeyRef:
+              key: ELASTIC_SERVER
+              name: "{{ .Values.formsflow.configmap }}"
+        volumeMounts:
+        - name: bpm-logs
+          mountPath: /logs
+        - mountPath: /usr/share/filebeat/filebeat.yml
+          subPath: filebeat.yml
+          name: bpm-filebeat
       - envFrom:
         - configMapRef:
             name: "{{ .Chart.Name }}" # bpm environment variables 
@@ -198,6 +212,8 @@ spec:
         - mountPath: /app/mail-config.properties
           name: "{{ .Chart.Name }}-mail-config"
           subPath: mail-config.properties
+        - name: bpm-logs
+          mountPath: /logs
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
       dnsPolicy: ClusterFirst
@@ -206,6 +222,10 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
+      - name: bpm-logs
+      - name: bpm-filebeat
+        configMap:
+          name: "{{ .Chart.Name }}-fb-config"
       - configMap:
           defaultMode: 420
           items:

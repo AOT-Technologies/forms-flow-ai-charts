@@ -21,6 +21,20 @@ spec:
         app: "{{ .Chart.Name }}"
     spec:
       containers:
+      - name: filebeat-documents-api
+        image: docker.elastic.co/beats/filebeat:7.14.0
+        env:
+          - name: ELASTIC_SERVER
+            valueFrom:
+            configMapKeyRef:
+              key: ELASTIC_SERVER
+              name: "{{ .Values.formsflow.configmap }}"
+        volumeMounts:
+        - name: documents-logs
+          mountPath: /forms-flow-documents/app/logs
+        - mountPath: /usr/share/filebeat/filebeat.yml
+          subPath: filebeat.yml
+          name: documents-filebeat
       - env:
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
@@ -113,7 +127,15 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
         stdin: true
         tty: true
+        volumeMounts:
+        - name: documents-logs
+          mountPath: /forms-flow-documents/app/logs
       restartPolicy: Always
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
+      volumes:
+      - name: documents-logs
+      - name: documents-filebeat
+        configMap:
+          name: "{{ .Chart.Name }}-fb-config"
 

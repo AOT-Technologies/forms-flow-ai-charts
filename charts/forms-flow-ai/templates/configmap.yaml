@@ -49,4 +49,5 @@ data:
   ENABLE_CHATBOT: "false"
   CHATBOT_URL: "https://{{tpl (index .Values "forms-flow-data-analysis" "ingress" "hostname") .}}/conversations"
   ENABLE_LOW_CODE_DESIGNER: "false"
+  ELASTIC_SERVER: "{{.Values.elastic_server}}"
 

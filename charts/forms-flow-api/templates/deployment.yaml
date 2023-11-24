@@ -21,6 +21,20 @@ spec:
         app: "{{ .Chart.Name }}"
     spec:
       containers:
+      - name: filebeat-api
+        image: docker.elastic.co/beats/filebeat:7.14.0
+        env:
+          - name: ELASTIC_SERVER
+            valueFrom:
+            configMapKeyRef:
+              key: ELASTIC_SERVER
+              name: "{{ .Values.formsflow.configmap }}"
+        volumeMounts:
+        - name: api-logs
+          mountPath: /forms-flow-api/app/logs
+        - mountPath: /usr/share/filebeat/filebeat.yml
+          subPath: filebeat.yml
+          name: api-filebeat
       - env:
         - name: MONGODB_URI
           valueFrom:
@@ -174,6 +188,14 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
         stdin: true
         tty: true
+        volumeMounts:
+        - name: api-logs
+          mountPath: /forms-flow-api/app/logs
       restartPolicy: Always
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
+      volumes:
+      - name: api-logs
+      - name: api-filebeat
+        configMap:
+          name: "{{ .Chart.Name }}-fb-config"
