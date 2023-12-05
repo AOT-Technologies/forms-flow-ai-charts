@@ -145,7 +145,7 @@ spec:
         - name: REACT_APP_PUBLIC_WORKFLOW_ENABLED
           valueFrom:
             configMapKeyRef:
-              key: REACT_APP_PUBLIC_WORKFLOW_ENABLED
+              key: PUBLIC_WORKFLOW_ENABLED
               name: "{{ .Chart.Name }}"
         - name: REACT_APP_OPENTELEMETRY_SERVICE
           valueFrom:
