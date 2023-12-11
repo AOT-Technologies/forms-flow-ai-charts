@@ -26,9 +26,9 @@ spec:
         env:
           - name: ELASTIC_SERVER
             valueFrom:
-            configMapKeyRef:
-              key: ELASTIC_SERVER
-              name: "{{ .Values.formsflow.configmap }}"
+              configMapKeyRef:
+                key: ELASTIC_SERVER
+                name: "{{ .Values.formsflow.configmap }}"
         volumeMounts:
         - name: api-logs
           mountPath: /forms-flow-api/app/logs
