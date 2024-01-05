@@ -11,3 +11,24 @@ data:
   CHAT_BOT_MODEL_ID: "{{ .Values.chatbotModelId }}"
   KEYCLOAK_WEB_CLIENT_ID: "forms-flow-web"
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-fb-config
+data:
+  "filebeat.yml": |-
+    filebeat.inputs:
+    - type: log
+      enabled: true
+      paths:
+        - /forms-flow-data-analysis/app/logs/*
+    output.elasticsearch:
+      hosts: "${ELASTIC_SERVER}"
+      index: "forms-flow-data-analysis-%{+yyyy.MM.dd}"
+    setup.template.name: "forms-flow-data-analysis"
+    setup.template.pattern: "forms-flow-data-analysis-*"
+    setup.template.overwrite: true
+    setup.template.enabled: false
+    setup.template.settings:
+      index.number_of_shards: 1
+    setup.ilm.enabled: false
