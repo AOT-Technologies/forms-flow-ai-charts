@@ -36,7 +36,7 @@ spec:
         - mountPath: /usr/share/filebeat/filebeat.yml
           subPath: filebeat.yml
           name: api-filebeat
-      {{- end}}
+      {{- else}}
       - env:
         - name: MONGODB_URI
           valueFrom:
@@ -190,6 +190,7 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
         stdin: true
         tty: true
+     {{- end}}
      {{- if .Values.elastic_search.enabled }} 
         volumeMounts:
         - name: api-logs
@@ -199,7 +200,8 @@ spec:
       - name: api-filebeat
         configMap:
           name: "{{ .Chart.Name }}-fb-config"
-     {{- end}}
+     {{- else}}
       restartPolicy: Always
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
+     {{- end}}

@@ -28,7 +28,8 @@ image:
   tag: v5.3.0 #The image tag to pull from
 openApiKey: ""
 chatbotModelId: "gpt-3.5-turbo"
-hpa: 
+hpa:
+  enabled: false 
   CpuAverageUtilization: 80
   maxReplicas: 3
 elastic_search:
