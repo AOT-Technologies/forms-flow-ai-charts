@@ -31,3 +31,5 @@ chatbotModelId: "gpt-3.5-turbo"
 hpa: 
   CpuAverageUtilization: 80
   maxReplicas: 3
+elastic_search:
+  enabled: false

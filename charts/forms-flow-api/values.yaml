@@ -31,3 +31,5 @@ image:
 hpa: 
   CpuAverageUtilization: 80
   maxReplicas: 3
+elastic_search:
+  enabled: false

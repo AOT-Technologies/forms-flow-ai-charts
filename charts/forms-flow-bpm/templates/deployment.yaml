@@ -30,6 +30,7 @@ spec:
                 - "{{ .Chart.Name }}"
             topologyKey: kubernetes.io/hostname
       containers:
+      {{- if .Values.elastic_search.enabled }}
       - name: filebeat-bpm
         image: docker.elastic.co/beats/filebeat:7.14.0
         env:
@@ -44,6 +45,7 @@ spec:
         - mountPath: /usr/share/filebeat/filebeat.yml
           subPath: filebeat.yml
           name: bpm-filebeat
+      {{- end }}
       - envFrom:
         - configMapRef:
             name: "{{ .Chart.Name }}" # bpm environment variables 
@@ -207,25 +209,16 @@ spec:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
         terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
+        terminationMessagePolicy: File   
         volumeMounts:
         - mountPath: /app/mail-config.properties
           name: "{{ .Chart.Name }}-mail-config"
           subPath: mail-config.properties
+     {{- if .Values.elastic_search.enabled }}
         - name: bpm-logs
           mountPath: /logs
-      imagePullSecrets:
-      - name: "{{ .Values.formsflow.auth }}"
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
+     {{- end}}
       volumes:
-      - name: bpm-logs
-      - name: bpm-filebeat
-        configMap:
-          name: "{{ .Chart.Name }}-fb-config"
       - configMap:
           defaultMode: 420
           items:
@@ -233,3 +226,17 @@ spec:
             path: mail-config.properties
           name: "{{ .Chart.Name }}-mail-config"
         name: "{{ .Chart.Name }}-mail-config"
+     {{- if .Values.elastic_search.enabled }}
+      - name: bpm-logs
+      - name: bpm-filebeat
+        configMap:
+          name: "{{ .Chart.Name }}-fb-config"
+     {{- end}}
+      imagePullSecrets:
+      - name: "{{ .Values.formsflow.auth }}"
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      

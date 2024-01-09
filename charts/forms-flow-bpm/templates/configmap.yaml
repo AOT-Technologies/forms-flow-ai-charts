@@ -58,6 +58,7 @@ metadata:
     app: {{ .Chart.Name }}-mail-config
   name: {{ .Chart.Name }}-mail-config
 ---
+{{- if .Values.elastic_search.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -78,4 +79,5 @@ data:
     setup.template.enabled: false
     setup.template.settings:
       index.number_of_shards: 1
-    setup.ilm.enabled: false    
+    setup.ilm.enabled: false 
+{{- end }}   
