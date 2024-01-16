@@ -1,4 +1,4 @@
 apiVersion: v2
 name: forms-flow-analytics
-version: v3.0.1
+version: v5.0.0
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
