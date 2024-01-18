@@ -3,4 +3,4 @@ apiVersion: v2
 name: forms-flow-admin
 tags: forms-flow-admin
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
-version: v4.0.0
+version: v5.0.0

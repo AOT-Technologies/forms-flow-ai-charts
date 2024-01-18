@@ -28,6 +28,9 @@ image:
   registry: docker.io
   repository: formsflow/forms-flow-webapi
   tag: v5.3.0 #The image tag to pull from
-hpa: 
+hpa:
+  enabled: false
   CpuAverageUtilization: 80
   maxReplicas: 3
+elastic_search:
+  enabled: false

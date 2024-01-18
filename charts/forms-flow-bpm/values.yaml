@@ -68,8 +68,10 @@ resources:
   requests:
     cpu: 500m
     memory: 512Mi
-hpa: 
+hpa:
+  enabled: false
   CpuAverageUtilization: 60
   maxReplicas: 3
-
+elastic_search:
+  enabled: false
 waitFor: "${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}"

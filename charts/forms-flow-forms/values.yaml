@@ -28,6 +28,7 @@ resources:
   requests:
     cpu: 100m
     memory: 512Mi
-hpa: 
+hpa:
+  enabled: false 
   CpuAverageUtilization: 70
   maxReplicas: 3
