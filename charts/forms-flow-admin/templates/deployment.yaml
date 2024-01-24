@@ -21,6 +21,22 @@ spec:
         app: "{{ .Chart.Name }}"
     spec:
       containers:
+      {{- if .Values.elastic_search.enabled }} 
+      - name: filebeat-admin
+        image: docker.elastic.co/beats/filebeat:7.14.0
+        env:
+          - name: ELASTIC_SERVER
+            valueFrom:
+              configMapKeyRef:
+                key: ELASTIC_SERVER
+                name: "{{ .Values.formsflow.configmap }}"
+        volumeMounts:
+        - name: admin-logs
+          mountPath: /opt/app-root/logs
+        - mountPath: /usr/share/filebeat/filebeat.yml
+          subPath: filebeat.yml
+          name: admin-filebeat
+      {{- end}}
       - env:
         - name: DATABASE_NAME
           valueFrom:
@@ -158,6 +174,16 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
         stdin: true
         tty: true
+     {{- if .Values.elastic_search.enabled }} 
+        volumeMounts:
+        - name: admin-logs
+          mountPath: /opt/app-root/logs
+      volumes:
+      - name: admin-logs
+      - name: admin-filebeat
+        configMap:
+          name: "{{ .Chart.Name }}-fb-config"
+     {{- end}}
       restartPolicy: Always
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
