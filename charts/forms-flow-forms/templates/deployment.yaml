@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       {{- if .Values.elastic_search.enabled }} 
-      - name: filebeat-api
+      - name: filebeat-forms
         image: docker.elastic.co/beats/filebeat:7.14.0
         env:
           - name: ELASTIC_SERVER
@@ -34,7 +34,7 @@ spec:
           mountPath: /app/logs
         - mountPath: /usr/share/filebeat/filebeat.yml
           subPath: filebeat.yml
-          name: api-filebeat
+          name: forms-filebeat
       {{- end}}
       - env:
         - name: NODE_CONFIG
@@ -104,8 +104,8 @@ spec:
         - name: forms-logs
           mountPath: /app/logs
       volumes:
-      - name: api-logs
-      - name: api-filebeat
+      - name: forms-logs
+      - name: forms-filebeat
         configMap:
           name: "{{ .Chart.Name }}-fb-config"
      {{- end}} 
