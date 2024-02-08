@@ -5,35 +5,25 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.exporter.replica }}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
   serviceName: {{ .Chart.Name }}
   template:
     metadata:
-      annotations:
-        prometheus.io/port: "9121"
-        prometheus.io/scrape: "true"
       labels:
         app: {{ .Chart.Name }}
     spec:
       containers:
-      - image: "{{ .Values.exporter.image.registry }}/{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
-        name: "{{ .Chart.Name }}"
-        ports:
-        - containerPort: 9121
-          name: exporter
-      - command:
-        - /conf/update-node.sh
-        - redis-server
-        - /conf/redis.conf 
+      - name: redis
         env:
         - name: POD_IP
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
         image: "{{ .Values.redis.image.registry }}/{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
+        command: ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
         livenessProbe:
           failureThreshold: 5
           initialDelaySeconds: 30
@@ -42,7 +32,6 @@ spec:
           tcpSocket:
             port: client
           timeoutSeconds: 5
-        name: redis
         ports:
         - containerPort: 6379
           name: client
