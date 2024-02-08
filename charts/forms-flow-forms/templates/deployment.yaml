@@ -20,6 +20,22 @@ spec:
         app: {{ .Chart.Name }}
     spec:
       containers:
+      {{- if .Values.elastic_search.enabled }} 
+      - name: filebeat-forms
+        image: docker.elastic.co/beats/filebeat:7.14.0
+        env:
+          - name: ELASTIC_SERVER
+            valueFrom:
+              configMapKeyRef:
+                key: ELASTIC_SERVER
+                name: "{{ .Values.formsflow.configmap }}"
+        volumeMounts:
+        - name: forms-logs
+          mountPath: /app/logs
+        - mountPath: /usr/share/filebeat/filebeat.yml
+          subPath: filebeat.yml
+          name: forms-filebeat
+      {{- end}}
       - env:
         - name: NODE_CONFIG
           valueFrom:
@@ -83,6 +99,16 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         tty: true
+      {{- if .Values.elastic_search.enabled }} 
+        volumeMounts:
+        - name: forms-logs
+          mountPath: /app/logs
+      volumes:
+      - name: forms-logs
+      - name: forms-filebeat
+        configMap:
+          name: "{{ .Chart.Name }}-fb-config"
+     {{- end}} 
       imagePullSecrets:
       - name: "{{ .Values.formsflow.auth }}"
       dnsPolicy: ClusterFirst

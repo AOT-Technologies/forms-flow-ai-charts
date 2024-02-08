@@ -32,3 +32,5 @@ hpa:
   enabled: false 
   CpuAverageUtilization: 70
   maxReplicas: 3
+elastic_search:
+  enabled: false
