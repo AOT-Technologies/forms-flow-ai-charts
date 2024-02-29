@@ -173,7 +173,26 @@ spec:
             secretKeyRef:
               key: FORMIO_JWT_SECRET
               name: "{{ .Values.formsflow.secret }}"
-
+        - name: IPAAS_EMBEDDED_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: IPAAS_EMBEDDED_API_KEY
+              name: "{{ .Values.formsflow.secret }}"
+        - name: IPAAS_JWT_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: IPAAS_JWT_PRIVATE_KEY
+              name: "{{ .Values.formsflow.secret }}"
+        - name: IPAAS_EMBED_BASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: IPAAS_EMBED_BASE_URL
+              name: "{{ .Values.formsflow.secret }}"
+        - name: IPAAS_API_BASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: IPAAS_API_BASE_URL
+              name: "{{ .Values.formsflow.secret }}"
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
