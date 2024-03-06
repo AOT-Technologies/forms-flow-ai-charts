@@ -1,3 +1,4 @@
+---
 Domain: #<DEFINE_ME>
 formsflowdb:
   postgresql:
@@ -11,7 +12,7 @@ forms-flow-bpm:
   clientid: "forms-flow-bpm"
   clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
   ingress:
-    hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+      hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-forms:
   admin:
     email: "me@defineme.com"
@@ -20,29 +21,29 @@ forms-flow-forms:
     hostname: forms-flow-forms-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-api:
   ingress:
-    hostname: forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+      hostname: forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-admin:
   ingress:
-    hostname: forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+      hostname: forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-documents-api:
   ingress:
-    hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+      hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-data-analysis:
   ingress:
-    hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+      hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-analytics:
   ingress:
-    hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+      hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-idm:
   keycloak:
     ingress:
       hostname: forms-flow-idm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
-  realm: forms-flow-ai
+  realm: forms-flow-ai    
 
 forms-flow-web:
   clientid: forms-flow-web
   ingress:
-    hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+      hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-auth:
   imagesecret: "#DEFINE_ME"
 
@@ -56,18 +57,29 @@ mongodb:
   architecture: replicaset
   useStatefulSet: true
   auth:
-    databases:
-    - formsflow
+    databases: 
+      - formsflow 
     passwords:
-    - changeme #use the same password in initdbscript
+      - changeme    #use the same password in initdbscript
     usernames:
-    - mongodb #use the same username in initdbscript
+      - mongodb     #use the same username in initdbscript
     enabled: true
     rootUser: root
     rootPassword: "changeme"
     replicaSetKey: "formsflow"
   initdbScripts:
-    init-mongo.js: "use admin\ndb.createUser({\n   user: 'mongodb',     \n   pwd: 'changeme',   \n   roles: [\n     {\n        role: 'readWrite',\n        db: 'formsflow',\n     },\n   ],\n});\n"
+     init-mongo.js: |
+           use admin
+           db.createUser({
+              user: 'mongodb',     
+              pwd: 'changeme',   
+              roles: [
+                {
+                   role: 'readWrite',
+                   db: 'formsflow',
+                },
+              ],
+           });
   replicaSetName: rs0
   replicaSetHostnames: true
   directoryPerDB: false
@@ -90,19 +102,19 @@ mongodb:
   persistence:
     enabled: true
     accessModes:
-    - ReadWriteOnce
+      - ReadWriteOnce
     size: 8Gi
     mountPath: /bitnami/mongodb
   serviceAccount:
     create: true
-
+  
   arbiter:
     enabled: false
     podSecurityContext:
-      enabled: false
-      fsGroup: 1001
+    enabled: false
+    fsGroup: 1001
     containerSecurityContext:
-      enabled: false
+    enabled: false
     runAsUser: 1001
 
 websocket_encrypt_key: "FormsFlow.AI"
@@ -113,6 +125,7 @@ redis_pass_code: ""
 draft_enabled: "true"
 export_pdf_enabled: "false"
 elastic_server: "forms-flow-elastic:9200"
+redis_url: "redis://redis-exporter:6379/1"
 ipaas:
   embedded_api_key: ""
   jwt_private_key: ""
@@ -160,19 +173,19 @@ postgresql-ha:
     repmgrChildNodesDisconnectTimeout: 30
     initdbScripts:
       init_script.sql: |
-        CREATE DATABASE "forms-flow-admin";
-        CREATE DATABASE "forms-flow-analytics";
-        CREATE DATABASE "forms-flow-api";
-        CREATE DATABASE "forms-flow-bpm";
-        GRANT ALL PRIVILEGES ON DATABASE "forms-flow-admin" to postgres;
-        GRANT ALL PRIVILEGES ON DATABASE "forms-flow-analytics" to postgres;
-        GRANT ALL PRIVILEGES ON DATABASE "forms-flow-api" to postgres;
-        GRANT ALL PRIVILEGES ON DATABASE "forms-flow-bpm" to postgres;
-        set transaction read write;
-        alter database "forms-flow-bpm" set default_transaction_read_only = off;
-        alter database "forms-flow-api" set default_transaction_read_only = off;
-        alter database "forms-flow-analytics" set default_transaction_read_only = off;
-        alter database "forms-flow-admin" set default_transaction_read_only = off;
+            CREATE DATABASE "forms-flow-admin";
+            CREATE DATABASE "forms-flow-analytics";
+            CREATE DATABASE "forms-flow-api";
+            CREATE DATABASE "forms-flow-bpm";
+            GRANT ALL PRIVILEGES ON DATABASE "forms-flow-admin" to postgres;
+            GRANT ALL PRIVILEGES ON DATABASE "forms-flow-analytics" to postgres;
+            GRANT ALL PRIVILEGES ON DATABASE "forms-flow-api" to postgres;
+            GRANT ALL PRIVILEGES ON DATABASE "forms-flow-bpm" to postgres;
+            set transaction read write;
+            alter database "forms-flow-bpm" set default_transaction_read_only = off;
+            alter database "forms-flow-api" set default_transaction_read_only = off;
+            alter database "forms-flow-analytics" set default_transaction_read_only = off;
+            alter database "forms-flow-admin" set default_transaction_read_only = off;
   pgpool:
     image:
       registry: docker.io
@@ -206,7 +219,7 @@ postgresql-ha:
     storageClass: ""
     mountPath: /bitnami/postgresql
     accessModes:
-    - ReadWriteOnce
+      - ReadWriteOnce
     size: 8Gi
   service:
     type: ClusterIP

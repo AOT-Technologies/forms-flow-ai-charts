@@ -185,14 +185,19 @@ spec:
               name: "{{ .Values.formsflow.secret }}"
         - name: IPAAS_EMBED_BASE_URL
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: IPAAS_EMBED_BASE_URL
-              name: "{{ .Values.formsflow.secret }}"
+              name: "{{ .Values.formsflow.configmap }}"
         - name: IPAAS_API_BASE_URL
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: IPAAS_API_BASE_URL
-              name: "{{ .Values.formsflow.secret }}"
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_URL
+              name: "{{ .Values.formsflow.configmap }}"
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
