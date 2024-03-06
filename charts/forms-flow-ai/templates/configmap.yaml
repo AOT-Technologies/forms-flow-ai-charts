@@ -50,4 +50,6 @@ data:
   CHATBOT_URL: "https://{{tpl (index .Values "forms-flow-data-analysis" "ingress" "hostname") .}}/conversations"
   ENABLE_LOW_CODE_DESIGNER: "false"
   ELASTIC_SERVER: "{{.Values.elastic_server}}"
-
+  REDIS_URL: "{{.Values.redis_url}}"
+  IPAAS_EMBED_BASE_URL: "{{ .Values.ipaas.embed_base_url }}"
+  IPAAS_API_BASE_URL: "{{ .Values.ipaas.api_base_url }}"
