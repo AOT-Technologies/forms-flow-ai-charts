@@ -125,6 +125,7 @@ redis_pass_code: ""
 draft_enabled: "true"
 export_pdf_enabled: "false"
 elastic_server: "forms-flow-elastic:9200"
+configure_logs: "true"
 postgresql-ha:
   enabled: true
   postgresql:

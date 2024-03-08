@@ -114,7 +114,11 @@ spec:
             configMapKeyRef:
               key: FORMSFLOW_DOC_API_URL
               name: "{{ .Values.formsflow.configmap }}"
-        
+        - name: CONFIGURE_LOGS
+          valueFrom:
+            configMapKeyRef:
+              key: CONFIGURE_LOGS
+              name: "{{ .Values.formsflow.configmap }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         name: "{{ .Chart.Name }}"
         imagePullPolicy: Always
