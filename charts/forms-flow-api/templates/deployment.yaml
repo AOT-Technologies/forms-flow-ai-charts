@@ -176,6 +176,11 @@ spec:
 
         - name: FORMSFLOW_API_CORS_ORIGINS
           value: '*'
+        - name: CONFIGURE_LOGS
+          valueFrom:
+            configMapKeyRef:
+              key: CONFIGURE_LOGS
+              name: "{{ .Values.formsflow.configmap }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         name: "{{ .Chart.Name }}"
         imagePullPolicy: Always
