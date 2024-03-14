@@ -51,4 +51,4 @@ data:
   ENABLE_LOW_CODE_DESIGNER: "false"
   ELASTIC_SERVER: "{{.Values.elastic_server}}"
   CONFIGURE_LOGS: "{{.Values.configure_logs}}"
-
+  KEYCLOAK_URL_HTTP_RELATIVE_PATH: {{ index .Values "forms-flow-idm" "context-path" }}
