@@ -119,6 +119,11 @@ spec:
             configMapKeyRef:
               key: CONFIGURE_LOGS
               name: "{{ .Values.formsflow.configmap }}"
+        - name: KEYCLOAK_URL_HTTP_RELATIVE_PATH
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL_HTTP_RELATIVE_PATH
+              name: "{{ .Values.formsflow.configmap }}"
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         name: "{{ .Chart.Name }}"
         imagePullPolicy: Always
