@@ -5,3 +5,28 @@ metadata:
   name: {{ .Chart.Name }}
 data:
   DEBUG: "formio:*"
+---
+{{- if .Values.elastic_search.enabled }} 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-fb-config
+data:
+  "filebeat.yml": |-
+    filebeat.inputs:
+    - type: log
+      enabled: true
+      paths:
+        - /app/logs/*
+    output.elasticsearch:
+      hosts: "${ELASTIC_SERVER}"
+      index: "forms-flow-forms-%{+yyyy.MM.dd}"
+    setup.template.name: "forms-flow-forms"
+    setup.template.pattern: "forms-flow-forms-*"
+    setup.template.overwrite: true
+    setup.template.enabled: false
+    setup.template.settings:
+      index.number_of_shards: 1
+    setup.ilm.enabled: false
+{{- end}}
+
