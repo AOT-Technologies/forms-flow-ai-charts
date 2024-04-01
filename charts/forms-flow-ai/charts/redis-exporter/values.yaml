@@ -1,0 +1,28 @@
+exporter:
+  replica: 1
+redis:
+  configMap:
+    redis_conf: |
+      cluster-enabled no
+      cluster-require-full-coverage no
+      cluster-node-timeout 15000
+      cluster-config-file /data/nodes.conf
+      cluster-migration-barrier 1
+      appendonly no
+      protected-mode no
+      maxmemory 1449551462
+  image:  
+    registry: docker.io
+    repository: redis
+    tag: 7.2.4-alpine
+
+persistentVolumeClaim:
+  size: 2Gi 
+  storageClass: ""
+resources:
+  limits:
+    cpu: 60m
+    memory: 512Mi
+  requests:
+    cpu: 50m
+    memory: 256Mi
