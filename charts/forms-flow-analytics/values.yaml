@@ -6,8 +6,6 @@ database:
   port: 5432
   url: "postgresql://{{.Values.database.username}}:{{.Values.database.password}}@{{.Values.database.servicename}}:{{.Values.database.port}}/{{.Chart.Name}}"
 
-formsflow:
-  auth: forms-flow-ai-auth
 ingress:
   ingressClassName: "" 
   annotations: 
