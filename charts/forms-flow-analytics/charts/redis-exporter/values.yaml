@@ -3,19 +3,28 @@ exporter:
     registry: docker.io
     repository: oliver006/redis_exporter
     tag: v1.14.0-alpine
+  resources:
+    limits:
+      cpu: 60m
+      memory: 512Mi
+    requests:
+      cpu: 50m
+      memory: 256Mi
+
 redis:
   image:  
     registry: docker.io
     repository: redis
     tag: 7.0-rc3-alpine
+  resources:
+    limits:
+      cpu: 60m
+      memory: 1Gi    # Increased memory limit to 1Gi
+    requests:
+      cpu: 50m
+      memory: 512Mi  # Increased memory request to 512Mi
 
 persistentVolumeClaim:
   size: 2Gi 
   storageClass: ""
-resources:
-  limits:
-    cpu: 60m
-    memory: 512Mi
-  requests:
-    cpu: 50m
-    memory: 256Mi
+
