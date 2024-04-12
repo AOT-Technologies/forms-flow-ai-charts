@@ -27,9 +27,9 @@ redis-exporter:
       registry: docker.io
       repository: redis
       tag: 7.0-rc3-alpine
-  persistentVolumeClaim:
-    size: 2Gi  
-    storageClass: ""
+      #  persistentVolumeClaim:
+      #    size: 2Gi  
+      #     storageClass: ""
   resources:
     limits:
       cpu: 60m
