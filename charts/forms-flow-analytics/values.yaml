@@ -50,7 +50,7 @@ redash:
 resources:
   limits:
     cpu: 200m
-    memory: 2Gi
+    memory: 4Gi
   requests:
     cpu: 180m
-    memory: 1Gi
+    memory: 2Gi
