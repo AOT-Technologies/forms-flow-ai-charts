@@ -26,5 +26,4 @@ redis:
 
 persistentVolumeClaim:
   size: 2Gi 
-  storageClass: ""
 
