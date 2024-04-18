@@ -53,3 +53,5 @@ data:
   REDIS_URL: "{{.Values.redis_url}}"
   IPAAS_EMBED_BASE_URL: "{{ .Values.ipaas.embed_base_url }}"
   IPAAS_API_BASE_URL: "{{ .Values.ipaas.api_base_url }}"
+  CONFIGURE_LOGS: "{{.Values.configure_logs}}"
+  KEYCLOAK_URL_HTTP_RELATIVE_PATH: {{ index .Values "forms-flow-idm" "context-path" }}
