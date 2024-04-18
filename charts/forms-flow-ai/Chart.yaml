@@ -12,5 +12,5 @@ dependencies:
     version: 13.6.3
   - name: redis-exporter
     version: v3.0.0
-version: v6.0.0
+version: v7.0.0
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

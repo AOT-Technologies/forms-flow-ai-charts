@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: forms-flow-idm
-version: v6.0.0
+version: v7.0.0
 dependencies:
   - name: keycloak
     version: 19.1.0
