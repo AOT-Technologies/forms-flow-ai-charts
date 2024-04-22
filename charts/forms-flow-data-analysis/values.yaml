@@ -25,7 +25,7 @@ ingress:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-data-analysis-api
-  tag: v5.3.1 #The image tag to pull from
+  tag: v6.0.0 #The image tag to pull from
 openApiKey: ""
 chatbotModelId: "gpt-3.5-turbo"
 hpa:

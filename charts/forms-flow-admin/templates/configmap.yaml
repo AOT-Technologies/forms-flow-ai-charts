@@ -7,3 +7,27 @@ metadata:
   name: {{ .Chart.Name }}
 data:
   DATABASE_URL: "{{tpl .Values.postgresql.url .}}"
+---
+{{- if .Values.elastic_search.enabled }} 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-fb-config
+data:
+  "filebeat.yml": |-
+    filebeat.inputs:
+    - type: log
+      enabled: true
+      paths:
+        - /opt/app-root/logs/*
+    output.elasticsearch:
+      hosts: "${ELASTIC_SERVER}"
+      index: "forms-flow-admin-api-%{+yyyy.MM.dd}"
+    setup.template.name: "forms-flow-admin-api"
+    setup.template.pattern: "forms-flow-admin-api-*"
+    setup.template.overwrite: true
+    setup.template.enabled: false
+    setup.template.settings:
+      index.number_of_shards: 1
+    setup.ilm.enabled: false
+{{- end}}

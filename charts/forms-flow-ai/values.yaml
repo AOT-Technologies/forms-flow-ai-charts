@@ -126,6 +126,13 @@ redis_pass_code: ""
 draft_enabled: "true"
 export_pdf_enabled: "false"
 elastic_server: "forms-flow-elastic:9200"
+redis_url: "redis://redis-exporter:6379/1"
+ipaas:
+  embedded_api_key: ""
+  jwt_private_key: ""
+  embed_base_url: ""
+  api_base_url: ""
+
 configure_logs: "true"
 postgresql-ha:
   enabled: true
@@ -223,3 +230,17 @@ postgresql-ha:
     portName: postgresql
     nodePorts:
       postgresql: ""
+redis-expoter:
+  exporter:
+    replica: 2
+  redis:
+    configMap:
+      redis_conf: |
+        cluster-enabled no
+        cluster-require-full-coverage no
+        cluster-node-timeout 15000
+        cluster-config-file /data/nodes.conf
+        cluster-migration-barrier 1
+        appendonly no
+        protected-mode no
+        maxmemory 1449551462

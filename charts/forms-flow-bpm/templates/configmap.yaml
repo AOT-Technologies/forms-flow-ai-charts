@@ -30,24 +30,24 @@ apiVersion: v1
 data:
   mail-config.properties: |
     # send mails via SMTP
-    mail.transport.protocol=smtp
-    mail.smtp.auth=true
+    mail.transport.protocol={{.Values.mail.protocol}}
+    mail.smtp.auth={{.Values.mail.smtp.auth}}
     mail.smtp.host={{.Values.mail.smtp.server}}
     mail.smtp.port={{.Values.mail.smtp.port}}
     mail.smtp.ssl.enable={{.Values.mail.smtp.ssl.enable}}
-    mail.smtp.socketFactory.port=465
-    mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory
+    mail.smtp.socketFactory.port={{.Values.mail.smtp.socketFactory.port}}
+    mail.smtp.socketFactory.class={{.Values.mail.smtp.socketFactory.class}}
     # poll mails via IMAPS
-    #mail.store.protocol=imaps
-    # mail.imaps.host=imap.gmail.com
-    mail.imaps.port=993
-    mail.imaps.timeout=1000
+    #mail.store.protocol={{.Values.mail.store.protocol}}
+    # mail.imaps.host={{.Values.mail.imaps.host}}
+    mail.imaps.port={{.Values.mail.imaps.port}} 
+    mail.imaps.timeout={{.Values.mail.imaps.timeout}}
     # additional config
-    #mail.poll.folder=INBOX
+    #mail.poll.folder={{.Values.mail.folder}}
     mail.sender={{.Values.mail.from}}
-    mail.sender.alias=DoNotReply
-    mail.attachment.download=true
-    mail.attachment.path=attachments
+    mail.sender.alias={{.Values.mail.alias}}
+    mail.attachment.download={{.Values.mail.attachment.download}}
+    mail.attachment.path={{.Values.mail.attachment.path}}
     # credentials
     mail.user={{.Values.mail.user}}
     mail.password={{.Values.mail.password}}

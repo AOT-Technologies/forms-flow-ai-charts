@@ -33,7 +33,7 @@ camunda:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-bpm
-  tag: v5.3.1 #The image tag to pull from
+  tag: v6.0.0 #The image tag to pull from
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret 
@@ -51,15 +51,30 @@ ingress:
   extraTls:
    - {}
 mail:
+  protocol: smtp
   from: "<DEFINE_ME>"
   password: "<DEFINE_ME>"
   user: "<DEFINE_ME>"
+  alias: DoNotReply
+  folder: INBOX
   smtp:
     auth: true
     port: 5432
     server: "<DEFINE_ME>"
+    socketFactory:
+      port: 465
+      class: javax.net.ssl.SSLSocketFactory
     ssl:
       enable: false
+  store:
+    protocol: imaps
+  imaps:
+    host: imap.gmail.com
+    port: 993
+    timeout: 1000
+  attachment:
+    download: true
+    path: attachments
 
 resources:
   limits:
