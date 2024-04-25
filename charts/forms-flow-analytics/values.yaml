@@ -1,4 +1,4 @@
-Domain: formsflow.ai
+Domain: localhost
 database:
   username: postgres 
   password: postgres
@@ -46,7 +46,20 @@ redash:
   database:
     password: postgres # admin password
     url: "postgresql://postgres:postgres@forms-flow-analytics-postgresql:5432/postgres" # redash database url - i.e forms-flow-analytics-postgresql
-
+  readinessProbe:
+    httpGet:
+      path: /status
+      port: 5000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    failureThreshold: 3
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: 5000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    failureThreshold: 3
 resources:
   limits:
     cpu: 200m
