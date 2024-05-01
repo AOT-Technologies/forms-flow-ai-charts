@@ -32,15 +32,18 @@ spec:
         - name: REDASH_WEB_WORKERS
           value: "4"
         - name: REDASH_GUNICORN_TIMEOUT
-          value: "300"
+          value: "600"
         - name: REDASH_MULTI_ORG
           value: "{{ .Values.redash.multiorg}}"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         imagePullPolicy: Always
-        # lifecycle:
-        #  postStart:
-        #    exec:
-        #      command: ["/bin/sh", "-c", "python -v ./manage.py database create_tables"]
+        lifecycle:
+          postStart:
+            exec:
+              command: 
+                - "/bin/sh"
+                - "-c"
+                - "python -B ./manage.py database create_tables"
         name: "{{ .Chart.Name }}-server"
         ports:
         - containerPort: {{ int .Values.ingress.port }}
