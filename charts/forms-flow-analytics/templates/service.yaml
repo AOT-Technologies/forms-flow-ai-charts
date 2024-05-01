@@ -5,6 +5,7 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
+  type: LoadBalancer
   ports:
   - name: "{{.Values.ingress.port}}"
     port: {{.Values.ingress.port}}
