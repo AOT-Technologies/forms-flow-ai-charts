@@ -46,20 +46,6 @@ redash:
   database:
     password: "{{ .Values.database.password }}"
     url: "postgresql://{{ .Values.database.username }}:{{ .Values.database.password }}@{{ .Values.database.servicename }}:5432/postgres"
-  readinessProbe:
-    httpGet:
-      path: /status
-      port: 5000
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    failureThreshold: 3
-  livenessProbe:
-    httpGet:
-      path: /status
-      port: 5000
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    failureThreshold: 3
 resources:
   limits:
     cpu: 200m
