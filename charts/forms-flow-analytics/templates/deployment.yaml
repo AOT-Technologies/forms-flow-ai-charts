@@ -150,32 +150,40 @@ spec:
   selector:
     matchLabels:
       app: "{{ .Chart.Name }}-scheduler"
-  strategy:
+  strategy: {}
   template:
     metadata:
       labels:
         app: "{{ .Chart.Name }}-scheduler"
     spec:
-      containers:
-      - args:
-        - scheduler
-        envFrom:
-        - configMapRef:
-            name: "{{ .Chart.Name }}" # default redash environment variables
-        - secretRef:
-            name: "{{ .Chart.Name }}" # default redash environment variables
-        image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
-        name: "{{ .Chart.Name }}-scheduler"
-        imagePullPolicy: Always
-        resources:
-          limits:
-            cpu: "{{ .Values.resources.limits.cpu }}"
-            memory: "{{ .Values.resources.limits.memory }}"
-          requests:
-            cpu: "{{ .Values.resources.requests.cpu }}"
-            memory: "{{ .Values.resources.requests.memory }}"
       restartPolicy: Always
-      
+      securityContext:
+        fsGroup: 2000  # Setting the file system group
+      containers:
+        - name: "{{ .Chart.Name }}-scheduler"
+          image: "{{ .Values.redash.image.registry }}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          args:
+            - scheduler
+          envFrom:
+            - configMapRef:
+                name: "{{ .Chart.Name }}" # Default Redash environment variables
+            - secretRef:
+                name: "{{ .Chart.Name }}" # Default Redash environment variables
+          resources:
+            limits:
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
 ---
 apiVersion: apps/v1
 kind: Deployment
