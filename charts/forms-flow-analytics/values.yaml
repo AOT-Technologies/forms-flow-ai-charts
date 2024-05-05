@@ -53,3 +53,74 @@ resources:
   requests:
     cpu: 180m
     memory: 1Gi
+
+## Configuration for Redash workers
+workers:
+  adhoc:
+    # workers.adhoc.env -- Redash ad-hoc worker specific environment variables.
+    env:
+      QUEUES: queries
+      WORKERS_COUNT: 2
+  scheduled:
+    # workers.scheduled.env -- Redash scheduled worker specific environment variables.
+    env:
+      QUEUES: scheduled_queries,schemas
+      WORKERS_COUNT: 1
+  generic:
+    # workers.generic.env -- Redash generic worker specific environment variables.
+    env:
+      QUEUES: periodic,emails,default
+      WORKERS_COUNT: 1
+
+## Common worker configuration, which can be overidden for each worker at workers.<workerName>
+worker:
+  # worker.replicaCount -- Default number of worker pods to run
+  replicaCount: 1
+
+  # worker.initContainers -- Worker default init containers configuration
+  initContainers: []
+
+  # worker.resources -- Worker default resource requests and limits [ref](http://kubernetes.io/docs/user-guide/compute-resources/)
+  resources:
+    # limits:
+    #   cpu: 500m
+    #   memory: 3Gi
+    # requests:
+    #   cpu: 100m
+    #  memory: 500Mi
+
+  # worker.podSecurityContext -- Default worker's security context pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
+  podSecurityContext: {}
+  securityContext: {}
+
+  # worker.nodeSelector -- Default node labels for worker pod assignment [ref](https://kubernetes.io/docs/user-guide/node-selection/)
+  nodeSelector: {}
+
+  # worker.tolerations -- Default tolerations for worker pod assignment [ref](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/)
+  tolerations: []
+
+  # worker.affinity -- Default affinity for worker pod assignment [ref](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
+  affinity: {}
+
+  # worker.podAnnotations -- Default annotations for worker pod assignment [ref](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/)
+  podAnnotations: {}
+
+  # worker.podLabels -- Default labels for worker pod assignment [ref](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+  podLabels: {}
+
+  # worker.volumes -- Default volumes for pod worker assignment [ref](https://kubernetes.io/docs/concepts/storage/volumes/)
+  volumes: []
+
+  # worker.volumeMounts -- Default VolumeMounts for worker pod assignment [ref](https://kubernetes.io/docs/concepts/storage/volumes/)
+  volumeMounts: []
+
+  # worker.livenessProbe -- Default worker's liveness probe to ensure workers are running fine
+  livenessProbe:
+    exec:
+      command:
+        - /bin/sh
+        - -c
+        - /app/bin/docker-entrypoint workers_healthcheck
+    timeoutSeconds: 10
+    initialDelaySeconds: 60
+    periodSeconds: 100
