@@ -1,10 +1,16 @@
 Domain: localhost
-database:
-  username: postgres
-  password: postgres
-  servicename: forms-flow-ai-postgresql-ha-pgpool-service
-  port: 5432
-  url: 'postgresql://{{.Values.database.username}}:{{.Values.database.password}}@{{.Values.database.servicename}}:{{.Values.database.port}}/{{.Chart.Name}}'
+
+formsflow:
+  configmap: forms-flow-ai # name of formsflow.ai configmap
+  secret: forms-flow-ai #name of formsflow.ai secret
+  auth: forms-flow-ai-auth
+
+# database:
+#   username: postgres
+#   password: postgres
+#   servicename: forms-flow-ai-postgresql-ha-pgpool-service
+#   port: 5432
+#   url: 'postgresql://{{.Values.database.username}}:{{.Values.database.password}}@{{.Values.database.servicename}}:{{.Values.database.port}}/{{.Chart.Name}}'
 
 ingress:
   ingressClassName: ''
