@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: '{{ .Chart.Name }}-server'
+  name: '{{ .Chart.Name }}-server'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: '{{ .Chart.Name }}-server'
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: '{{ .Chart.Name }}-server'
+      name: '{{ .Chart.Name }}-server'
+    spec:
+      containers:
+        - args:
+            - server
+          envFrom:
+            - configMapRef:
+                name: '{{ .Chart.Name }}' # default redash environment variables
+            - secretRef:
+                name: '{{ .Chart.Name }}' # default redash environment variables
+          env:
+            - name: REDASH_WEB_WORKERS
+              value: '4'
+            - name: REDASH_GUNICORN_TIMEOUT
+              value: '600'
+            - name: REDASH_MULTI_ORG
+              value: '{{ .Values.redash.multiorg}}'
+          image: '{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}'
+          imagePullPolicy: Always
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - '/bin/sh'
+                  - '-c'
+                  - 'python -B ./manage.py database create_tables'
+          name: '{{ .Chart.Name }}-server'
+          ports:
+            - containerPort: {{.Values.ingress.port}}
+              protocol: TCP
+          resources:
+            limits:
+              cpu: '{{ .Values.resources.limits.cpu }}'
+              memory: '{{ .Values.resources.limits.memory }}'
+            requests:
+              cpu: '{{ .Values.resources.requests.cpu }}'
+              memory: '{{ .Values.resources.requests.memory }}'
+      restartPolicy: Always

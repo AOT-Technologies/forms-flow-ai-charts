@@ -1,71 +1,53 @@
-{{ range $workerName, $config := .Values.workers -}}
+{{- range $workerName, $config := .Values.workers }}
 {{- $workerConfig := mergeOverwrite (deepCopy $.Values.worker) $config }}
-{{- $context := mergeOverwrite (deepCopy $) (dict "workerName" $workerName)}}
+{{- $context := mergeOverwrite (deepCopy $) (dict "workerName" $workerName) }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "redash.worker.fullname" $context }}
-  labels: {{ include "redash.labels" $context | nindent 4 }}
+  labels:
+    app: {{ include "redash.worker.fullname" $context | quote }}
 spec:
   replicas: {{ $workerConfig.replicaCount }}
   selector:
-    matchLabels: {{ include "redash.selectorLabels" $context | nindent 6 }}
+    matchLabels:
+      app: {{ include "redash.worker.fullname" $context | quote }}
   template:
     metadata:
-      labels: {{ include "redash.selectorLabels" $context | nindent 8 }}
-      {{- if $workerConfig.podLabels }}
-      {{ tpl (toYaml $workerConfig.podLabels) $ | nindent 8 }}
-      {{- end }}
-      {{- with $workerConfig.podAnnotations -}}
-      annotations: {{ toYaml . | nindent 8 }}
-      {{- end }}
+      labels:
+        app: {{ include "redash.worker.fullname" $context | quote }}
     spec:
-      {{ with $.Values.imagePullSecrets -}}
-      imagePullSecrets: {{ toYaml . | nindent 8 }}
-      {{- end -}}
-      serviceAccountName: {{ include "redash.serviceAccountName" $context }}
-      securityContext: {{ toYaml $workerConfig.podSecurityContext | nindent 8 }}
-      {{- with concat $.Values.initContainers $workerConfig.initContainers }}
-      initContainers: {{ toYaml . | nindent 8 }}
-      {{- end }}
       containers:
-        {{- with $workerConfig.extraContainers -}}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
-        - name: {{ include "redash.name" $context }}-{{ $workerName }}worker
-          securityContext: {{ toYaml $workerConfig.securityContext | nindent 12 }}
-          image: {{ $.Values.image.registry }}/{{ $.Values.image.repo }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}
-          imagePullPolicy: {{ $.Values.image.pullPolicy }}
-          args: 
+        - name: {{ include "redash.worker.fullname" $context | quote }}
+          image: "{{ $.Values.redash.image.registry}}/{{ $.Values.redash.image.repository }}:{{ $.Values.redash.image.tag }}"
+          imagePullPolicy: Always
+          args:
             - worker
-          {{- $volumeMounts := concat $.Values.volumeMounts $workerConfig.volumeMounts }}
-          {{- with $volumeMounts }}
-          volumeMounts: {{ toYaml . | nindent 12 }}
-          {{- end -}}
+          {{- with $workerConfig.volumeMounts }}
+          volumeMounts: {{ toYaml . | nindent 10 }}
+          {{- end }}
           {{- with $workerConfig.livenessProbe }}
-          livenessProbe: {{ toYaml . | nindent 12 }}
+          livenessProbe: {{ toYaml . | nindent 10 }}
           {{- end }}
           env:
-          {{- $envCtx := mergeOverwrite (deepCopy $) (dict "Values" (dict "env" $workerConfig.env)) -}}
-          {{- include "redash.env" $envCtx | nindent 12 }}
+          {{- $envCtx := mergeOverwrite (deepCopy $) (dict "Values" (dict "env" $workerConfig.env)) }}
           {{- with (include "redash.envFrom" $) }}
-          envFrom: {{ . | nindent 12 }}
+          envFrom: {{ . | nindent 10 }}
           {{- end }}
           {{- with $workerConfig.resources }}
-          resources: {{ toYaml . | nindent 12 }}
+          resources: {{ toYaml . | nindent 10 }}
           {{- end }}
-      {{- $volumes := concat $.Values.volumes $workerConfig.volumes -}}
-      {{- with $volumes }}
-      volumes: {{ toYaml . | nindent 8 }}
+      {{- with $workerConfig.volumes }}
+      volumes: {{ toYaml . | nindent 6 }}
       {{- end }}
       {{- with $workerConfig.nodeSelector }}
-      nodeSelector: {{ toYaml . | nindent 8 }}
+      nodeSelector: {{ toYaml . | nindent 6 }}
       {{- end }}
       {{- with $workerConfig.affinity }}
-      affinity: {{ toYaml . | nindent 8 }}
+      affinity: {{ toYaml . | nindent 6 }}
       {{- end }}
       {{- with $workerConfig.tolerations }}
-      tolerations: {{ toYaml . | nindent 8 }}
+      tolerations: {{ toYaml . | nindent 6 }}
       {{- end }}
 {{- end }}

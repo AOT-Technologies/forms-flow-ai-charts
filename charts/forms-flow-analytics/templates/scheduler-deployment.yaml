@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{include "redash.scheduler.fullname" .}}
+  name: {{include "redash.scheduler.fullname" .}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{include "redash.scheduler.fullname" .}}
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{include "redash.scheduler.fullname" .}}
+    spec:
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 2000 # Setting the file system group
+      containers:
+        - name: {{include "redash.scheduler.fullname" .}}
+          image: '{{ .Values.redash.image.registry }}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}'
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          args:
+            - scheduler
+          envFrom:
+            - configMapRef:
+                name: '{{ .Chart.Name }}' # Default Redash environment variables
+            - secretRef:
+                name: '{{ .Chart.Name }}' # Default Redash environment variables
+          resources:
+            limits:
+              cpu: '{{ .Values.resources.limits.cpu }}'
+              memory: '{{ .Values.resources.limits.memory }}'
+            requests:
+              cpu: '{{ .Values.resources.requests.cpu }}'
+              memory: '{{ .Values.resources.requests.memory }}'
