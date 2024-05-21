@@ -53,11 +53,20 @@ spec:
             configMapKeyRef:
               key: DATABASE_SERVICE_NAME
               name: "{{ .Values.formsflow.configmap }}"
+        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
+              name: "{{ .Values.externalDatabase.existingSecretName }}"
+        {{- end }}
+        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
         - name: DATABASE_URL
           valueFrom:
             configMapKeyRef:
               key: DATABASE_URL
-              name: "{{ .Chart.Name}}"
+              name: "{{ .Chart.Name }}"
+        {{- end }}
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:

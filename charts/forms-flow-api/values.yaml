@@ -2,6 +2,10 @@
 Domain: #<DEFINE_ME>
 database:
   url: "postgresql://postgres:postgres@forms-flow-ai-postgresql-ha-pgpool:5432/{{.Chart.Name}}"
+externalDatabase:
+  existingDatabaseUrlKey: "" 
+  existingSecretName: "" #name of the existing secret
+
 resources:
   limits:
     cpu: 300m
