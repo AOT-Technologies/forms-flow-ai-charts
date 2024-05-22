@@ -9,5 +9,5 @@ dependencies:
   - name: postgresql-ha
     condition: postgresql-ha.enabled 
     repository: https://charts.bitnami.com/bitnami
-    version: 13.4.5
+    version: 14.1.0
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

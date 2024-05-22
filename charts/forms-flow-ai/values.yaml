@@ -112,11 +112,11 @@ mongodb:
   arbiter:
     enabled: false
     podSecurityContext:
-    enabled: false
-    fsGroup: 1001
+      enabled: false
+      fsGroup: 1001
     containerSecurityContext:
-    enabled: false
-    runAsUser: 1001
+      enabled: false
+      runAsUser: 1001
 
 websocket_encrypt_key: "FormsFlow.AI"
 insight_api_key: ""
