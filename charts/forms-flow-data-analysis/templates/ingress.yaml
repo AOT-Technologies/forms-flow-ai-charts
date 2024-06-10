@@ -14,8 +14,13 @@ spec:
     - hosts:
         - {{ (tpl .Values.ingress.hostname .) | quote }}
       secretName: {{ printf "%s-tls" (tpl .Values.ingress.hostname .) }}
-    {{- end }}
-  {{- end }}
+  {{- else }}
+    - {}
+  {{- end}}
+  {{- else }}
+  tls:
+    - {}
+  {{- end}}
   rules:
     -
       host: "{{ tpl .Values.ingress.hostname .}}"

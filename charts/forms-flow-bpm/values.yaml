@@ -29,6 +29,11 @@ camunda:
   websocket:
     messageType: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
     securityOrigin:   #WEBSOCKET_SECURITY_ORIGIN
+  externalDatabase:
+    existingDatabaseHostKey: ""
+    existingDatabasePortKey: ""
+    existingDatabaseNameKey: ""
+    existingSecretName: "" #name of the existing secret
 
 image:
   registry: docker.io

@@ -29,12 +29,29 @@ spec:
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         env:
+        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
+              name: "{{ .Values.externalDatabase.existingSecretName }}"
+        {{- end }}
+        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDASH_DATABASE_URL
+              name: "{{ .Chart.Name }}"
+        {{- end }}
         - name: REDASH_WEB_WORKERS
           value: "4"
         - name: GUNICORN_CMD_ARGS
           value: "--timeout 300"
         - name: REDASH_MULTI_ORG
-          value: "{{ .Values.redash.multiorg}}"
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_MULTI_ORG
+              name: "{{ .Chart.Name }}"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         imagePullPolicy: Always
         lifecycle:
@@ -81,7 +98,21 @@ spec:
             name: "{{ .Chart.Name }}" # default redash environment variables
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
-        env: 
+        env:
+        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
+              name: "{{ .Values.externalDatabase.existingSecretName }}"
+        {{- end }}
+        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDASH_DATABASE_URL
+              name: "{{ .Chart.Name }}"
+        {{- end }} 
         - name: WORKERS_COUNT
           value: "2"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
@@ -124,6 +155,20 @@ spec:
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         env:
+        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
+              name: "{{ .Values.externalDatabase.existingSecretName }}"
+        {{- end }}
+        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDASH_DATABASE_URL
+              name: "{{ .Chart.Name }}"
+        {{- end }}
         - name: WORKERS_COUNT
           value: "1"
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
@@ -164,6 +209,21 @@ spec:
             name: "{{ .Chart.Name }}" # default redash environment variables
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
+        env:
+        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
+              name: "{{ .Values.externalDatabase.existingSecretName }}"
+        {{- end }}
+        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDASH_DATABASE_URL
+              name: "{{ .Chart.Name }}"
+        {{- end }}
         image: "{{ .Values.redash.image.registry}}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}"
         name: "{{ .Chart.Name }}-scheduler"
         imagePullPolicy: Always
@@ -204,6 +264,20 @@ spec:
         - secretRef:
             name: "{{ .Chart.Name }}" # default redash environment variables
         env:
+        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
+              name: "{{ .Values.externalDatabase.existingSecretName }}"
+        {{- end }}
+        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: REDASH_DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDASH_DATABASE_URL
+              name: "{{ .Chart.Name }}"
+        {{- end }}
         - name: QUEUES
           value: "periodic_emails,default"
         - name: WORKERS_COUNT

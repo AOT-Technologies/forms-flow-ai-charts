@@ -51,7 +51,7 @@ forms-flow-auth:
 
 mongodb:
   image:
-    tag: 4.2.21-debian-10-r8
+    tag: 7.0.11-debian-12-r0
   enabled: true
   fullnameOverride: "forms-flow-ai-mongodb"
   clusterDomain: cluster.local
@@ -112,11 +112,11 @@ mongodb:
   arbiter:
     enabled: false
     podSecurityContext:
-    enabled: false
-    fsGroup: 1001
+      enabled: false
+      fsGroup: 1001
     containerSecurityContext:
-    enabled: false
-    runAsUser: 1001
+      enabled: false
+      runAsUser: 1001
 
 websocket_encrypt_key: "FormsFlow.AI"
 insight_api_key: ""
@@ -140,7 +140,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
-      tag: 15.1.0-debian-11-r0
+      tag: 16.3.0-debian-12-r9
     replicaCount: 3
     containerPorts:
       postgresql: 5432
@@ -192,7 +192,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/pgpool
-      tag: 4.3.3-debian-11-r28
+      tag: 4.5.2-debian-12-r0
       digest: ""
       pullPolicy: IfNotPresent
     replicaCount: 1
