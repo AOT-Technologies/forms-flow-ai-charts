@@ -5,12 +5,12 @@ dependencies:
   - name: postgresql-ha
     condition: postgresql-ha.enabled 
     repository: https://charts.bitnami.com/bitnami
-    version: 14.1.0
+    version: 14.2.3
   - name: mongodb
     condition: mongodb.enabled 
     repository: https://charts.bitnami.com/bitnami
-    version: 15.5.1
+    version: 5.6.5
   - name: redis-exporter
     version: v3.0.0
-version: v7.0.0
+version: v7.0.1
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
