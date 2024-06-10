@@ -93,7 +93,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
-      tag: 15.1.0-debian-11-r0
+      tag: 16.3.0-debian-12-r9
     fullnameOverride: "forms-flow-idm-postgresql"
     replicaCount: 3
     containerPorts:
@@ -144,7 +144,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/pgpool
-      tag: 4.3.3-debian-11-r28
+      tag: 4.5.2-debian-12-r0
       digest: ""
       pullPolicy: IfNotPresent
     replicaCount: 1
