@@ -26,11 +26,29 @@ keycloak:
     - name: "forms-flow-idm-realm-config"
       configMap:
         name: "forms-flow-idm"
-
+    - name: formsflow-themes
+      emptyDir: {}
   extraVolumeMounts: 
     - name: "forms-flow-idm-realm-config"
       mountPath: "/opt/bitnami/keycloak/data/import"
       readOnly: false
+    - mountPath: /opt/bitnami/keycloak/themes
+      name: formsflow-themes
+      subPath: themes
+  initContainers:
+    - name: formsflow-themes
+      image: formsflow/forms-flow-idm-theme:v6.0
+      imagePullPolicy: Always
+      securityContext:
+        runAsUser: 1001
+      command: ["/bin/sh","-c"]
+      args:
+      - "mkdir /opt/bitnami/keycloak/themes && \
+         cp -rf /my-theme/* /opt/bitnami/keycloak/themes && \
+         ls -ltra /opt/bitnami/keycloak/themes"
+      volumeMounts:
+      - mountPath: /opt/bitnami/keycloak
+        name: formsflow-themes
 
   image:
     registry: "docker.io"
