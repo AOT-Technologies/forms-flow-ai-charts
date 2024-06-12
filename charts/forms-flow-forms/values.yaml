@@ -1,7 +1,9 @@
 Domain: #<DEFINE_ME>
-admin:
-  email: "me@defineme.com"
-  password: "admin"
+replicas: 1
+ExternalAuth:
+  ExistingMailAuthKey: ""
+  ExistingPwdAuthKey: ""
+  ExistingSecretName: ""
 formsflow:
   configmap: forms-flow-ai #integration env vars
   secret: forms-flow-ai # integration env vars secret

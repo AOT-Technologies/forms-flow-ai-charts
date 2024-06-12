@@ -5,7 +5,7 @@ metadata:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
@@ -42,16 +42,34 @@ spec:
             configMapKeyRef:
               key: NODE_CONFIG
               name: "{{ .Values.formsflow.configmap }}"
+        {{- if .Values.ExternalAuth.ExistingMailAuthKey }}
+        - name: ROOT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.ExternalAuth.ExistingMailAuthKey }}
+              name: "{{ .Values.ExternalAuth.ExistingSecretName }}"
+        {{- end }}
+        {{- if not .Values.ExternalAuth.ExistingMailAuthKey }}
         - name: ROOT_EMAIL
           valueFrom:
             secretKeyRef:
               key: FORMIO_ROOT_EMAIL
               name: "{{ .Values.formsflow.secret }}"
+        {{- end }}
+        {{- if .Values.ExternalAuth.ExistingPwdAuthKey }}
+        - name: ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.ExternalAuth.ExistingPwdAuthKey }}
+              name: "{{ .Values.ExternalAuth.ExistingSecretName }}"
+        {{- end }}
+        {{- if not .Values.externalAuth.existingPwdAuthKey }}
         - name: ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
               key: FORMIO_ROOT_PASSWORD
               name: "{{ .Values.formsflow.secret }}"
+        {{- end }}
         - name: FORMIO_JWT_SECRET
           valueFrom:
             secretKeyRef:

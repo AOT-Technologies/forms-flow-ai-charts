@@ -6,7 +6,7 @@ metadata:
     app: "{{ .Chart.Name }}"
   name: "{{ .Chart.Name }}"
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app: "{{ .Chart.Name }}"
@@ -73,10 +73,7 @@ spec:
               key: APPLICATION_NAME
               name: "{{ .Chart.Name }}"
         - name: REACT_APP_USER_ACCESS_PERMISSIONS
-          valueFrom:
-            configMapKeyRef:
-              key: USER_ACCESS_PERMISSIONS
-              name: "{{ .Chart.Name }}"
+          value: "{{ .Values.UserAccesPermissions }}"
         - name: REACT_APP_WEBSOCKET_ENCRYPT_KEY
           valueFrom:
             secretKeyRef:
