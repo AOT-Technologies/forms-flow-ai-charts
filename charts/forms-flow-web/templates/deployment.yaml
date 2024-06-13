@@ -73,7 +73,10 @@ spec:
               key: APPLICATION_NAME
               name: "{{ .Chart.Name }}"
         - name: REACT_APP_USER_ACCESS_PERMISSIONS
-          value: "{{ .Values.UserAccesPermissions }}"
+          valueFrom:
+            configMapKeyRef:
+              key: USER_ACCESS_PERMISSIONS
+              name: "{{ .Chart.Name }}"
         - name: REACT_APP_WEBSOCKET_ENCRYPT_KEY
           valueFrom:
             secretKeyRef:
