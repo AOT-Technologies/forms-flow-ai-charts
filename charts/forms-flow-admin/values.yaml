@@ -1,5 +1,6 @@
 ---
 Domain: #<DEFINE ME>
+replicas: 1
 postgresql:
   url: "postgresql://postgres:postgres@forms-flow-ai-postgresql-ha-pgpool:5432/{{.Chart.Name}}"
 externalDatabase:
