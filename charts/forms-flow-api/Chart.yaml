@@ -2,5 +2,5 @@
 apiVersion: v2
 name: forms-flow-api
 tags: forms-flow-api
-version: v7.0.2
+version: v7.0.3
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

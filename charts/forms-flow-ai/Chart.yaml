@@ -9,8 +9,8 @@ dependencies:
   - name: mongodb
     condition: mongodb.enabled 
     repository: https://charts.bitnami.com/bitnami
-    version: 15.6.6
+    version: 13.6.3
   - name: redis-exporter
     version: v3.0.0
-version: v7.0.2
+version: v7.0.3
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
