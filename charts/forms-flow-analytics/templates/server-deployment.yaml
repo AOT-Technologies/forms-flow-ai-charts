@@ -87,11 +87,11 @@ spec:
           protocol: TCP
         resources:
           limits:
-            cpu: '{{ .Values.redash.resources.limits.cpu }}'
-            memory: '{{ .Values.redash.resources.limits.memory }}'
+            cpu: '{{ .Values.resources.limits.cpu }}'
+            memory: '{{ .Values.resources.limits.memory }}'
           requests:
-            cpu: '{{ .Values.redash.resources.requests.cpu }}'
-            memory: '{{ .Values.redash.resources.requests.memory }}'
+            cpu: '{{ .Values.resources.requests.cpu }}'
+            memory: '{{ .Values.resources.requests.memory }}'
       restartPolicy: Always
       imagePullSecrets:
       - name: '{{ .Values.formsflow.auth }}'
