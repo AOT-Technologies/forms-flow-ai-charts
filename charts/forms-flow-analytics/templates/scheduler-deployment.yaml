@@ -34,9 +34,9 @@ spec:
             - scheduler
           envFrom:
             - configMapRef:
-                name: '{{ .Chart.Name }}' # Default Redash environment variables
+                name: '{{ .Values.formsflow.configmap }}' # Default Redash environment variables
             - secretRef:
-                name: '{{ .Chart.Name }}' # Default Redash environment variables
+                name: '{{ .Chart.Name }}' # default redash environment variables
           resources:
             limits:
               cpu: '{{ .Values.resources.limits.cpu }}'
