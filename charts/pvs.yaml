@@ -1,0 +1,169 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-forms-flow-ai-postgresql-0
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/forms-flow-ai-postgresql-0
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-forms-flow-ai-postgresql-1
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/forms-flow-ai-postgresql-1
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-forms-flow-ai-postgresql-2
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/forms-flow-ai-postgresql-2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-forms-flow-idm-postgresql-0
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/forms-flow-idm-postgresql-0
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-forms-flow-idm-postgresql-1
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/forms-flow-idm-postgresql-1
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-forms-flow-idm-postgresql-2
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/forms-flow-idm-postgresql-2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-data-redash-db-postgresql-0
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/data-redash-db-postgresql-0
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-data-redash-db-postgresql-1
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/data-redash-db-postgresql-1
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-data-redash-db-postgresql-2
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/data-redash-db-postgresql-2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-datadir-forms-flow-ai-mongodb-0
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/datadir-forms-flow-ai-mongodb-0
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-datadir-forms-flow-ai-mongodb-1
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/datadir-forms-flow-ai-mongodb-1
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-datadir-forms-flow-ai-mongodb-2
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/datadir-forms-flow-ai-mongodb-2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-data-redash-db-postgresql-2-new
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ''
+  hostPath:
+    path: /mnt/data/data-redash-db-postgresql-2-new
