@@ -61,11 +61,11 @@ redash:
     url: 'postgresql://{{ .Values.database.username }}:{{ .Values.database.password }}@{{ .Values.database.servicename }}:5432/postgres'
 resources:
   limits:
-    cpu: 200m
-    memory: 2Gi
+    cpu: "2000m"
+    memory: "2048Mi"
   requests:
-    cpu: 180m
-    memory: 1Gi
+    cpu: "1000m"
+    memory: "1024Mi"
 
 workers:
   adhoc:
