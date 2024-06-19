@@ -140,7 +140,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
-      tag: 16.3.0-debian-12-r9
+      tag: 16.3.0-debian-12-r11
     replicaCount: 3
     containerPorts:
       postgresql: 5432
@@ -188,6 +188,9 @@ postgresql-ha:
             alter database "forms-flow-api" set default_transaction_read_only = off;
             alter database "forms-flow-analytics" set default_transaction_read_only = off;
             alter database "forms-flow-admin" set default_transaction_read_only = off;
+  witness:
+    pdb:
+      create: false
   pgpool:
     image:
       registry: docker.io
