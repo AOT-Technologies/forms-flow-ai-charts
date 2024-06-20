@@ -7,11 +7,12 @@ database:
   dbName: "forms-flow-api"
   host: "forms-flow-ai-postgresql-ha-pgpool"
   port: 5432
-  url: "postgresql://${FORMSFLOW_API_DB_USER}:${FORMSFLOW_API_DB_PASSWORD}@forms-flow-ai-postgresql-ha-pgpool:5432/${FORMSFLOW_API_DB_NAME}"
+  url: "postgresql://${FORMSFLOW_API_DB_USER}:${FORMSFLOW_API_DB_PASSWORD}@${FORMSFLOW_API_HOSTNAME}:5432/${FORMSFLOW_API_DB_NAME}"
 ExternalDatabase:
   ExistingDatabaseNameKey: ""
   ExistingDatabaseUserNameKey: ""
   ExistingDatabasePasswordKey: ""
+  ExistingDatabaseHostKey: ""
   ExistingSecretName: "" #name of the existing secret
 
 resources:
