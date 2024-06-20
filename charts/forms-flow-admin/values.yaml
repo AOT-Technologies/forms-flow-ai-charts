@@ -7,10 +7,13 @@ postgresql:
   password: "postgres"
   port: 5432
   host: "forms-flow-ai-postgresql-ha-pgpool"
-  url: "postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:5432/${DATABASE_NAME}"
-externalDatabase:
-  existingDatabaseUrlKey: "" 
-  existingSecretName: "" #name of the existing secret
+  url: "postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}"
+ExternalDatabase:
+  ExistingDatabaseNameKey: ""
+  ExistingDatabaseUserNameKey: ""
+  ExistingDatabasePasswordKey: ""
+  ExistingDatabaseHostKey: ""
+  ExistingSecretName: "" #name of the existing secret
 resources:
   limits:
     cpu: 500m
