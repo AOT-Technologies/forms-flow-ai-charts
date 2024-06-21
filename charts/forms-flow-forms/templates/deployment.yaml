@@ -63,7 +63,7 @@ spec:
               key: {{ .Values.ExternalAuth.ExistingPwdAuthKey }}
               name: "{{ .Values.ExternalAuth.ExistingSecretName }}"
         {{- end }}
-        {{- if not .Values.externalAuth.existingPwdAuthKey }}
+        {{- if not .Values.ExternalAuth.ExistingPwdAuthKey }}
         - name: ROOT_PASSWORD
           valueFrom:
             secretKeyRef:

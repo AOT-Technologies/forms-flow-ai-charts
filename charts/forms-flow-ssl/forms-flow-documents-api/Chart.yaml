@@ -1,4 +1,4 @@
 apiVersion: v2
 name: forms-flow-documents-api
-version: v7.0.3
+version: v7.0.4
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

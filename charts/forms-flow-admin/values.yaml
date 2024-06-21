@@ -2,10 +2,18 @@
 Domain: #<DEFINE ME>
 replicas: 1
 postgresql:
-  url: "postgresql://postgres:postgres@forms-flow-ai-postgresql-ha-pgpool:5432/{{.Chart.Name}}"
-externalDatabase:
-  existingDatabaseUrlKey: "" 
-  existingSecretName: "" #name of the existing secret
+  databasename: "forms-flow-admin"
+  username: "postgres"
+  password: "postgres"
+  port: 5432
+  host: "forms-flow-ai-postgresql-ha-pgpool"
+  url: "postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:5432/${DATABASE_NAME}"
+ExternalDatabase:
+  ExistingDatabaseNameKey: ""
+  ExistingDatabaseUserNameKey: ""
+  ExistingDatabasePasswordKey: ""
+  ExistingDatabaseHostKey: ""
+  ExistingSecretName: "" #name of the existing secret
 resources:
   limits:
     cpu: 500m
