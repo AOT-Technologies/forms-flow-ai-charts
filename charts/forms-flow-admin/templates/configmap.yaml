@@ -7,6 +7,7 @@ metadata:
   name: {{ .Chart.Name }}
 data:
   DATABASE_URL: "{{tpl .Values.postgresql.url .}}"
+  DATABASE_PORT: "{{ .Values.postgresql.port }}"
 ---
 {{- if .Values.elastic_search.enabled }} 
 apiVersion: v1
