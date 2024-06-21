@@ -1,6 +1,5 @@
 ---
 Domain: #<DEFINE_ME>
-replicas: 1
 resources:
   limits:
     cpu: 500m

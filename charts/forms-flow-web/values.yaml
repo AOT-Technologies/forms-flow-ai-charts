@@ -1,6 +1,5 @@
 ---
 Domain: #<DEFINE_ME>
-replicas: 1
 analytics:
   configmap: forms-flow-analytics # name of formsflow analytics configmap
   secret: forms-flow-analytics #name of formsflow analytics secret 
@@ -35,4 +34,3 @@ image:
 config_path: /usr/share/nginx/html/config/
 webclient: "{{.Chart.Name}}"
 webname: formsflow
-UserAccesPermissions: ""

@@ -6,7 +6,7 @@ metadata:
     app: "{{ .Chart.Name }}"
   name: "{{ .Chart.Name }}"
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: 1
   selector:
     matchLabels:
       app: "{{ .Chart.Name }}"
@@ -38,72 +38,35 @@ spec:
           name: admin-filebeat
       {{- end}}
       - env:
-        {{- if .Values.ExternalDatabase.ExistingDatabaseNameKey }}
         - name: DATABASE_NAME
           valueFrom:
-            secretKeyRef:
-            key: {{ .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-            name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-        - name: DATABASE_NAME
-          valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: DATABASE_NAME
-              name: "{{ .Chart.Name }}"
-        {{- end }}
-        {{- if .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-        - name: DATABASE_USERNAME
-          valueFrom:
-            secretKeyRef:
-            key: {{ .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-            name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-        - name: DATABASE_USERNAME
-          valueFrom:
-            secretKeyRef:
-              key: DATABASE_USERNAME
-              name: "{{ .Chart.Name }}"
-        {{- end }}
-        {{- if .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-        - name: DATABASE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-            key: {{ .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-            name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-        - name: DATABASE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: DATABASE_PASSWORD
-              name: "{{ .Chart.Name }}"
-        {{- end }}
+              name: "{{ .Values.formsflow.configmap }}"
         - name: DATABASE_PORT
           valueFrom:
             configMapKeyRef:
               key: DATABASE_PORT
-              name: "{{ .Chart.Name }}"
-        {{- if .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-        - name: DATABASE_HOST
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: DATABASE_SERVICE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_SERVICE_NAME
+              name: "{{ .Values.formsflow.configmap }}"
+        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+        - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-            key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-            name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
+              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
+              name: "{{ .Values.externalDatabase.existingSecretName }}"
         {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-        - name: DATABASE_HOST
-          valueFrom:
-            secretKeyRef:
-              key: DATABASE_HOST
-              name: "{{ .Chart.Name }}"
-        {{- end }}
+        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
         - name: DATABASE_URL
           valueFrom:
             configMapKeyRef:
               key: DATABASE_URL
               name: "{{ .Chart.Name }}"
+        {{- end }}
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:

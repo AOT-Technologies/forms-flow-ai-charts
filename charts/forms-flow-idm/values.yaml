@@ -1,6 +1,5 @@
 ---
 keycloak:
-  replicas: 1
   auth:
     adminUser: admin
   production: true

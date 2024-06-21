@@ -1,5 +1,4 @@
 Domain: #<DEFINE_ME>
-replicas: 1
 camunda:
   analytics:
     database: forms-flow-analytics
