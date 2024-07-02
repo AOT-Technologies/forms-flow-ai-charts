@@ -38,14 +38,14 @@ keycloak:
       subPath: themes
   initContainers:
     - name: formsflow-themes
-      image: formsflow/forms-flow-idm-theme:v6.0
+      image: formsflow/keycloak-customizations:v6.1.0-alpha
       imagePullPolicy: Always
       securityContext:
         runAsUser: 1001
       command: ["/bin/sh","-c"]
       args:
-      - "mkdir /opt/bitnami/keycloak/themes && \
-         cp -rf /my-theme/* /opt/bitnami/keycloak/themes && \
+      - "mkdir -p /opt/bitnami/keycloak/themes && \
+         cp -rf /custom/themes/* /opt/bitnami/keycloak/themes && \
          ls -ltra /opt/bitnami/keycloak/themes"
       volumeMounts:
       - mountPath: /opt/bitnami/keycloak
