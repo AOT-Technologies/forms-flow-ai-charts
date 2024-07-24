@@ -10,6 +10,7 @@ externalDatabase:
   existingDatabaseUrlKey: "" 
   existingSecretName: "" #name of the existing secret
 formsflow:
+  configmap: forms-flow-ai
   auth: forms-flow-ai-auth
 ingress:
   ingressClassName: "" 
@@ -46,16 +47,36 @@ redash:
   multiorg: "false"
   image:
     registry: docker.io #registry to use
-    repository: formsflow/redash # repoisitory for redash image  
-    tag: 10.1.5 # tag of image being used
+    repository: formsflow/redash # repoisitory for redash image
+    tag: 24.04.0 # tag of image being used
+    pullPolicy: Always
   database:
     password: postgres # admin password
     url: "postgresql://postgres:postgres@forms-flow-analytics-postgresql:5432/postgres" # redash database url - i.e forms-flow-analytics-postgresql
 
 resources:
   limits:
-    cpu: 200m
+    cpu: 2000m
     memory: 2Gi
   requests:
-    cpu: 180m
+    cpu: 1000m
     memory: 1Gi
+
+
+
+workers:
+  adhoc:
+    env:
+      QUEUES: queries
+      WORKERS_COUNT: 2
+  scheduled:
+    env:
+      QUEUES: scheduled_queries,schemas
+      WORKERS_COUNT: 1
+  generic:
+    env:
+      QUEUES: periodic,emails,default
+      WORKERS_COUNT: 1
+
+worker:
+  replicaCount: 1
