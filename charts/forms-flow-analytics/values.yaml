@@ -80,3 +80,21 @@ workers:
 
 worker:
   replicaCount: 1
+  initContainers: []
+  resources:
+    limits:
+      cpu: 200m
+      memory: 2Gi
+    requests:
+      cpu: 180m
+      memory: 1Gi
+  podSecurityContext: {}
+  securityContext: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  podAnnotations: {}
+  podLabels: {}
+  volumes: []
+  volumeMounts: []
+  livenessProbe:
