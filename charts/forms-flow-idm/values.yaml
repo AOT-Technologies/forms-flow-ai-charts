@@ -130,7 +130,7 @@ postgresql-ha:
     password: "postgres"
     database: "forms-flow-idm"
     postgresPassword: "changeme"
-
+    usePasswordFile: "false"
     repmgrUsername: repmgr
     repmgrPassword: "changeme"
     repmgrDatabase: repmgr
