@@ -213,6 +213,26 @@ entries:
     version: v1.0.0
   forms-flow-ai:
   - apiVersion: v2
+    created: "2024-08-13T20:57:36.679133966Z"
+    dependencies:
+    - condition: postgresql-ha.enabled
+      name: postgresql-ha
+      repository: https://charts.bitnami.com/bitnami
+      version: 14.2.16
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.6.18
+    - name: redis-exporter
+      repository: ""
+      version: v3.0.0
+    digest: 582404a2dfac9380b6927fb3449f8a44b32cef0696555c635de0627359318dce
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-ai
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-ai-v7.0.5/forms-flow-ai-v7.0.5.tgz
+    version: v7.0.5
+  - apiVersion: v2
     created: "2024-06-21T05:45:06.620759075Z"
     dependencies:
     - condition: postgresql-ha.enabled
@@ -1885,6 +1905,22 @@ entries:
     version: v0.2.0
   forms-flow-idm:
   - apiVersion: v2
+    created: "2024-08-13T20:57:36.87289828Z"
+    dependencies:
+    - name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.1.0
+    - condition: postgresql-ha.enabled
+      name: postgresql-ha
+      repository: https://charts.bitnami.com/bitnami
+      version: 14.2.16
+    digest: 511e543e2c4014d2e4852d07967dcc2d3943c56b627d3a912cc16daad0fa9a0a
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-idm
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-idm-v7.0.5/forms-flow-idm-v7.0.5.tgz
+    version: v7.0.5
+  - apiVersion: v2
     created: "2024-06-21T05:45:07.536285253Z"
     dependencies:
     - name: keycloak
@@ -2455,4 +2491,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2024-06-21T05:45:07.674589893Z"
+generated: "2024-08-13T20:57:36.873653102Z"
