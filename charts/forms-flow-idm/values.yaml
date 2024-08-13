@@ -112,7 +112,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
-      tag: 16.3.0-debian-12-r9
+      tag: 16.3.0-debian-12-r20
     fullnameOverride: "forms-flow-idm-postgresql"
     replicaCount: 3
     containerPorts:
@@ -130,7 +130,7 @@ postgresql-ha:
     password: "postgres"
     database: "forms-flow-idm"
     postgresPassword: "changeme"
-
+    usePasswordFile: "false"
     repmgrUsername: repmgr
     repmgrPassword: "changeme"
     repmgrDatabase: repmgr
