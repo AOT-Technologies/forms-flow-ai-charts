@@ -146,51 +146,50 @@ spec:
               memory: '{{ .Values.resources.requests.memory }}'
 
 ---
-{{- range $workerName, $config := .Values.workers }}
-{{- $workerConfig := mergeOverwrite (deepCopy $.Values.worker) $config }}
-{{- $context := mergeOverwrite (deepCopy $) (dict "workerName" $workerName) }}
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: forms-flow-analytics-worker
+  name: '{{ .Chart.Name }}-worker'
   labels:
-    app: forms-flow-analytics-worker
+    app: '{{ .Chart.Name }}-worker'
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: forms-flow-analytics-worker
+      app: '{{ .Chart.Name }}-worker'
   template:
     metadata:
       labels:
-        app: forms-flow-analytics-worker
+        app: '{{ .Chart.Name }}-worker'
     spec:
       containers:
-        - name: forms-flow-analytics-worker
-          image: "{{ $.Values.redash.image.registry}}/{{ $.Values.redash.image.repository }}:{{ $.Values.redash.image.tag }}"
+        - name: '{{ .Chart.Name }}-worker'
+          image: '{{ .Values.redash.image.registry }}/{{ .Values.redash.image.repository }}:{{ .Values.redash.image.tag }}'
           imagePullPolicy: Always
           args:
             - worker
-          {{- with $workerConfig.volumeMounts }}
+          {{- with .Values.worker.volumeMounts }}
           volumeMounts: {{ toYaml . | nindent 10 }}
           {{- end }}
-          {{- with $workerConfig.livenessProbe }}
+          {{- with .Values.worker.livenessProbe }}
           livenessProbe: {{ toYaml . | nindent 10 }}
           {{- end }}
-          {{- with $workerConfig.resources }}
-          resources: {{ toYaml . | nindent 10 }}
-          {{- end }}
-      {{- with $workerConfig.volumes }}
+          resources:
+            limits:
+              cpu: '{{ .Values.worker.resources.limits.cpu }}'
+              memory: '{{ .Values.worker.resources.limits.memory }}'
+            requests:
+              cpu: '{{ .Values.worker.resources.requests.cpu }}'
+              memory: '{{ .Values.worker.resources.requests.memory }}'
+      {{- with .Values.worker.volumes }}
       volumes: {{ toYaml . | nindent 6 }}
       {{- end }}
-      {{- with $workerConfig.nodeSelector }}
+      {{- with .Values.worker.nodeSelector }}
       nodeSelector: {{ toYaml . | nindent 6 }}
       {{- end }}
-      {{- with $workerConfig.affinity }}
+      {{- with .Values.worker.affinity }}
       affinity: {{ toYaml . | nindent 6 }}
       {{- end }}
-      {{- with $workerConfig.tolerations }}
+      {{- with .Values.worker.tolerations }}
       tolerations: {{ toYaml . | nindent 6 }}
       {{- end }}
-{{- end }}
