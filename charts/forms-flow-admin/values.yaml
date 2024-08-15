@@ -7,7 +7,7 @@ postgresql:
   password: "postgres"
   port: 5432
   host: "forms-flow-ai-postgresql-ha-pgpool"
-  url: "postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:5432/${DATABASE_NAME}"
+  url: "postgresql://{{.Values.postgresql.username}}:{{.Values.postgresql.password}}@{{.Values.postgresql.host}}:{{.Values.postgresql.port}}/{{.Chart.Name}}"
 ExternalDatabase:
   ExistingDatabaseNameKey: ""
   ExistingDatabaseUserNameKey: ""
