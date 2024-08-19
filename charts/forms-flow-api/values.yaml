@@ -7,7 +7,7 @@ database:
   dbName: "forms-flow-api"
   host: "forms-flow-ai-postgresql-ha-pgpool"
   port: 5432
-  url: "postgresql://${FORMSFLOW_API_DB_USER}:${FORMSFLOW_API_DB_PASSWORD}@${FORMSFLOW_API_HOSTNAME}:5432/${FORMSFLOW_API_DB_NAME}"
+  url: "postgresql://{{.Values.database.username}}:{{.Values.database.password}}@{{.Values.database.host}}:{{.Values.database.port}}/{{.Chart.Name}}"
 ExternalDatabase:
   ExistingDatabaseNameKey: ""
   ExistingDatabaseUserNameKey: ""

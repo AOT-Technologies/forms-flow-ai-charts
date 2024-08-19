@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+    app: redis-exporter
+  name: redis-exporter
 spec:
-  replicas: {{ .Values.exporter.replica }}
+  replicas: {{ .Values.redisExporter.replica }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
-  serviceName: {{ .Chart.Name }}
+      app: redis-exporter
+  serviceName: redis-exporter
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: redis-exporter
     spec:
       containers:
       - name: redis
@@ -22,7 +22,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: "{{ .Values.redis.image.registry }}/{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
+        image: "{{ .Values.redisExporter.redis.image.registry }}/{{ .Values.redisExporter.redis.image.repository }}:{{ .Values.redisExporter.redis.image.tag }}"
         command: ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
         livenessProbe:
           failureThreshold: 5
@@ -47,11 +47,11 @@ spec:
           timeoutSeconds: 5
         resources:
           limits:
-            cpu: "{{ .Values.resources.limits.cpu }}"
-            memory: "{{ .Values.resources.limits.memory }}"
+            cpu: "{{ .Values.redisExporter.resources.limits.cpu }}"
+            memory: "{{ .Values.redisExporter.resources.limits.memory }}"
           requests:
-            cpu: "{{ .Values.resources.requests.cpu }}"
-            memory: "{{ .Values.resources.requests.memory }}"
+            cpu: "{{ .Values.redisExporter.resources.requests.cpu }}"
+            memory: "{{ .Values.redisExporter.resources.requests.memory }}"
         volumeMounts:
         - mountPath: /conf
           name: conf
@@ -62,7 +62,7 @@ spec:
       volumes:
       - configMap:
           defaultMode: 0555
-          name: {{ .Chart.Name }}
+          name: redis-exporter
         name: conf
 
   volumeClaimTemplates:
@@ -73,5 +73,5 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: {{ .Values.persistentVolumeClaim.size }}
-      storageClassName: {{ .Values.persistentVolumeClaim.storageClass }}
+          storage: {{ .Values.redisExporter.persistentVolumeClaim.size }}
+      storageClassName: {{ .Values.redisExporter.persistentVolumeClaim.storageClass }}

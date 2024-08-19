@@ -195,7 +195,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/pgpool
-      tag: 4.5.2-debian-12-r0
+      tag: 4.5.2-debian-12-r5
       digest: ""
       pullPolicy: IfNotPresent
     replicaCount: 1
@@ -233,9 +233,8 @@ postgresql-ha:
     portName: postgresql
     nodePorts:
       postgresql: ""
-redis-expoter:
-  exporter:
-    replica: 2
+redisExporter:
+  replica: 1
   redis:
     configMap:
       redis_conf: |
@@ -247,3 +246,18 @@ redis-expoter:
         appendonly no
         protected-mode no
         maxmemory 1449551462
+    image:  
+      registry: docker.io
+      repository: redis
+      tag: 7.2.4-alpine
+
+  persistentVolumeClaim:
+    size: 2Gi 
+    storageClass: ""
+  resources:
+    limits:
+      cpu: 60m
+      memory: 512Mi
+    requests:
+      cpu: 50m
+      memory: 256Mi
