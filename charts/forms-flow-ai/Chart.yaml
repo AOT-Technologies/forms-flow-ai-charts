@@ -13,5 +13,5 @@ dependencies:
   - name: common
     repository: oci://registry-1.docker.io/bitnamicharts
     version: 2.x.x
-version: v7.1.0
+version: v7.1.1
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
