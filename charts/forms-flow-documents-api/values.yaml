@@ -26,7 +26,7 @@ ingress:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-documents-api
-  tag: v6.0.0 #The image tag to pull from
+  tag: v6.0.2 #The image tag to pull from
 hpa:
   enabled: false 
   CpuAverageUtilization: 80

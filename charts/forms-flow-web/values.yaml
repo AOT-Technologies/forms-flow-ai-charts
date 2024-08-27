@@ -31,7 +31,7 @@ resources:
 image:
   registry: docker.io
   repository: formsflow/forms-flow-web
-  tag: v6.0.0
+  tag: v6.0.2
 config_path: /usr/share/nginx/html/config/
 webclient: "{{.Chart.Name}}"
 webname: formsflow
