@@ -1,57 +1,86 @@
-apiVersion: apps/v1
+---
+apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
 kind: StatefulSet
 metadata:
-  labels:
-    app: redis-exporter
-  name: redis-exporter
+  name: {{ template "forms-flow-ai.redisExporter.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/name: redis-exporter
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
 spec:
-  replicas: {{ .Values.redisExporter.replica }}
+  serviceName: {{ template "forms-flow-ai.redisExporter.fullname" . }}
+  replicas: {{ .Values.replicaCount }}
+  {{- $podLabels := include "common.tplvalues.merge" ( dict "values" ( list .Values.podLabels .Values.commonLabels ) "context" . ) }}
   selector:
-    matchLabels:
-      app: redis-exporter
-  serviceName: redis-exporter
+    matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 6 }}
+      app.kubernetes.io/name: redis-exporter
   template:
     metadata:
-      labels:
-        app: redis-exporter
+      labels: {{- include "common.labels.standard" ( dict "customLabels" $podLabels "context" $ ) | nindent 8 }}
+        app.kubernetes.io/name: redis-exporter
     spec:
       containers:
       - name: redis
-        env:
-        - name: POD_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-        image: "{{ .Values.redisExporter.redis.image.registry }}/{{ .Values.redisExporter.redis.image.repository }}:{{ .Values.redisExporter.redis.image.tag }}"
+        image: {{ include "forms-flow-ai.redisExporter.image" . }}
+        imagePullPolicy: {{ .Values.redisExporter.image.pullPolicy | quote }}
         command: ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP  
+          {{- if .Values.redisExporter.extraEnvVars }}
+          {{- include "common.tplvalues.render" ( dict "value" .Values.redisExporter.extraEnvVars "context" $ ) | nindent 10 }}
+          {{- end }}
+        {{- if or .Values.redisExporter.extraEnvVarsCM .Values.redisExporter.extraEnvVarsSecret }}
+        envFrom:
+          {{- if .Values.redisExporter.extraEnvVarsCM }}
+          - configMapRef:
+              name: {{ include "common.tplvalues.render" ( dict "value" .Values.redisExporter.extraEnvVarsCM "context" $ ) }}
+          {{- end }}
+          {{- if .Values.redisExporter.extraEnvVarsSecret }}
+          - secretRef:
+              name: {{ include "common.tplvalues.render" ( dict "value" .Values.redisExporter.extraEnvVarsSecret "context" $ ) }}
+          {{- end }}
+        {{- end }}       
+        ports:
+        - containerPort: {{ .Values.redisExporter.containerPorts.client }}
+          name: client
+        - containerPort: {{ .Values.redisExporter.containerPorts.gossip }}
+          name: gossip
+        {{- if .Values.redisExporter.resources }}
+        resources: 
+          {{- toYaml .Values.redisExporter.resources | nindent 12 }}
+        {{- else if ne .Values.redisExporter.resourcesPreset "none" }}
+        resources: 
+          {{- include "common.resources.preset" (dict "type" .Values.redisExporter.resourcesPreset) | nindent 12 }}
+        {{- end }}
+        {{- if .Values.redisExporter.customLivenessProbe }}
+        livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.customLivenessProbe "context" $) | nindent 12 }}
+        {{- else if .Values.redisExporter.livenessProbe.enabled }}
         livenessProbe:
-          failureThreshold: 5
-          initialDelaySeconds: 30
-          periodSeconds: 5
-          successThreshold: 1
+          initialDelaySeconds: {{ .Values.redisExporter.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.redisExporter.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ add1 .Values.redisExporter.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.redisExporter.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.redisExporter.livenessProbe.failureThreshold }}
           tcpSocket:
             port: client
-          timeoutSeconds: 5
-        ports:
-        - containerPort: 6379
-          name: client
-        - containerPort: 16379
-          name: gossip
+        {{- end }}
+        {{- if .Values.redisExporter.customReadinessProbe }}
+        readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.customReadinessProbe "context" $) | nindent 12 }}
+        {{- else if .Values.redisExporter.readinessProbe.enabled }}
         readinessProbe:
+          initialDelaySeconds: {{ .Values.redisExporter.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.redisExporter.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ add1 .Values.redisExporter.readinessProbe.timeoutSeconds }}
           exec:
             command:
-            - redis-cli
-            - ping
-          initialDelaySeconds: 10
-          periodSeconds: 3
-          timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: "{{ .Values.redisExporter.resources.limits.cpu }}"
-            memory: "{{ .Values.redisExporter.resources.limits.memory }}"
-          requests:
-            cpu: "{{ .Values.redisExporter.resources.requests.cpu }}"
-            memory: "{{ .Values.redisExporter.resources.requests.memory }}"
+              - redis-cli
+              - ping
+        {{- end }}     
         volumeMounts:
         - mountPath: /conf
           name: conf
@@ -59,19 +88,40 @@ spec:
         - mountPath: /data
           name: redis-data
           readOnly: false
+        {{- if .Values.redisExporter.extraVolumeMounts }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.extraVolumeMounts "context" $) | nindent 12 }}
+        {{- end }}
+      {{- if .Values.redisExporter.sidecars }}
+      {{- include "common.tplvalues.render" ( dict "value" .Values.redisExporter.sidecars "context" $) | nindent 8 }}
+      {{- end }}
       volumes:
       - configMap:
           defaultMode: 0555
           name: redis-exporter
         name: conf
-
+      {{- if .Values.redisExporter.extraVolumes }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.extraVolumes "context" $) | nindent 8 }}
+      {{- end }}
+  {{- if .Values.redisExporter.persistence.enabled }}
   volumeClaimTemplates:
-  - metadata:
-      name: redis-data
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: {{ .Values.redisExporter.persistentVolumeClaim.size }}
-      storageClassName: {{ .Values.redisExporter.persistentVolumeClaim.storageClass }}
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: redis-data
+        labels: {{- include "common.labels.matchLabels" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 10 }}
+          app.kubernetes.io/component: redis-exporter
+        {{- if .Values.redisExporter.persistence.annotations }}
+        annotations: {{- toYaml .Values.redisExporter.persistence.annotations | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+        {{- range .Values.redisExporter.persistence.accessModes }}
+          - {{ . | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.redisExporter.persistence.size | quote }}
+        {{- if .Values.redisExporter.persistence.selector }}
+        selector: {{- include "common.tplvalues.render" ( dict "value" .Values.persistence.selector "context" $) | nindent 10 }}
+        {{- end }}
+  {{- end }}
