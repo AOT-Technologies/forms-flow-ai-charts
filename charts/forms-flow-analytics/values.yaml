@@ -5,7 +5,7 @@ server:
     repository: formsflow/redash
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v10.1.5"
+    tag: "10.1.5"
       ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ## Example:
@@ -375,7 +375,7 @@ adhocWorker:
     repository: formsflow/redash
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v10.1.5"
+    tag: "10.1.5"
       ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ## Example:
@@ -725,7 +725,7 @@ scheduledWorker:
     repository: formsflow/redash
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v10.1.5"
+    tag: "10.1.5"
       ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ## Example:
@@ -1076,7 +1076,7 @@ worker:
     repository: formsflow/redash
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v10.1.5"
+    tag: "10.1.5"
       ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ## Example:
@@ -1426,7 +1426,7 @@ scheduler:
     repository: formsflow/redash
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v10.1.5"
+    tag: "10.1.5"
       ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ## Example:
