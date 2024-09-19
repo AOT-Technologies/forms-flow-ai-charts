@@ -359,7 +359,7 @@ spec:
           items:
           - key: mail-config.properties
             path: mail-config.properties
-        defaultMode: 420
+          defaultMode: 420
       {{- if .Values.extraVolumes }}
       {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
       {{- end }}
