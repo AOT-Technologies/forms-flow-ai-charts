@@ -135,7 +135,7 @@ keycloak:
   ## @param externalDatabase.annotations Additional custom annotations for external database secret object
   ##  
   externalDatabase:
-    host: "forms-flow-idm-postgresql-ha-pgpool"
+    host: "forms-flow-idm-postgresql-pgpool"
     port: 5432
     user: postgres
     database: postgres
