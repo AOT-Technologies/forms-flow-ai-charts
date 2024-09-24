@@ -1,4 +1,4 @@
-# 🚨 Important Notice: Upgrade Impact on forms-flow-ai-charts (Helm) v7.1.1
+# 🚨 Important Notice: Upgrade Impact on forms-flow-ai-charts (Helm) v8.0.0
 
 ## Key Points:
 

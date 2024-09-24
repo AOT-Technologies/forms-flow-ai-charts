@@ -1,5 +1,13 @@
----
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: forms-flow-bpm
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
 data:
   APP_SECURITY_ORIGIN: "*"
   CAMUNDA_ANALYTICS_DATABASE_SERVICE_NAME: "{{ .Values.camunda.analytics.database }}"
@@ -20,64 +28,3 @@ data:
   WEBSOCKET_MESSAGE_TYPE: "{{ .Values.camunda.websocket.messageType }}"
   WEBSOCKET_SECURITY_ORIGIN: {{ ternary  (.Values.camunda.websocket.securityOrigin | quote) (randAlphaNum 6 | quote) (kindIs "string" .Values.camunda.websocket.securityOrigin) }}
   BPM_BASE_URL: "https://{{tpl .Values.ingress.hostname .}}"
-kind: ConfigMap
-metadata:
-  labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
----
-apiVersion: v1
-data:
-  mail-config.properties: |
-    # send mails via SMTP
-    mail.transport.protocol={{.Values.mail.protocol}}
-    mail.smtp.auth={{.Values.mail.smtp.auth}}
-    mail.smtp.host={{.Values.mail.smtp.server}}
-    mail.smtp.port={{.Values.mail.smtp.port}}
-    mail.smtp.ssl.enable={{.Values.mail.smtp.ssl.enable}}
-    mail.smtp.socketFactory.port={{.Values.mail.smtp.socketFactory.port}}
-    mail.smtp.socketFactory.class={{.Values.mail.smtp.socketFactory.class}}
-    # poll mails via IMAPS
-    #mail.store.protocol={{.Values.mail.store.protocol}}
-    # mail.imaps.host={{.Values.mail.imaps.host}}
-    mail.imaps.port={{.Values.mail.imaps.port}} 
-    mail.imaps.timeout={{.Values.mail.imaps.timeout}}
-    # additional config
-    #mail.poll.folder={{.Values.mail.folder}}
-    mail.sender={{.Values.mail.from}}
-    mail.sender.alias={{.Values.mail.alias}}
-    mail.attachment.download={{.Values.mail.attachment.download}}
-    mail.attachment.path={{.Values.mail.attachment.path}}
-    # credentials
-    mail.user={{.Values.mail.user}}
-    mail.password={{.Values.mail.password}}
-
-kind: ConfigMap
-metadata:
-  labels:
-    app: {{ .Chart.Name }}-mail-config
-  name: {{ .Chart.Name }}-mail-config
----
-{{- if .Values.elastic_search.enabled }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Chart.Name }}-fb-config
-data:
-  "filebeat.yml": |-
-    filebeat.inputs:
-    - type: log
-      enabled: true
-      paths:
-        - /logs/*
-    output.elasticsearch:
-      hosts: "${ELASTIC_SERVER}"
-      index: "forms-flow-bpm-%{+yyyy.MM.dd}"
-    setup.template.name: "forms-flow-bpm"
-    setup.template.pattern: "forms-flow-bpm-*"
-    setup.template.overwrite: true
-    setup.template.enabled: false
-    setup.template.settings:
-      index.number_of_shards: 1
-    setup.ilm.enabled: false 
-{{- end }}   

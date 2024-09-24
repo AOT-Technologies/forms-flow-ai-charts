@@ -1,36 +1,15 @@
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: forms-flow-admin
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
 data:
   DATABASE_SUPPORT: "DISABLED"
   OPENAI_API_KEY: "{{ .Values.openApiKey }}"
   CHAT_BOT_MODEL_ID: "{{ .Values.chatbotModelId }}"
   KEYCLOAK_WEB_CLIENT_ID: "forms-flow-web"
----
-{{- if .Values.elastic_search.enabled }} 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Chart.Name }}-fb-config
-data:
-  "filebeat.yml": |-
-    filebeat.inputs:
-    - type: log
-      enabled: true
-      paths:
-        - /forms-flow-data-analysis/app/logs/*
-    output.elasticsearch:
-      hosts: "${ELASTIC_SERVER}"
-      index: "forms-flow-data-analysis-%{+yyyy.MM.dd}"
-    setup.template.name: "forms-flow-data-analysis"
-    setup.template.pattern: "forms-flow-data-analysis-*"
-    setup.template.overwrite: true
-    setup.template.enabled: false
-    setup.template.settings:
-      index.number_of_shards: 1
-    setup.ilm.enabled: false
-{{- end}}

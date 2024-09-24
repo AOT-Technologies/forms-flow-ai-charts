@@ -1,3 +1,4 @@
+
 ---
 Domain: #<DEFINE_ME>
 formsflowdb:
@@ -45,28 +46,67 @@ forms-flow-web:
   clientid: forms-flow-web
   ingress:
       hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
-forms-flow-auth:
-  imagesecret: "#DEFINE_ME"
 
+imageCredentials:
+  registry: quay.io
+  username: "someone"
+  password: "test"
+  email: "someone@host.com"
 
+## @param image.registry [default: REGISTRY_NAME] MongoDB(&reg;) image registry
+## @param image.repository [default: REPOSITORY_NAME/mongodb] MongoDB(&reg;) image registry
+## @skip image.tag MongoDB(&reg;) image tag (immutable tags are recommended)
+## @param image.digest MongoDB(&reg;) image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
+## @param image.pullPolicy MongoDB(&reg;) image pull policy
+## @param image.pullSecrets Specify docker-registry secret names as an array
+## @param image.debug Set to true if you would like to see extra information on logs
+##
 mongodb:
   image:
     tag: 7.0.12-debian-12-r5 #4.2.21-debian-10-r8
+    pullSecrets:
+      - forms-flow-auth
   enabled: true
+  ## @param fullnameOverride String to fully override mongodb.fullname template
+  ##
   fullnameOverride: "forms-flow-ai-mongodb"
+  ## @param clusterDomain Default Kubernetes cluster domain
+  ##
   clusterDomain: cluster.local
+  ## @param architecture MongoDB(&reg;) architecture (`standalone` or `replicaset`)
+  ##
   architecture: replicaset
+  ## @param useStatefulSet Set to true to use a StatefulSet instead of a Deployment (only when `architecture=standalone`)
+  ##
   useStatefulSet: true
+  ## MongoDB(&reg;) Authentication parameters
+  ##
   auth:
+    ## @param auth.enabled Enable authentication
+    ## ref: https://docs.mongodb.com/manual/tutorial/enable-authentication/
+    ##
+    enabled: true
+    ## MongoDB(&reg;) custom users and databases
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#creating-a-user-and-database-on-first-run
+    ## @param auth.usernames List of custom users to be created during the initialization
+    ## @param auth.passwords List of passwords for the custom users set at `auth.usernames`
+    ## @param auth.databases List of custom databases to be created during the initialization
+    ##
     databases: 
       - formsflow 
     passwords:
       - changeme    #use the same password in initdbscript
     usernames:
       - mongodb     #use the same username in initdbscript
-    enabled: true
+    ## @param auth.rootUser MongoDB(&reg;) root user
+    ##
     rootUser: root
+    ## @param auth.rootPassword MongoDB(&reg;) root password
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#setting-the-root-user-and-password-on-first-run
+    ##
     rootPassword: "changeme"
+    ## @param auth.replicaSetKey Key used for authentication in the replicaset (only when `architecture=replicaset`)
+    ##  
     replicaSetKey: "formsflow"
   # initdbScripts:
   #    init-mongo.js: |
@@ -81,34 +121,85 @@ mongodb:
   #               },
   #             ],
   #          });
+
+  ## @param replicaSetName Name of the replica set (only when `architecture=replicaset`)
+  ## Ignored when mongodb.architecture=standalone
+  ##
   replicaSetName: rs0
+  ## @param replicaSetHostnames Enable DNS hostnames in the replicaset config (only when `architecture=replicaset`)
+  ## Ignored when mongodb.architecture=standalone
+  ## Ignored when externalAccess.enabled=true
+  ##  
   replicaSetHostnames: true
+  ## @param directoryPerDB Switch to enable/disable DirectoryPerDB on MongoDB(&reg;)
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#enablingdisabling-directoryperdb
+  ##  
   directoryPerDB: false
+  ## @param replicaCount Number of MongoDB(&reg;) nodes
+  ## When `mongodb.architecture=replicaset`, the number of replicas is taken in account
+  ## When `mongodb.architecture=standalone`, the number of replicas can only be 0 or 1 (value higher then 1 will not be taken in account)
+  ##
   replicaCount: 3
+  ## MongoDB(&reg;) pods' Security Context.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+  ## @param podSecurityContext.enabled Enable MongoDB(&reg;) pod(s)' Security Context
+  ## @param podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
+  ## @param podSecurityContext.supplementalGroups Set filesystem extra groups
+  ## @param podSecurityContext.fsGroup Group ID for the volumes of the MongoDB(&reg;) pod(s)
+  ## @param podSecurityContext.sysctls sysctl settings of the MongoDB(&reg;) pod(s)'
+  ##  
   podSecurityContext:
     enabled: false
     fsGroup: 1001
+  ## MongoDB(&reg;) containers' Security Context (main and metrics container).
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+  ## @param containerSecurityContext.enabled Enabled containers' Security Context
+  ## @param containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
+  ## @param containerSecurityContext.runAsUser Set containers' Security Context runAsUser
+  ## @param containerSecurityContext.runAsGroup Set containers' Security Context runAsGroup
+  ## @param containerSecurityContext.runAsNonRoot Set container's Security Context runAsNonRoot
+  ## @param containerSecurityContext.privileged Set container's Security Context privileged
+  ## @param containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
+  ## @param containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
+  ## @param containerSecurityContext.capabilities.drop List of capabilities to be dropped
+  ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
+  ##
   containerSecurityContext:
     enabled: false
     runAsUser: 1001
     runAsNonRoot: true
+  ## @param containerPorts.mongodb MongoDB(&reg;) container port
+  ##
   containerPorts:
     mongodb: 27017
+  ## @section Traffic exposure parameters
+  ##
+
+  ## Service parameters
+  ##
   service:
     nameOverride: "forms-flow-ai-mongodb"
     type: ClusterIP
     portName: mongodb
     ports:
       mongodb: 27017
+
   persistence:
     enabled: true
     accessModes:
       - ReadWriteOnce
     size: 8Gi
     mountPath: /bitnami/mongodb
+  ## @section RBAC parameters
+  ##
+
+  ## ServiceAccount
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+  ##
   serviceAccount:
     create: true
-  
+  ## @section Arbiter parameters
+  ##
   arbiter:
     enabled: false
     podSecurityContext:
@@ -134,34 +225,152 @@ ipaas:
   api_base_url: ""
 
 configure_logs: "true"
+
 postgresql-ha:
   enabled: true
+  ## @section PostgreSQL with Repmgr parameters
+  ## PostgreSQL parameters
+  ##
   postgresql:
+    ## ref: https://hub.docker.com/r/bitnami/postgresql/tags/
+    ## @param postgresql.image.registry [default: REGISTRY_NAME] PostgreSQL with Repmgr image registry
+    ## @param postgresql.image.repository [default: REPOSITORY_NAME/postgresql-repmgr] PostgreSQL with Repmgr image repository
+    ## @skip postgresql.image.tag PostgreSQL with Repmgr image tag
+    ## @param postgresql.image.digest PostgreSQL image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
+    ## @param postgresql.image.pullPolicy PostgreSQL with Repmgr image pull policy
+    ## @param postgresql.image.pullSecrets Specify docker-registry secret names as an array
+    ## @param postgresql.image.debug Specify if debug logs should be enabled
+    ##
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
       tag: 16.3.0-debian-12-r20
+      ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+      ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
+      ##
+      pullPolicy: IfNotPresent
+      ## Optionally specify an array of imagePullSecrets.
+      ## Secrets must be manually created in the namespace.
+      ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+      ## Example:
+      ## pullSecrets:
+      ##   - myRegistryKeySecretName
+      ##
+      pullSecrets:
+        - forms-flow-auth
+    ## @param postgresql.replicaCount Number of replicas to deploy. Use an odd number. Having 3 replicas is the minimum to get quorum when promoting a new primary.
+    ##
     replicaCount: 3
+    ## @param postgresql.containerPorts.postgresql PostgreSQL port
+    ##  
     containerPorts:
       postgresql: 5432
+    ## K8s Security Context
+    ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    ## @param postgresql.podSecurityContext.enabled Enable security context for PostgreSQL with Repmgr
+    ## @param postgresql.podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
+    ## @param postgresql.podSecurityContext.sysctls Set kernel settings using the sysctl interface
+    ## @param postgresql.podSecurityContext.supplementalGroups Set filesystem extra groups
+    ## @param postgresql.podSecurityContext.fsGroup Group ID for the PostgreSQL with Repmgr filesystem
+    ##
     podSecurityContext:
       enabled: false
       fsGroup: 1001
+      fsGroupChangePolicy: Always
+      sysctls: []
+      supplementalGroups: []
+    ## Container Security Context
+    ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    ## @param postgresql.containerSecurityContext.enabled Enabled containers' Security Context
+    ## @param postgresql.containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
+    ## @param postgresql.containerSecurityContext.runAsUser Set containers' Security Context runAsUser
+    ## @param postgresql.containerSecurityContext.runAsGroup Set containers' Security Context runAsGroup
+    ## @param postgresql.containerSecurityContext.runAsNonRoot Set container's Security Context runAsNonRoot
+    ## @param postgresql.containerSecurityContext.privileged Set container's Security Context privileged
+    ## @param postgresql.containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
+    ## @param postgresql.containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
+    ## @param postgresql.containerSecurityContext.capabilities.drop List of capabilities to be dropped
+    ## @param postgresql.containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
+    ## e.g:
+    ##   containerSecurityContext:
+    ##     enabled: true
+    ##     capabilities:
+    ##       drop: ["NET_RAW"]
+    ##     readOnlyRootFilesystem: true
+    ##
     containerSecurityContext:
       enabled: false
+      seLinuxOptions: null
       runAsUser: 1001
+      runAsGroup: 1001
       runAsNonRoot: true
-      readOnlyRootFilesystem: false
-
+      privileged: false
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      seccompProfile:
+        type: "RuntimeDefault"
+    ## PostgreSQL container's liveness probe
+    ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+    ## @param postgresql.livenessProbe.enabled Enable livenessProbe
+    ## @param postgresql.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+    ## @param postgresql.livenessProbe.periodSeconds Period seconds for livenessProbe
+    ## @param postgresql.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+    ## @param postgresql.livenessProbe.failureThreshold Failure threshold for livenessProbe
+    ## @param postgresql.livenessProbe.successThreshold Success threshold for livenessProbe
+    ##
     livenessProbe:
       enabled: false
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 6
+    ## PostgreSQL container's readiness probe
+    ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+    ## @param postgresql.readinessProbe.enabled Enable readinessProbe
+    ## @param postgresql.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+    ## @param postgresql.readinessProbe.periodSeconds Period seconds for readinessProbe
+    ## @param postgresql.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+    ## @param postgresql.readinessProbe.failureThreshold Failure threshold for readinessProbe
+    ## @param postgresql.readinessProbe.successThreshold Success threshold for readinessProbe
+    ##
     readinessProbe:
       enabled: false
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 6
+    ## PostgreSQL configuration parameters
+    ## @param postgresql.username PostgreSQL username
+    ## @param postgresql.password PostgreSQL password
+    ## @param postgresql.database PostgreSQL database
+    ##
     username: postgres
     password: "postgres"
     database: "forms-flow-ai"
+    ## @param postgresql.postgresPassword PostgreSQL password for the `postgres` user when `username` is not `postgres`
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/postgresql#creating-a-database-user-on-first-run (see note!)
+    ##
     postgresPassword: "changeme"
+    ## @param postgresql.usePasswordFile Set to `true` to mount PostgreSQL secret as a file instead of passing environment variable
+    ##
     usePasswordFile: "false"
+    ## Repmgr configuration parameters
+    ## @param postgresql.repmgrUsername PostgreSQL Repmgr username
+    ## @param postgresql.repmgrPassword PostgreSQL Repmgr password
+    ## @param postgresql.repmgrDatabase PostgreSQL Repmgr database
+    ## @param postgresql.repmgrLogLevel Repmgr log level (DEBUG, INFO, NOTICE, WARNING, ERROR, ALERT, CRIT or EMERG)
+    ## @param postgresql.repmgrConnectTimeout Repmgr backend connection timeout (in seconds)
+    ## @param postgresql.repmgrReconnectAttempts Repmgr backend reconnection attempts
+    ## @param postgresql.repmgrReconnectInterval Repmgr backend reconnection interval (in seconds)
+    ## @param postgresql.repmgrFenceOldPrimary Set if fencing of old primary in multiple primary situation is desired
+    ## @param postgresql.repmgrChildNodesCheckInterval Repmgr child nodes check interval (in seconds)
+    ## @param postgresql.repmgrChildNodesConnectedMinCount Repmgr minimum number of connected child nodes before being considered as failed primary for fencing
+    ## @param postgresql.repmgrChildNodesDisconnectTimeout Repmgr time before node will be fenced when insufficient child nodes are detected (in seconds)
+    ##  
     repmgrUsername: repmgr
     repmgrPassword: "changeme"
     repmgrDatabase: repmgr
@@ -173,6 +382,16 @@ postgresql-ha:
     repmgrChildNodesCheckInterval: 5
     repmgrChildNodesConnectedMinCount: 1
     repmgrChildNodesDisconnectTimeout: 30
+    ## @param postgresql.initdbScripts Dictionary of initdb scripts
+    ## Specify dictionary of scripts to be run at first boot
+    ## The allowed extensions are `.sh`, `.sql` and `.sql.gz`
+    ## ref: https://github.com/bitnami/charts/tree/main/bitnami/postgresql-ha#initialize-a-fresh-instance
+    ## e.g:
+    ## initdbScripts:
+    ##   my_init_script.sh: |
+    ##      #!/bin/sh
+    ##      echo "Do something."
+    ##
     initdbScripts:
       init_script.sql: |
             CREATE DATABASE "forms-flow-admin";
@@ -188,53 +407,258 @@ postgresql-ha:
             alter database "forms-flow-api" set default_transaction_read_only = off;
             alter database "forms-flow-analytics" set default_transaction_read_only = off;
             alter database "forms-flow-admin" set default_transaction_read_only = off;
-  witness:
-    pdb:
-      create: false
+  ## @section Pgpool parameters
+  ## Pgpool parameters
+  ##
   pgpool:
+    ## ref: https://hub.docker.com/r/bitnami/pgpool/tags/
+    ## @param pgpool.image.registry [default: REGISTRY_NAME] Pgpool image registry
+    ## @param pgpool.image.repository [default: REPOSITORY_NAME/pgpool] Pgpool image repository
+    ## @skip pgpool.image.tag Pgpool image tag
+    ## @param pgpool.image.digest Pgpool image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
+    ## @param pgpool.image.pullPolicy Pgpool image pull policy
+    ## @param pgpool.image.pullSecrets Specify docker-registry secret names as an array
+    ## @param pgpool.image.debug Specify if debug logs should be enabled
+    ##
     image:
       registry: docker.io
       repository: bitnami/pgpool
       tag: 4.5.2-debian-12-r5
       digest: ""
+      ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+      ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
+      ##
       pullPolicy: IfNotPresent
+      ## Optionally specify an array of imagePullSecrets.
+      ## Secrets must be manually created in the namespace.
+      ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+      ## Example:
+      ## pullSecrets:
+      ##   - myRegistryKeySecretName
+      ##
+      pullSecrets:
+        - forms-flow-auth
+    ## @param pgpool.replicaCount The number of replicas to deploy
+    ##
     replicaCount: 1
+    ## K8s Security Context
+    ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    ## @param pgpool.podSecurityContext.enabled Enable security context for Pgpool
+    ## @param pgpool.podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
+    ## @param pgpool.podSecurityContext.sysctls Set kernel settings using the sysctl interface
+    ## @param pgpool.podSecurityContext.supplementalGroups Set filesystem extra groups
+    ## @param pgpool.podSecurityContext.fsGroup Group ID for the Pgpool filesystem
+    ##    
     podSecurityContext:
       enabled: false
+      fsGroupChangePolicy: Always
+      sysctls: []
+      supplementalGroups: []
       fsGroup: 1001
+    ## Container Security Context
+    ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    ## @param pgpool.containerSecurityContext.enabled Enabled containers' Security Context
+    ## @param pgpool.containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
+    ## @param pgpool.containerSecurityContext.runAsUser Set containers' Security Context runAsUser
+    ## @param pgpool.containerSecurityContext.runAsGroup Set containers' Security Context runAsGroup
+    ## @param pgpool.containerSecurityContext.runAsNonRoot Set container's Security Context runAsNonRoot
+    ## @param pgpool.containerSecurityContext.privileged Set container's Security Context privileged
+    ## @param pgpool.containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
+    ## @param pgpool.containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
+    ## @param pgpool.containerSecurityContext.capabilities.drop List of capabilities to be dropped
+    ## @param pgpool.containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
+    ## e.g:
+    ##   containerSecurityContext:
+    ##     enabled: true
+    ##     capabilities:
+    ##       drop: ["NET_RAW"]
+    ##     readOnlyRootFilesystem: false
+    ##
     containerSecurityContext:
       enabled: false
+      seLinuxOptions: null
       runAsUser: 1001
+      runAsGroup: 1001
       runAsNonRoot: true
-      readOnlyRootFilesystem: false
+      privileged: false
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      seccompProfile:
+        type: "RuntimeDefault"
+    ## Pgpool container's liveness probe
+    ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+    ## @param pgpool.livenessProbe.enabled Enable livenessProbe
+    ## @param pgpool.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+    ## @param pgpool.livenessProbe.periodSeconds Period seconds for livenessProbe
+    ## @param pgpool.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+    ## @param pgpool.livenessProbe.failureThreshold Failure threshold for livenessProbe
+    ## @param pgpool.livenessProbe.successThreshold Success threshold for livenessProbe
+    ##
     livenessProbe:
       enabled: false
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 5 
+    ## Pgpool container's readiness probe
+    ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+    ## @param pgpool.readinessProbe.enabled Enable readinessProbe
+    ## @param pgpool.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+    ## @param pgpool.readinessProbe.periodSeconds Period seconds for readinessProbe
+    ## @param pgpool.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+    ## @param pgpool.readinessProbe.failureThreshold Failure threshold for readinessProbe
+    ## @param pgpool.readinessProbe.successThreshold Success threshold for readinessProbe
+    ##   
     readinessProbe:
       enabled: false
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 5
+    ## @param pgpool.containerPorts.postgresql Pgpool port
+    ##      
     containerPorts:
       postgresql: 5432
+    ## Credentials for the pgpool administrator
+    ## @param pgpool.adminUsername Pgpool Admin username
+    ## @param pgpool.adminPassword Pgpool Admin password
+    ##
     adminUsername: admin
     adminPassword: "changeme"
-    service:
-      type: ClusterIP
-      ports:
-        metrics: 9187
+  ## @section Persistence parameters
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+  ##
   persistence:
+    ## @param persistence.enabled Enable data persistence
+    ##
     enabled: true
+    ## @param persistence.storageClass Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ## set, choosing the default provisioner.
+    ##
     storageClass: ""
+    ## @param persistence.mountPath The path the volume will be mounted at, useful when using different PostgreSQL images.
+    ##
     mountPath: /bitnami/postgresql
+    ## @param persistence.accessModes List of access modes of data volume
+    ##
     accessModes:
       - ReadWriteOnce
+    ## @param persistence.size Persistent Volume Claim size
+    ##
     size: 8Gi
+  ## @section Traffic Exposure parameters
+
+  ## PostgreSQL service parameters
+  ##
   service:
+    ## @param service.type Kubernetes service type (`ClusterIP`, `NodePort` or `LoadBalancer`)
+    ##
     type: ClusterIP
+    ## @param service.ports.postgresql PostgreSQL port
+    ##
     ports:
       postgresql: 5432
+    ## @param service.portName PostgreSQL service port name
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#multi-port-services
+    ##
     portName: postgresql
+    ## @param service.nodePorts.postgresql Kubernetes service nodePort
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+    ##
     nodePorts:
       postgresql: ""
+
 redisExporter:
-  replica: 1
+  replicaCounts: 1
+  serviceAnnotations: {}
+  serviceLabels: {}
+  service:
+    ## @param redis-exporter.service.type Redis&reg; redis-exporter service type
+    ##
+    type: ClusterIP
+    ## @param redis-exporter.service.portNames.redis Redis&reg; redis-exporter service port name
+    ##
+    portNames:
+      redis: "client"
+      redis2: "gossip"
+    ## @param redis-exporter.service.ports.redis Redis&reg; redis-exporter service port
+    ##
+    ports:
+      redis: 6379
+      redis2: 16379
+    ## @param redis-exporter.service.nodePorts.redis Node port for Redis&reg; redis-exporter
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+    ## NOTE: choose port between <30000-32767>
+    ##
+    nodePorts:
+      redis: ""
+    ## @param redis-exporter.service.externalTrafficPolicy Redis&reg; redis-exporter service external traffic policy
+    ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+    ##
+    externalTrafficPolicy: Cluster
+    ## @param redis-exporter.service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
+    ##
+    extraPorts: []
+    ## @param redis-exporter.service.internalTrafficPolicy Redis&reg; redis-exporter service internal traffic policy (requires Kubernetes v1.22 or greater to be usable)
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service-traffic-policy/
+    ##
+    internalTrafficPolicy: Cluster
+    ## @param redis-exporter.service.clusterIP Redis&reg; redis-exporter service Cluster IP
+    ##
+    clusterIP: ""
+    ## @param redis-exporter.service.loadBalancerIP Redis&reg; redis-exporter service Load Balancer IP
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+    ##
+    loadBalancerIP: ""
+    ## @param redis-exporter.service.loadBalancerClass redis-exporter service Load Balancer class if service type is `LoadBalancer` (optional, cloud specific)
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
+    ##
+    loadBalancerClass: ""
+    ## @param redis-exporter.service.loadBalancerSourceRanges Redis&reg; redis-exporter service Load Balancer sources
+    ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+    ## e.g.
+    ## loadBalancerSourceRanges:
+    ##   - 10.10.10.0/24
+    ##
+    loadBalancerSourceRanges: []
+    ## @param redis-exporter.service.externalIPs Redis&reg; redis-exporter service External IPs
+    ## https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
+    ## e.g.
+    ## externalIPs:
+    ##   - 10.10.10.1
+    ##   - 201.22.30.1
+    ##
+    externalIPs: []
+    ## @param redis-exporter.service.annotations Additional custom annotations for Redis&reg; redis-exporter service
+    ##
+    annotations: {}
+    ## @param redis-exporter.service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
+    ## If "ClientIP", consecutive client requests will be directed to the same Pod
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+    ##
+    sessionAffinity: None
+    ## @param redis-exporter.service.sessionAffinityConfig Additional settings for the sessionAffinity
+    ## sessionAffinityConfig:
+    ##   clientIP:
+    ##     timeoutSeconds: 300
+    ##
+    sessionAffinityConfig: {}
+  ## @param redis-exporter.podLabels Extra labels for Redis&reg; redis-exporter pods
+  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+  ##
+  podLabels: {}
+  extraEnvVarsCM: {}
+  extraEnvVars: {}
+  extraEnvVarsSecret: {} 
   redis:
     configMap:
       redis_conf: |
@@ -246,14 +670,63 @@ redisExporter:
         appendonly no
         protected-mode no
         maxmemory 1449551462
-    image:  
-      registry: docker.io
-      repository: redis
-      tag: 7.2.4-alpine
+  image:  
+    registry: docker.io
+    repository: redis
+    tag: 7.2.4-alpine
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+  livenessProbe:
+    enabled: true
+    failureThreshold: 5
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 5
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 3
+    timeoutSeconds: 5
+  ## @param redisExporter.customLivenessProbe Custom livenessProbe that overrides the default one
+  ##
+  customLivenessProbe: {}
+  ## @param redisExporter.customReadinessProbe Custom readinessProbe that overrides the default one
+  ##
+  customReadinessProbe: {}
+  ## @param redisExporter.containerPorts.http redis Exporter HTTP container port
+  ##
+  containerPorts:
+    client: 6379
+    gossip: 16379
+  ## @param redisExporter.extraVolumes Optionally specify extra list of additional volumes for the redis Exporter pod(s)
+  ##
+  extraVolumes: []
+  ## @param redisExporter.extraVolumeMounts Optionally specify extra list of additional volumeMounts for the redis Exporter container(s)
+  ##
+  extraVolumeMounts: []
+  ## @param redisExporter.sidecars Add additional sidecar containers to the redis Exporter pod(s)
+  ## e.g:
+  ## sidecars:
+  ##   - name: your-image-name
+  ##     image: your-image
+  ##     imagePullPolicy: Always
+  ##     ports:
+  ##       - name: portname
+  ##         containerPort: 1234
+  ##
+  sidecars: []
+  ## @param redisExporter.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
+  ## Example:
+  ## resources:
+  ##   requests:
+  ##     cpu: 2
+  ##     memory: 512Mi
+  ##   limits:
+  ##     cpu: 3
+  ##     memory: 1024Mi
+  ##
 
-  persistentVolumeClaim:
-    size: 2Gi 
-    storageClass: ""
   resources:
     limits:
       cpu: 60m
@@ -261,3 +734,50 @@ redisExporter:
     requests:
       cpu: 50m
       memory: 256Mi
+  resourcesPreset: {}
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+  ##
+
+  persistence:
+    ## @param persistence.enabled Enable persistence on Redis&reg;
+    ## If enabled, nodes are using Persistent Volume Claims
+    ## If disabled, an emptyDir volume is used. This is not recommended.
+    ## ref: https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster#persistence
+    ##
+    enabled: true
+    ## @param persistence.subPath The subdirectory of the volume to mount to, useful in dev environments and one PV for multiple services
+    ##
+    subPath: ""
+    ## @param persistence.storageClass Storage class of backing PVC
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: ""
+    ## @param persistence.annotations Persistent Volume Claim annotations
+    ##
+    annotations: {}
+    ## @param persistence.labels Persistent Volume Claim labels
+    ##
+    labels: {}
+    ## @param persistence.accessModes Persistent Volume Access Modes
+    ##
+    accessModes:
+      - ReadWriteOnce
+    ## @param persistence.size Size of data volume
+    ##
+    size: 2Gi
+    ## @param persistence.matchLabels Persistent Volume selectors
+    ## https://kubernetes.io/docs/concepts/storage/persistent-volumes/#selector
+    ##
+    selector: {}
+    ## @param persistence.matchExpressions matchExpressions Persistent Volume selectors
+
+
+
+
+
