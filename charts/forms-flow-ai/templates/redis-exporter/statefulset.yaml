@@ -114,6 +114,7 @@ spec:
         annotations: {{- toYaml .Values.redisExporter.persistence.annotations | nindent 10 }}
         {{- end }}
       spec:
+        storageClassName: {{ .Values.redisExporter.persistence.storageClass }}
         accessModes:
         {{- range .Values.redisExporter.persistence.accessModes }}
           - {{ . | quote }}
