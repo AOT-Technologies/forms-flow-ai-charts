@@ -189,7 +189,9 @@ extraEnvVars:
     value: ""
   - name: VAULT_SECRET
     value: ""
-
+## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars
+##
+extraEnvVarsCM: ""
 ## @param extraVolumes Optionally specify extra list of additional volumes for formsflow bpm pods
 ##
 ## @param extraVolumes Array to add extra volumes (evaluated as a template)
