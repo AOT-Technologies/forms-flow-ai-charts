@@ -130,7 +130,7 @@ spec:
               key: MULTI_TENANCY_ENABLED
               name: "{{ .Values.formsflow.configmap }}"
         {{- if .Values.extraEnvVars }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
         {{- end }}
         envFrom:
         {{- if .Values.extraEnvVarsCM }}
