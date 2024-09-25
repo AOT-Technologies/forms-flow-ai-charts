@@ -172,6 +172,24 @@ updateStrategy:
 ## @param minReadySeconds How many seconds a pod needs to be ready before killing the next, during update
 ##
 minReadySeconds: 0
+## @param extraEnvVars Extra environment variables to be set on formsflow bpm container
+## Example:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+##
+extraEnvVars: 
+  - name: VAULT_ENABLED
+    value: false
+  - name: VAULT_URL
+    value: http://{your-ip-address}:8200
+  - name: VAULT_TOKEN
+    value: ""
+  - name: VAULT_PATH
+    value: ""
+  - name: VAULT_SECRET
+    value: ""
+
 ## @param extraVolumes Optionally specify extra list of additional volumes for formsflow bpm pods
 ##
 ## @param extraVolumes Array to add extra volumes (evaluated as a template)
