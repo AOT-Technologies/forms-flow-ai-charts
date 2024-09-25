@@ -180,9 +180,9 @@ minReadySeconds: 0
 ##
 extraEnvVars: 
   - name: VAULT_ENABLED
-    value: false
+    value: "false"
   - name: VAULT_URL
-    value: http://{your-ip-address}:8200
+    value: "http://{your-ip-address}:8200"
   - name: VAULT_TOKEN
     value: ""
   - name: VAULT_PATH
