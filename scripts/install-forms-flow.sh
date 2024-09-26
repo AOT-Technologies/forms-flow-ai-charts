@@ -13,7 +13,9 @@ main() {
 
     if [[ $is_premium =~ ^[Yy]$ ]]; then
         # Get username and access token for premium users
-        getPremiumCredentials
+        read -p "Please enter your username for premium access:" premium_username
+        read -s -p "Please enter your access token for premium access:" access_token
+        echo
     fi
 
     printf "\nInstalling forms flow ...\n"
@@ -35,42 +37,34 @@ runHelmInstall() {
 
     if [[ $is_premium =~ ^[Yy]$ ]]; then
         # Commands for premium users with username and access token
-        helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=aot-technologies.com --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=test –set imageCredentials.registry=docker.io –set imageCredentials.username=$premium_username –set imageCredentials.password=$access_token  -n vault
-        helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-analytics-vault.aot-technologies.com -n vault
-        helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-vault.aot-technologies.com --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=vault -n vault
-        helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-forms-vault.aot-technologies.com --set ingress.tls=true -n vault
-        helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-api-vault.aot-technologies.com --set image.repository=formsflow/forms-flow-webapi-ee -n vault
-        helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-bpm-vault.aot-technologies.com --set image.repository=formsflow/forms-flow-bpm-ee --set camunda.websocket.securityOrigin=https://forms-flow-web-vault.aot-technologies.com --set image.repository=formsflow/forms-flow-bpm-ee -n vault
-        helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-documents-api-vault.aot-technologies.com --set image.repository=formsflow/forms-flow-documents-api-ee   -n vault
-        helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-web-vault.aot-technologies.com --set image.repository=formsflow/forms-flow-web-ee  -n vault
+        helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -–set imageCredentials.registry=docker.io -–set imageCredentials.username=$premium_username -–set imageCredentials.password=$access_token  -n $namespace
+        helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.aot-technologies.com -n $namespace
+        helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.aot-technologies.com --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace
+        helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.aot-technologies.com --set ingress.tls=true -n $namespace
+        helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.aot-technologies.com --set image.repository=formsflow/forms-flow-webapi-ee -n $namespace
+        helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-bpm-$namespace.aot-technologies.com --set image.repository=formsflow/forms-flow-bpm-ee --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.aot-technologies.com --set image.repository=formsflow/forms-flow-bpm-ee -n $namespace
+        helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-documents-api-$namespace.aot-technologies.com --set image.repository=formsflow/forms-flow-documents-api-ee   -n $namespace
+		helm upgrade --install forms-flow-data-analysis forms-flow-data-analysis --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-data-analysis-$namespace.aot-technologies.com  --set ingress.tls=true --set image.repository=formsflow/forms-flow-data-analysis-api-ee  -n $namespace
+        helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.aot-technologies.com --set image.repository=formsflow/forms-flow-web-ee  -n $namespace
+		helm upgrade --install forms-flow-admin forms-flow-admin --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-admin-$namespace.aot-technologies.com  --set ingress.tls=true -n $namespace
 
     else
         # Commands for open-source users
-        helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=aot-technologies.com --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=test -n vault
-		helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-vault.aot-technologies.com --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=vault -n vault
-        helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-forms-vault.aot-technologies.com --set ingress.tls=true -n vault
-        helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-api-vault.aot-technologies.com --set ingress.tls=true -n vault
-		helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-bpm-vault.aot-technologies.com --set ingress.tls=true --set camunda.websocket.securityOrigin=https://forms-flow-web-vault.aot-technologies.com -n vault
-        helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-documents-api-vault.aot-technologies.com --set ingress.tls=true -n vault
-        helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-web-vault.aot-technologies.com  --set ingress.tls=true -n vault
+        helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -n $namespace
+		helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.aot-technologies.com --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace
+        helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.aot-technologies.com --set ingress.tls=true -n $namespace
+        helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.aot-technologies.com --set ingress.tls=true -n $namespace
+		helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-bpm-$namespace.aot-technologies.com --set ingress.tls=true --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.aot-technologies.com -n $namespace
+        helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-documents-api-$namespace.aot-technologies.com --set ingress.tls=true -n $namespace
+        helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.aot-technologies.com  --set ingress.tls=true -n $namespace
+        helm upgrade --install forms-flow-admin forms-flow-admin --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-admin-$namespace.aot-technologies.com  --set ingress.tls=true -n $namespace
 
         # Optional components for open-source users
         read -p "Include forms-flow-analytics? (y/n):" include_analytics
         if [[ $include_analytics =~ ^[Yy]$ ]]; then
-            helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-analytics-vault.aot-technologies.com -n vault
-        fi
-
-        read -p "Include forms-flow-data-analysis? (y/n):" include_data_analysis
-        if [[ $include_data_analysis =~ ^[Yy]$ ]]; then
-            helm upgrade --install forms-flow-data-analysis forms-flow-data-analysis --set Domain=$domain_name -n $namespace
+            helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.aot-technologies.com -n $namespace
         fi
     fi
-}
-
-getPremiumCredentials() {
-    read -p "Please enter your username for premium access:" premium_username
-    read -s -p "Please enter your access token for premium access:" access_token
-    echo
 }
 
 configureInstall() {
@@ -97,16 +91,16 @@ configureLatestOrStableReleases() {
         version_ff_web="latest"
     else
         # See https://github.com/AOT-Technologies/forms-flow-ai-charts/releases
-        version_ff_admin="v2.2.0"
-        version_ff_ai="v2.2.0"
-        version_ff_analytics="v2.2.0"
-        version_ff_api="v2.2.0"
-        version_ff_bpm="v2.2.0"
-        version_ff_data_analysis="v2.2.0"
-        version_ff_documents_api="v2.2.0"
-        version_ff_forms="v2.2.0"
-        version_ff_idm="v2.2.0"
-        version_ff_web="v2.2.0"
+        version_ff_admin="v7.1.1"
+        version_ff_ai="v7.1.1"
+        version_ff_analytics="v7.1.1"
+        version_ff_api="v7.1.1"
+        version_ff_bpm="v7.1.1"
+        version_ff_data_analysis="v7.1.1"
+        version_ff_documents_api="v7.1.1"
+        version_ff_forms="v7.1.1"
+        version_ff_idm="v7.1.1"
+        version_ff_web="v7.1.1"
     fi
 }
 
@@ -134,6 +128,7 @@ displayPrompts() {
     read -p "Install using forms-flow package registry? (y/n):" is_from_registry
     read -p "Please enter the domain name (ex: apps.bronze.aot-technologies.com):" domain_name
     read -p "Please enter the namespace (ex: forms-flow):" namespace
+	read -p "Please enter the class name (ex: formsflow):" classname
     read -p "Is this a premium installation? (y/n):" is_premium
     read -p "Use the latest version release? (y) or stable release (n):" is_latest_release
 }
