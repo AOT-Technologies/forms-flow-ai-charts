@@ -36,6 +36,9 @@ Common labels
 {{- define "forms-flow-analytics.labels" -}}
 helm.sh/chart: {{ include "forms-flow-analytics.chart" . }}
 {{ include "forms-flow-analytics.selectorLabels" . }}
+{{- with .workerName }}
+app.kubernetes.io/component: {{ . }}-worker
+{{- end }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -82,5 +85,72 @@ Return true if a configmap object should be created
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "forms-flow-analytics.imagePullSecrets" -}}
-{{- include "common.images.renderPullSecrets" (dict "images" (list .Values.server.image) "context" $) -}}
+{{- include "common.images.renderPullSecrets" (dict "images" (list .Values.server.image ) "context" $) -}}
 {{- end -}}
+
+{{/*
+Return the proper Docker Image Registry Secret Names
+*/}}
+{{- define "forms-flow-analytics.worker.imagePullSecrets" -}}
+{{- include "common.images.renderPullSecrets" (dict "images" (list .Values.server.image ) "context" $) -}}
+{{- end -}}
+
+
+{{/*
+Create a default fully qualified worker name.
+*/}}
+{{- define "forms-flow-analytics.worker.fullname" -}}
+{{- template "forms-flow-analytics.fullname" . -}}-{{ .workerName }}-worker
+{{- end -}}
+
+{{/*
+Get the externaldatabase details.
+*/}}
+{{- define "forms-flow-analytics.existingExternalDatabaseUrlKey" -}}
+{{- printf "%s" .Values.externalDatabase.existingDatabaseUrlKey -}}
+{{- end -}}
+{{- define "forms-flow-analytics.existingExternalSecretName" -}}
+{{- printf "%s" .Values.externalDatabase.existingSecretName -}}
+{{- end -}}
+
+
+{{/*
+Shared environment block used across worker component.
+*/}}
+{{- define "forms-flow-analytics.worker.env" -}}
+{{- if .Values.externalDatabase.existingDatabaseUrlKey }}
+- name: REDASH_DATABASE_URL
+  valueFrom:
+    secretKeyRef:
+      key: {{ include "forms-flow-analytics.existingExternalDatabaseUrlKey" . }}
+      name: {{ include "forms-flow-analytics.existingExternalSecretName" . }}
+{{- else }}
+- name: REDASH_DATABASE_URL
+  valueFrom:
+    configMapKeyRef:
+      key: REDASH_DATABASE_URL
+      name: "{{ .Chart.Name }}"
+{{- end }}
+- name: QUEUES
+  value: "periodic_emails,default"
+- name: WORKERS_COUNT
+  value: "1"
+{{- end }}
+
+{{- define "forms-flow-analytics.worker.envFrom" -}}
+{{- if .Values.worker.extraEnvVarsCM }}
+- configMapRef:
+    name: {{ .Values.worker.extraEnvVarsCM }}
+{{- else}}
+- configMapRef:
+    name: {{ include "forms-flow-analytics.name" . }}
+{{- end }} 
+{{- if .Values.worker.extraEnvVarsSecret }}
+- secretRef:
+    name: {{ .Values.worker.extraEnvVarsSecret }}
+{{- else}}
+- secretRef:
+    name: {{ include "forms-flow-analytics.name" . }}
+{{- end }}
+{{- end -}}
+
