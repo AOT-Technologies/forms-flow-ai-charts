@@ -504,6 +504,7 @@ ExternalDatabase:
   ExistingDatabaseHostKey: ""
   ExistingDatabasePortKey: ""
   ExistingSecretName: "" #name of the existing secret
+  ExistingConfigmapName: ""
 
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap

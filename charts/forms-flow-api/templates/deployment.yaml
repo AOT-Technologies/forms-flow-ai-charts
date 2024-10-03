@@ -103,71 +103,35 @@ spec:
             valueFrom:
               configMapKeyRef:
                 key: KEYCLOAK_TOKEN_URL
-                name: "{{ .Values.formsflow.configmap }}"
-          {{- if .Values.ExternalDatabase.ExistingDatabaseNameKey }}
+                name: "{{ .Values.formsflow.configmap }}"      
+          {{- $secretName := .Values.ExternalDatabase.ExistingSecretName | default .Chart.Name }}
+          {{- $configmapName := .Values.ExternalDatabase.ExistingConfigmapName | default .Chart.Name }}
+          {{- with .Values.ExternalDatabase }}
           - name: DATABASE_NAME
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- else }}
-          - name: DATABASE_NAME
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_NAME
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
+                key: {{ .ExistingDatabaseNameKey | default "FORMSFLOW_API_DB_NAME" }}
+                name: "{{ $secretName }}"
           - name: DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- else }}
-          - name: DATABASE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_PASSWORD
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
+                key: {{ .ExistingDatabasePasswordKey | default "FORMSFLOW_API_DB_PASSWORD" }}
+                name: "{{ $secretName }}"
           - name: DATABASE_USERNAME
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- else }}
-          - name: DATABASE_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_USER
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabasePortKey }}
-          - name: DATABASE_PORT
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabasePortKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- else }}
+                key: {{ .ExistingDatabaseUserNameKey | default "FORMSFLOW_API_DB_USER" }}
+                name: "{{ $secretName }}"
           - name: DATABASE_PORT
             valueFrom:
               configMapKeyRef:
-                key: FORMSFLOW_API_PORT
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabasHostKey }}
+                key: {{ .ExistingDatabasePortKey | default "FORMSFLOW_API_PORT" }}
+                name: "{{ $configmapName }}"
           - name: DATABASE_HOST
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- else }}
-          - name: DATABASE_HOST
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_HOSTNAME
-                name: "{{ .Chart.Name }}"
+                key: {{ .ExistingDatabaseHostKey | default "FORMSFLOW_API_HOSTNAME" }}
+                name: "{{ $configmapName }}"
           {{- end }}
           - name: JWT_OIDC_ALGORITHMS
             valueFrom:

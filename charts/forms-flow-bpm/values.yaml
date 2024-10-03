@@ -1,9 +1,7 @@
 replicaCount: 1
 ## @param auth.existingSecret Existing secret containing password,username,dbname and 
   ##
-auth:
-  existingSecret: ""
-  annotations: {}
+existingSecret: ""
 
 image:
   registry: docker.io
@@ -596,13 +594,14 @@ camunda:
   websocket:
     messageType: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
     securityOrigin:   #WEBSOCKET_SECURITY_ORIGIN
-  externalDatabase:
-    existingDatabaseHostKey: ""
-    existingDatabasePortKey: ""
-    existingDatabaseNameKey: ""
-    existingDatabaseUsernameKey: ""
-    existingDatabasePasswordKey: ""    
-    existingSecretName: "" #name of the existing secret
+  ExternalDatabase:
+    ExistingDatabaseHostKey: ""
+    ExistingDatabasePortKey: ""
+    ExistingDatabaseNameKey: ""
+    ExistingDatabaseUsernameKey: ""
+    ExistingDatabasePasswordKey: ""    
+    ExistingSecretName: "" #name of the existing secret
+    ExistingConfigmapName: ""
 mail:
   protocol: smtp
   from: "<DEFINE_ME>"

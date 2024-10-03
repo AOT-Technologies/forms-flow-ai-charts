@@ -84,70 +84,34 @@ spec:
         lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
         {{- end }}
         env:
-        {{- if .Values.ExternalDatabase.ExistingDatabaseNameKey }}
+        {{- $secretName := .Values.ExternalDatabase.ExistingSecretName | default .Chart.Name }}
+        {{- $configmapName := .Values.ExternalDatabase.ExistingConfigmapName | default .Chart.Name }}
+        {{- with .Values.ExternalDatabase }}
         - name: DATABASE_NAME
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-              name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- else }}
-        - name: DATABASE_NAME
-          valueFrom:
-            secretKeyRef:
-              key: DATABASE_NAME
-              name: "{{ .Chart.Name }}"
-        {{- end }}
-        {{- if .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
+              key: {{ .ExistingDatabaseNameKey | default "DATABASE_NAME" }}
+              name: "{{ $secretName }}"
         - name: DATABASE_USERNAME
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-              name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- else }}        
-        - name: DATABASE_USERNAME
-          valueFrom:
-            secretKeyRef:
-              key: DATABASE_USERNAME
-              name: "{{ .Chart.Name }}"
-        {{- end }}
-        {{- if .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
+              key: {{ .ExistingDatabaseUserNameKey | default "DATABASE_USERNAME" }}
+              name: "{{ $secretName }}"
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-              name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- else }}
-        - name: DATABASE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: DATABASE_PASSWORD
-              name: "{{ .Chart.Name }}"
-        {{- end }}
-        {{- if .Values.ExternalDatabase.ExistingDatabasePortKey }}
-        - name: DATABASE_PORT
-          valueFrom:
-            secretKeyRef:
-              key: {{ .Values.ExternalDatabase.ExistingDatabasePortKey }}
-              name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- else }}
+              key: {{ .ExistingDatabasePasswordKey | default "DATABASE_PASSWORD" }}
+              name: "{{ $secretName }}"
         - name: DATABASE_PORT
           valueFrom:
             configMapKeyRef:
-              key: DATABASE_PORT
-              name: "{{ .Chart.Name }}"
-        {{- end }}
-        {{- if .Values.ExternalDatabase.ExistingDatabaseHostKey }}
+              key: {{ .Values.ExternalDatabase.ExistingDatabasePortKey | default "DATABASE_PORT" }}
+              name: "{{ $configmapName }}"
         - name: DATABASE_HOST
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-              name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- else }}
-        - name: DATABASE_HOST
-          valueFrom:
-            secretKeyRef:
-              key: DATABASE_HOST
-              name: "{{ .Chart.Name }}"
+              key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey | default "DATABASE_HOST" }}
+              name: "{{ $secretName }}"
         {{- end }}
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
