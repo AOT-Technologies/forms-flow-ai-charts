@@ -11,7 +11,7 @@ formsflowdb:
       postgresql: 5432
 forms-flow-bpm:
   clientid: "forms-flow-bpm"
-  clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
+  clientsecret: "e4bdbd25-1467-4f7f-b993-bc4b1944c943"
   ingress:
       hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-forms:
