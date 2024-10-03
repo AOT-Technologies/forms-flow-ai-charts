@@ -90,8 +90,7 @@ spec:
             secretKeyRef:
               key: {{ .Values.ExternalDatabase.ExistingDatabaseNameKey }}
               name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabaseNameKey }}
+        {{- else }}
         - name: DATABASE_NAME
           valueFrom:
             secretKeyRef:
@@ -104,8 +103,7 @@ spec:
             secretKeyRef:
               key: {{ .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
               name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
+        {{- else }}        
         - name: DATABASE_USERNAME
           valueFrom:
             secretKeyRef:
@@ -118,38 +116,39 @@ spec:
             secretKeyRef:
               key: {{ .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
               name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
+        {{- else }}
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DATABASE_PASSWORD
               name: "{{ .Chart.Name }}"
         {{- end }}
+        {{- if .Values.ExternalDatabase.ExistingDatabasePortKey }}
+        - name: DATABASE_PORT
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.ExternalDatabase.ExistingDatabasePortKey }}
+              name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
+        {{- else }}
         - name: DATABASE_PORT
           valueFrom:
             configMapKeyRef:
               key: DATABASE_PORT
               name: "{{ .Chart.Name }}"
+        {{- end }}
         {{- if .Values.ExternalDatabase.ExistingDatabaseHostKey }}
         - name: DATABASE_HOST
           valueFrom:
             secretKeyRef:
               key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey }}
               name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalDatabase.ExistingDatabaseHostKey }}
+        {{- else }}
         - name: DATABASE_HOST
           valueFrom:
             secretKeyRef:
               key: DATABASE_HOST
               name: "{{ .Chart.Name }}"
         {{- end }}
-        - name: DATABASE_URL
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_URL
-              name: "{{ .Chart.Name }}"
         - name: JWT_OIDC_ALGORITHMS
           valueFrom:
             configMapKeyRef:

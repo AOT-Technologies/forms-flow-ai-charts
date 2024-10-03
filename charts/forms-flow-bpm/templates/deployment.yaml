@@ -97,8 +97,7 @@ spec:
             secretKeyRef:
               key: {{ .Values.camunda.externalDatabase.existingDatabaseNameKey }}
               name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
-        {{- end }}
-        {{- if not .Values.camunda.externalDatabase.existingDatabaseNameKey }}
+        {{- else }}
         - name: CAMUNDA_DATABASE_NAME
           valueFrom:
             configMapKeyRef:
@@ -111,8 +110,7 @@ spec:
             secretKeyRef:
               key: {{ .Values.camunda.externalDatabase.existingDatabasePortKey }}
               name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
-        {{- end }}
-        {{- if not .Values.camunda.externalDatabase.existingDatabasePortKey }}
+        {{- else }}
         - name: CAMUNDA_DATABASE_PORT
           valueFrom:
             configMapKeyRef:
@@ -125,8 +123,7 @@ spec:
             secretKeyRef:
               key: {{ .Values.camunda.externalDatabase.existingDatabaseHostKey }}
               name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
-        {{- end }}
-        {{- if not .Values.camunda.externalDatabase.existingDatabaseHostKey }}
+        {{- else }}
         - name: CAMUNDA_DATABASE_SERVICE_NAME
           valueFrom:
             configMapKeyRef:
@@ -163,16 +160,32 @@ spec:
             configMapKeyRef:
               key: CAMUNDA_JDBC_URL
               name: "{{ .Chart.Name }}"
+        {{- if .Values.camunda.externalDatabase.existingDatabaseUsernameKey }}
+        - name: CAMUNDA_JDBC_USER
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.camunda.externalDatabase.existingDatabaseUsernameKey }}
+              name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
+        {{- else }}
         - name: CAMUNDA_JDBC_USER
           valueFrom:
             configMapKeyRef:
               key: CAMUNDA_JDBC_USER
               name: "{{ .Chart.Name }}"
+        {{- end}}
+        {{- if .Values.camunda.externalDatabase.existingDatabasePasswordKey }}
+        - name: CAMUNDA_JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.camunda.externalDatabase.existingDatabasePasswordKey }}
+              name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
+        {{- else }}
         - name: CAMUNDA_JDBC_PASSWORD
           valueFrom:
             secretKeyRef:
               key: CAMUNDA_JDBC_PASSWORD
               name: "{{ .Chart.Name }}"
+        {{- end}}
         - name: KEYCLOAK_URL
           valueFrom:
             configMapKeyRef:

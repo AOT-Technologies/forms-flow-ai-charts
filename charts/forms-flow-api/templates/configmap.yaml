@@ -9,5 +9,4 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 data:
-  DATABASE_URL: "{{tpl .Values.database.url .}}"
   FORMSFLOW_API_PORT: "{{ .Values.database.port }}"

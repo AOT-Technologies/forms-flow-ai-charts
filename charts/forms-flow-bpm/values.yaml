@@ -10,7 +10,7 @@ image:
   repository: formsflow/forms-flow-bpm
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v6.0.2"
+  tag: "v7.0.0-alpha"
   pullSecrets:
     - forms-flow-ai-auth
 ## @param nameOverride String to partially override common.names.fullname
@@ -600,6 +600,8 @@ camunda:
     existingDatabaseHostKey: ""
     existingDatabasePortKey: ""
     existingDatabaseNameKey: ""
+    existingDatabaseUsernameKey: ""
+    existingDatabasePasswordKey: ""    
     existingSecretName: "" #name of the existing secret
 mail:
   protocol: smtp

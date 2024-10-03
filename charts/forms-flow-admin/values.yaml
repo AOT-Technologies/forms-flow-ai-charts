@@ -4,7 +4,7 @@ image:
   repository: formsflow/forms-flow-ai-admin
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v6.0.2"
+  tag: "v7.0.0-alpha"
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -542,12 +542,12 @@ postgresql:
   password: "postgres"
   port: 5432
   host: "forms-flow-ai-postgresql-ha-pgpool"
-  url: "postgresql://{{.Values.postgresql.username}}:{{.Values.postgresql.password}}@{{.Values.postgresql.host}}:{{.Values.postgresql.port}}/{{.Values.postgresql.databasename}}"
 ExternalDatabase:
   ExistingDatabaseNameKey: ""
   ExistingDatabaseUserNameKey: ""
   ExistingDatabasePasswordKey: ""
   ExistingDatabaseHostKey: ""
+  ExistingDatabasePortKey: ""
   ExistingSecretName: "" #name of the existing secret
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
