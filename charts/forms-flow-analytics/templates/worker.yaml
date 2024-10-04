@@ -1,146 +1,56 @@
+{{ range $workerName, $config := .Values.workers -}}
+{{- $workerConfig := mergeOverwrite (deepCopy $.Values.worker) $config }}
+{{- $context := mergeOverwrite (deepCopy $) (dict "workerName" $workerName)}}
 ---
-apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ printf "%s-worker" (include "common.names.fullname" .) }}
-  namespace: {{ include "common.names.namespace" . | quote }}
-  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.worker.commonLabels "context" $ ) | nindent 4 }}
+  name: {{ include "forms-flow-analytics.worker.fullname" $context }}
+  labels: {{ include "forms-flow-analytics.labels" $context | nindent 4 }}
     app.kubernetes.io/component: forms-flow-analytics-worker
-  {{- if .Values.worker.commonAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.worker.commonAnnotations "context" $ ) | nindent 4 }}
-  {{- end }}
 spec:
-  replicas: {{ .Values.worker.replicaCount }}
-  strategy: {{- include "common.tplvalues.render" (dict "value" .Values.worker.updateStrategy "context" $ ) | nindent 4 }}
-  {{- $podLabels := include "common.tplvalues.merge" ( dict "values" ( list .Values.worker.podLabels .Values.worker.commonLabels ) "context" . ) }}
-  selector:
-    matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 6 }}
+  replicas: {{ $workerConfig.replicaCount }}
+  selector: 
+    matchLabels: {{ include "forms-flow-analytics.selectorLabels" $context | nindent 6 }}
       app.kubernetes.io/component: forms-flow-analytics-worker
   template:
     metadata:
-      labels: {{- include "common.labels.standard" ( dict "customLabels" $podLabels "context" $ ) | nindent 8 }}
+      labels: {{ include "forms-flow-analytics.selectorLabels" $context | nindent 8 }}
         app.kubernetes.io/component: forms-flow-analytics-worker
-      annotations:
-        {{- if not .Values.worker.existingSecret  }}
-        checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if (include "forms-flow-analytics.createConfigmap" .) }}
-        checksum/configuration: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if .Values.worker.podAnnotations }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.worker.podAnnotations "context" $) | nindent 8 }}
-        {{- end }}
+      {{- with $workerConfig.podLabels }}
+      {{- tpl (toYaml .) $ | nindent 8 }}
+      {{- end }}
+      {{- with $workerConfig.podAnnotations }}
+      annotations: {{ tpl (toYaml .) $ | nindent 8 }}
+      {{- end }}
     spec:
-      {{- include "forms-flow-analytics.imagePullSecrets" . | nindent 6 }}
-      serviceAccountName: {{ template "forms-flow-analytics.serviceAccountName" . }}
-      automountServiceAccountToken: {{ .Values.worker.automountServiceAccountToken }}
-      {{- if .Values.worker.hostAliases }}
-      hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.worker.hostAliases "context" $) | nindent 8 }}
-      {{- end }}
-      {{- if .Values.worker.affinity }}
-      affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.worker.affinity "context" $) | nindent 8 }}
-      {{- else }}
-      affinity:
-        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.worker.podAffinityPreset "customLabels" $podLabels "context" $) | nindent 10 }}
-        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.worker.podAntiAffinityPreset "customLabels" $podLabels "context" $) | nindent 10 }}
-        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.worker.nodeAffinityPreset.type "key" .Values.worker.nodeAffinityPreset.key "values" .Values.worker.nodeAffinityPreset.values) | nindent 10 }}
-      {{- end }}
-      {{- if .Values.worker.nodeSelector }}
-      nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.worker.nodeSelector "context" $) | nindent 8 }}
-      {{- end }}
-      {{- if .Values.worker.tolerations }}
-      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.worker.tolerations "context" .) | nindent 8 }}
-      {{- end }}
-      {{- if .Values.worker.schedulerName }}
-      schedulerName: {{ .Values.worker.schedulerName }}
-      {{- end }}
-      {{- if .Values.worker.topologySpreadConstraints }}
-      topologySpreadConstraints: {{- include "common.tplvalues.render" (dict "value" .Values.worker.topologySpreadConstraints "context" .) | nindent 8 }}
-      {{- end }}
-      {{- if .Values.worker.priorityClassName }}
-      priorityClassName: {{ .Values.worker.priorityClassName | quote }}
-      {{- end }}
-      {{- if .Values.worker.terminationGracePeriodSeconds }}
-      terminationGracePeriodSeconds: {{ .Values.worker.terminationGracePeriodSeconds }}
-      {{- end }}
-      {{- if .Values.worker.podSecurityContext.enabled }}
-      securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.worker.podSecurityContext "context" $) | nindent 8 }}
-      {{- end }}
+      imagePullSecrets:
+      - name: forms-flow-ai-auth
+      serviceAccountName: {{ include "forms-flow-analytics.serviceAccountName" $context }}
+      securityContext: {{ toYaml $workerConfig.podSecurityContext | nindent 8 }}
       containers:
-      - name: forms-flow-analytics-worker
-        image: {{ include "forms-flow-analytics.image" . }}
-        imagePullPolicy: {{ .Values.worker.image.pullPolicy | quote }}
-        {{- if .Values.worker.containerSecurityContext.enabled }}
-        securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.worker.containerSecurityContext "context" $) | nindent 12 }}
-        {{- end }}
-        {{- if .Values.worker.diagnosticMode.enabled }}
-        command: {{- include "common.tplvalues.render" (dict "value" .Values.worker.diagnosticMode.command "context" $) | nindent 12 }}
-        {{- else if .Values.worker.command }}
-        command: {{- include "common.tplvalues.render" (dict "value" .Values.worker.command "context" $) | nindent 12 }}
-        {{- end }}
-        {{- if .Values.worker.diagnosticMode.enabled }}
-        args: {{- include "common.tplvalues.render" (dict "value" .Values.worker.diagnosticMode.args "context" $) | nindent 12 }}
-        {{- else if .Values.worker.args }}
-        args: {{- include "common.tplvalues.render" (dict "value" .Values.worker.args "context" $) | nindent 12 }}
-        {{- end }}
-        {{- if .Values.worker.lifecycleHooks }}
-        lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.worker.lifecycleHooks "context" $) | nindent 12 }}
-        {{- end }}
+      - name: {{ include "forms-flow-analytics.name" $context }}-{{ $workerName }}-worker
+        image: {{ $.Values.worker.image.registry }}/{{ $.Values.worker.image.repository }}:{{ $.Values.worker.image.tag }}
+        imagePullPolicy: {{ $.Values.worker.image.pullPolicy }}
+        securityContext: {{ toYaml $workerConfig.securityContext | nindent 10 }}
+        args:
+          - worker
         env:
-        {{- if .Values.externalDatabase.existingDatabaseUrlKey }}
-        - name: REDASH_DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              key: {{ .Values.externalDatabase.existingDatabaseUrlKey }}
-              name: "{{ .Values.externalDatabase.existingSecretName }}"
+        {{- $env := mergeOverwrite (deepCopy $) (dict "Values" (dict "env" $workerConfig.env)) -}}
+        {{- include "forms-flow-analytics.worker.env" $env | nindent 10 }}
+        {{- with (include "forms-flow-analytics.worker.envFrom" $) }}
+        envFrom: {{ . | nindent 10 }}
         {{- end }}
-        {{- if not .Values.externalDatabase.existingDatabaseUrlKey }}
-        - name: REDASH_DATABASE_URL
-          valueFrom:
-            configMapKeyRef:
-              key: REDASH_DATABASE_URL
-              name: "{{ .Chart.Name }}"
+        {{- with $workerConfig.resources }}
+        resources: {{ toYaml . | nindent 10 }}
         {{- end }}
-        - name: QUEUES
-          value: "periodic_emails,default"
-        - name: WORKERS_COUNT
-          value: "1"
-        {{- if .Values.worker.extraEnvVars }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.worker.extraEnvVars "context" $) | nindent 12 }}
-        {{- end }}
-        envFrom:
-        {{- if .Values.worker.extraEnvVarsCM }}
-        - configMapRef:
-            name: {{ include "common.tplvalues.render" (dict "value" .Values.worker.extraEnvVarsCM "context" $) }}
-        {{- else}}
-        - configMapRef:
-            name: {{ include "common.names.fullname" . }}
-        {{- end }}
-        {{- if .Values.worker.extraEnvVarsSecret }}
-        - secretRef:
-            name: {{ include "common.tplvalues.render" (dict "value" .Values.worker.extraEnvVarsSecret "context" $) }}
-        {{- else}}
-        - secretRef:
-            name: {{ include "common.names.fullname" . }}
-        {{- end }}
-        {{- if .Values.worker.resources }}
-        resources: {{- toYaml .Values.worker.resources | nindent 12 }}
-        {{- else if ne .Values.worker.resourcesPreset "none" }}
-        resources: {{- include "common.resources.preset" (dict "type" .Values.worker.resourcesPreset) | nindent 12 }}
-        {{- end }}
-        ports:
-        - name: http
-          containerPort: {{ .Values.worker.containerPorts.http }}
-          protocol: TCP
-        volumeMounts:
-          {{- if .Values.worker.extraVolumeMounts }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.worker.extraVolumeMounts "context" $ ) | nindent 12 }}
-          {{- end }}
-        {{- if .Values.worker.sidecars }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.worker.sidecars "context" $) | nindent 8 }}
-        {{- end }}
-      volumes:
-      {{- if .Values.worker.extraVolumes }}
-      {{- include "common.tplvalues.render" (dict "value" .Values.worker.extraVolumes "context" $) | nindent 8 }}
+        {{- $volumeMounts :=  $workerConfig.extraVolumeMounts }}
+        {{- with $volumeMounts }}
+        volumeMounts: {{ toYaml . | nindent 8 }}
+        {{- end -}}
+      {{- $volumes := $workerConfig.extraVolumes }}
+      {{- with $volumes }}
+      volumes:{{ toYaml . | nindent 6 }}
       {{- end }}
       restartPolicy: Always
+{{- end }}

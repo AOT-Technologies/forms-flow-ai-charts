@@ -103,73 +103,36 @@ spec:
             valueFrom:
               configMapKeyRef:
                 key: KEYCLOAK_TOKEN_URL
-                name: "{{ .Values.formsflow.configmap }}"
-          {{- if .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-          - name: FORMSFLOW_API_DB_NAME
+                name: "{{ .Values.formsflow.configmap }}"      
+          {{- $secretName := .Values.ExternalDatabase.ExistingSecretName | default .Chart.Name }}
+          {{- $configmapName := .Values.ExternalDatabase.ExistingConfigmapName | default .Chart.Name }}
+          {{- with .Values.ExternalDatabase }}
+          - name: DATABASE_NAME
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-          - name: FORMSFLOW_API_DB_NAME
+                key: {{ .ExistingDatabaseNameKey | default "FORMSFLOW_API_DB_NAME" }}
+                name: "{{ $secretName }}"
+          - name: DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
-                key: FORMSFLOW_API_DB_NAME
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-          - name: FORMSFLOW_API_DB_PASSWORD
+                key: {{ .ExistingDatabasePasswordKey | default "FORMSFLOW_API_DB_PASSWORD" }}
+                name: "{{ $secretName }}"
+          - name: DATABASE_USERNAME
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-          - name: FORMSFLOW_API_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_PASSWORD
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-          - name: FORMSFLOW_API_DB_USER
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-          - name: FORMSFLOW_API_DB_USER
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_USER
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          - name: FORMSFLOW_API_PORT
+                key: {{ .ExistingDatabaseUserNameKey | default "FORMSFLOW_API_DB_USER" }}
+                name: "{{ $secretName }}"
+          - name: DATABASE_PORT
             valueFrom:
               configMapKeyRef:
-                key: FORMSFLOW_API_PORT
-                name: "{{ .Chart.Name }}"
-          {{- if .Values.ExternalDatabase.ExistingDatabasHostKey }}
-          - name: FORMSFLOW_API_HOSTNAME
+                key: {{ .ExistingDatabasePortKey | default "FORMSFLOW_API_PORT" }}
+                name: "{{ $configmapName }}"
+          - name: DATABASE_HOST
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
+                key: {{ .ExistingDatabaseHostKey | default "FORMSFLOW_API_HOSTNAME" }}
+                name: "{{ $configmapName }}"
           {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-          - name: FORMSFLOW_API_HOSTNAME
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_HOSTNAME
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          - name: DATABASE_URL
-            valueFrom:
-              configMapKeyRef:
-                key: DATABASE_URL
-                name: "{{ .Chart.Name }}"
           - name: JWT_OIDC_ALGORITHMS
             valueFrom:
               configMapKeyRef:

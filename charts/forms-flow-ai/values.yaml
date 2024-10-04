@@ -11,7 +11,7 @@ formsflowdb:
       postgresql: 5432
 forms-flow-bpm:
   clientid: "forms-flow-bpm"
-  clientsecret: "786001d6-68a8-4519-903c-bc5b5a870d68"
+  clientsecret: "e4bdbd25-1467-4f7f-b993-bc4b1944c943"
   ingress:
       hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-forms:
@@ -37,12 +37,14 @@ forms-flow-analytics:
       hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-idm:
   keycloak:
+    EnableKeycloakClientAuth: false
     ingress:
       hostname: forms-flow-idm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
   realm: forms-flow-ai
   context-path: /auth
 
 forms-flow-web:
+  EnableMultitenant: false
   clientid: forms-flow-web
   ingress:
       hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
@@ -213,6 +215,8 @@ websocket_encrypt_key: "FormsFlow.AI"
 insight_api_key: ""
 redis_host: ""
 redis_port: ""
+EnableRedis: "false"
+EnableChatBot: "false"
 redis_pass_code: ""
 draft_enabled: "true"
 export_pdf_enabled: "false"
