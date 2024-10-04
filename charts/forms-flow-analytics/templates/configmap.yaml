@@ -11,6 +11,6 @@ metadata:
 data: 
   REDASH_HOST: "{{ tpl .Values.ingress.hostname . }}"
   REDASH_DATABASE_URL: "{{ tpl .Values.database.url . }}"
-  REDASH_DATABASE_USERNAME: "{{ .Values.database.username }}"
   REDASH_LOG_LEVEL: "INFO"
-  
+  DATABASE_PORT: "{{ .Values.database.port }}"
+
