@@ -117,7 +117,7 @@ spec:
               name: "{{ $configmapName }}"
         {{- end }}
         {{- if .Values.scheduler.extraEnvVars }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.scheduler.extraEnvVars "context" $) | nindent 12 }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.scheduler.extraEnvVars "context" $) | nindent 8 }}
         {{- end }}
         envFrom:
         {{- if .Values.scheduler.extraEnvVarsCM }}
