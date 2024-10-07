@@ -118,18 +118,34 @@ Get the externaldatabase details.
 Shared environment block used across worker component.
 */}}
 {{- define "forms-flow-analytics.worker.env" -}}
-{{- if .Values.externalDatabase.existingDatabaseUrlKey }}
-- name: REDASH_DATABASE_URL
+{{- $secretName := .Values.ExternalDatabase.ExistingSecretName | default .Chart.Name }}
+{{- $configmapName := .Values.ExternalDatabase.ExistingConfigmapName | default .Chart.Name }}
+{{- with .Values.ExternalDatabase }}
+- name: DB_NAME
   valueFrom:
     secretKeyRef:
-      key: {{ include "forms-flow-analytics.existingExternalDatabaseUrlKey" . }}
-      name: {{ include "forms-flow-analytics.existingExternalSecretName" . }}
-{{- else }}
-- name: REDASH_DATABASE_URL
+      key: {{ .ExistingDatabaseNameKey | default "DATABASE_NAME" }}
+      name: "{{ $secretName }}"
+- name: DB_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      key: {{ .ExistingDatabasePasswordKey | default "DATABASE_PASSWORD" }}
+      name: "{{ $secretName }}"
+- name: DB_USERNAME
+  valueFrom:
+    secretKeyRef:
+      key: {{ .ExistingDatabaseUserNameKey | default "DATABASE_USERNAME" }}
+      name: "{{ $secretName }}"
+- name: DB_PORT
   valueFrom:
     configMapKeyRef:
-      key: REDASH_DATABASE_URL
-      name: "{{ .Chart.Name }}"
+      key: {{ .ExistingDatabasePortKey | default "DATABASE_PORT" }}
+      name: "{{ $configmapName }}"
+- name: DB_HOST
+  valueFrom:
+    secretKeyRef:
+      key: {{ .ExistingDatabaseHostKey | default "DATABASE_HOST" }}
+      name: "{{ $configmapName }}"
 {{- end }}
 - name: QUEUES
   value: "periodic_emails,default"
