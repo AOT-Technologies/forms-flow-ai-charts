@@ -37,8 +37,8 @@ data:
     FORMSFLOW_ADMIN_BASE: https://{{tpl (index .Values "forms-flow-admin" "ingress" "hostname") .}}/api
     MODEL_ID: "Seethal/sentiment_analysis_generic_dataset"
     INSIGHT_API_URL: https://{{tpl (index .Values "forms-flow-analytics" "ingress" "hostname") .}}
-    KEYCLOAK_ENABLE_CLIENT_AUTH: {{tpl (index .Values "forms-flow-idm" "keycloak" "EnableKeycloakClientAuth" ) .}}
-    MULTI_TENANCY_ENABLED: {{tpl (index .Values "forms-flow-web" "EnableMultitenant") .}}
+    KEYCLOAK_ENABLE_CLIENT_AUTH: "{{ index .Values "forms-flow-idm" "keycloak" "EnableKeycloakClientAuth" }}"
+    MULTI_TENANCY_ENABLED: "{{index .Values "forms-flow-web" "EnableMultitenant" }}"
     DATA_ANALYSIS_URL:  https://{{tpl (index .Values "forms-flow-data-analysis" "ingress" "hostname") .}}
     NODE_ENV: "production"
     CUSTOM_SUBMISSION_URL: ""
