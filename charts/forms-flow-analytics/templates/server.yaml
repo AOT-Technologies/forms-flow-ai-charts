@@ -116,17 +116,17 @@ spec:
               key: {{ .ExistingDatabaseHostKey | default "DATABASE_HOST" }}
               name: "{{ $configmapName }}"
         {{- end }}
-          - name: REDASH_WEB_WORKERS
-            value: "4"
-          - name: GUNICORN_CMD_ARGS
-            value: "--timeout 300"
-          - name: REDASH_MULTI_ORG
-            valueFrom:
-              secretKeyRef:
-                key: REDASH_MULTI_ORG
-                name: "{{ .Chart.Name }}"
+        - name: REDASH_WEB_WORKERS
+          value: "4"
+        - name: GUNICORN_CMD_ARGS
+          value: "--timeout 300"
+        - name: REDASH_MULTI_ORG
+          valueFrom:
+            secretKeyRef:
+              key: REDASH_MULTI_ORG
+              name: "{{ .Chart.Name }}"
         {{- if .Values.server.extraEnvVars }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.server.extraEnvVars "context" $) | nindent 12 }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.server.extraEnvVars "context" $) | nindent 8 }}
         {{- end }}
         envFrom:
         {{- if .Values.server.extraEnvVarsCM }}
