@@ -105,12 +105,12 @@ spec:
         - name: DATABASE_PORT
           valueFrom:
             configMapKeyRef:
-              key: {{ .Values.ExternalDatabase.ExistingDatabasePortKey | default "DATABASE_PORT" }}
+              key: {{ .ExistingDatabasePortKey | default "DATABASE_PORT" }}
               name: "{{ $configmapName }}"
         - name: DATABASE_HOST
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey | default "DATABASE_HOST" }}
+              key: {{ .ExistingDatabaseHostKey | default "DATABASE_HOST" }}
               name: "{{ $secretName }}"
         {{- end }}
         - name: JWT_OIDC_ALGORITHMS
