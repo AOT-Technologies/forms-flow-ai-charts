@@ -35,35 +35,69 @@ main() {
 runHelmInstall() {
     echo
 
+    # Multitenancy check
+    read -p "Is this a multitenant installation? (y/n):" is_multitenant
+
     if [[ $is_premium =~ ^[Yy]$ ]]; then
-        # Commands for premium users with username and access token
-        helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -–set imageCredentials.registry=docker.io -–set imageCredentials.username=$premium_username -–set imageCredentials.password=$access_token  -n $namespace --version $version_ff_ai
-        helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.$domain_name -n $namespace --version $version_ff_analytics
-        helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace --version $version_ff_idm
-        helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_forms
-        helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.$domain_name --set image.repository=formsflow/forms-flow-webapi-ee -n $namespace --version $version_ff_api
-        helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-bpm-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee -n $namespace --version $version_ff_bpm
-        helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-documents-api-$namespace.$domain_name --set image.repository=formsflow/forms-flow-documents-api-ee   -n $namespace --version $version_ff_documents_api
-		helm upgrade --install forms-flow-data-analysis forms-flow-data-analysis --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-data-analysis-$namespace.$domain_name  --set ingress.tls=true --set image.repository=formsflow/forms-flow-data-analysis-api-ee  -n $namespace --version $version_ff_data_analysis
-        helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-web-ee  -n $namespace --version $version_ff_web
-		helm upgrade --install forms-flow-admin forms-flow-admin --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-admin-$namespace.$domain_name  --set ingress.tls=true -n $namespace --version $version_ff_admin
+        if [[ $is_multitenant =~ ^[Yy]$ ]]; then
+            # Commands for premium users with multitenancy enabled
+            helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=$insight_api_key --set imageCredentials.registry=docker.io --set imageCredentials.username=$premium_username --set imageCredentials.password=$access_token --set forms-flow-idm.keycloak.EnableKeycloakClientAuth=true --set forms-flow-web.EnableMultitenant=true --set forms-flow-idm.realm=multitenant --set EnableChatBot=true -n $namespace --version $version_ff_ai
+            helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-analytics-vault.aot-technologies.com --set ingress.annotations."cert-manager\.io/cluster-issuer"=ssl-analytics --set redash.multiorg=true -n vault
+            # Call external script to get Redash API Key
+            getRedashApiKey
+            # Store Redash API key in a variable
+            REDASH_API_KEY=$?
+            echo "Redash API Key: $REDASH_API_KEY"
+        else
+           helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -–set imageCredentials.registry=docker.io -–set imageCredentials.username=$premium_username -–set imageCredentials.password=$access_token  -n $namespace --version $version_ff_ai
+           helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.$domain_name -n $namespace --version $version_ff_analytics
+           # Call external script to get Redash API Key
+           getRedashApiKey
+           # Store Redash API key in a variable
+           REDASH_API_KEY=$?
+           echo "Redash API Key: $REDASH_API_KEY"
+           helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace --version $version_ff_idm
+           helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_forms
+           helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.$domain_name --set image.repository=formsflow/forms-flow-webapi-ee -n $namespace --version $version_ff_api
+           helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-bpm-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee -n $namespace --version $version_ff_bpm
+           helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-documents-api-$namespace.$domain_name --set image.repository=formsflow/forms-flow-documents-api-ee   -n $namespace --version $version_ff_documents_api
+		   helm upgrade --install forms-flow-data-analysis forms-flow-data-analysis --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-data-analysis-$namespace.$domain_name  --set ingress.tls=true --set image.repository=formsflow/forms-flow-data-analysis-api-ee  -n $namespace --version $version_ff_data_analysis
+           helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-web-ee  -n $namespace --version $version_ff_web
+		   helm upgrade --install forms-flow-admin forms-flow-admin --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-admin-$namespace.$domain_name  --set ingress.tls=true -n $namespace --version $version_ff_admin
+        fi
 
     else
-        # Commands for open-source users
-        helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -n $namespace --version $version_ff_ai
-		helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace --version $version_ff_idm
-        helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_forms
-        helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_api
-		helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-bpm-$namespace.$domain_name --set ingress.tls=true --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name -n $namespace --version $version_ff_bpm
-        helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-documents-api-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_documents_api
-        helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name  --set ingress.tls=true -n $namespace --version $version_ff_web
-
+        if [[ $is_multitenant =~ ^[Yy]$ ]]; then
+            # Commands for open-source users with multitenancy enabled
+            helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=test --set forms-flow-idm.keycloak.EnableKeycloakClientAuth=true --set forms-flow-web.EnableMultitenant=true --set forms-flow-idm.realm=multitenant --set EnableChatBot=true -n $namespace
+        else
+            # Commands for open-source users
+            helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -n $namespace --version $version_ff_ai
+		    helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace --version $version_ff_idm
+            helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_forms
+            helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_api
+		    helm upgrade --install forms-flow-bpm forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-bpm-$namespace.$domain_name --set ingress.tls=true --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name -n $namespace --version $version_ff_bpm
+            helm upgrade --install forms-flow-documents-api forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-documents-api-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_documents_api
+            helm upgrade --install forms-flow-web forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name  --set ingress.tls=true -n $namespace --version $version_ff_web
+        fi
+    
         # Optional components for open-source users
         read -p "Include forms-flow-analytics? (y/n):" include_analytics
         if [[ $include_analytics =~ ^[Yy]$ ]]; then
             helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.$domain_name -n $namespace --version $version_ff_analytics
+            # Call external script to get Redash API Key
+            getRedashApiKey
+            # Store Redash API key in a variable
+            REDASH_API_KEY=$?
+            echo "Redash API Key: $REDASH_API_KEY"
         fi
     fi
+}
+
+getRedashApiKey() {
+    # Call the external script to get Redash API Key
+    bash ./get_redash_api_key.sh
+    return $API_KEY
 }
 
 configureInstall() {
