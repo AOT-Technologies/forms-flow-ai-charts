@@ -42,20 +42,27 @@ runHelmInstall() {
         if [[ $is_multitenant =~ ^[Yy]$ ]]; then
             # Commands for premium users with multitenancy enabled
             helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=$insight_api_key --set imageCredentials.registry=docker.io --set imageCredentials.username=$premium_username --set imageCredentials.password=$access_token --set forms-flow-idm.keycloak.EnableKeycloakClientAuth=true --set forms-flow-web.EnableMultitenant=true --set forms-flow-idm.realm=multitenant --set EnableChatBot=true -n $namespace --version $version_ff_ai
-            helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-analytics-vault.aot-technologies.com --set ingress.annotations."cert-manager\.io/cluster-issuer"=ssl-analytics --set redash.multiorg=true -n vault
+            read -p "Include forms-flow-analytics? (y/n):" include_analytics
+            if [[ $include_analytics =~ ^[Yy]$ ]]; then
+                helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-analytics-vault.aot-technologies.com --set ingress.annotations."cert-manager\.io/cluster-issuer"=ssl-analytics --set redash.multiorg=true -n vault
+            fi
             # Call external script to get Redash API Key
-            getRedashApiKey
+            getRedashApiKey $classname
             # Store Redash API key in a variable
             REDASH_API_KEY=$?
             echo "Redash API Key: $REDASH_API_KEY"
+            # Step 3: Re-run forms-flow-ai with the Redash API Key
+            helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=$REDASH_API_KEY --set imageCredentials.registry=docker.io --set imageCredentials.username=$premium_username --set imageCredentials.password=$access_token --set forms-flow-idm.keycloak.EnableKeycloakClientAuth=true --set forms-flow-web.EnableMultitenant=true --set forms-flow-idm.realm=multitenant --set EnableChatBot=true -n $namespace --version $version_ff_ai
+            # Step 4: Re-run analytics if chosen
+            if [[ $include_analytics =~ ^[Yy]$ ]]; then
+                helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=vault --set ingress.hostname=forms-flow-analytics-vault.aot-technologies.com --set ingress.annotations."cert-manager\.io/cluster-issuer"=ssl-analytics --set redash.multiorg=true --set insight_api_key=$REDASH_API_KEY -n vault
+            fi
         else
            helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -–set imageCredentials.registry=docker.io -–set imageCredentials.username=$premium_username -–set imageCredentials.password=$access_token  -n $namespace --version $version_ff_ai
+           read -p "Include forms-flow-analytics? (y/n):" include_analytics
+           if [[ $include_analytics =~ ^[Yy]$ ]]; then
            helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.$domain_name -n $namespace --version $version_ff_analytics
-           # Call external script to get Redash API Key
-           getRedashApiKey
-           # Store Redash API key in a variable
-           REDASH_API_KEY=$?
-           echo "Redash API Key: $REDASH_API_KEY"
+           fi
            helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace --version $version_ff_idm
            helm upgrade --install forms-flow-forms forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_forms
            helm upgrade --install forms-flow-api forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.$domain_name --set image.repository=formsflow/forms-flow-webapi-ee -n $namespace --version $version_ff_api
@@ -67,10 +74,6 @@ runHelmInstall() {
         fi
 
     else
-        if [[ $is_multitenant =~ ^[Yy]$ ]]; then
-            # Commands for open-source users with multitenancy enabled
-            helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=test --set forms-flow-idm.keycloak.EnableKeycloakClientAuth=true --set forms-flow-web.EnableMultitenant=true --set forms-flow-idm.realm=multitenant --set EnableChatBot=true -n $namespace
-        else
             # Commands for open-source users
             helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -n $namespace --version $version_ff_ai
 		    helm upgrade --install forms-flow-idm forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace --version $version_ff_idm
@@ -85,18 +88,13 @@ runHelmInstall() {
         read -p "Include forms-flow-analytics? (y/n):" include_analytics
         if [[ $include_analytics =~ ^[Yy]$ ]]; then
             helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.$domain_name -n $namespace --version $version_ff_analytics
-            # Call external script to get Redash API Key
-            getRedashApiKey
-            # Store Redash API key in a variable
-            REDASH_API_KEY=$?
-            echo "Redash API Key: $REDASH_API_KEY"
         fi
     fi
 }
 
 getRedashApiKey() {
     # Call the external script to get Redash API Key
-    bash ./get_redash_api_key.sh
+    bash ./get_redash_api_key.sh "$1"
     return $API_KEY
 }
 

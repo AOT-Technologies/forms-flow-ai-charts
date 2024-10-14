@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Check if the class name was provided as an argument
+if [ -z "$1" ]; then
+  echo "Class name not provided. Exiting..."
+  exit 1
+fi
+
+# Retrieve the class name from the argument
+CLASSNAME="$1"
+
 # Redash instance details
 REDASH_URL="https://your-redash-url.com"  # Replace with your Redash URL
 USERNAME="your_username"                  # Replace with your Redash username
