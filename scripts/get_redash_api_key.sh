@@ -9,11 +9,15 @@ fi
 # Retrieve the class name from the argument
 CLASSNAME="$1"
 
-# Redash instance details
-REDASH_URL="https://your-redash-url.com"  # Replace with your Redash URL
-USERNAME="your_username"                  # Replace with your Redash username
-PASSWORD="your_password"                  # Replace with your Redash password
+# Prompt the user for their Redash username
+read -p "Enter your Redash username: " USERNAME
 
+# Prompt the user for their Redash password (input hidden for security)
+read -s -p "Enter your Redash password: " PASSWORD
+echo
+
+# Construct the Redash URL by replacing the 'test' part with the class name
+REDASH_URL="https://forms-flow-analytics-$CLASSNAME.aot-technologies.com"
 # Step 1: Authenticate and get session cookie
 LOGIN_RESPONSE=$(curl -s -X POST "$REDASH_URL/login" \
   -H "Content-Type: application/x-www-form-urlencoded" \
