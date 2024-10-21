@@ -106,6 +106,7 @@ mongodb:
       - ReadWriteOnce
     size: 8Gi
     mountPath: /bitnami/mongodb
+    storageClass: ""
   serviceAccount:
     create: true
   

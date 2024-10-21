@@ -192,6 +192,11 @@ spec:
             configMapKeyRef:
               key: KEYCLOAK_URL_HTTP_RELATIVE_PATH
               name: "{{ .Values.formsflow.configmap }}"
+        - name: REACT_APP_LANGUAGE
+          valueFrom:
+            configMapKeyRef:
+              key: REACT_APP_LANGUAGE
+              name: "{{ .Chart.Name }}"
 
         image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         lifecycle:
