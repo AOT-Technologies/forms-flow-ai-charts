@@ -2,7 +2,7 @@
 
 Welcome to the forms-flow-ai Helm charts repository. This repository contains the Helm charts for deploying forms-flow-ai and its components.
 
-## Repository Structure
+## Repository Structure 
 
 - `charts/`: Contains the Helm charts for various components of forms-flow-ai.
 - `docs/`: Documentation related to the Helm charts.
