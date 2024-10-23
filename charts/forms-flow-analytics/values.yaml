@@ -305,12 +305,12 @@ server:
 
   # server.resources -- Server resource requests and limits [ref](http://kubernetes.io/docs/user-guide/compute-resources/)
   resources:
-  limits:
-    cpu: 300m
-    memory: 2Gi
-  requests:
-    cpu: 200m
-    memory: 1Gi
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
 
   # server.livenessProbe -- Server liveness probe configuration
   livenessProbe:
@@ -419,12 +419,12 @@ worker:
 
   # worker.resources -- Worker default resource requests and limits [ref](http://kubernetes.io/docs/user-guide/compute-resources/)
   resources:
-  limits:
-    cpu: 300m
-    memory: 2Gi
-  requests:
-    cpu: 200m
-    memory: 1Gi
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
 
   # worker.podSecurityContext -- Default worker's security context pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
   podSecurityContext: {}
@@ -478,12 +478,12 @@ scheduler:
 
   # scheduler.resources -- scheduler resource requests and limits [ref](http://kubernetes.io/docs/user-guide/compute-resources/)
   resources:
-  limits:
-    cpu: 300m
-    memory: 2Gi
-  requests:
-    cpu: 200m
-    memory: 1Gi
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
 
   # scheduler.podSecurityContext -- Security contexts for scheduler pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
   podSecurityContext: {}
@@ -539,12 +539,12 @@ migrations:
   ttlSecondsAfterFinished: 600
   # migrations.resources -- Scheduled worker resource requests and limits [ref](http://kubernetes.io/docs/user-guide/compute-resources/)
   resources:
-  limits:
-    cpu: 300m
-    memory: 2Gi
-  requests:
-    cpu: 200m
-    memory: 1Gi
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
 
   # migrations.podSecurityContext -- Security contexts for scheduled worker pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
   podSecurityContext: {}
