@@ -377,21 +377,21 @@ ingress:
   annotations: {}
 
   # ingress.ingressClassName -- Sets the ingress controller class name to use.
-  ingressClassName: "test"
+  ingressClassName: ""
 
   # ingress.hosts -- Ingress resource hostnames and path mappings
   hosts:
-    - host: forms-flow-analytics-test.aot-technologies.com
+    - host: chart-example.local
       paths:
        - /
   #ingress.pathType -- How ingress paths should be treated.
   pathType: Prefix
 
   # ingress.tls -- Ingress TLS configuration
-  tls:
-   - secretName: forms-flow-analytics-test.aot-technologies.com-tls
-     hosts:
-       - forms-flow-analytics-test.aot-technologies.com
+  tls: []
+  #  - secretName: forms-flow-analytics-test.aot-technologies.com-tls
+  #    hosts:
+  #      - forms-flow-analytics-test.aot-technologies.com
 
 ## Configuration for Redash workers
 workers:
