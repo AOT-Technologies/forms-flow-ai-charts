@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - staging/QA
+      - master
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
