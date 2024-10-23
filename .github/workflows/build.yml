@@ -17,6 +17,4 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          ACTIONS_RUNNER_DEBUG: true      # Enable runner debugging
-          ACTIONS_STEP_DEBUG: true        # Enable step-level debugging
+          SONAR_TOKEN: testtoken21234567   # Enable step-level debugging
