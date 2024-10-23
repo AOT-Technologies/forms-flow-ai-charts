@@ -589,6 +589,8 @@ postgresql:
     service:
       ports:
         postgresql: 5432
+  global:
+    storageClass: ""
   
   auth:
     # postgresql.auth.username -- PostgreSQL username for redash user (when postgresql chart enabled)
@@ -617,6 +619,8 @@ redis:
         redis: 6379
   replica:
     replicaCount: 0
+  global:
+    storageClass: ""
 
 # extraObjects -- Additional kubernetes manifests to deploy alongside the chart. Useful to include external secrets for dependencies.
 extraObjects: []
