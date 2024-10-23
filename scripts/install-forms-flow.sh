@@ -31,10 +31,30 @@ main() {
 
 runHelmInstall() {
 	echo
-	helm install forms-flow-ai $directory/forms-flow-ai --set Domain=$domain_name --set forms-flow-idm.keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --namespace $namespace --version $version_ff_ai
+	if [[ $is_keycloak_enabled =~ ^[Yy]$ ]]; then
+	    helm install forms-flow-ai $directory/forms-flow-ai \
+            --set Domain=$domain_name \
+            --set forms-flow-idm.keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name \
+            --namespace $namespace \
+            --version $version_ff_ai
+    else
+	    helm install forms-flow-ai $directory/forms-flow-ai \
+            --set Domain=$domain_name \
+            --set forms-flow-idm.keycloak.ingress.hostname=$keycloak_hostname \
+            --set forms-flow-idm.realm=$keycloak_realm \
+            --set forms-flow-web.clientid=$web_clientid \
+            --set forms-flow-bpm.clientid=$bpm_clientid \
+            --set forms-flow-bpm.clientsecret=$bpm_clientsecret \
+            --namespace $namespace \
+            --version $version_ff_ai
+    fi
+
 	helm install forms-flow-analytics $directory/forms-flow-analytics --set Domain=$domain_name --namespace $namespace --version $version_ff_analytics
 	helm install forms-flow-forms $directory/forms-flow-forms --set Domain=$domain_name --namespace $namespace --version $version_ff_forms
-	helm install forms-flow-idm $directory/forms-flow-idm --set Domain=$domain_name --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --namespace $namespace --version $version_ff_idm
+
+	if [[ $is_keycloak_enabled =~ ^[Yy]$ ]]; then
+	    helm install forms-flow-idm $directory/forms-flow-idm --set Domain=$domain_name --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --namespace $namespace --version $version_ff_idm
+    fi
 
 	if [[ $is_premium =~ ^[Yy]$ ]]; then
 		helm install forms-flow-admin $directory/forms-flow-admin --set Domain=$domain_name --namespace $namespace --version $version_ff_admin
@@ -43,7 +63,20 @@ runHelmInstall() {
 	helm install forms-flow-api $directory/forms-flow-api --set Domain=$domain_name --namespace $namespace --version $version_ff_api
 	helm install forms-flow-bpm $directory/forms-flow-bpm --set Domain=$domain_name --set camunda.websocket.securityOrigin=https://*.$domain_name --namespace $namespace --version $version_ff_bpm
 	helm install forms-flow-data-analysis $directory/forms-flow-data-analysis --set Domain=$domain_name --namespace $namespace --version $version_ff_data_analysis
-	helm install forms-flow-web $directory/forms-flow-web --set Domain=$domain_name --namespace $namespace --version $version_ff_web
+	
+    if [[ $is_keycloak_enabled =~ ^[Yy]$ ]]; then
+	    helm install forms-flow-web $directory/forms-flow-web \
+            --set Domain=$domain_name \
+            --namespace $namespace \
+            --version $version_ff_web
+    else
+	    helm install forms-flow-web $directory/forms-flow-web \
+            --set Domain=$domain_name \
+            --set webclient=$web_clientid \
+            --namespace $namespace \
+            --version $version_ff_web
+    fi
+
 	helm install forms-flow-documents-api $directory/forms-flow-documents-api --set Domain=$domain_name --namespace $namespace --version $version_ff_documents_api
 }
 
@@ -110,6 +143,15 @@ displayPrompts() {
 	read -p "Please enter the namespace (ex: forms-flow):" namespace
 	read -p "Is this a premium installation? (y/n):" is_premium
 	read -p "Use the latest version release? (y) or stable release (n):" is_latest_release
+	read -p "Install Keycloak in namespace (y) or use external service (n):" is_keycloak_enabled
+	if [[ $is_keycloak_enabled =~ ^[Nn]$ ]]; then
+	    read -p "Keycloak hostname:" keycloak_hostname
+	    read -p "Keycloak realm:" keycloak_realm
+	    read -p "formsflow.ai web client id:" web_clientid
+	    read -p "formsflow.ai bpm client id:" bpm_clientid
+	    read -p "formsflow.ai bpm client secret:" bpm_clientsecret
+    fi
+
 }
 
 checkdirectory() {
