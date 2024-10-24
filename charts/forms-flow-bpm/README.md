@@ -60,6 +60,25 @@ The `forms-flow-bpm` image stores the application logs at the `/logs` path of th
 
 The `forms-flow-bpm` image supports mounting a mail configuration file at the `/app/mail-config.properties` path of the container. This can be done using a ConfigMap and mounting it as a volume.
 
+
+### Add extra environment variables for Vault configuration
+
+These environment variables are used to configure a Vault for storing external secrets. You can use the extraEnvVars property for this purpose.
+
+```yaml
+extraEnvVars:
+  - name: VAULT_ENABLED
+    value: "false"
+  - name: VAULT_URL
+    value: "http://{your-ip-address}:8200"
+  - name: VAULT_TOKEN
+    value: ""
+  - name: VAULT_PATH
+    value: ""
+  - name: VAULT_SECRET
+    value: ""
+```
+
 ## Parameters
 
 | Parameter                        | Description                                                                                          | Default Value               |

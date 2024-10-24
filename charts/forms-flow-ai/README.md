@@ -18,14 +18,56 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 
 ```console
-helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=DOMAIN_NAME --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set forms-flow-auth.imagesecret=IMAGE_SECRET_KEY --set insight_api_key=INSIGHT_API_KEY
+helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=DOMAIN_NAME --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=INSIGHT_API_KEY
 ```
 
-> Note: You need to substitute the placeholders `DOMAIN_NAME`, `IMAGE_SECRET_KEY`, and `INSIGHT_API_KEY` with your specific values. For example, in the case of Formsflow, you might use `DOMAIN_NAME=example.com`, I`MAGE_SECRET_KEY=your_image_secret_key`and `INSIGHT_API_KEY=your_insight_api_key`
+> Note: You need to substitute the placeholders `DOMAIN_NAME`, and `INSIGHT_API_KEY` with your specific values. For example, in the case of Formsflow, you might use `DOMAIN_NAME=example.com` and `INSIGHT_API_KEY=your_insight_api_key`
 
 These commands deploy Forms-flow-api on the Kubernetes cluster
 
 > **Tip**: List all releases using `helm list`
+
+### Use an external database
+
+Sometimes, you may want to have connect to an external PostgreSQL and MongoDB database rather than a database within your cluster - for example, when using a managed database service, or when running a single database server for all your applications. To do this,
+
+For PostgreSQL database,
+ set the `postgresql.enabled` parameter to `false` and specify the credentials for the external database using the `formsflowdb.postgresql.fullnameOverride` parameters. Here is an example:
+
+```text
+postgresql-ha.enabled=false
+formsflowdb.postgresql.fullnameOverride=myexternalhost
+```
+```yaml
+postgresql-ha:
+  enabled: false
+formsflowdb:
+  postgresql:
+    fullnameOverride: myexternalhost
+
+```
+
+For MongoDB, 
+```text
+mongodb.enabled=false
+mongodb.service.nameOverride=mongodburl
+mongodb.auth.databases=database
+mongodb.auth.usernames=myuser
+mongodb.auth.passwords=mypassword
+```
+```yaml
+mongodb:
+  enabled: false
+  auth:
+    databases: 
+      - formsflow 
+    passwords:
+      - changeme
+    usernames:
+      - mongodb
+  service:
+    nameOverride: "mongodb_url"
+```
 
 ## Parameters
 
@@ -122,7 +164,7 @@ These commands deploy Forms-flow-api on the Kubernetes cluster
 | `mongodb.arbiter.containerSecurityContext.enabled`| Enable container security context for arbiter.             | `false`                          |
 | `mongodb.arbiter.containerSecurityContext.runAsUser` | User ID for arbiter container.                             | `1001`                           |
 
-### Postgres 
+### PostgreSQL 
 
 | Parameter                                       | Description                                                  | Default Value                  |
 |-------------------------------------------------|--------------------------------------------------------------|--------------------------------|
@@ -222,5 +264,3 @@ These commands deploy Forms-flow-api on the Kubernetes cluster
 | `redisExporter.persistence.mountPath`            | Mount path for persistent storage.                           | `""`                           |
 | `redisExporter.persistence.accessModes`          | Access modes for persistent storage.                         | `ReadWriteOnce`               |
 | `redisExporter.persistence.size`                 | Size of the persistent volume.                               | `2Gi`                          |
-
-

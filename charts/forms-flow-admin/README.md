@@ -162,8 +162,3 @@ The `formsflow-admin` image stores the application logs at the `/opt/app-root/lo
 | `ExternalDatabase.ExistingDatabaseHostKey`     | Key for the existing database host                      | `""`                            |
 | `ExternalDatabase.ExistingDatabasePortKey`     | Key for the existing database port                      | `""`                            |
 | `ExternalDatabase.ExistingSecretName`           | Name of the existing secret                             | `""`                            |
-
-## Upgrading
-
-### To v7.0.0
-
