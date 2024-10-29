@@ -678,7 +678,7 @@ redisExporter:
   image:  
     registry: docker.io
     repository: redis
-    tag: 7.2.4-alpine
+    tag: 7.4.1
     pullPolicy: IfNotPresent
     pullSecrets: []
   livenessProbe:

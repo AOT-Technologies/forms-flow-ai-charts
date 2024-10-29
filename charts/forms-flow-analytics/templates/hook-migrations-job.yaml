@@ -1,0 +1,73 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-migrations"
+  labels:
+    {{- include "redash.labels" . | nindent 4 }}
+    app.kubernetes.io/component: migrations
+  annotations:
+    # This is what defines this resource as a hook.
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  ttlSecondsAfterFinished: {{ .Values.migrations.ttlSecondsAfterFinished }}
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+      labels:
+        {{- include "redash.selectorLabels" . | nindent 8 }}
+        {{- with .Values.migrations.podLabels }}
+        {{- tpl (toYaml .) $ | nindent 8 }}
+        {{- end }}
+      {{- with .Values.migrations.podAnnotations }}
+      annotations: {{ tpl (toYaml .) $ | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "redash.serviceAccountName" . }}
+      restartPolicy: Never
+      securityContext: {{ toYaml .Values.migrations.podSecurityContext | nindent 8 }}
+      {{- $initContainers := concat .Values.initContainers .Values.migrations.initContainers }}
+      {{- with $initContainers }}
+      initContainers: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ include "redash.name" . }}-server
+        securityContext: {{ toYaml .Values.migrations.securityContext | nindent 10 }}
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repo }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args:
+          - create_db
+        env:
+        {{- $envCtx := mergeOverwrite (deepCopy .) (dict "Values" (dict "env" .Values.migrations.env)) -}}
+        {{- include "redash.env" $envCtx | nindent 10 }}
+        {{- if (include "redash.envFrom" .) }}
+        envFrom:
+        {{- include "redash.envFrom" . | nindent 10 }}
+        {{- end}}
+        {{- with .Values.migrations.resources }}
+        resources: {{ toYaml . | nindent 10 }}
+        {{- end }}
+        {{- $volumeMounts := concat .Values.volumeMounts .Values.migrations.volumeMounts }}
+        {{- with $volumeMounts }}
+        volumeMounts: {{ toYaml . | nindent 10 }}
+        {{- end }}
+      {{- $volumes := concat .Values.volumes .Values.migrations.volumes -}}
+      {{- with $volumes }}
+      volumes: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.migrations.nodeSelector }}
+      nodeSelector: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.migrations.affinity }}
+      affinity: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.migrations.tolerations }}
+      tolerations: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.migrations.priorityClassName }}
+      priorityClassName: {{ . }}
+      {{- end }}
