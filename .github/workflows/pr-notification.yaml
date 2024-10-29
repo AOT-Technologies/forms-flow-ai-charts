@@ -26,9 +26,12 @@ jobs:
             echo "status=🟢 Open" >> $GITHUB_ENV
           fi
 
-      - name: Confirm PR_NOTIFICATION Secret is Set
+      - name: Set PR_NOTIFICATION for Debugging
+        run: echo "PR_NOTIFICATION=${{ secrets.PR_NOTIFICATION }}" >> $GITHUB_ENV
+
+      - name: Check if PR_NOTIFICATION Secret is Set
         run: |
-          if [[ -z "${{ secrets.PR_NOTIFICATION }}" ]]; then
+          if [[ -z "${PR_NOTIFICATION}" ]]; then
             echo "PR_NOTIFICATION secret is not set."
           else
             echo "PR_NOTIFICATION secret is set."
