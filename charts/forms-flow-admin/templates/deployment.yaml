@@ -84,177 +84,140 @@ spec:
         lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
         {{- end }}
         env:
-          {{- if .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-          - name: DATABASE_NAME
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabaseNameKey }}
-          - name: DATABASE_NAME
-            valueFrom:
-              secretKeyRef:
-                key: DATABASE_NAME
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-          - name: DATABASE_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabaseUserNameKey }}
-          - name: DATABASE_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: DATABASE_USERNAME
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          {{- if .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-          - name: DATABASE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabasePasswordKey }}
-          - name: DATABASE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: DATABASE_PASSWORD
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          - name: DATABASE_PORT
-            valueFrom:
-              configMapKeyRef:
-                key: DATABASE_PORT
-                name: "{{ .Chart.Name }}"
-          {{- if .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-          - name: DATABASE_HOST
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-                name: "{{ .Values.ExternalDatabase.ExistingSecretName }}"
-          {{- end }}
-          {{- if not .Values.ExternalDatabase.ExistingDatabaseHostKey }}
-          - name: DATABASE_HOST
-            valueFrom:
-              secretKeyRef:
-                key: DATABASE_HOST
-                name: "{{ .Chart.Name }}"
-          {{- end }}
-          - name: DATABASE_URL
-            valueFrom:
-              configMapKeyRef:
-                key: DATABASE_URL
-                name: "{{ .Chart.Name }}"
-          - name: JWT_OIDC_ALGORITHMS
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_JWT_OIDC_ALGORITHMS
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: JWT_OIDC_AUDIENCE
-            valueFrom:
-              secretKeyRef:
-                key: ADMIN_WEB_CLIENTID
-                name: "{{ .Values.formsflow.secret }}"
-          - name: JWT_OIDC_CACHING_ENABLED
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_JWT_OIDC_CACHING_ENABLED
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: JWT_OIDC_ISSUER
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_JWT_OIDC_ISSUER
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: JWT_OIDC_JWKS_CACHE_TIMEOUT
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: JWT_OIDC_JWKS_URI
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_JWT_OIDC_JWKS_URI
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: JWT_OIDC_WELL_KNOWN_CONFIG
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_JWT_OIDC_CONFIG
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: KEYCLOAK_URL
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_URL
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: FORMSFLOW_WEB_URL
-            valueFrom:
-              configMapKeyRef:
-                key: FORMSFLOW_WEB_URL
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: KEYCLOAK_URL_REALM
-            valueFrom:
-              configMapKeyRef:
-                key: KEYCLOAK_URL_REALM
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: INSIGHT_API_URL
-            valueFrom:
-              configMapKeyRef:
-                key: INSIGHT_API_URL
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: INSIGHT_API_KEY
-            valueFrom:
-              secretKeyRef:
-                key: INSIGHT_API_KEY
-                name: "{{ .Values.formsflow.secret }}"
-          - name: BPM_API_URL
-            valueFrom:
-              configMapKeyRef:
-                key: BPM_API_URL
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: KEYCLOAK_ADMIN_CLIENT
-            valueFrom:
-              secretKeyRef:
-                key: KEYCLOAK_CLIENTID
-                name: "{{ .Values.formsflow.secret }}"
-          - name: KEYCLOAK_ADMIN_SECRET
-            valueFrom:
-              secretKeyRef:
-                key: KEYCLOAK_CLIENTSECRET
-                name: "{{ .Values.formsflow.secret }}"
-          - name: FORMIO_ROOT_EMAIL
-            valueFrom:
-              secretKeyRef:
-                key: FORMIO_ROOT_EMAIL
-                name: "{{ .Values.formsflow.secret }}"
-          - name: FORMIO_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: FORMIO_ROOT_PASSWORD
-                name: "{{ .Values.formsflow.secret }}"
-          - name: FORMIO_URL
-            valueFrom:
-              configMapKeyRef:
-                key: FORMIO_URL
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: FORMIO_JWT_SECRET
-            valueFrom:
-              secretKeyRef:
-                key: FORMIO_JWT_SECRET
-                name: "{{ .Values.formsflow.secret }}"
-          - name: BPM_CLIENT_SECRET
-            valueFrom:
-              secretKeyRef:
-                key: KEYCLOAK_CLIENTSECRET
-                name: "{{ .Values.formsflow.secret }}"
-          - name: FORMSFLOW_ADMIN_API_CORS_ORIGINS
-            value: '*'
-          {{- if .Values.extraEnvVars }}
-          {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
-          {{- end }}
+        {{- $secretName := .Values.ExternalDatabase.ExistingSecretName | default .Chart.Name }}
+        {{- $configmapName := .Values.ExternalDatabase.ExistingConfigmapName | default .Chart.Name }}
+        {{- with .Values.ExternalDatabase }}
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              key: {{ .ExistingDatabaseNameKey | default "DATABASE_NAME" }}
+              name: "{{ $secretName }}"
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: {{ .ExistingDatabaseUserNameKey | default "DATABASE_USERNAME" }}
+              name: "{{ $secretName }}"
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: {{ .ExistingDatabasePasswordKey | default "DATABASE_PASSWORD" }}
+              name: "{{ $secretName }}"
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: {{ .ExistingDatabasePortKey | default "DATABASE_PORT" }}
+              name: "{{ $configmapName }}"
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              key: {{ .ExistingDatabaseHostKey | default "DATABASE_HOST" }}
+              name: "{{ $secretName }}"
+        {{- end }}
+        - name: JWT_OIDC_ALGORITHMS
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_JWT_OIDC_ALGORITHMS
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: JWT_OIDC_AUDIENCE
+          valueFrom:
+            secretKeyRef:
+              key: ADMIN_WEB_CLIENTID
+              name: "{{ .Values.formsflow.secret }}"
+        - name: JWT_OIDC_CACHING_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_JWT_OIDC_CACHING_ENABLED
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: JWT_OIDC_ISSUER
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_JWT_OIDC_ISSUER
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: JWT_OIDC_JWKS_CACHE_TIMEOUT
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_JWT_OIDC_JWKS_CACHE_TIMEOUT
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: JWT_OIDC_JWKS_URI
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_JWT_OIDC_JWKS_URI
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: JWT_OIDC_WELL_KNOWN_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_JWT_OIDC_CONFIG
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: KEYCLOAK_URL
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMSFLOW_WEB_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMSFLOW_WEB_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: KEYCLOAK_URL_REALM
+          valueFrom:
+            configMapKeyRef:
+              key: KEYCLOAK_URL_REALM
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: INSIGHT_API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: INSIGHT_API_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: INSIGHT_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: INSIGHT_API_KEY
+              name: "{{ .Values.formsflow.secret }}"
+        - name: BPM_API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: BPM_API_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: KEYCLOAK_ADMIN_CLIENT
+          valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_CLIENTID
+              name: "{{ .Values.formsflow.secret }}"
+        - name: KEYCLOAK_ADMIN_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_CLIENTSECRET
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_ROOT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_EMAIL
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_ROOT_PASSWORD
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMIO_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMIO_URL
+              name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMIO_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: FORMIO_JWT_SECRET
+              name: "{{ .Values.formsflow.secret }}"
+        - name: BPM_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_CLIENTSECRET
+              name: "{{ .Values.formsflow.secret }}"
+        - name: FORMSFLOW_ADMIN_API_CORS_ORIGINS
+          value: '*'
+        {{- if .Values.extraEnvVars }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
+        {{- end }}
         envFrom:
           {{- if .Values.extraEnvVarsCM }}
           - configMapRef:

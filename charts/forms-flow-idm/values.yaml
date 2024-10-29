@@ -54,20 +54,21 @@ keycloak:
   ## @param extraVolumes Optionally specify extra list of additional volumes for Keycloak pods
   ##
   extraVolumes: 
-    - name: "forms-flow-idm-realm-config"
-      configMap:
-        name: "forms-flow-idm"
     - name: formsflow-themes
-      emptyDir: {}
+      emptyDir: {}     
   ## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for Keycloak container(s)
   ##
   extraVolumeMounts: 
-    - name: "forms-flow-idm-realm-config"
+    - name: "formsflow-themes"
       mountPath: "/opt/bitnami/keycloak/data/import"
+      subPath: import
       readOnly: false
     - mountPath: /opt/bitnami/keycloak/themes
       name: formsflow-themes
       subPath: themes
+    - mountPath: /opt/bitnami/keycloak/providers
+      name: formsflow-themes
+      subPath: providers
   ## @param initContainers Add additional init containers to the Keycloak pods
   ## Example:
   ## initContainers:
@@ -80,18 +81,21 @@ keycloak:
   ##
   initContainers:
     - name: formsflow-themes
-      image: formsflow/keycloak-customizations:v6.1.0-alpha
+      image: formsflow/keycloak-customizations:v7.0.0-alpha
       imagePullPolicy: Always
       securityContext:
         runAsUser: 1001
       command: ["/bin/sh","-c"]
       args:
       - "mkdir -p /opt/bitnami/keycloak/themes && \
+         mkdir -p /opt/bitnami/keycloak/providers && \
+         mkdir -p /opt/bitnami/keycloak/import && \
          cp -rf /custom/themes/* /opt/bitnami/keycloak/themes && \
-         ls -ltra /opt/bitnami/keycloak/themes"
+         cp -rf /custom/imports/* /opt/bitnami/keycloak/import && \
+         cp -rf /custom/providers/* /opt/bitnami/keycloak/providers"
       volumeMounts:
       - mountPath: /opt/bitnami/keycloak
-        name: formsflow-themes
+        name: formsflow-themes     
   ## Bitnami Keycloak image version
   ## ref: https://hub.docker.com/r/bitnami/keycloak/tags/
   ## @param image.registry [default: REGISTRY_NAME] Keycloak image registry
@@ -105,7 +109,7 @@ keycloak:
   image:
     registry: "docker.io"
     repository: "bitnami/keycloak" 
-    tag: 23.0.7
+    tag: 25.0.6-debian-12-r0
   ## PostgreSQL chart configuration
   ## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
   ## @param postgresql.enabled Switch to enable or disable the PostgreSQL helm chart

@@ -91,48 +91,71 @@ spec:
         lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
         {{- end }}
         env:
-        {{- if .Values.camunda.externalDatabase.existingDatabaseNameKey }}
+        {{- if .Values.camunda.ExternalDatabase.ExistingDatabaseNameKey }}
         - name: CAMUNDA_DATABASE_NAME
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.camunda.externalDatabase.existingDatabaseNameKey }}
-              name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
-        {{- end }}
-        {{- if not .Values.camunda.externalDatabase.existingDatabaseNameKey }}
+              key: {{ .Values.camunda.ExternalDatabase.ExistingDatabaseNameKey }}
+              name: {{ .Values.camunda.ExternalDatabase.ExistingSecretName }}
+        {{- else}}
         - name: CAMUNDA_DATABASE_NAME
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: CAMUNDA_DATABASE_NAME
               name: "{{ .Chart.Name }}"
-        {{- end}}
-        {{- if .Values.camunda.externalDatabase.existingDatabasePortKey }}
-        - name: CAMUNDA_DATABASE_PORT
+        {{- end }}
+        {{- if .Values.camunda.ExternalDatabase.ExistingDatabaseUsernameKey }}
+        - name: CAMUNDA_JDBC_USER
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.camunda.externalDatabase.existingDatabasePortKey }}
-              name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
-        {{- end }}
-        {{- if not .Values.camunda.externalDatabase.existingDatabasePortKey }}
+              key: {{ .Values.camunda.ExternalDatabase.ExistingDatabaseUsernameKey }}
+              name: {{ .Values.camunda.ExternalDatabase.ExistingSecretName }}
+        {{- else}}
+        - name: CAMUNDA_JDBC_USER
+          valueFrom:
+            secretKeyRef:
+              key: CAMUNDA_JDBC_USER
+              name: "{{ .Chart.Name }}"      
+        {{- end}}
+        {{- if .Values.camunda.ExternalDatabase.ExistingDatabasePasswordKey }}
+        - name: CAMUNDA_JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: {{ .Values.camunda.ExternalDatabase.ExistingDatabasePasswordKey }}
+              name: {{ .Values.camunda.ExternalDatabase.ExistingSecretName }}
+        {{- else}}
+        - name: CAMUNDA_JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: CAMUNDA_JDBC_PASSWORD
+              name: "{{ .Chart.Name }}"        
+        {{- end}}
+        {{- if .Values.camunda.ExternalDatabase.ExistingDatabasePortKey }}
+        - name: CAMUNDA_DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: {{ .Values.camunda.ExternalDatabase.ExistingDatabasePortKey }}
+              name: {{ .Values.camunda.ExternalDatabase.ExistingConfigmapName }}
+        {{- else }}
         - name: CAMUNDA_DATABASE_PORT
           valueFrom:
             configMapKeyRef:
               key: CAMUNDA_DATABASE_PORT
               name: "{{ .Chart.Name }}"
-        {{- end}}
-        {{- if .Values.camunda.externalDatabase.existingDatabaseHostKey }}
+        {{- end }}  
+        {{- if .Values.camunda.ExternalDatabase.ExistingDatabaseHostKey }}
         - name: CAMUNDA_DATABASE_SERVICE_NAME
           valueFrom:
             secretKeyRef:
-              key: {{ .Values.camunda.externalDatabase.existingDatabaseHostKey }}
-              name: "{{ .Values.camunda.externalDatabase.existingSecretName }}"
-        {{- end }}
-        {{- if not .Values.camunda.externalDatabase.existingDatabaseHostKey }}
+              key: {{ .Values.camunda.ExternalDatabase.ExistingDatabaseHostKey }}
+              name: "{{ .Values.camunda.ExternalDatabase.ExistingSecretName }}"
+        {{- else }}
         - name: CAMUNDA_DATABASE_SERVICE_NAME
           valueFrom:
             configMapKeyRef:
               key: DATABASE_SERVICE_NAME
               name: "{{ .Values.formsflow.configmap }}"
-        {{- end}}
+        {{- end }}
         - name: CAMUNDA_APP_ROOT_LOG_FLAG
           valueFrom:
             configMapKeyRef:
@@ -162,16 +185,6 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: CAMUNDA_JDBC_URL
-              name: "{{ .Chart.Name }}"
-        - name: CAMUNDA_JDBC_USER
-          valueFrom:
-            configMapKeyRef:
-              key: CAMUNDA_JDBC_USER
-              name: "{{ .Chart.Name }}"
-        - name: CAMUNDA_JDBC_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: CAMUNDA_JDBC_PASSWORD
               name: "{{ .Chart.Name }}"
         - name: KEYCLOAK_URL
           valueFrom:
@@ -286,7 +299,7 @@ spec:
               key: KEYCLOAK_URL_HTTP_RELATIVE_PATH
               name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
-          {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
         envFrom:
           {{- if .Values.extraEnvVarsCM }}
