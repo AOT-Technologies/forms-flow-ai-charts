@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Check if the class name was provided as an argument
+# Check if the namespace was provided as an argument
 if [ -z "$1" ]; then
-  echo "Class name not provided. Exiting..."
+  echo "Namespace not provided. Exiting..."
   exit 1
 fi
 
-# Retrieve the class name from the argument
-CLASSNAME="$1"
+# Retrieve the namespace from the argument
+namespace="$1"
 
 # Prompt the user for their Redash username
 read -p "Enter your Redash username: " USERNAME
@@ -16,8 +16,7 @@ read -p "Enter your Redash username: " USERNAME
 read -s -p "Enter your Redash password: " PASSWORD
 echo
 
-# Construct the Redash URL by replacing the 'test' part with the class name
-REDASH_URL="https://forms-flow-analytics-$CLASSNAME.aot-technologies.com"
+REDASH_URL="https://forms-flow-analytics-$namespace.aot-technologies.com"
 # Step 1: Authenticate and get session cookie
 LOGIN_RESPONSE=$(curl -s -X POST "$REDASH_URL/login" \
   -H "Content-Type: application/x-www-form-urlencoded" \
