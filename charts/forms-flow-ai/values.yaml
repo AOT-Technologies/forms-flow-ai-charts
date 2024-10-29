@@ -720,6 +720,7 @@ redisExporter:
   ##       - name: portname
   ##         containerPort: 1234
   ##
+  
   sidecars: []
   ## @param redisExporter.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
   ## Example:
