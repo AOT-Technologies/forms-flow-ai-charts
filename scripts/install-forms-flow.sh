@@ -187,7 +187,7 @@ displayPrompts() {
     read -p "Install using forms-flow package registry? (y/n):" is_from_registry
     read -p "Please enter the domain name (ex: apps.bronze.$domain_name):" domain_name
     read -p "Please enter the namespace (ex: forms-flow):" namespace
-    read -p "Please enter the class name (ex: formsflow):" classname
+    read -p "Please enter the ingress class name (ex: formsflow):" classname
     read -p "Is this a premium installation? (y/n):" is_premium
     read -p "Use the latest version release? (y) or stable release (n):" is_latest_release
 }
