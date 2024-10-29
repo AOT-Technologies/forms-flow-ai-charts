@@ -306,10 +306,10 @@ server:
   # server.resources -- Server resource requests and limits [ref](http://kubernetes.io/docs/user-guide/compute-resources/)
   resources:
     limits:
-      cpu: 900m
+      cpu: 1500m
       memory: 2Gi
     requests:
-      cpu: 1500m
+      cpu: 900m
       memory: 1Gi
 
   # server.livenessProbe -- Server liveness probe configuration
