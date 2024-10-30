@@ -8,6 +8,8 @@ fi
 
 # Retrieve the namespace from the argument
 namespace="$1"
+domain_name="$2"
+analytics_subdomain="$3"
 
 # Prompt the user for their Redash username
 read -p "Enter your Redash username: " USERNAME
@@ -16,7 +18,7 @@ read -p "Enter your Redash username: " USERNAME
 read -s -p "Enter your Redash password: " PASSWORD
 echo
 
-REDASH_URL="https://forms-flow-analytics-$namespace.aot-technologies.com"
+REDASH_URL="https://$analytics_subdomain-$namespace.$domain_name"
 # Step 1: Authenticate and get session cookie
 LOGIN_RESPONSE=$(curl -s -X POST "$REDASH_URL/login" \
   -H "Content-Type: application/x-www-form-urlencoded" \
