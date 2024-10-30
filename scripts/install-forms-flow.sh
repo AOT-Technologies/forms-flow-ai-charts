@@ -9,7 +9,7 @@ main() {
     displayPrompts
 
     # Make sure all prompts have been answered
-    checkEmptyInput $is_from_registry $domain_name $namespace $is_premium $is_latest_release $classname
+    checkEmptyInput $is_from_registry $domain_name $namespace $is_premium $is_latest_release $classname $analytics_subdomain
 
     if [[ $is_premium =~ ^[Yy]$ ]]; then
         # Get username and access token for premium users
@@ -46,7 +46,7 @@ runHelmInstall() {
             if [[ $include_analytics =~ ^[Yy]$ ]]; then
                 helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set redash.multiOrg=true --set ingress.hosts[0].host=forms-flow-analytics-$namespace.$domain_name --set ingress.tls[0].secretName="forms-flow-analytics-$namespace.$domain_name-tls" --set ingress.tls[0].hosts[0]="forms-flow-analytics-$namespace.$domain_name" --set ingress.hosts[0].paths[0]="/" -n $namespace --version $version_ff_analytics
             # Call external script to get Redash API Key
-            getRedashApiKey $namespace
+            getRedashApiKey $namespace $domain_name $analytics_subdomain
             # Store Redash API key in a variable
             REDASH_API_KEY=$?
             echo "Redash API Key: $REDASH_API_KEY"
@@ -71,7 +71,7 @@ runHelmInstall() {
             if [[ $include_analytics =~ ^[Yy]$ ]]; then
             helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set redash.multiOrg=true --set ingress.hosts[0].host=forms-flow-analytics-$namespace.$domain_name --set ingress.tls[0].secretName="forms-flow-analytics-$namespace.$domain_name-tls" --set ingress.tls[0].hosts[0]="forms-flow-analytics-$namespace.$domain_name" --set ingress.hosts[0].paths[0]="/" -n $namespace --version $version_ff_analytics
             # Call external script to get Redash API Key
-            getRedashApiKey $namespace
+            getRedashApiKey $namespace $domain_name $analytics_subdomain
             # Store Redash API key in a variable
             REDASH_API_KEY=$?
             echo "Redash API Key: $REDASH_API_KEY"
@@ -100,7 +100,7 @@ runHelmInstall() {
         if [[ $include_analytics =~ ^[Yy]$ ]]; then
             helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-analytics-$namespace.$domain_name -n $namespace --version $version_ff_analytics
         # Call external script to get Redash API Key
-        getRedashApiKey $namespace
+        getRedashApiKey $namespace $domain_name $analytics_subdomain
         # Store Redash API key in a variable
         REDASH_API_KEY=$?
         echo "Redash API Key: $REDASH_API_KEY"
@@ -122,8 +122,8 @@ runHelmInstall() {
 
 getRedashApiKey() {
     # Call the external script to get Redash API Key
-    bash ./get_redash_api_key.sh "$1"
-    return $API_KEY
+    bash ./get_redash_api_key.sh "$1" "$2" "$3"
+    return $REDASH_API_KEY
 }
 
 configureInstall() {
@@ -190,6 +190,7 @@ displayPrompts() {
     read -p "Please enter the ingress class name (ex: formsflow):" classname
     read -p "Is this a premium installation? (y/n):" is_premium
     read -p "Use the latest version release? (y) or stable release (n):" is_latest_release
+    analytics_subdomain="forms-flow-analytics"
 }
 
 checkdirectory() {
