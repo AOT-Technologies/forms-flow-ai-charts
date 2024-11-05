@@ -112,7 +112,7 @@ spec:
           - name: REACT_APP_BPM_URL
             valueFrom:
               configMapKeyRef:
-                key: BPM_API_URL
+                key: BPM_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: REACT_APP_KEYCLOAK_CLIENT
             valueFrom:

@@ -13,28 +13,43 @@ forms-flow-bpm:
   clientid: "forms-flow-bpm"
   clientsecret: "e4bdbd25-1467-4f7f-b993-bc4b1944c943"
   ingress:
-      hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+    hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-bpm
+    port: "8080"
 forms-flow-forms:
   admin:
     email: "me@defineme.com"
     password: "admin"
   ingress:
     hostname: forms-flow-forms-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-forms
+    port: "3001"
 forms-flow-api:
   ingress:
-      hostname: forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+    hostname: forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-api
+    port: "5000"
 forms-flow-admin:
   ingress:
-      hostname: forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+    hostname: forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-admin
+    port: "5000"
 forms-flow-documents-api:
   ingress:
-      hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+    hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-data-analysis:
   ingress:
-      hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+    hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-data-analysis
+    port: "5000"
 forms-flow-analytics:
   ingress:
-      hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+    hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-idm:
   keycloak:
     EnableKeycloakClientAuth: false
