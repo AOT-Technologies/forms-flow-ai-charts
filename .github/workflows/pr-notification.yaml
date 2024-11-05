@@ -10,7 +10,7 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
-    if: github.repository == 'AOT-Technologies/forms-flow-ai-charts'
+    # if: github.repository == 'AOT-Technologies/forms-flow-ai-charts'
 
     steps:
       - name: Determine PR Status
