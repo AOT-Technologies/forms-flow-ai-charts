@@ -41,6 +41,9 @@ forms-flow-admin:
 forms-flow-documents-api:
   ingress:
     hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-documents-api
+    port: "5006"
 forms-flow-data-analysis:
   ingress:
     hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
