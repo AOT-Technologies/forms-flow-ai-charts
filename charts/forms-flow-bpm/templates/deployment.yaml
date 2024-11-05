@@ -298,6 +298,11 @@ spec:
             configMapKeyRef:
               key: KEYCLOAK_URL_HTTP_RELATIVE_PATH
               name: "{{ .Values.formsflow.configmap }}"
+        - name: FORMSFLOW_DOC_API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: FORMSFLOW_DOC_API_URL
+              name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
