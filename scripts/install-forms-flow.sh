@@ -203,7 +203,7 @@ checkdirectory() {
 }
 
 checkEmptyInput() {
-    if [ ! ${#} = 5 ]; then
+    if [ ! ${#} = 7 ]; then
         echo "Please provide input for all prompts."
         exit 2
     fi
