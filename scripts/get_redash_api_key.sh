@@ -1,54 +1,54 @@
 #!/bin/bash
 
-# Check if the namespace was provided as an argument
-if [ -z "$1" ]; then
-  echo "Namespace not provided. Exiting..."
+# Ensure namespace is provided
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+  echo "Usage: $0 <namespace> <domain_name> <analytics_subdomain>"
   exit 1
 fi
 
-# Retrieve the namespace from the argument
-namespace="$1"
-domain_name="$2"
-analytics_subdomain="$3"
+NAMESPACE="$1"
+DOMAIN_NAME="$2"
+ANALYTICS_SUBDOMAIN="$3"
 
-# Prompt the user for their Redash username
+# Check if forms-flow-analytics is installed
+if helm status "forms-flow-analytics" -n "$NAMESPACE" > /dev/null 2>&1; then
+  echo "forms-flow-analytics is already installed."
+else
+  echo "forms-flow-analytics does not exist. Installing now."
+  helm install "forms-flow-analytics" ./forms-flow-analytics-chart -n "$NAMESPACE"
+fi
+
+REDASH_URL="https://$ANALYTICS_SUBDOMAIN-$NAMESPACE.$DOMAIN_NAME"
+
+# Prompt for credentials
+echo "Redash URL: $REDASH_URL"
 read -p "Enter your Redash username: " USERNAME
-
-# Prompt the user for their Redash password (input hidden for security)
 read -s -p "Enter your Redash password: " PASSWORD
 echo
 
-REDASH_URL="https://$analytics_subdomain-$namespace.$domain_name"
-# Step 1: Authenticate and get session cookie
+# Authenticate and retrieve API key
 LOGIN_RESPONSE=$(curl -s -X POST "$REDASH_URL/login" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   --data-urlencode "email=$USERNAME" \
   --data-urlencode "password=$PASSWORD" \
   -c cookies.txt)
 
-# Check if login was successful
 if ! echo "$LOGIN_RESPONSE" | grep -q 'Redirecting'; then
-  echo "Login failed!"
+  echo "Login failed! Verify your credentials or URL."
+  rm cookies.txt
   exit 1
 fi
 
-echo "Login successful"
+API_RESPONSE=$(curl -s -X GET "$REDASH_URL/api/users/me" -b cookies.txt)
+API_KEY=$(echo "$API_RESPONSE" | jq -r '.api_key')
 
-# Step 2: Retrieve the API key
-API_RESPONSE=$(curl -s -X GET "$REDASH_URL/api/users/me" \
-  -b cookies.txt)
-
-# Extract the API key
-API_KEY=$(echo "$API_RESPONSE" | grep -Po '"api_key": *"\K[^"]*')
-
-# Check if API key is extracted
 if [ -z "$API_KEY" ]; then
   echo "Failed to retrieve API key!"
+  rm cookies.txt
   exit 1
 fi
 
-# Return the API key
-echo "$API_KEY"
+echo "Redash API Key: $API_KEY"
 
-# Cleanup cookies file
+# Cleanup
 rm cookies.txt
