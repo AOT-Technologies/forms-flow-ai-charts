@@ -7,13 +7,6 @@ Expand the name of the chart.
 {{- end -}}
 
 {{/*
-Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
-*/}}
-{{- define "redash.names.namespace" -}}
-{{- default .Release.Namespace .Values.namespaceOverride | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "redash.chart" -}}
@@ -57,7 +50,11 @@ Create a default fully qualified scheduler name.
 Create a default fully qualified postgresql name.
 */}}
 {{- define "redash.postgresql.fullname" -}}
-{{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- if .Values.postgresql.enabled -}}
+  {{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+    {{- printf "%s" .Values.postgresql.fullnameOverride -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
@@ -91,6 +88,19 @@ Shared environment block used across each component.
   {{- else }}
   value: {{ default "" .Values.externalPostgreSQL | quote }}
   {{- end }}
+- name: REDASH_DATABASE_USER
+  value: {{ .Values.postgresql.auth.username | quote }}
+- name: REDASH_DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Release.Name }}
+      key: redashDatabasePassword
+- name: REDASH_DATABASE_HOSTNAME
+  value: {{ include "redash.postgresql.fullname" . }}
+- name: REDASH_DATABASE_PORT
+  value: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
+- name: REDASH_DATABASE_NAME
+  value: {{ .Values.postgresql.auth.database | quote }}
 {{- end }}
 {{- else -}}
 - name: REDASH_DATABASE_USER
