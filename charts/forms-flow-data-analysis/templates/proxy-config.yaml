@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}-nginx-config
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: forms-flow-api
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+data:
+  nginx.conf: |
+    events { worker_connections 1024; }
+    http {
+      server {
+        listen 80;
+        location /analysis {
+          rewrite ^/analysis/(.*)$ /$1 break;
+          sub_filter '="/' '="/analysis/';
+          sub_filter '="/swaggerui/' '="/analysis/swaggerui/';
+          sub_filter_once off;
+          sub_filter_types application/javascript text/css text/xml text/javascript application/json text/plain;
+          proxy_set_header Host $http_host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header SCRIPT_NAME /analysis;
+          proxy_pass http://localhost:{{.Values.ingress.servicePort}};
+        }
+        location /analysis/swagger.json {
+          proxy_set_header Host $http_host;
+          proxy_pass http://localhost:{{.Values.ingress.servicePort}}/swagger.json;
+        }
+      }
+    }
+    pid /tmp/nginx.pid;

@@ -196,6 +196,19 @@ extraVolumes: {}
 ##
 extraVolumeMounts: {}
 
+
+
+## sidecars configuration
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+
 ## @param auth.existingSecret Existing secret containing password,username,dbname and 
   ##
 auth:
@@ -246,7 +259,7 @@ ingress:
   hostname: forms-flow-documents-api.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/"
+  path: "/docapi"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
@@ -394,6 +407,10 @@ service:
     - name: http
       port: 5006
       targetPort: http
+      protocol: TCP
+    - name: nginx
+      port: 80
+      targetPort: 80
       protocol: TCP
       ## - name: system
       ##   port: 1764

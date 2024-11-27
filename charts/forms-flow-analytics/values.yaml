@@ -349,13 +349,26 @@ server:
   podLabels: {}
 
   # server.volumes -- Volumes for server pod assignment [ref](https://kubernetes.io/docs/concepts/storage/volumes/)
-  volumes: []
+  volumes:
+    - name: nginx-config-volume
+      configMap:
+        name: forms-flow-analytics-nginx-config
 
   # server.volumeMounts -- VolumeMounts for server pod assignment [ref](https://kubernetes.io/docs/concepts/storage/volumes/)
   volumeMounts: []
 
   # priorityClassName -- Priority class name for server pod assignment [ref](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/)
   priorityClassName:
+  
+  extraContainers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
 
 service:
   # service.annotations -- Annotations to add to the service
@@ -368,13 +381,15 @@ service:
   externalTrafficPolicy: ""
   # service.port -- Service external port
   port: 5000
-
+  
+  sidecar:
+    port: 80
+    httpPort: 80  
 ingress:
   # ingress.enabled -- Enable ingress controller resource
   enabled: true
   # ingress.annotations -- Ingress annotations configuration
   annotations: {}
-
   # ingress.ingressClassName -- Sets the ingress controller class name to use.
   ingressClassName: ""
 
@@ -384,7 +399,8 @@ ingress:
       paths: []
   #ingress.pathType -- How ingress paths should be treated.
   pathType: Prefix
-
+  
+  port: 80
   # ingress.tls -- Ingress TLS configuration
   tls: []
   #  - secretName: forms-flow-analytics-test.aot-technologies.com-tls
@@ -569,7 +585,7 @@ migrations:
   priorityClassName:
 
 # externalPostgreSQL -- External PostgreSQL configuration. To use an external PostgreSQL instead of the automatically deployed postgresql chart: set postgresql.enabled to false then uncomment and configure the externalPostgreSQL connection URL (e.g. postgresql://user:pass@host:5432/database)
-externalPostgreSQL: postgresql://postgres:postgres@forms-flow-ai-postgresql-ha-pgpool/forms-flow-analytics
+externalPostgreSQL:
 # externalPostgreSQLSecret -- Read external PostgreSQL configuration from a secret. This should point at a secret file with a single key which specifies the connection string.
 externalPostgreSQLSecret:
   {}
@@ -583,6 +599,7 @@ externalPostgreSQLSecret:
 postgresql:
   # postgresql.enabled -- Whether to deploy a PostgreSQL server to satisfy the applications database requirements. To use an external PostgreSQL set this to false and configure the externalPostgreSQL parameter.
   enabled: false
+  fullnameOverride: "forms-flow-ai-postgresql-ha-pgpool"
   primary:
     service:
       ports:
@@ -592,11 +609,11 @@ postgresql:
   
   auth:
     # postgresql.auth.username -- PostgreSQL username for redash user (when postgresql chart enabled)
-    username: redash
+    username: postgres
     # postgresql.auth.password -- REQUIRED: PostgreSQL password for redash user (when postgresql chart enabled)
-    password:
+    password: postgres
   # postgresql.auth.database -- PostgreSQL database name (when postgresql chart enabled)
-    database: redash
+    database: forms-flow-analytics
 
 # externalRedis -- External Redis configuration. To use an external Redis instead of the automatically deployed redis chart: set redis.enabled to false then uncomment and configure the externalRedis connection URL (e.g. redis://user:pass@host:6379/database).
 externalRedis: redis://redis-exporter:6379/0

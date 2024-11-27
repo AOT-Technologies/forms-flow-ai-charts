@@ -527,7 +527,7 @@ postgresql-ha:
     ## If undefined (the default) or set to null, no storageClassName spec is
     ## set, choosing the default provisioner.
     ##  
-    storageClass: ""
+    storageClass: "gp2"
     ## @param persistence.mountPath The path the volume will be mounted at, useful when using different PostgreSQL images.
     ##  
     mountPath: /bitnami/postgresql

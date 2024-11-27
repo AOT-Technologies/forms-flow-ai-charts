@@ -58,7 +58,7 @@ spec:
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.podSecurityContext "context" $) | nindent 8 }}
       {{- end }}
-      containers:
+      containers:       
         - name: forms-flow-api
           image: {{ include "forms-flow-api.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
@@ -87,7 +87,7 @@ spec:
           - name: BPM_API_URL
             valueFrom:
               configMapKeyRef:
-                key: BPM_API_SERVICE_URL
+                key: BPM_API_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: BPM_CLIENT_ID
             valueFrom:
@@ -289,9 +289,15 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
+            {{- if .Values.sidecars }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
+            {{- end }}
       volumes:
       - name: api-logs
         emptyDir: {}
+      - name: nginx-config-volume
+        configMap:
+          name: forms-flow-api-nginx-config      
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
