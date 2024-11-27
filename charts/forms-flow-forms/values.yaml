@@ -248,7 +248,7 @@ ingress:
   hostname: forms-flow-forms.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/formio/(.*)"
+  path: "/formio"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
