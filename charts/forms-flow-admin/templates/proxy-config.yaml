@@ -15,14 +15,18 @@ data:
       server {
         listen 80;
         location /admin {
-            rewrite ^/admin/(.*)$ /$1 break;
-            proxy_set_header Host $http_host;
-            proxy_set_header Authorization $http_authorization;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header Content-Type application/json;
-            proxy_pass http://localhost:{{.Values.ingress.servicePort}};
+          sub_filter ="/ ="/admin/;
+          sub_filter ="/api/v1/swagger.json ="/admin/api/v1/swagger.json;
+          sub_filter_once off;
+          sub_filter_types application/javascript text/css text/xml text/javascript application/json text/plain;
+          rewrite ^/admin/(.*)$ /$1 break;
+          proxy_set_header Host $http_host;
+          proxy_set_header Authorization $http_authorization;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header Content-Type application/json;
+          proxy_pass http://localhost:{{.Values.ingress.servicePort}};
         }
       }
     }
