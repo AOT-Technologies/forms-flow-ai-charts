@@ -1,4 +1,4 @@
-# Formsflow.ai Analytics Engine
+# Formsflow.ai Analytics
 
 **formsflow.ai** leverages [Redash](https://github.com/getredash/redash) to build interactive
 dashboards and gain insights. 
@@ -19,10 +19,10 @@ helm install forms-flow-analytics forms-flow-analytics
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install forms-flow-analytics forms-flow-analytics  --set ingress.ingressClassName=INGRESS_CLASS --set ingress.hostname=HOSTNAME
+helm upgrade --install forms-flow-analytics forms-flow-analytics --set ingress.ingressClassName=INGRESS_CLASS --set ingress.hosts[0].host=HOSTNAME --set ingress.tls[0].secretName="SECRETNAME" --set ingress.tls[0].hosts[0]="HOSTNAME" --set ingress.hosts[0].paths[0]="/" -n NAMESPACE
 ```
 
-> Note: You need to substitute the placeholders `INGRESS_CLASS`, `HOSTNAME` with a reference to your Helm chart registry and repository. For example, in the case of Formsflow, you need to use `INGRESS_CLASS=nginx`
+> Note: You need to substitute the placeholders `INGRESS_CLASS`, `HOSTNAME` and `SECRETNAME` with a reference to your Helm chart registry and repository. For example, in the case of Formsflow, you need to use `INGRESS_CLASS=nginx`
 
 These commands deploy Forms-flow-analytics on the Kubernetes cluster
 
@@ -32,16 +32,50 @@ These commands deploy Forms-flow-analytics on the Kubernetes cluster
 
 Forms-flow-analytics charts allow setting resource requests and limits for all containers inside the chart deployment. These are inside the `resources` value (check parameter table). Setting requests is essential for production workloads and these should be adapted to your specific use case.
 
-```yaml
-resources:
-  limits:
-    cpu: 200m
-    memory: 2Gi
-  requests:
-    cpu: 180m
-    memory: 1Gi
-```
+## Server
 
+```yaml
+  resources:
+    limits:
+      cpu: 1500m
+      memory: 2Gi
+    requests:
+      cpu: 900m
+      memory: 1Gi
+```
+## Worker
+
+```yaml
+  resources:
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
+```
+## Scheduler
+
+```yaml
+  resources:
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
+```
+## Migrations
+
+```yaml
+  resources:
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
+```
 
 ## Parameters
 

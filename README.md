@@ -45,3 +45,21 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+## Chart Versions
+
+The versions of Helm charts available in this repository are as follows:
+
+| Formsflow Version         | Chart Name                | Chart Version |
+|---------------------------|---------------------------|---------------------------|
+| 7.0.0                     | forms-flow-ai             | v8.0.0                    |
+| 6.0.2                     | forms-flow-ai             | v7.1.2                    |
+| 6.0.1                     | forms-flow-ai             | v7.1.1                    |
+| 6.0.0                     | forms-flow-ai             | v6.0.0                    |
+| 5.3.1                     | forms-flow-ai             | v5.3.1                    |
+| 5.3.0                     | forms-flow-ai             | v5.3.0                    |
+| 5.2.2                     | forms-flow-ai             | v5.2.2                    |
+| 5.2.1                     | forms-flow-ai             | v5.2.1                    |
+| 5.2.0                     | forms-flow-ai             | v5.2.0                    |
+| 5.1.1                     | forms-flow-ai             | v5.1.1                    |
+| 5.1.0                     | forms-flow-ai             | v5.1.0                    |
