@@ -406,7 +406,7 @@ ingress:
   #  - secretName: forms-flow-analytics-test.aot-technologies.com-tls
   #    hosts:
   #      - forms-flow-analytics-test.aot-technologies.com
-
+  subFilterHost: chart-example.local
 ## Configuration for Redash workers
 workers:
   adhoc:
