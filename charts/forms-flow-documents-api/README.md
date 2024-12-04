@@ -81,7 +81,6 @@ For example:
 ```
 https://<HOSTNAME>/docapi
 ```
-
 ## Parameters
 
 | Parameter                                | Description                                                                                          | Default Value               |

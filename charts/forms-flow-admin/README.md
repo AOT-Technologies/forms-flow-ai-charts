@@ -85,7 +85,6 @@ For example:
 https://<HOSTNAME>/admin
 ```
 
-
 ## Parameters
 
 | Parameter                          | Description                                         | Default Value                      |

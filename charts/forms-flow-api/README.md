@@ -86,7 +86,6 @@ For example:
 ```
 https://<HOSTNAME>/api
 ```
-
 ## Parameters
 
 | Parameter                                             | Description                                         | Default Value               |

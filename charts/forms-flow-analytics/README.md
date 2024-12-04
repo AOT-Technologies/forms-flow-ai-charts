@@ -93,7 +93,6 @@ sidecars:
         mountPath: /etc/nginx/nginx.conf
         subPath: nginx.conf
 ```
-
 ## Path Update
 The `Forms-flow-analytics` can now be accessed at the `/redash` route. Ensure that all configurations and requests reference this updated path.
 

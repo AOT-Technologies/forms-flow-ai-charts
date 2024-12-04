@@ -78,7 +78,6 @@ extraEnvVars:
   - name: VAULT_SECRET
     value: ""
 ```
-
 ## Sidecar Configuration
 
 To add a sidecar to your `Forms-flow-bpm` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
@@ -105,7 +104,6 @@ For example:
 ```
 https://<HOSTNAME>/camunda
 ```
-
 ## Parameters
 
 | Parameter                        | Description                                                                                          | Default Value               |

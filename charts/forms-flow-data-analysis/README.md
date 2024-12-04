@@ -84,7 +84,6 @@ For example:
 ```
 https://<HOSTNAME>/analysis
 ```
-
 ## Parameters
 
 | Parameter                          | Description                                                                                          | Default Value               |
