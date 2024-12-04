@@ -4,7 +4,7 @@ image:
   repository: formsflow/forms-flow-data-analysis-api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v7.0.0-alpha"
+  tag: "v7.0.0-alpha-trim"
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -196,6 +196,17 @@ extraVolumes: {}
 ##
 extraVolumeMounts: {}
 
+## sidecars configuration
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+
 ## @param auth.existingSecret Existing secret containing password,username,dbname and 
   ##
 existingSecret: ""
@@ -243,7 +254,7 @@ ingress:
   hostname: forms-flow-data-analysis.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/"
+  path: "/analysis"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
@@ -391,6 +402,10 @@ service:
     - name: http
       port: 5000
       targetPort: http
+      protocol: TCP
+    - name: nginx
+      port: 80
+      targetPort: 80
       protocol: TCP
       ## - name: system
       ##   port: 1764

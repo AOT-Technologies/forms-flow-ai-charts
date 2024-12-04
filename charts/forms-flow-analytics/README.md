@@ -76,6 +76,31 @@ Forms-flow-analytics charts allow setting resource requests and limits for all c
       cpu: 200m
       memory: 1Gi
 ```
+## Sidecar Configuration
+
+To add a sidecar to your `Forms-flow-analytics` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
+
+### Example Sidecar Configuration
+
+```yaml
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+```
+## Path Update
+The `Forms-flow-analytics` can now be accessed at the `/redash` route. Ensure that all configurations and requests reference this updated path.
+
+For example:
+
+```
+https://<HOSTNAME>/redash
+```
 
 ## Parameters
 
@@ -258,7 +283,7 @@ Forms-flow-analytics charts allow setting resource requests and limits for all c
 | `ingress.apiVersion`                                     | Force Ingress API version                             | `""`                         |
 | `ingress.controller`                                     | The ingress controller type                            | `default`                    |
 | `ingress.hostname`                                       | Default host for the ingress record                   | `forms-flow-analytics.local` |
-| `ingress.path`                                          | Default path for the ingress record                   | `/`                          |
+| `ingress.path`                                          | Default path for the ingress record                   | `/redash`                          |
 | `ingress.servicePort`                                    | Backend service port to use                           | `5000`                       |
 | `ingress.annotations`                                    | Additional annotations for the Ingress resource       | `{}`                         |
 | `ingress.labels`                                         | Additional labels for the Ingress resource            | `{}`                         |
@@ -269,6 +294,7 @@ Forms-flow-analytics charts allow setting resource requests and limits for all c
 | `ingress.extraTls`                                       | TLS configuration for additional hostnames            | `[]`                         |
 | `ingress.secrets`                                        | Add custom certificates as secrets                     | `[]`                         |
 | `ingress.extraRules`                                     | Additional rules for the ingress record               | `[]`                         |
+| `ingress.subFilterHost`                                     | 	Sub-filter host for analytics application; also used as ingress hostname               | `chart-example.local`                         |
 
 ## Service Parameters
 

@@ -109,14 +109,8 @@ mongodb:
 | `formsflowdb.service.ports.postgresql`   | Port for the PostgreSQL service.                            | `5432`                       |
 | `forms-flow-forms.admin.email`            | Admin email for Forms Flow Forms.                           | `me@defineme.com`           |
 | `forms-flow-forms.admin.password`         | Admin password for Forms Flow Forms.                        | `admin`                     |
-| `forms-flow-forms.ingress.hostname`       | Hostname for the Forms Flow Forms ingress.                  | `forms-flow-forms-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
-| `forms-flow-api.ingress.hostname`         | Hostname for the Forms Flow API ingress.                    | `forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
-| `forms-flow-admin.ingress.hostname`       | Hostname for the Forms Flow Admin ingress.                  | `forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
-| `forms-flow-documents-api.ingress.hostname`| Hostname for the Forms Flow Documents API ingress.          | `forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
-| `forms-flow-data-analysis.ingress.hostname`| Hostname for the Forms Flow Data Analysis ingress.          | `forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
-| `forms-flow-analytics.ingress.hostname`   | Hostname for the Forms Flow Analytics ingress.              | `forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
 | `forms-flow-idm.keycloak.EnableKeycloakClientAuth` | Enable or disable Keycloak client authentication.         | `false`                     |
-| `forms-flow-idm.ingress.hostname`         | Hostname for the Forms Flow IDM ingress.                    | `forms-flow-idm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
+| `forms-flow-idm.keycloak.ingress.hostname`         | Hostname for the Forms Flow IDM ingress.                    | `forms-flow-idm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
 | `forms-flow-idm.realm`                     | Keycloak realm for the application.                         | `forms-flow-ai`             |
 | `forms-flow-idm.context-path`             | Context path for Keycloak authentication.                   | `/auth`                     |
 | `forms-flow-web.EnableMultitenant`        | Enable or disable multitenancy for the Forms Flow Web application. | `false`                   |

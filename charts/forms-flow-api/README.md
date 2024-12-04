@@ -60,6 +60,32 @@ image:
 
 The `forms-flow-api` image stores the application logs at the `/forms-flow-api/app/logs` path of the container.
 
+## Sidecar Configuration
+
+To add a sidecar to your `Forms-flow-api` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
+
+### Example Sidecar Configuration
+
+```yaml
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+```
+
+## API Path Update
+The `Forms-flow-api` can now be accessed at the `/api` route. Ensure that all configurations and requests reference this updated path.
+
+For example:
+
+```
+https://<HOSTNAME>/api
+```
 ## Parameters
 
 | Parameter                                             | Description                                         | Default Value               |
@@ -149,7 +175,7 @@ The `forms-flow-api` image stores the application logs at the `/forms-flow-api/a
 | `ingress.apiVersion`           | API version for the ingress (automatically detected if not set)                                     | `""`                        |
 | `ingress.controller`           | Ingress controller type. Options: `default`, `gce`                                                  | `default`                   |
 | `ingress.hostname`             | Default host for the ingress record                                                                  | `forms-flow-api.local`     |
-| `ingress.path`                 | Default path for the ingress record                                                                   | `"/"`                       |
+| `ingress.path`                 | Default path for the ingress record                                                                   | `"/api"`                       |
 | `ingress.servicePort`          | Backend service port to use (default is http)                                                       | `5000`                      |
 | `ingress.annotations`          | Additional annotations for the Ingress resource                                                      | `{}`                        |
 | `ingress.labels`               | Additional labels for the Ingress resource                                                           | `{}`                        |

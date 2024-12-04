@@ -57,6 +57,32 @@ image:
 
 The `forms-flow-forms` image stores the application logs at the `/app/logs` path of the container.
 
+## Sidecar Configuration
+
+To add a sidecar to your `Forms-flow-forms` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
+
+### Example Sidecar Configuration
+
+```yaml
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+```
+
+## Path Update
+The `Forms-flow-forms` can now be accessed at the `/formio` route. Ensure that all configurations and requests reference this updated path.
+
+For example:
+
+```
+https://<HOSTNAME>/formio
+```
 ## Parameters
 
 | Parameter                                | Description                                                                                          | Default Value               |
@@ -157,7 +183,7 @@ The `forms-flow-forms` image stores the application logs at the `/app/logs` path
 | `ingress.apiVersion`                   | API version for the ingress resource.                                                                | `""`                        |
 | `ingress.controller`                   | Ingress controller to use.                                                                           | `default`                   |
 | `ingress.hostname`                     | Hostname for the ingress resource.                                                                    | `forms-flow-forms.local`    |
-| `ingress.path`                         | Path for the ingress resource.                                                                       | `/`                         |
+| `ingress.path`                         | Path for the ingress resource.                                                                       | `/formio`                         |
 | `ingress.servicePort`                  | Service port for the ingress resource.                                                               | `3001`                      |
 | `ingress.annotations`                   | Annotations for the ingress resource.                                                                | `{}`                        |
 | `ingress.labels`                       | Labels for the ingress resource.                                                                     | `{}`                        |

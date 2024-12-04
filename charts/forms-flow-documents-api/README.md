@@ -55,6 +55,32 @@ image:
 
 The `forms-flow-documents-api` image stores the application logs at the `/forms-flow-documents/app/logs` path of the container.
 
+## Sidecar Configuration
+
+To add a sidecar to your `Forms-flow-documents-api` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
+
+### Example Sidecar Configuration
+
+```yaml
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+```
+
+## Path Update
+The `Forms-flow-documents-api` can now be accessed at the `/docapi` route. Ensure that all configurations and requests reference this updated path.
+
+For example:
+
+```
+https://<HOSTNAME>/docapi
+```
 ## Parameters
 
 | Parameter                                | Description                                                                                          | Default Value               |
@@ -145,7 +171,7 @@ The `forms-flow-documents-api` image stores the application logs at the `/forms-
 | `ingress.apiVersion`                    | API version for the ingress resource.                                                                | `""`                        |
 | `ingress.controller`                    | Ingress controller to use.                                                                           | `default`                   |
 | `ingress.hostname`                      | Hostname for the ingress.                                                                           | `forms-flow-documents-api.local` |
-| `ingress.path`                          | Path for the ingress.                                                                                | `/`                         |
+| `ingress.path`                          | Path for the ingress.                                                                                | `/docapi`                         |
 | `ingress.servicePort`                   | Service port for the ingress.                                                                        | `5006`                      |
 | `ingress.annotations`                    | Annotations for the ingress resource.                                                                | `{}`                        |
 | `ingress.labels`                         | Labels for the ingress resource.                                                                     | `{}`                        |

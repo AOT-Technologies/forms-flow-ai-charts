@@ -18,6 +18,10 @@ spec:
       targetPort: {{ .Values.server.httpPort }}
       protocol: TCP
       name: http
+    - port: {{ .Values.service.sidecar.port }}
+      targetPort: {{ .Values.service.sidecar.httpPort }}
+      protocol: TCP
+      name: nginx
   {{- if .Values.service.loadBalancerIP }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}

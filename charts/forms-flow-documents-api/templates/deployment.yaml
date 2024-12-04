@@ -194,9 +194,15 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
+            {{- if .Values.sidecars }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
+            {{- end }}
       volumes:
       - name: documents-logs
         emptyDir: {}
+      - name: nginx-config-volume
+        configMap:
+          name: forms-flow-documents-api-nginx-config  
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}

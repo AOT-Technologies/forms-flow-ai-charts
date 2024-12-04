@@ -58,6 +58,33 @@ image:
 The `formsflow-admin` image stores the application logs at the `/opt/app-root/logs` path of the container.
 
 
+## Sidecar Configuration
+
+To add a sidecar to your `Forms-flow-admin` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
+
+### Example Sidecar Configuration
+
+```yaml
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+```
+
+## API Path Update
+The `Forms-flow-admin` can now be accessed at the `/admin` route. Ensure that all configurations and requests reference this updated path.
+
+For example:
+
+```
+https://<HOSTNAME>/admin
+```
+
 ## Parameters
 
 | Parameter                          | Description                                         | Default Value                      |
@@ -126,7 +153,7 @@ The `formsflow-admin` image stores the application logs at the `/opt/app-root/lo
 | `ingress.pathType`                 | Ingress path type                                   | `ImplementationSpecific`           |
 | `ingress.controller`               | Ingress controller type                              | `default`                          |
 | `ingress.hostname`                 | Default host for the ingress record                 | `forms-flow-admin.local`          |
-| `ingress.path`                     | Default path for the ingress record                 | `"/"`                              |
+| `ingress.path`                     | Default path for the ingress record                 | `"/admin"`                              |
 | `ingress.servicePort`              | Backend service port to use                         | `5000`                             |
 | `ingress.tls`                      | Enable TLS configuration                            | `true`                             |
 | `ingress.selfSigned`               | Create a TLS secret using self-signed certificates  | `false`                            |

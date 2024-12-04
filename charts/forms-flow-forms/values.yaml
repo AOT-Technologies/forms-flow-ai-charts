@@ -248,7 +248,7 @@ ingress:
   hostname: forms-flow-forms.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/"
+  path: "/formio"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
@@ -446,6 +446,10 @@ service:
       port: 3001
       targetPort: http
       protocol: TCP
+    - name: nginx
+      port: 80
+      targetPort: 80
+      protocol: TCP
       ## - name: system
       ##   port: 1764
       ##
@@ -510,7 +514,15 @@ containerPorts:
   ##      - mountPath: /usr/share/filebeat/filebeat.yml
   ##        subPath: filebeat.yml
   ##        name: admin-filebeat
-sidecars: []
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
 
 configuration: []
 

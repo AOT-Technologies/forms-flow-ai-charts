@@ -58,6 +58,32 @@ image:
 
 The `forms-flow-data-analysis` image stores the application logs at the `/forms-flow-data-analysis/app/logs` path of the container.
 
+## Sidecar Configuration
+
+To add a sidecar to your `Forms-flow-data-analysis` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
+
+### Example Sidecar Configuration
+
+```yaml
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+```
+
+## Path Update
+The `Forms-flow-data-analysis` can now be accessed at the `/analysis` route. Ensure that all configurations and requests reference this updated path.
+
+For example:
+
+```
+https://<HOSTNAME>/analysis
+```
 ## Parameters
 
 | Parameter                          | Description                                                                                          | Default Value               |
@@ -143,7 +169,7 @@ The `forms-flow-data-analysis` image stores the application logs at the `/forms-
 | `ingress.apiVersion`                    | API version for the ingress resource.                                                                | `""`                        |
 | `ingress.controller`                    | Ingress controller to use.                                                                           | `default`                   |
 | `ingress.hostname`                      | Hostname for the ingress.                                                                           | `forms-flow-data-analysis.local` |
-| `ingress.path`                          | Path for the ingress.                                                                                | `/`                         |
+| `ingress.path`                          | Path for the ingress.                                                                                | `/analysis`                         |
 | `ingress.servicePort`                   | Service port for the ingress.                                                                        | `5000`                      |
 | `ingress.annotations`                    | Annotations for the ingress resource.                                                                | `{}`                        |
 | `ingress.labels`                         | Labels for the ingress resource.                                                                     | `{}`                        |

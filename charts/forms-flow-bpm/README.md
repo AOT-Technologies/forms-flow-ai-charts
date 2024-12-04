@@ -78,7 +78,32 @@ extraEnvVars:
   - name: VAULT_SECRET
     value: ""
 ```
+## Sidecar Configuration
 
+To add a sidecar to your `Forms-flow-bpm` deployment, you can use the following configuration. In this case, the sidecar container is an Nginx container used for configuration management.
+
+### Example Sidecar Configuration
+
+```yaml
+sidecars:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: nginx-config-volume
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+```
+
+## Path Update
+The `Forms-flow-bpm` can now be accessed at the `/camunda` route. Ensure that all configurations and requests reference this updated path.
+
+For example:
+
+```
+https://<HOSTNAME>/camunda
+```
 ## Parameters
 
 | Parameter                        | Description                                                                                          | Default Value               |
