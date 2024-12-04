@@ -52,7 +52,7 @@ data:
     REDIS_ENABLED: "{{ .Values.EnableRedis }}"
     CHROME_DRIVER_PATH: "/usr/local/bin/chromedriver"
     ENABLE_CHATBOT: "{{ .Values.EnableChatBot }}"
-    CHATBOT_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") .}}/analysis/conversations
+    CHATBOT_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/analysis/conversations
     ENABLE_LOW_CODE_DESIGNER: "false"
     ELASTIC_SERVER: "{{ .Values.elastic_server }}"
     REDIS_URL: "{{ .Values.redis_url }}"
