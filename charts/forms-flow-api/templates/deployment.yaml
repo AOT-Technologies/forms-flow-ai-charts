@@ -203,6 +203,11 @@ spec:
               configMapKeyRef:
                 key: MULTI_TENANCY_ENABLED
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMSFLOW_ADMIN_URL
+            valueFrom:
+              configMapKeyRef:
+                key: FORMSFLOW_ADMIN_URL
+                name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
