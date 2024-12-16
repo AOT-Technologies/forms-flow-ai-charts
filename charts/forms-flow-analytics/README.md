@@ -294,7 +294,7 @@ https://<HOSTNAME>/redash
 | `ingress.extraTls`                                       | TLS configuration for additional hostnames            | `[]`                         |
 | `ingress.secrets`                                        | Add custom certificates as secrets                     | `[]`                         |
 | `ingress.extraRules`                                     | Additional rules for the ingress record               | `[]`                         |
-| `ingress.subFilterHost`                                     | 	Sub-filter host for analytics application; also used as ingress hostname               | `chart-example.local`                         |
+| `ingress.subFilterHost`                                     | 	Sub-filter host for analytics application; Use the default hostname               | `forms-flow-analytics.local`                         |
 
 ## Service Parameters
 

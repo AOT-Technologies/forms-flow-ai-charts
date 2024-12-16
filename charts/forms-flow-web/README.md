@@ -46,12 +46,51 @@ resources:
 
 To modify the Forms-flow-web version used in this chart you can specify a [valid image tag](https://hub.docker.com/repository/docker/formsflow/forms-flow-web) using the `image.tag` parameter. For example, `image.tag=X.Y.Z`. This approach is also applicable to other images like exporters.
 
+#### Using the OpenSource Version
+By default, the chart uses the OpenSource version of the `Forms-flow-WEB`. You can change the image tag to any valid version of the OpenSource image, as shown below:
+
 ```yaml
 image:
   registry: docker.io
   repository: formsflow/forms-flow-web
-  tag: X.Y.Z 
+  tag: X.Y.Z # Replace with the desired OpenSource version
 ```
+#### Using the Enterprise Version
+If you're using the enterprise version of Forms-flow-web, you can switch the image repository to `formsflow/forms-flow-web-ee`. The enterprise version includes additional features and support designed for larger-scale or production environments. To use the enterprise version, update the repository field as shown below:
+
+```yaml
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-web-ee
+  tag: X.Y.Z  # Replace with the desired enterprise version
+```
+Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
+
+### EE Specific Environment Variables
+When deploying the Enterprise Edition (EE) for `forms-flow-web`, you need to include the following two environment variables, which are specific to the EE deployment:
+
+```yaml
+env:
+  - name: REACT_APP_CLARITY_KEY
+    valueFrom:
+      configMapKeyRef:
+        key: CLARITY_KEY
+        name: forms-flow-web
+        optional: false
+  - name: REACT_APP_IS_ENTERPRISE
+    valueFrom:
+      configMapKeyRef:
+        key: IS_ENTERPRISE
+        name: forms-flow-web
+        optional: false
+  - name: REACT_APP_SHOW_PREMIUM_ICON
+    valueFrom:
+      configMapKeyRef:
+        key: SHOW_PREMIUM_ICON
+        name: forms-flow-web
+        optional: false
+```
+These environment variables are sourced from a ConfigMap named `forms-flow-web`. The keys (`CLARITY_KEY`, `IS_ENTERPRISE` and `SHOW_PREMIUM_ICON`) must be defined in this ConfigMap.
 
 ## Parameters
 

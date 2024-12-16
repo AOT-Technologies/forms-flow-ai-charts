@@ -47,12 +47,40 @@ resources:
 
 To modify the Forms-flow-data-analysis-api version used in this chart you can specify a [valid image tag](https://hub.docker.com/repository/docker/formsflow/forms-flow-data-analysis-api) using the `image.tag` parameter. For example, `image.tag=X.Y.Z`. This approach is also applicable to other images like exporters.
 
+#### Using the OpenSource Version
+By default, the chart uses the OpenSource version of the `Forms-flow-data-analysis-api`. You can change the image tag to any valid version of the OpenSource image, as shown below:
+
 ```yaml
 image:
   registry: docker.io
   repository: formsflow/forms-flow-data-analysis-api
-  tag: X.Y.Z 
+  tag: X.Y.Z # Replace with the desired OpenSource version
 ```
+#### Using the Enterprise Version
+If you're using the enterprise version of Forms-flow-data-analysis-api, you can switch the image repository to `formsflow/forms-flow-data-analysis-api-ee`. The enterprise version includes additional features and support designed for larger-scale or production environments. To use the enterprise version, update the repository field as shown below:
+
+```yaml
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-data-analysis-api-ee
+  tag: X.Y.Z  # Replace with the desired enterprise version
+```
+Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
+
+```yaml
+- env:
+    - name: OPENAI_API_KEY
+      valueFrom:
+        configMapKeyRef:
+          key: OPENAI_API_KEY
+          name: forms-flow-data-analysis
+    - name: CHAT_BOT_MODEL_ID
+      valueFrom:
+        configMapKeyRef:
+          key: CHAT_BOT_MODEL_ID
+          name: forms-flow-data-analysis
+```
+These environment variables are sourced from a ConfigMap named `forms-flow-data-analysis-api`. The keys (`OPENAI_API_KEY` and `CHAT_BOT_MODEL_ID`) must be defined in this ConfigMap.
 
 ## Persistence
 

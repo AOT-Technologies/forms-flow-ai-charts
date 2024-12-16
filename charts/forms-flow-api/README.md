@@ -25,7 +25,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 helm install forms-flow-api forms-flow-api  --set ingress.ingressClassName=INGRESS_CLASS  --set ingress.hostname=HOSTNAME
 ```
 
-> Note: You need to substitute the placeholders `INGRESS_CLASS` and `HOSTNAME` with a reference to your Helm chart registry and repository. For example, in the case of Formsflow, you need to use `INGRESS_CLASS=nginx`
+> Note: You need to substitute the placeholders `INGRESS_CLASS` and `HOSTNAME` with a reference to your Helm chart registry and repository. For example, in the case of Formsflow, you need to use `INGRESS_CLASS=nginx`. Use  `--set image.repository=formsflow/forms-flow-webapi-ee` for deploy the enterprise version
 
 These commands deploy Forms-flow-api on the Kubernetes cluster
 
@@ -49,12 +49,45 @@ resources:
 
 To modify the Forms-flow-api version used in this chart you can specify a [valid image tag](https://hub.docker.com/repository/docker/formsflow/forms-flow-webapi) using the `image.tag` parameter. For example, `image.tag=X.Y.Z`. This approach is also applicable to other images like exporters.
 
+#### Using the OpenSource Version
+By default, the chart uses the OpenSource version of the `Forms-flow API`. You can change the image tag to any valid version of the OpenSource image, as shown below:
+
 ```yaml
 image:
   registry: docker.io
   repository: formsflow/forms-flow-webapi
-  tag: X.Y.Z 
+  tag: X.Y.Z # Replace with the desired OpenSource version
 ```
+#### Using the Enterprise Version
+If you're using the enterprise version of Forms-flow API, you can switch the image repository to `formsflow/forms-flow-webapi-ee`. The enterprise version includes additional features and support designed for larger-scale or production environments. To use the enterprise version, update the repository field as shown below:
+
+```yaml
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-webapi-ee
+  tag: X.Y.Z  # Replace with the desired enterprise version
+```
+Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
+
+### EE Specific Environment Variables
+When deploying the Enterprise Edition (EE) for `forms-flow-api`, you need to include the following two environment variables, which are specific to the EE deployment:
+
+```yaml
+env:
+  - name: IPAAS_EMBEDDED_API_KEY
+    valueFrom:
+      configMapKeyRef:
+        key: IPAAS_EMBEDDED_API_KEY
+        name: forms-flow-api
+        optional: false
+  - name: IPAAS_JWT_PRIVATE_KEY
+    valueFrom:
+      configMapKeyRef:
+        key: IPAAS_JWT_PRIVATE_KEY
+        name: forms-flow-api
+        optional: false
+```
+These environment variables are sourced from a ConfigMap named `forms-flow-api`. The keys (`IPAAS_EMBEDDED_API_KEY` and `IPAAS_JWT_PRIVATE_KEY`) must be defined in this ConfigMap.
 
 ## Persistence
 
