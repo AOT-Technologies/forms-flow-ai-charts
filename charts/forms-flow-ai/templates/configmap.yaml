@@ -24,7 +24,7 @@ data:
     KEYCLOAK_URL_REALM: {{ index .Values "forms-flow-idm" "realm" }}
     FORMIO_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/formio
     FORMIO_DOMAIN: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/formio
-    WEB_API_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/api
+    WEB_API_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/webapi
     {{- if .Values.mongodb.enabled }} 
     NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}"}'
     MONGODB_URI:  {{ ternary (tpl "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }}
