@@ -253,7 +253,7 @@ ingress:
   hostname: forms-flow-api.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/api"
+  path: "/webapi"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
