@@ -254,6 +254,21 @@ spec:
               configMapKeyRef:
                 key: REACT_APP_LANGUAGE
                 name: "{{ .Chart.Name }}"
+          - name: REACT_APP_CLARITY_KEY
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_CLARITY_KEY
+                name: "{{ .Chart.Name }}"
+          - name: REACT_APP_IS_ENTERPRISE
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_IS_ENTERPRISE
+                name: "{{ .Chart.Name }}"
+          - name: REACT_APP_SHOW_PREMIUM_ICON
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_SHOW_PREMIUM_ICON
+                name: "{{ .Chart.Name }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
