@@ -22,3 +22,6 @@ data:
   ENABLE_PROCESSES_MODULE: "true"
   ENABLE_APPLICATIONS_MODULE: "true"
   REACT_APP_LANGUAGE: "{{tpl .Values.Language .}}"
+  REACT_APP_SHOW_PREMIUM_ICON: "{{tpl .Values.ShowPremiumIcon .}}"
+  REACT_APP_IS_ENTERPRISE: "{{tpl .Values.IsEnterPrise .}}"
+  REACT_APP_CLARITY_KEY: "{{tpl .Values.ClarityKey .}}"
