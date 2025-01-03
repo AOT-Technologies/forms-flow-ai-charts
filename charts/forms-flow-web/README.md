@@ -76,21 +76,13 @@ env:
       configMapKeyRef:
         key: CLARITY_KEY
         name: forms-flow-web
-        optional: false
-  - name: REACT_APP_IS_ENTERPRISE
-    valueFrom:
-      configMapKeyRef:
-        key: IS_ENTERPRISE
-        name: forms-flow-web
-        optional: false
   - name: REACT_APP_SHOW_PREMIUM_ICON
     valueFrom:
       configMapKeyRef:
         key: SHOW_PREMIUM_ICON
         name: forms-flow-web
-        optional: false
 ```
-These environment variables are sourced from a ConfigMap named `forms-flow-web`. The keys (`CLARITY_KEY`, `IS_ENTERPRISE` and `SHOW_PREMIUM_ICON`) must be defined in this ConfigMap.
+These environment variables are sourced from a ConfigMap named `forms-flow-web`. The keys (`CLARITY_KEY` and `SHOW_PREMIUM_ICON`) must be defined in this ConfigMap.
 
 ## Parameters
 

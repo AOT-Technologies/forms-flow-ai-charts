@@ -70,24 +70,15 @@ image:
 Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
 
 ### EE Specific Environment Variables
-When deploying the Enterprise Edition (EE) for `forms-flow-api`, you need to include the following two environment variables, which are specific to the EE deployment:
+When deploying the Enterprise Edition (EE) for `forms-flow-api`, the environment variables specific to the EE deployment are already included in the values.yaml file of [forms-flow-ai](../forms-flow-ai/values.yaml#L223) chart.
+Make sure to replace `ipaas.embedded_api_key` and `ipaas.jwt_private_key` with the actual keys provided to you.
 
+Example:
 ```yaml
-env:
-  - name: IPAAS_EMBEDDED_API_KEY
-    valueFrom:
-      configMapKeyRef:
-        key: IPAAS_EMBEDDED_API_KEY
-        name: forms-flow-api
-        optional: false
-  - name: IPAAS_JWT_PRIVATE_KEY
-    valueFrom:
-      configMapKeyRef:
-        key: IPAAS_JWT_PRIVATE_KEY
-        name: forms-flow-api
-        optional: false
+ipaas:
+  embedded_api_key: IPAAS_EMBEDDED_API_KEY
+  jwt_private_key: IPAAS_JWT_PRIVATE_KEY
 ```
-These environment variables are sourced from a ConfigMap named `forms-flow-api`. The keys (`IPAAS_EMBEDDED_API_KEY` and `IPAAS_JWT_PRIVATE_KEY`) must be defined in this ConfigMap.
 
 ## Persistence
 

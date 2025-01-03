@@ -67,20 +67,14 @@ image:
 ```
 Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
 
+### EE Specific Environment Variables
+When deploying the Enterprise Edition (EE) for `forms-flow-data-analysis`, the environment variables specific to the EE deployment are already included in the [values.yaml](values.yaml#L509). 
+Make sure to replace `openApiKey` with the actual keys provided to you.
+
+Example:
 ```yaml
-- env:
-    - name: OPENAI_API_KEY
-      valueFrom:
-        configMapKeyRef:
-          key: OPENAI_API_KEY
-          name: forms-flow-data-analysis
-    - name: CHAT_BOT_MODEL_ID
-      valueFrom:
-        configMapKeyRef:
-          key: CHAT_BOT_MODEL_ID
-          name: forms-flow-data-analysis
+openApiKey: "OPENAI_API_KEY"
 ```
-These environment variables are sourced from a ConfigMap named `forms-flow-data-analysis-api`. The keys (`OPENAI_API_KEY` and `CHAT_BOT_MODEL_ID`) must be defined in this ConfigMap.
 
 ## Persistence
 
