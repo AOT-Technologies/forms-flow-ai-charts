@@ -370,6 +370,13 @@ server:
       # image.pullPolicy - Image pull policy
       pullPolicy: IfNotPresent
     ContainerPort: 8080
+    resources:
+      limits:
+        cpu: 150m
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
 
 
 service:
