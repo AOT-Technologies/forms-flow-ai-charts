@@ -297,6 +297,14 @@ spec:
             {{- if .Values.sidecars }}
             {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
             {{- end }}
+        - name: nginx
+          image: {{ include "forms-flow-api.nginx.image" . }}
+          ports:
+            - containerPort: {{ .Values.ingress.servicePort }}
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       volumes:
       - name: api-logs
         emptyDir: {}

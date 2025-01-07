@@ -9,10 +9,11 @@ data:
     events { worker_connections 1024; }
     http {
       server {
-        listen 80;
+        listen {{ .Values.ingress.port }};
         location /redash/ {
           sub_filter ="/" ="/redash/";
           sub_filter ="/static/ ="/redash/static/;
+          sub_filter ="/api/ ="/redash/api/;
           sub_filter ="/static/images/redash_icon_small.png ="/redash/static/images/redash_icon_small.png;
           sub_filter url(/static/fonts) url(/redash/static/fonts);
           sub_filter_once off;
@@ -21,7 +22,7 @@ data:
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-Forwarded-Proto $scheme;
-          sub_filter "http://{{ .Values.ingress.subFilterHost }}/" "https://{{ .Values.ingress.subFilterHost }}/";    
+          sub_filter "http://{{ .Values.ingress.subFilterHost }}/" "https://{{ .Values.ingress.subFilterHost }}/";         
           proxy_set_header SCRIPT_NAME /redash;
           
           proxy_pass http://localhost:{{ .Values.server.httpPort }};
