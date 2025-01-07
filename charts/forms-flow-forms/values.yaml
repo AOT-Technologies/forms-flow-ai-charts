@@ -252,7 +252,7 @@ ingress:
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
-  servicePort: 3001
+  servicePort: 8080
   ## @param ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -447,8 +447,8 @@ service:
       targetPort: http
       protocol: TCP
     - name: nginx
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
       protocol: TCP
       ## - name: system
       ##   port: 1764
@@ -514,15 +514,15 @@ containerPorts:
   ##      - mountPath: /usr/share/filebeat/filebeat.yml
   ##        subPath: filebeat.yml
   ##        name: admin-filebeat
-sidecars:
-  - name: nginx
-    image: nginx:latest
-    ports:
-      - containerPort: 80
-    volumeMounts:
-      - name: nginx-config-volume
-        mountPath: /etc/nginx/nginx.conf
-        subPath: nginx.conf
+## sidecars configuration
+sidecars: {}
+ExtraContainer:
+  ## nginx configuration for sidecar 
+  image:
+    registry: docker.io
+    repository: nginxinc/nginx-unprivileged
+    pullPolicy: IfNotPresent
+    tag: "latest"
 
 configuration: []
 

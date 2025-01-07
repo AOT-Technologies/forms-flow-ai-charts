@@ -67,7 +67,12 @@ Create the name of the service account to use
 {{- define "forms-flow-documents-api.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
-
+{{/*
+Return the proper forms-flow-documents-api side car nginx image name
+*/}}
+{{- define "forms-flow-documents-api.nginx.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.ExtraContainer.image "global" .Values.global) }}
+{{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
