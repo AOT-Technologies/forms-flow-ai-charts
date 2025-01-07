@@ -94,3 +94,9 @@ Return true if a configmap object should be created
 {{- define "forms-flow-admin.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
+{{/*
+Return the proper forms-flow-admin side car nginx image name
+*/}}
+{{- define "forms-flow-admin.nginx.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.ExtraContainer.image "global" .Values.global) }}
+{{- end -}}

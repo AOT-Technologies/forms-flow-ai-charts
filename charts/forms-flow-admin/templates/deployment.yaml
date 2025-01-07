@@ -244,9 +244,17 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $ ) | nindent 12 }}
             {{- end }}
-          {{- if .Values.sidecars }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
-          {{- end }}
+            {{- if .Values.sidecars }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
+            {{- end }}
+        - name: nginx
+          image: {{ include "forms-flow-admin.nginx.image" . }}
+          ports:
+            - containerPort: {{ .Values.ingress.servicePort }}
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       volumes:
       - name: admin-logs
         emptyDir: {}
