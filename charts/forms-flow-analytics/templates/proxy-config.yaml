@@ -9,7 +9,7 @@ data:
     events { worker_connections 1024; }
     http {
       server {
-        listen 80;
+        listen {{ .Values.ingress.port }};
         location /redash/ {
           sub_filter ="/" ="/redash/";
           sub_filter ="/static/ ="/redash/static/;
