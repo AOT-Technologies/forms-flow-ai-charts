@@ -196,6 +196,18 @@ extraVolumes: {}
 ##
 extraVolumeMounts: {}
 
+
+
+## sidecars configuration
+sidecars: {}
+ExtraContainer:
+  ## nginx configuration for sidecar 
+  image:
+    registry: docker.io
+    repository: nginxinc/nginx-unprivileged
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
 ## @param auth.existingSecret Existing secret containing password,username,dbname and 
   ##
 auth:
@@ -246,11 +258,11 @@ ingress:
   hostname: forms-flow-documents-api.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/"
+  path: "/docapi"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
-  servicePort: 5006
+  servicePort: 8080
   ## @param ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -394,6 +406,10 @@ service:
     - name: http
       port: 5006
       targetPort: http
+      protocol: TCP
+    - name: nginx
+      port: 8080
+      targetPort: 8080
       protocol: TCP
       ## - name: system
       ##   port: 1764

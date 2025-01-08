@@ -77,7 +77,12 @@ Return true if a configmap object should be created
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
 
-
+{{/*
+Return the proper forms-flow-api side car nginx image name
+*/}}
+{{- define "forms-flow-api.nginx.image" -}}
+{{ include "common.images.image" (dict "imageRoot" .Values.ExtraContainer.image "global" .Values.global) }}
+{{- end -}}
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}

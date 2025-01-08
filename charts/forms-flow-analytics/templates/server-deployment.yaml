@@ -33,9 +33,6 @@ spec:
       initContainers: {{ toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        {{- with .Values.server.extraContainers -}}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
         - name: {{ include "redash.name" . }}-server
           securityContext: {{ toYaml .Values.server.securityContext | nindent 12 }}
           image: {{ .Values.image.registry }}/{{ .Values.image.repo }}:{{ .Values.image.tag | default .Chart.AppVersion }}
@@ -64,6 +61,14 @@ spec:
           {{- with .Values.server.resources }}
           resources: {{ toYaml . | nindent 12 }}
           {{- end }}
+        - name: nginx
+          image: {{ .Values.server.extraContainers.image.registry }}/{{ .Values.server.extraContainers.image.repo }}:{{ .Values.server.extraContainers.image.tag }}
+          ports:
+            - containerPort: {{ .Values.server.extraContainers.ContainerPort }}
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       {{- $volumes := concat .Values.volumes .Values.server.volumes -}}
       {{- with $volumes }}
       volumes: {{ toYaml . | nindent 8 }}

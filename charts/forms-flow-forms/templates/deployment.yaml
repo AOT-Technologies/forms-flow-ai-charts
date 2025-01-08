@@ -61,137 +61,148 @@ spec:
       securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.podSecurityContext "context" $) | nindent 8 }}
       {{- end }}
       containers:
-      - name: forms-flow-forms
-        image: {{ include "forms-flow-forms.image" . }}
-        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        {{- if .Values.containerSecurityContext.enabled }}
-        securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" $) | nindent 12 }}
-        {{- end }}
-        {{- if .Values.diagnosticMode.enabled }}
-        command: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.command "context" $) | nindent 12 }}
-        {{- else if .Values.command }}
-        command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
-        {{- end }}
-        {{- if .Values.diagnosticMode.enabled }}
-        args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
-        {{- else if .Values.args }}
-        args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
-        {{- end }}
-        {{- if .Values.lifecycleHooks }}
-        lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
-        {{- end }}
-        env:
-        - name: NODE_CONFIG
-          valueFrom:
-            configMapKeyRef:
-              key: NODE_CONFIG
-              name: "{{ .Values.formsflow.configmap }}"
-        {{- if .Values.ExternalAuth.ExistingMailAuthKey }}
-        - name: ROOT_EMAIL
-          valueFrom:
-            secretKeyRef:
-              key: {{ .Values.ExternalAuth.ExistingMailAuthKey }}
-              name: "{{ .Values.ExternalAuth.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalAuth.ExistingMailAuthKey }}
-        - name: ROOT_EMAIL
-          valueFrom:
-            secretKeyRef:
-              key: FORMIO_ROOT_EMAIL
-              name: "{{ .Values.formsflow.secret }}"
-        {{- end }}
-        {{- if .Values.ExternalAuth.ExistingPwdAuthKey }}
-        - name: ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: {{ .Values.ExternalAuth.ExistingPwdAuthKey }}
-              name: "{{ .Values.ExternalAuth.ExistingSecretName }}"
-        {{- end }}
-        {{- if not .Values.ExternalAuth.ExistingPwdAuthKey }}
-        - name: ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: FORMIO_ROOT_PASSWORD
-              name: "{{ .Values.formsflow.secret }}"
-        {{- end }}
-        - name: FORMIO_JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              key: FORMIO_JWT_SECRET
-              name: "{{ .Values.formsflow.secret }}"
-        - name: FORMIO_DOMAIN
-          valueFrom:
-            configMapKeyRef:
-              key: FORMIO_DOMAIN
-              name: "{{ .Values.formsflow.configmap }}"
-        - name: MULTI_TENANCY_ENABLED
-          valueFrom:
-            configMapKeyRef:
-              key: MULTI_TENANCY_ENABLED
-              name: "{{ .Values.formsflow.configmap }}"
-        {{- if .Values.extraEnvVars }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
-        {{- end }}
-        envFrom:
-        {{- if .Values.extraEnvVarsCM }}
-        - configMapRef:
-            name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsCM "context" $) }}
-        {{- end }}
-        {{- if .Values.extraEnvVarsSecret }}
-        - secretRef:
-            name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
-        {{- end }}
-        {{- if .Values.resources }}
-        resources: {{- toYaml .Values.resources | nindent 12 }}
-        {{- else if ne .Values.resourcesPreset "none" }}
-        resources: {{- include "common.resources.preset" (dict "type" .Values.resourcesPreset) | nindent 12 }}
-        {{- end }}
-        ports:
-        - name: http
-          containerPort: {{ .Values.containerPorts.http }}
-          protocol: TCP
-        {{- if not .Values.diagnosticMode.enabled }}
-        {{- if .Values.customLivenessProbe }}
-        livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customLivenessProbe "context" $) | nindent 12 }}
-        {{- else if .Values.livenessProbe.enabled }}
-        livenessProbe:
-          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-          successThreshold: {{ .Values.livenessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-          tcpSocket:
-            port: 3001
-        {{- end }}
-        {{- if .Values.customReadinessProbe }}
-        readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" $) | nindent 12 }}
-        {{- else if .Values.readinessProbe.enabled }}
-        readinessProbe:
-          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
-          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-          successThreshold: {{ .Values.readinessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-          tcpSocket:
-            port: 3001
-        {{- end }}
-        {{- end }}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        tty: true
-        stdin: true   
-        volumeMounts:
-        - name: forms-logs
-          mountPath: /app/logs     
-          {{- if .Values.extraVolumeMounts }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $ ) | nindent 12 }}
+        - name: forms-flow-forms
+          image: {{ include "forms-flow-forms.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" $) | nindent 12 }}
           {{- end }}
-        {{- if .Values.sidecars }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
-        {{- end }}
+          {{- if .Values.diagnosticMode.enabled }}
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.command "context" $) | nindent 12 }}
+          {{- else if .Values.command }}
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.diagnosticMode.enabled }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
+          {{- else if .Values.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.lifecycleHooks }}
+          lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
+          {{- end }}
+          env:
+          - name: NODE_CONFIG
+            valueFrom:
+              configMapKeyRef:
+                key: NODE_CONFIG
+                name: "{{ .Values.formsflow.configmap }}"
+          {{- if .Values.ExternalAuth.ExistingMailAuthKey }}
+          - name: ROOT_EMAIL
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.ExternalAuth.ExistingMailAuthKey }}
+                name: "{{ .Values.ExternalAuth.ExistingSecretName }}"
+          {{- end }}
+          {{- if not .Values.ExternalAuth.ExistingMailAuthKey }}
+          - name: ROOT_EMAIL
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_ROOT_EMAIL
+                name: "{{ .Values.formsflow.secret }}"
+          {{- end }}
+          {{- if .Values.ExternalAuth.ExistingPwdAuthKey }}
+          - name: ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.ExternalAuth.ExistingPwdAuthKey }}
+                name: "{{ .Values.ExternalAuth.ExistingSecretName }}"
+          {{- end }}
+          {{- if not .Values.ExternalAuth.ExistingPwdAuthKey }}
+          - name: ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_ROOT_PASSWORD
+                name: "{{ .Values.formsflow.secret }}"
+          {{- end }}
+          - name: FORMIO_JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_JWT_SECRET
+                name: "{{ .Values.formsflow.secret }}"
+          - name: FORMIO_DOMAIN
+            valueFrom:
+              configMapKeyRef:
+                key: FORMIO_DOMAIN
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: MULTI_TENANCY_ENABLED
+            valueFrom:
+              configMapKeyRef:
+                key: MULTI_TENANCY_ENABLED
+                name: "{{ .Values.formsflow.configmap }}"
+          {{- if .Values.extraEnvVars }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
+          {{- end }}
+          envFrom:
+          {{- if .Values.extraEnvVarsCM }}
+          - configMapRef:
+              name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsCM "context" $) }}
+          {{- end }}
+          {{- if .Values.extraEnvVarsSecret }}
+          - secretRef:
+              name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
+          {{- end }}
+          {{- if .Values.resources }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          {{- else if ne .Values.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.resourcesPreset) | nindent 12 }}
+          {{- end }}
+          ports:
+          - name: http
+            containerPort: {{ .Values.containerPorts.http }}
+            protocol: TCP
+          {{- if not .Values.diagnosticMode.enabled }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customLivenessProbe "context" $) | nindent 12 }}
+          {{- else if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            tcpSocket:
+              port: 3001
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" $) | nindent 12 }}
+          {{- else if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            tcpSocket:
+              port: 3001
+          {{- end }}
+          {{- end }}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          stdin: true   
+          volumeMounts:
+          - name: forms-logs
+            mountPath: /app/logs     
+            {{- if .Values.extraVolumeMounts }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $ ) | nindent 12 }}
+            {{- end }}
+            {{- if .Values.sidecars }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
+            {{- end }}
+        - name: nginx
+          image: {{ include "forms-flow-forms.nginx.image" . }}
+          ports:
+            - containerPort: {{ .Values.ingress.servicePort }}
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       volumes:
       - name: forms-logs
         emptyDir: {}
+      - name: nginx-config-volume
+        configMap:
+          name: forms-flow-forms-nginx-config 
       {{- if .Values.extraVolumes }}
       {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
       {{- end }}

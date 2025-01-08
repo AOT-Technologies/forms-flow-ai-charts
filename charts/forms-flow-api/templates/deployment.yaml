@@ -58,7 +58,7 @@ spec:
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.podSecurityContext "context" $) | nindent 8 }}
       {{- end }}
-      containers:
+      containers:       
         - name: forms-flow-api
           image: {{ include "forms-flow-api.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
@@ -203,6 +203,11 @@ spec:
               configMapKeyRef:
                 key: MULTI_TENANCY_ENABLED
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMSFLOW_ADMIN_URL
+            valueFrom:
+              configMapKeyRef:
+                key: FORMSFLOW_ADMIN_URL
+                name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
@@ -289,9 +294,23 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
+            {{- if .Values.sidecars }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
+            {{- end }}
+        - name: nginx
+          image: {{ include "forms-flow-api.nginx.image" . }}
+          ports:
+            - containerPort: {{ .Values.ingress.servicePort }}
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       volumes:
       - name: api-logs
         emptyDir: {}
+      - name: nginx-config-volume
+        configMap:
+          name: forms-flow-api-nginx-config      
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}

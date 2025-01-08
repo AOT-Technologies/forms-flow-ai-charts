@@ -1,7 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "redash.fullname" . -}}
 {{- $ingressPathType := .Values.ingress.pathType -}}
-{{- $svcPort := .Values.service.port -}}
+{{- $ingressPortNumber := .Values.ingress.port -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -38,7 +38,7 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ $ingressPortNumber }}
         {{- end }}
   {{- end }}
 {{- end }}

@@ -248,11 +248,11 @@ ingress:
   hostname: forms-flow-forms.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/"
+  path: "/formio"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
-  servicePort: 3001
+  servicePort: 8080
   ## @param ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -446,6 +446,10 @@ service:
       port: 3001
       targetPort: http
       protocol: TCP
+    - name: nginx
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
       ## - name: system
       ##   port: 1764
       ##
@@ -510,7 +514,15 @@ containerPorts:
   ##      - mountPath: /usr/share/filebeat/filebeat.yml
   ##        subPath: filebeat.yml
   ##        name: admin-filebeat
-sidecars: []
+## sidecars configuration
+sidecars: {}
+ExtraContainer:
+  ## nginx configuration for sidecar 
+  image:
+    registry: docker.io
+    repository: nginxinc/nginx-unprivileged
+    pullPolicy: IfNotPresent
+    tag: "latest"
 
 configuration: []
 

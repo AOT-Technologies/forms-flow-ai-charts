@@ -12,29 +12,13 @@ formsflowdb:
 forms-flow-bpm:
   clientid: "forms-flow-bpm"
   clientsecret: "e4bdbd25-1467-4f7f-b993-bc4b1944c943"
-  ingress:
-      hostname: forms-flow-bpm-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
 forms-flow-forms:
   admin:
     email: "me@defineme.com"
     password: "admin"
-  ingress:
-    hostname: forms-flow-forms-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
-forms-flow-api:
-  ingress:
-      hostname: forms-flow-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
-forms-flow-admin:
-  ingress:
-      hostname: forms-flow-admin-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
-forms-flow-documents-api:
-  ingress:
-      hostname: forms-flow-documents-api-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
-forms-flow-data-analysis:
-  ingress:
-      hostname: forms-flow-data-analysis-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
-forms-flow-analytics:
-  ingress:
-      hostname: forms-flow-analytics-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-forms
+    port: "3001"
 forms-flow-idm:
   keycloak:
     EnableKeycloakClientAuth: false
@@ -65,7 +49,7 @@ imageCredentials:
 ##
 mongodb:
   image:
-    tag: 7.0.12-debian-12-r5 #4.2.21-debian-10-r8
+    tag: 8.0.3-debian-12-r0 #4.2.21-debian-10-r8
     pullSecrets:
       - forms-flow-auth
   enabled: true
@@ -152,7 +136,11 @@ mongodb:
   ##  
   podSecurityContext:
     enabled: false
+    fsGroupChangePolicy: Always
+    sysctls: []
+    supplementalGroups: []
     fsGroup: 1001
+
   ## MongoDB(&reg;) containers' Security Context (main and metrics container).
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
   ## @param containerSecurityContext.enabled Enabled containers' Security Context
@@ -168,8 +156,17 @@ mongodb:
   ##
   containerSecurityContext:
     enabled: false
+    seLinuxOptions: {}
     runAsUser: 1001
+    runAsGroup: 1001
     runAsNonRoot: true
+    privileged: false
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
   ## @param containerPorts.mongodb MongoDB(&reg;) container port
   ##
   containerPorts:
@@ -249,7 +246,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
-      tag: 16.3.0-debian-12-r20
+      tag: 17.2.0-debian-12-r3
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
       ##
@@ -305,7 +302,7 @@ postgresql-ha:
     ##
     containerSecurityContext:
       enabled: false
-      seLinuxOptions: null
+      seLinuxOptions: {}
       runAsUser: 1001
       runAsGroup: 1001
       runAsNonRoot: true
@@ -428,7 +425,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/pgpool
-      tag: 4.5.2-debian-12-r5
+      tag: 4.5.5-debian-12-r0
       digest: ""
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
@@ -481,7 +478,7 @@ postgresql-ha:
     ##
     containerSecurityContext:
       enabled: false
-      seLinuxOptions: null
+      seLinuxOptions: {}
       runAsUser: 1001
       runAsGroup: 1001
       runAsNonRoot: true

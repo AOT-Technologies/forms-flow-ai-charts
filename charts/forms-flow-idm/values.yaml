@@ -245,7 +245,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
-      tag: 16.3.0-debian-12-r20
+      tag: 17.2.0-debian-12-r3
     ## @param postgresql.replicaCount Number of replicas to deploy. Use an odd number. Having 3 replicas is the minimum to get quorum when promoting a new primary.
     ##  
     replicaCount: 3
@@ -288,7 +288,7 @@ postgresql-ha:
     ##  
     containerSecurityContext:
       enabled: false
-      seLinuxOptions: null
+      seLinuxOptions: {}
       runAsUser: 1001
       runAsGroup: 1001
       runAsNonRoot: true
@@ -415,7 +415,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/pgpool
-      tag: 4.5.2-debian-12-r5
+      tag: 4.5.5-debian-12-r0
       digest: ""
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
@@ -458,8 +458,8 @@ postgresql-ha:
     ##     readOnlyRootFilesystem: false
     ##
     containerSecurityContext:
+      seLinuxOptions: {}
       enabled: false
-      seLinuxOptions: null
       runAsUser: 1001
       runAsGroup: 1001
       runAsNonRoot: true
