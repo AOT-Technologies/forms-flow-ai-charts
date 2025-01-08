@@ -110,10 +110,10 @@ runHelmInstall() {
            fi
          fi
 	    helm upgrade --install forms-flow-idm ../charts/forms-flow-idm  --set keycloak.ingress.hostname=forms-flow-idm-$namespace.$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set keycloak.ingress.ingressClassName=$classname -n $namespace --version $version_ff_idm
-        helm upgrade --install forms-flow-forms ../charts/forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-forms-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_forms
-        helm upgrade --install forms-flow-api ../charts/forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-api-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_api
-	    helm upgrade --install forms-flow-bpm ../charts/forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-bpm-$namespace.$domain_name --set ingress.tls=true --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name -n $namespace --version $version_ff_bpm
-        helm upgrade --install forms-flow-documents-api ../charts/forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-documents-api-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_documents_api
+        helm upgrade --install forms-flow-forms ../charts/forms-flow-forms --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_forms
+        helm upgrade --install forms-flow-api ../charts/forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_api
+	    helm upgrade --install forms-flow-bpm ../charts/forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set ingress.tls=true --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name -n $namespace --version $version_ff_bpm
+        helm upgrade --install forms-flow-documents-api ../charts/forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set ingress.tls=true -n $namespace --version $version_ff_documents_api
         helm upgrade --install forms-flow-web ../charts/forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name  --set ingress.tls=true -n $namespace --version $version_ff_web
      fi
 }
