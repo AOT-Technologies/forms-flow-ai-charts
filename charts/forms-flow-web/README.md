@@ -67,22 +67,20 @@ image:
 Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
 
 ### EE Specific Environment Variables
-When deploying the Enterprise Edition (EE) for `forms-flow-web`, you need to include the following two environment variables, which are specific to the EE deployment:
+When deploying the Enterprise Edition (EE) for forms-flow-web, the environment variables specific to the EE deployment are already included in the `values.yaml` file of the forms-flow-web chart.
 
+Make sure to replace `clarity_key` and `show_premium_icon` with the appropriate values provided to you.
+
+Example: 
 ```yaml
-env:
-  - name: REACT_APP_CLARITY_KEY
-    valueFrom:
-      configMapKeyRef:
-        key: CLARITY_KEY
-        name: forms-flow-web
-  - name: REACT_APP_SHOW_PREMIUM_ICON
-    valueFrom:
-      configMapKeyRef:
-        key: SHOW_PREMIUM_ICON
-        name: forms-flow-web
+ShowPremiumIcon: SHOW_PREMIUM_ICON
+ClarityKey: true
 ```
-These environment variables are sourced from a ConfigMap named `forms-flow-web`. The keys (`CLARITY_KEY` and `SHOW_PREMIUM_ICON`) must be defined in this ConfigMap.
+
+- `CLARITY_KEY_VALUE` should be replaced with the actual clarity key provided to you.
+- `SHOW_PREMIUM_ICON` should be set to "true" to display the premium icon in the EE version of the application.
+
+These environment variables will be used to enable EE-specific features in forms-flow-web.
 
 ## Parameters
 

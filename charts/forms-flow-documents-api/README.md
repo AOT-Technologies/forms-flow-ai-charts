@@ -1,6 +1,6 @@
 # Formsflow Documents API
 
-The goal of the document API is to generate pdf with form submission data..
+The goal of the document API is to generate pdf with form submission data.
 
 ## Introduction
 
