@@ -188,7 +188,7 @@ displayPrompts() {
     read -p "Please enter the ingress class name (ex: formsflow):" classname
     read -p "Is this a premium installation? (y/n):" is_premium
     read -p "Use the latest version release? (y) or stable release (n):" is_latest_release
-    analytics_subdomain="forms-flow-analytics"
+    analytics_subdomain="forms-flow-web"
 }
 
 checkdirectory() {

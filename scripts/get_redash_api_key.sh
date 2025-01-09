@@ -18,7 +18,7 @@ else
   helm install "forms-flow-analytics" ./forms-flow-analytics-chart -n "$NAMESPACE"
 fi
 
-REDASH_URL="http://$ANALYTICS_SUBDOMAIN-$NAMESPACE.$DOMAIN_NAME"
+REDASH_URL="https://$ANALYTICS_SUBDOMAIN-$NAMESPACE.$DOMAIN_NAME/redash"
 
 # Prompt for credentials
 echo "Redash URL: $REDASH_URL"
