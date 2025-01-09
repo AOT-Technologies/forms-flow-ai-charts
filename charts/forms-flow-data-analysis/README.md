@@ -114,7 +114,7 @@ https://<HOSTNAME>/analysis
 | `image.registry`                   | Docker registry for the image.                                                                       | `docker.io`                 |
 | `image.repository`                 | Repository for the image.                                                                             | `formsflow/forms-flow-data-analysis-api` |
 | `image.pullPolicy`                 | Image pull policy.                                                                                    | `IfNotPresent`              |
-| `image.tag`                        | Tag of the image to use.                                                                             | `v7.0.0-alpha`             |
+| `image.tag`                        | Tag of the image to use.                                                                             | `latest`             |
 | `image.pullSecrets`                | Array of image pull secrets.                                                                          | `forms-flow-ai-auth`       |
 | `nameOverride`                     | Override the name of the deployment.                                                                  | `""`                        |
 | `fullnameOverride`                 | Override the full name of the deployment.                                                            | `""`                        |
