@@ -46,12 +46,41 @@ resources:
 
 To modify the Forms-flow-web version used in this chart you can specify a [valid image tag](https://hub.docker.com/repository/docker/formsflow/forms-flow-web) using the `image.tag` parameter. For example, `image.tag=X.Y.Z`. This approach is also applicable to other images like exporters.
 
+#### Using the OpenSource Version
+By default, the chart uses the OpenSource version of the `Forms-flow-WEB`. You can change the image tag to any valid version of the OpenSource image, as shown below:
+
 ```yaml
 image:
   registry: docker.io
   repository: formsflow/forms-flow-web
-  tag: X.Y.Z 
+  tag: X.Y.Z # Replace with the desired OpenSource version
 ```
+#### Using the Enterprise Version
+If you're using the enterprise version of Forms-flow-web, you can switch the image repository to `formsflow/forms-flow-web-ee`. The enterprise version includes additional features and support designed for larger-scale or production environments. To use the enterprise version, update the repository field as shown below:
+
+```yaml
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-web-ee
+  tag: X.Y.Z  # Replace with the desired enterprise version
+```
+Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
+
+### EE Specific Environment Variables
+When deploying the Enterprise Edition (EE) for forms-flow-web, the environment variables specific to the EE deployment are already included in the `values.yaml` file of the forms-flow-web chart.
+
+Make sure to replace `clarity_key` and `show_premium_icon` with the appropriate values provided to you.
+
+Example: 
+```yaml
+ShowPremiumIcon: SHOW_PREMIUM_ICON
+ClarityKey: true
+```
+
+- `CLARITY_KEY_VALUE` should be replaced with the actual clarity key provided to you.
+- `SHOW_PREMIUM_ICON` should be set to "true" to display the premium icon in the EE version of the application.
+
+These environment variables will be used to enable EE-specific features in forms-flow-web.
 
 ## Parameters
 

@@ -24,7 +24,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 helm install forms-flow-bpm forms-flow-bpm  --set ingress.ingressClassName=INGRESS_CLASS --set camunda.websocket.securityOrigin=FORMS_FLOW_WEB_URL --set ingress.hostname=HOSTNAME
 ```
 
-> Note: You need to substitute the placeholders `INGRESS_CLASS`, `FORMS_FLOW_WEB_URL` and `HOSTNAME` with a reference to your Helm chart registry and repository. For example, in the case of Formsflow, you need to use `INGRESS_CLASS=nginx`
+> Note: You need to substitute the placeholders `INGRESS_CLASS`, `FORMS_FLOW_WEB_URL` and `HOSTNAME` with a reference to your Helm chart registry and repository. For example, in the case of Formsflow, you need to use `INGRESS_CLASS=nginx`  Use  `--set image.repository=formsflow/forms-flow-bpm-ee` for deploy the enterprise version
 
 These commands deploy Forms-flow-bpm on the Kubernetes cluster
 
@@ -43,17 +43,30 @@ resources:
     cpu: 500m
     memory: 512Mi
 ```
-
 ### Change Forms-flow-bpm version
 
 To modify the Forms-flow-bpm version used in this chart you can specify a [valid image tag](https://hub.docker.com/repository/docker/formsflow/forms-flow-bpm) using the `image.tag` parameter. For example, `image.tag=X.Y.Z`. This approach is also applicable to other images like exporters.
+
+#### Using the OpenSource Version
+By default, the chart uses the OpenSource version of the `Forms-flow-bpm`. You can change the image tag to any valid version of the OpenSource image, as shown below:
 
 ```yaml
 image:
   registry: docker.io
   repository: formsflow/forms-flow-bpm
-  tag: X.Y.Z 
+  tag: X.Y.Z # Replace with the desired OpenSource version
 ```
+#### Using the Enterprise Version
+If you're using the enterprise version of Forms-flow-bpm, you can switch the image repository to `formsflow/forms-flow-bpm-ee`. The enterprise version includes additional features and support designed for larger-scale or production environments. To use the enterprise version, update the repository field as shown below:
+
+```yaml
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-bpm-ee
+  tag: X.Y.Z  # Replace with the desired enterprise version
+```
+Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
+
 ## Persistence
 
 The `forms-flow-bpm` image stores the application logs at the `/logs` path of the container.

@@ -1,6 +1,6 @@
 # Formsflow Documents API
 
-The goal of the document API is to generate pdf with form submission data..
+The goal of the document API is to generate pdf with form submission data.
 
 ## Introduction
 
@@ -45,12 +45,26 @@ resources:
 
 To modify the Forms-flow-documents-api version used in this chart you can specify a [valid image tag](https://hub.docker.com/repository/docker/formsflow/forms-flow-documents-api) using the `image.tag` parameter. For example, `image.tag=X.Y.Z`. This approach is also applicable to other images like exporters.
 
+#### Using the OpenSource Version
+By default, the chart uses the OpenSource version of the `Forms-flow-documents-api`. You can change the image tag to any valid version of the OpenSource image, as shown below:
+
 ```yaml
 image:
   registry: docker.io
   repository: formsflow/forms-flow-documents-api
-  tag: X.Y.Z 
+  tag: X.Y.Z # Replace with the desired OpenSource version
 ```
+#### Using the Enterprise Version
+If you're using the enterprise version of Forms-flow documents-api, you can switch the image repository to `formsflow/forms-flow-documents-api-ee`. The enterprise version includes additional features and support designed for larger-scale or production environments. To use the enterprise version, update the repository field as shown below:
+
+```yaml
+image:
+  registry: docker.io
+  repository: formsflow/forms-flow-documents-api-ee
+  tag: X.Y.Z  # Replace with the desired enterprise version
+```
+Make sure to replace X.Y.Z with the specific version number you wish to use for either the OpenSource or enterprise version.
+
 ## Persistence
 
 The `forms-flow-documents-api` image stores the application logs at the `/forms-flow-documents/app/logs` path of the container.

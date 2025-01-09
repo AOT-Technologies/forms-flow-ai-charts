@@ -20,10 +20,13 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 helm upgrade --install forms-flow-ai forms-flow-ai --set Domain=DOMAIN_NAME --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true --set insight_api_key=INSIGHT_API_KEY
 ```
+To deploy the enterprise version, provide Docker image credentials using the `imageCredentials.username` and `imageCredentials.password` settings.
 
-> Note: You need to substitute the placeholders `DOMAIN_NAME`, and `INSIGHT_API_KEY` with your specific values. For example, in the case of Formsflow, you might use `DOMAIN_NAME=example.com` and `INSIGHT_API_KEY=your_insight_api_key`
+> Note: You need to substitute the placeholders `DOMAIN_NAME`, and `INSIGHT_API_KEY` with your specific values. For example, in the case of Formsflow, you might use `DOMAIN_NAME=example.com` and `INSIGHT_API_KEY=your_insight_api_key` for Enterprise edition use, `--set imageCredentials.username=DOCKER_USERNAME` and` --set imageCredentials.password=DOCKER_PASSWORD`
 
-These commands deploy Forms-flow-api on the Kubernetes cluster
+**Important:** Both the Docker username `(DOCKER_USERNAME)` and password `(DOCKER_PASSWORD)` should be provided by the Formsflow.ai team. Ensure you receive these credentials before proceeding with the setup.
+
+These commands deploy Forms-flow-ai chart on the Kubernetes cluster
 
 > **Tip**: List all releases using `helm list`
 
