@@ -91,7 +91,7 @@ https://<HOSTNAME>/formio
 | `image.registry`                        | Docker registry for the application image.                                                           | `docker.io`                 |
 | `image.repository`                      | Repository for the application image.                                                                | `formsflow/forms-flow-forms` |
 | `image.pullPolicy`                      | Image pull policy.                                                                                   | `IfNotPresent`              |
-| `image.tag`                             | Tag of the application image.                                                                         | `v7.0.0-alpha`              |
+| `image.tag`                             | Tag of the application image.                                                                         | `v7.0.0`              |
 | `image.pullSecrets`                     | Array of image pull secrets.                                                                          | `["forms-flow-ai-auth"]`    |
 | `nameOverride`                          | Override for the application name.                                                                    | `""`                        |
 | `fullnameOverride`                      | Override for the full application name.                                                               | `""`                        |

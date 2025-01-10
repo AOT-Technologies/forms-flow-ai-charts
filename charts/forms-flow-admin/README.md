@@ -93,7 +93,7 @@ https://<HOSTNAME>/admin
 | `image.registry`                   | Docker registry for the image                       | `docker.io`                        |
 | `image.repository`                 | Repository for the image                            | `formsflow/forms-flow-ai-admin`   |
 | `image.pullPolicy`                 | Image pull policy                                   | `IfNotPresent`                     |
-| `image.tag`                        | Image tag                                          | `v7.0.0-alpha`                    |
+| `image.tag`                        | Image tag                                          | `v7.0.0`                    |
 | `image.pullSecrets`                | Array of image pull secrets                         | `forms-flow-ai-auth`               |
 | `nameOverride`                     | String to partially override common.names.fullname | `""`                               |
 | `fullnameOverride`                 | String to fully override common.names.fullname     | `""`                               |

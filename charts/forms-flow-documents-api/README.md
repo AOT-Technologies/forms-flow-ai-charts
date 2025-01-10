@@ -103,7 +103,7 @@ https://<HOSTNAME>/docapi
 | `image.registry`                         | Container image registry.                                                                             | `docker.io`                 |
 | `image.repository`                       | Repository for the container image.                                                                   | `formsflow/forms-flow-documents-api` |
 | `image.pullPolicy`                       | Image pull policy.                                                                                   | `IfNotPresent`              |
-| `image.tag`                              | Tag for the container image.                                                                         | `v7.0.0-alpha`             |
+| `image.tag`                              | Tag for the container image.                                                                         | `v7.0.0`             |
 | `image.pullSecrets`                     | Array of image pull secrets.                                                                         | `["forms-flow-ai-auth"]`    |
 | `nameOverride`                           | Override for the name of the deployment.                                                             | `""`                        |
 | `fullnameOverride`                       | Override for the full name of the deployment.                                                        | `""`                        |

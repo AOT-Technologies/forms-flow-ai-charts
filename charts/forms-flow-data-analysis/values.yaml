@@ -4,7 +4,7 @@ image:
   repository: formsflow/forms-flow-data-analysis-api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v7.0.0-alpha"
+  tag: "v7.0.0"
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:

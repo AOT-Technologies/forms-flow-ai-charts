@@ -90,7 +90,7 @@ These environment variables will be used to enable EE-specific features in forms
 | `image.registry`                        | Docker registry for the application image.                                                           | `docker.io`                 |
 | `image.repository`                      | Repository name for the application image.                                                           | `formsflow/forms-flow-web`  |
 | `image.pullPolicy`                     | Image pull policy for the application.                                                               | `IfNotPresent`              |
-| `image.tag`                            | Tag of the image to use for the application.                                                         | `v7.0.0-alpha`              |
+| `image.tag`                            | Tag of the image to use for the application.                                                         | `v7.0.0`              |
 | `image.pullSecrets`                    | Secrets to use for pulling the application image.                                                   | `["forms-flow-ai-auth"]`    |
 | `nameOverride`                          | Override for the name of the application.                                                            | `""`                        |
 | `fullnameOverride`                      | Override for the full name of the application.                                                       | `""`                        |
