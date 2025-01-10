@@ -1,13 +1,30 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: {{ include "redash.fullname" . }}
   labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+    {{- include "redash.labels" . | nindent 4 }}
+  annotations:
+  {{- with .Values.service.annotations }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
+  type: {{ .Values.service.type }}
+  {{- if .Values.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
+  {{- end }}
   ports:
-  - name: "{{.Values.ingress.port}}"
-    port: {{.Values.ingress.port}}
-    targetPort: {{.Values.ingress.port}}
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.server.httpPort }}
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.sidecar.port }}
+      targetPort: {{ .Values.service.sidecar.httpPort }}
+      protocol: TCP
+      name: nginx
+  {{- if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
   selector:
-    app: {{ .Chart.Name }}-server
+    {{- include "redash.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: server

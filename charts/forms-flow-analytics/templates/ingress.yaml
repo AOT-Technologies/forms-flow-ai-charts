@@ -1,35 +1,44 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "redash.fullname" . -}}
+{{- $ingressPathType := .Values.ingress.pathType -}}
+{{- $ingressPortNumber := .Values.ingress.port -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: {{ $fullName }}
   labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+    {{- include "redash.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-{{ toYaml .Values.ingress.annotations | indent 4 }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
-  {{- if or (and .Values.ingress.tls (or ( dict "annotations" .Values.ingress.annotations ) .Values.ingress.selfSigned .Values.ingress.secrets )) .Values.ingress.extraTls }}
+{{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+{{- end }}
+{{- if .Values.ingress.tls }}
   tls:
-  {{- if and .Values.ingress.tls (or ( dict "annotations" .Values.ingress.annotations ) .Values.ingress.secrets .Values.ingress.selfSigned) }}
+  {{- range .Values.ingress.tls }}
     - hosts:
-        - {{ (tpl .Values.ingress.hostname .) | quote }}
-      secretName: {{ printf "%s-tls" (tpl .Values.ingress.hostname .) }}
-  {{- else }}
-    - {}
-  {{- end}}
-  {{- else }}
-  tls:
-    - {}
-  {{- end}}
+      {{- range .hosts }}
+        - {{ . | quote }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
   rules:
-    -
-      host: "{{ tpl .Values.ingress.hostname .}}"
+  {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
       http:
         paths:
-          - path: /
-            pathType: Prefix
+        {{- range .paths }}
+          - path: {{ . }}
+            pathType: {{ $ingressPathType }}
             backend:
               service:
-                name: {{ .Chart.Name }}
+                name: {{ $fullName }}
                 port:
-                  number: {{ .Values.ingress.port }}
+                  number: {{ $ingressPortNumber }}
+        {{- end }}
+  {{- end }}
+{{- end }}

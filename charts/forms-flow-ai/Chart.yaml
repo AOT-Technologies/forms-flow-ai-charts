@@ -1,17 +1,16 @@
----
 apiVersion: v2
 name: forms-flow-ai
 dependencies:
   - name: postgresql-ha
     condition: postgresql-ha.enabled 
-    repository: https://charts.bitnami.com/bitnami
-    version: 14.2.16
-  - name: mongodb
-    condition: mongodb.enabled 
-    repository: https://charts.bitnami.com/bitnami
-    version: 15.6.18
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 15.x.x
   - name: common
     repository: oci://registry-1.docker.io/bitnamicharts
     version: 2.x.x
-version: v7.1.2
+  - name: mongodb
+    condition: mongodb.enabled 
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 16.x.x
+version: v8.0.0
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
