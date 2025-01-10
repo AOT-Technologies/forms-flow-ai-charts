@@ -168,6 +168,13 @@ These environment variables will be used to enable EE-specific features in forms
 | `autoscaling.targetMemory`             | Target memory utilization percentage for autoscaling.                                              | `""`                        |
 | `autoscaling.behavior.scaleUp`         | Scaling behavior when scaling up.                                                                    | `{ stabilizationWindowSeconds: 120, selectPolicy: Max, policies: [] }` |
 | `autoscaling.behavior.scaleDown`       | Scaling behavior when scaling down.                                                                  | `{ stabilizationWindowSeconds: 300, selectPolicy: Max, policies: [{ type: Pods, value: 1, periodSeconds: 300 }] }` |
+|  `enable_forms_module`                 | Enable or disable tasks module                                                                       | `true`   |         
+|  `enable_tasks_module`                 | Enable or disable tasks module      |     `true` |
+|  `enable_dashboards_module`              | Enable or disable dashboards module | `true` |
+|  `enable_processes_module`      | Enable or disable process module |  `true`  |
+|  `enable_applications_module`   | Enable or disable application module | `true` |
+|  `public_workflow_enabled`  | Enable or disable workflow - public  |  `false` | 
+|  `opentelemetry_service`    | Enable or disable opentelemetry service | `false` |
 
 
 ## Ingress Parameters

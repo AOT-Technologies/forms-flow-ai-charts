@@ -101,6 +101,8 @@ mongodb:
 | `ipaas.embed_base_url`                    | Base URL for embedded services.                             | `""`                         |
 | `ipaas.api_base_url`                      | Base URL for API services.                                  | `""`                         |
 | `configure_logs`                           | Enable or disable logging configuration.                    | `true`                       |
+| `custom_submission_url`                    | Base URL for form adapter                                   | `""`                        |
+| `custom_submission_enabled`                | Enable or disable form adapter                              | `false`                     |
 
 ## Forms Flow Component Parameters
 
