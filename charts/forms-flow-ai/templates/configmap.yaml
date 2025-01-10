@@ -41,8 +41,8 @@ data:
     MULTI_TENANCY_ENABLED: "{{ index .Values "forms-flow-web" "EnableMultitenant" }}"
     DATA_ANALYSIS_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/analysis
     NODE_ENV: "production"
-    CUSTOM_SUBMISSION_URL: ""
-    CUSTOM_SUBMISSION_ENABLED: "false"
+    CUSTOM_SUBMISSION_URL: "{{ .Values.custom_submission_url }}"
+    CUSTOM_SUBMISSION_ENABLED: "{{ .Values.custom_submission_enabled }}"
     FORMSFLOW_DOC_API_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/docapi
     DRAFT_ENABLED: "{{ .Values.draft_enabled }}"
     DRAFT_POLLING_RATE: "15000"
