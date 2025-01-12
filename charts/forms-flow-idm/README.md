@@ -21,6 +21,9 @@ helm upgrade --install forms-flow-idm forms-flow-idm
 
 ## Installing the Chart
 
+> NOTE: If you are having an External Keyacloak you dont have to install this chart. For references on formsflow realm configuration and support please check [here](https://github.com/AOT-Technologies/forms-flow-ai/blob/develop/forms-flow-idm/realm-exports/Group%20based%20auth.json)
+
+
 To install the chart with the release name `my-release`:
 
 ```console
