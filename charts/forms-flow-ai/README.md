@@ -76,7 +76,7 @@ mongodb:
 
 If you are having an External Keycloak and you wish to integrate with formsflow then you need to update the following parameters of formsflow-ai in values.yaml. To do this, 
 
-Set the `forms-flow-idm.keycloak.ingress.hostname` parameter to corresponding keycloak domain name secondly set the `forms-flow-idm.realm` parameter value with realm name in existing keycloak and finally set `forms-flow-bpm.clientsecret` parameter with exsting forms-flow-bpm client's secret For example: 
+First Set the `forms-flow-idm.keycloak.ingress.hostname` parameter to corresponding keycloak domain name, secondly set the `forms-flow-idm.realm` parameter value with realm name in existing keycloak and finally set `forms-flow-bpm.clientsecret` parameter with exsting forms-flow-bpm client's secret. For example: 
 
 
 ```text
