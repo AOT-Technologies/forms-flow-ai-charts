@@ -131,7 +131,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 key: {{ .ExistingDatabaseHostKey | default "FORMSFLOW_API_HOSTNAME" }}
-                name: "{{ $configmapName }}"
+                name: "{{ $secretName }}"
           {{- end }}
           - name: JWT_OIDC_ALGORITHMS
             valueFrom:
