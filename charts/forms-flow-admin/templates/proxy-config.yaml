@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}-nginx-config
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: forms-flow-api
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+data:
+  nginx.conf: |
+    events { worker_connections 1024; }
+    http {
+      server {
+        listen {{ .Values.ingress.servicePort }};
+        location /admin {
+          sub_filter ="/ ="/admin/;
+          sub_filter ="/api/v1/swagger.json ="/admin/api/v1/swagger.json;
+          sub_filter_once off;
+          sub_filter_types application/javascript text/css text/xml text/javascript application/json text/plain;
+          rewrite ^/admin/(.*)$ /$1 break;
+          proxy_set_header Host $http_host;
+          proxy_set_header Authorization $http_authorization;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header Content-Type application/json;
+          proxy_pass http://localhost:{{ .Values.containerPorts.http }};
+        }
+      }
+    }
+    pid /tmp/nginx.pid;

@@ -1,34 +1,13 @@
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  labels:
-    app: {{ .Chart.Name }}
-  name: {{ .Chart.Name }}
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: forms-flow-api
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
 data:
-  DATABASE_URL: "{{tpl .Values.database.url .}}"
   FORMSFLOW_API_PORT: "{{ .Values.database.port }}"
----
-{{- if .Values.elastic_search.enabled }} 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Chart.Name }}-fb-config
-data:
-  "filebeat.yml": |-
-    filebeat.inputs:
-    - type: log
-      enabled: true
-      paths:
-        - /forms-flow-api/app/logs/*
-    output.elasticsearch:
-      hosts: "${ELASTIC_SERVER}"
-      index: "forms-flow-webapi-%{+yyyy.MM.dd}"
-    setup.template.name: "forms-flow-webapi"
-    setup.template.pattern: "forms-flow-webapi-*"
-    setup.template.overwrite: true
-    setup.template.enabled: false
-    setup.template.settings:
-      index.number_of_shards: 1
-    setup.ilm.enabled: false
-{{- end}}
+  

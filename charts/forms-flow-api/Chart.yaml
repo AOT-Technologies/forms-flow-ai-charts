@@ -1,6 +1,13 @@
----
 apiVersion: v2
 name: forms-flow-api
-tags: forms-flow-api
-version: v7.1.2
+description: forms-flow-api is an adaptive tier for correlating form management, BPM and analytics together. The goal of the REST API is to provide access to all relevant interfaces of the system provided by formsflow.
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
+version: v8.0.0
+type: application
+appVersion: "8.0.0"
+dependencies:
+- name: common
+  repository: oci://registry-1.docker.io/bitnamicharts
+  tags:
+  - bitnami-common
+  version: 2.x.x
