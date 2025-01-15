@@ -12,6 +12,23 @@ entries:
     version: v0.2.0
   forms-flow-admin:
   - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:44.901653809Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: forms-flow-admin is a component for managing apis provided by formsflow.
+    digest: d7e9b9f3f021e136149de80b4abbed1e1cf5c64a5453c946737abc8c226e2141
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-admin
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-admin-v8.0.0/forms-flow-admin-v8.0.0.tgz
+    version: v8.0.0
+  - apiVersion: v2
     created: "2024-10-21T07:03:12.498456982Z"
     digest: ce8517e42258137301c6d4df7069cdc838d269332da6efb576d2881f2d72c1b4
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -239,6 +256,26 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-admin-v1.0.0/forms-flow-admin-v1.0.0.tgz
     version: v1.0.0
   forms-flow-ai:
+  - apiVersion: v2
+    created: "2025-01-15T10:05:45.03530282Z"
+    dependencies:
+    - condition: postgresql-ha.enabled
+      name: postgresql-ha
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 15.x.x
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.x.x
+    digest: a8a0bb1759d2135907af9097f3aead1071df151260457af7fb8c46de00f763c8
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-ai
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-ai-v8.0.0/forms-flow-ai-v8.0.0.tgz
+    version: v8.0.0
   - apiVersion: v2
     created: "2024-10-21T07:03:12.757991849Z"
     dependencies:
@@ -742,6 +779,27 @@ entries:
     version: v1.0.0
   forms-flow-analytics:
   - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:45.164567757Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: ^19.1.0
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: ^15.2.0
+    description: forms-flow-analytics leverages Redash to build interactive dashboards
+      and gain insights provided by formsflow.
+    digest: 9d118e8bdd334188d11f29707806337c3b91ffb2c9826fc88dbd6b66a170efb9
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-analytics
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-analytics-v8.0.0/forms-flow-analytics-v8.0.0.tgz
+    version: v8.0.0
+  - apiVersion: v2
     created: "2024-10-21T07:03:12.946007928Z"
     digest: 60e539ae7a45691ab8c37c8c325ca913377ba75977dfef9faaa840f06670ac0a
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -1050,6 +1108,25 @@ entries:
     version: v0.2.0
   forms-flow-api:
   - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:45.283634924Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: forms-flow-api is an adaptive tier for correlating form management,
+      BPM and analytics together. The goal of the REST API is to provide access to
+      all relevant interfaces of the system provided by formsflow.
+    digest: e7160619264ab65355aaca26f1c5f8158a87efded7341f24adfa1437f8fedf9f
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-api
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-api-v8.0.0/forms-flow-api-v8.0.0.tgz
+    version: v8.0.0
+  - apiVersion: v2
     created: "2024-10-21T07:03:13.107588586Z"
     digest: 98f38ddfb181ab63662a6c55e8db12c954935c7c1fc35da30335e0a7600331cf
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -1286,6 +1363,24 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-api-v1.0.0/forms-flow-api-v1.0.0.tgz
     version: v1.0.0
   forms-flow-bpm:
+  - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:45.378163243Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: forms-flow-bpm is a component which leverages Camunda for workflow
+      and decision automation and its provided by formsflow.
+    digest: 3f5ef03c12b83a5f932d5fb896ed2c9356cee72ec8f12fdb29383c8d80c459b5
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-bpm
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-bpm-v8.0.0/forms-flow-bpm-v8.0.0.tgz
+    version: v8.0.0
   - apiVersion: v2
     created: "2024-10-21T07:03:13.408762849Z"
     digest: cf26ea7e168834b0b657ec2f1209c901fbbc2b48aaad368c66570c183caac2b0
@@ -1526,6 +1621,27 @@ entries:
     version: v0.2.0
   forms-flow-data-analysis:
   - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:45.474774688Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: forms-flow-data-analysis is used to understand the sentiments of
+      the customer for products, movies, and other such things, whether they feel
+      positive, negative, or neutral about it. BERT is a very good pre-trained language
+      model which helps machines learn excellent representations of text with respect
+      to context in many natural language tasks provided by formsflow.
+    digest: 27d92cc90630ad7a2ea59f1fa37b36a0ed7b3d05efa457136f2f805e5676a886
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-data-analysis
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-data-analysis-v8.0.0/forms-flow-data-analysis-v8.0.0.tgz
+    version: v8.0.0
+  - apiVersion: v2
     created: "2024-10-21T07:03:13.60779489Z"
     digest: 8b95d93082b85fd933c330c42fbd138a73f86d7be4baf5c68b112fb3b01f7ddc
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -1742,6 +1858,24 @@ entries:
     version: v1.0.0
   forms-flow-documents-api:
   - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:45.607622011Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: forms-flow-documents-api is to generate pdf with form submission
+      data and it's provided by formsflow.
+    digest: 6af4f57a768b4c730cdd5aeb869abeca1b3630afce65eb89e5734ac6df84e5b6
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-documents-api
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-documents-api-v8.0.0/forms-flow-documents-api-v8.0.0.tgz
+    version: v8.0.0
+  - apiVersion: v2
     created: "2024-10-21T07:03:13.760859371Z"
     digest: b15a87908a0fe90e73dedff59dc8a5c0c06a68a4648f98e7b3c69b2577c2888d
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -1940,6 +2074,25 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-documents-api-v1.0.2/forms-flow-documents-api-v1.0.2.tgz
     version: v1.0.2
   forms-flow-forms:
+  - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:45.709831784Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: forms-flow-forms is a component which leverages form.io to build
+      "serverless" data management applications using a simple drag-and-drop form
+      builder interface and its provided by formsflow.
+    digest: 52ca9378461a64ec32b93f6079d2d38d2144c1d3a9b5e8ed9ce895718d61f8e7
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-forms
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-forms-v8.0.0/forms-flow-forms-v8.0.0.tgz
+    version: v8.0.0
   - apiVersion: v2
     created: "2024-10-21T07:03:13.965645487Z"
     digest: 6cdbc45fb370834f3513a80aa777392e45946e28360f54f9232f15b6ec1a69fc
@@ -2147,6 +2300,25 @@ entries:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-forms.build-v0.2.0/forms-flow-forms.build-v0.2.0.tgz
     version: v0.2.0
   forms-flow-idm:
+  - apiVersion: v2
+    created: "2025-01-15T10:05:45.870740181Z"
+    dependencies:
+    - name: keycloak
+      repository: https://charts.bitnami.com/bitnami
+      version: 22.2.6
+    - condition: postgresql-ha.enabled
+      name: postgresql-ha
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 15.x.x
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.x.x
+    digest: baca164a8a4162522bb45538c6f3df34886f63e99874605d30cecb51e21010d8
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-idm
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-idm-v8.0.0/forms-flow-idm-v8.0.0.tgz
+    version: v8.0.0
   - apiVersion: v2
     created: "2024-10-21T07:03:14.196811351Z"
     dependencies:
@@ -2580,6 +2752,24 @@ entries:
     version: v1.0.0
   forms-flow-web:
   - apiVersion: v2
+    appVersion: 8.0.0
+    created: "2025-01-15T10:05:45.985075781Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: forms-flow-web delivers progressive web application with React provided
+      by formsflow.
+    digest: f6ae52bbd95ca6565bb2d98a9e2d23d2abaabd3842f2570caed4d91958129d17
+    icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
+    name: forms-flow-web
+    type: application
+    urls:
+    - https://github.com/AOT-Technologies/forms-flow-ai-charts/releases/download/forms-flow-web-v8.0.0/forms-flow-web-v8.0.0.tgz
+    version: v8.0.0
+  - apiVersion: v2
     created: "2024-10-21T07:03:14.373410274Z"
     digest: f7bb98a6bdaa4dbeb5d194ebdbad85326503ca287ae02f315bd848284b6aa6bc
     icon: https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png
@@ -2815,4 +3005,4 @@ entries:
     urls:
     - https://github.com/AOT-Technologies/helm-charts/releases/download/forms-flow-webapi.build-v0.2.0/forms-flow-webapi.build-v0.2.0.tgz
     version: v0.2.0
-generated: "2024-10-21T07:03:14.374788065Z"
+generated: "2025-01-15T10:05:45.987195631Z"
