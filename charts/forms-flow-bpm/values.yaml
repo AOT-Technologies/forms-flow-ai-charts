@@ -180,7 +180,7 @@ extraEnvVars:
   - name: VAULT_ENABLED
     value: "false"
   - name: VAULT_URL
-    value: "http://{your-ip-address}:8200"
+    value: ""
   - name: VAULT_TOKEN
     value: ""
   - name: VAULT_PATH
