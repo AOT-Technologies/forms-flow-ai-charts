@@ -13,6 +13,7 @@ data:
     events { worker_connections 1024; }
     http {
       server {
+        client_max_body_size {{ .Values.maxSizePayload }};
         listen {{ .Values.ingress.servicePort }};
         location /analysis {
           rewrite ^/analysis/(.*)$ /$1 break;

@@ -12,5 +12,5 @@ dependencies:
     condition: mongodb.enabled 
     repository: oci://registry-1.docker.io/bitnamicharts
     version: 16.x.x
-version: v8.0.0
+version: v8.0.1
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"

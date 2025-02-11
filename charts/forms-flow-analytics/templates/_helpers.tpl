@@ -551,6 +551,12 @@ Selector labels
 {{- define "redash.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "redash.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- with .workerName }}
+app.kubernetes.io/component: {{ . }}worker
+{{- end }}
+{{- if .Values.selectorLabels }}
+{{ tpl (toYaml .Values.selectorLabels) . }}
+{{- end }}
 {{- end -}}
 
 {{/*

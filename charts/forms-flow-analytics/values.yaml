@@ -31,6 +31,8 @@ volumeMounts: []
 
 # commonLabels -- Redash global labels -- applied to all objects
 commonLabels: {}
+# selectorLabels -- Redash global selectorLabels -- applied to all objects
+selectorLabels: {}
 
 ## Service account and security context configuration
 serviceAccount:
@@ -392,6 +394,9 @@ ingress:
   enabled: true
   # ingress.annotations -- Ingress annotations configuration
   annotations: {}
+  ## nginx.ingress.kubernetes.io/proxy-body-size: 50M
+  ## if openshift add annotation
+  ## haproxy.router.openshift.io/max-body-size=50m
   # ingress.ingressClassName -- Sets the ingress controller class name to use.
   ingressClassName: ""
 
@@ -588,7 +593,9 @@ migrations:
 
 # externalPostgreSQL -- External PostgreSQL configuration. To use an external PostgreSQL instead of the automatically deployed postgresql chart: set postgresql.enabled to false then uncomment and configure the externalPostgreSQL connection URL (e.g. postgresql://user:pass@host:5432/database)
 
-externalPostgreSQL: 
+externalPostgreSQL:
+
+maxSizePayload: 50M
 
 # externalPostgreSQLSecret -- Read external PostgreSQL configuration from a secret. This should point at a secret file with a single key which specifies the connection string.
 externalPostgreSQLSecret:

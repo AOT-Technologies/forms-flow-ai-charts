@@ -261,6 +261,9 @@ ingress:
   ##   cert-manager.io/cluster-issuer: cluster-issuer-name
   ##
   annotations: {}
+  ## nginx.ingress.kubernetes.io/proxy-body-size: 50M
+  ## if openshift add annotation
+  ## haproxy.router.openshift.io/max-body-size=50m
   ## @param ingress.labels Additional labels for the Ingress resource.
   ## e.g:
   ## labels:
@@ -441,6 +444,8 @@ service:
     annotations: {}
 
 configuration: []
+
+maxSizePayload: 50M
 
 containerPorts:
   http: 8080
