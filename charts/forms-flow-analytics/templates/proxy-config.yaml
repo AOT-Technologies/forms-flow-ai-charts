@@ -28,6 +28,9 @@ data:
           
           proxy_pass http://localhost:{{ .Values.server.httpPort }};
         }
+        location = /setup {
+          return 301 /redash/setup;
+        } 
         
       }
     }

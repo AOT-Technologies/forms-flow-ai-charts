@@ -3,14 +3,14 @@ name: forms-flow-ai
 dependencies:
   - name: postgresql-ha
     condition: postgresql-ha.enabled 
-    repository: oci://registry-1.docker.io/bitnamicharts
-    version: 15.x.x
+    repository: https://charts.bitnami.com/bitnami
+    version: 15.1.7
   - name: common
-    repository: oci://registry-1.docker.io/bitnamicharts
-    version: 2.x.x
+    repository: https://charts.bitnami.com/bitnami
+    version: 2.29.1
   - name: mongodb
     condition: mongodb.enabled 
-    repository: oci://registry-1.docker.io/bitnamicharts
-    version: 16.x.x
+    repository: https://charts.bitnami.com/bitnami
+    version: 16.4.3
 version: v8.0.1
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
