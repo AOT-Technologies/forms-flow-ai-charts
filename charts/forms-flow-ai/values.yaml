@@ -1,6 +1,7 @@
 
 ---
 Domain: #<DEFINE_ME>
+commonLabels: {}
 formsflowdb:
   postgresql:
     fullnameOverride: forms-flow-ai-postgresql-ha-pgpool
