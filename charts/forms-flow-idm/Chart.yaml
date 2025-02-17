@@ -11,5 +11,5 @@ dependencies:
     version: 15.1.7
   - name: common
     repository: https://charts.bitnami.com/bitnami
-    version: 2.29.1
+    version: 2.27.0
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
