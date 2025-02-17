@@ -265,6 +265,21 @@ spec:
               configMapKeyRef:
                 key: KEYCLOAK_URL_HTTP_RELATIVE_PATH
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: GUNICORN_WORKERS
+            valueFrom:
+              configMapKeyRef:
+                key: GUNICORN_WORKERS
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: GUNICORN_THREADS
+            valueFrom:
+              configMapKeyRef:
+                key: GUNICORN_THREADS
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: GUNICORN_TIMEOUT
+            valueFrom:
+              configMapKeyRef:
+                key: GUNICORN_TIMEOUT
+                name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}

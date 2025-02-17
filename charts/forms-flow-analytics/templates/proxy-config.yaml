@@ -9,6 +9,7 @@ data:
     events { worker_connections 1024; }
     http {
       server {
+        client_max_body_size {{ .Values.maxSizePayload }};
         listen {{ .Values.ingress.port }};
         location /redash/ {
           sub_filter ="/" ="/redash/";
@@ -27,7 +28,10 @@ data:
           
           proxy_pass http://localhost:{{ .Values.server.httpPort }};
         }
-
+        location = /setup {
+          return 301 /redash/setup;
+        } 
+        
       }
     }
     pid /tmp/nginx.pid;

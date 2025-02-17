@@ -2,12 +2,12 @@ apiVersion: v2
 name: forms-flow-admin
 description: forms-flow-admin is a component for managing apis provided by formsflow.
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
-version: v8.0.0
+version: v8.0.1
 type: application
-appVersion: "8.0.0"
+appVersion: "8.0.1"
 dependencies:
 - name: common
-  repository: oci://registry-1.docker.io/bitnamicharts
+  repository: https://charts.bitnami.com/bitnami
   tags:
   - bitnami-common
-  version: 2.x.x
+  version: 2.29.1
