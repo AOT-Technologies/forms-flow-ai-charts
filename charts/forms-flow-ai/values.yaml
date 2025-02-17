@@ -186,7 +186,7 @@ mongodb:
 
   persistence:
     enabled: true
-    storageClass: "gp2"
+    storageClass: ""
     accessModes:
       - ReadWriteOnce
     size: 8Gi
@@ -555,7 +555,7 @@ postgresql-ha:
     ## If undefined (the default) or set to null, no storageClassName spec is
     ## set, choosing the default provisioner.
     ##
-    storageClass: "gp2"
+    storageClass: ""
     ## @param persistence.mountPath The path the volume will be mounted at, useful when using different PostgreSQL images.
     ##
     mountPath: /bitnami/postgresql
@@ -768,7 +768,7 @@ redisExporter:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "gp2"
+    storageClass: ""
     ## @param persistence.annotations Persistent Volume Claim annotations
     ##
     annotations: {}
