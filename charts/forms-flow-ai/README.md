@@ -128,6 +128,9 @@ forms-flow-idm:
 | `configure_logs`                           | Enable or disable logging configuration.                    | `true`                       |
 | `custom_submission_url`                    | Base URL for form adapter                                   | `""`                        |
 | `custom_submission_enabled`                | Enable or disable form adapter                              | `false`                     |
+| `gunicorn_workers`                         | values for gunicorn_worker                                  | `5`                         |
+| `gunicorn_threads`                         | values for gunicorn_thread                                  | `10`                        |
+| `gunicorn_timeout`                         | values for gunicorn_timeout                                 | `120`                       |
 
 ## Forms Flow Component Parameters
 
@@ -145,7 +148,7 @@ forms-flow-idm:
 | `forms-flow-idm.context-path`             | Context path for Keycloak authentication.                   | `/auth`                     |
 | `forms-flow-web.EnableMultitenant`        | Enable or disable multitenancy for the Forms Flow Web application. | `false`                   |
 | `forms-flow-web.clientid`                 | Client ID for the Forms Flow Web application.               | `forms-flow-web`            |
-| `forms-flow-web.ingress.hostname`         | Hostname for the Forms Flow Web ingress.                    | `forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}` |
+| `forms-flow-web.ingress.hostname`         | Hostname for the Forms Flow Web ingress.                    | `forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}`     |
 
 ## Database Parameters
 ### MongoDB 
