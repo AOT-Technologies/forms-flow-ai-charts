@@ -1,6 +1,7 @@
 
 ---
 Domain: #<DEFINE_ME>
+commonLabels: {}
 formsflowdb:
   postgresql:
     fullnameOverride: forms-flow-ai-postgresql-ha-pgpool
@@ -229,6 +230,12 @@ ipaas:
   api_base_url: ""
 
 configure_logs: "true"
+
+gunicorn_workers: "5"
+
+gunicorn_threads: "10"
+
+gunicorn_timeout: "120"
 
 postgresql-ha:
   enabled: true
