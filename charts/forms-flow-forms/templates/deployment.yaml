@@ -122,7 +122,7 @@ spec:
           - name: FORMIO_DOMAIN
             valueFrom:
               configMapKeyRef:
-                key: FORMIO_DOMAIN
+                key: FORMIO_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: MULTI_TENANCY_ENABLED
             valueFrom:
@@ -194,20 +194,9 @@ spec:
             {{- if .Values.sidecars }}
             {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
             {{- end }}
-        - name: nginx
-          image: {{ include "forms-flow-forms.nginx.image" . }}
-          ports:
-            - containerPort: {{ .Values.ingress.servicePort }}
-          volumeMounts:
-            - name: nginx-config-volume
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
       volumes:
       - name: forms-logs
         emptyDir: {}
-      - name: nginx-config-volume
-        configMap:
-          name: forms-flow-forms-nginx-config 
       {{- if .Values.extraVolumes }}
       {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
       {{- end }}

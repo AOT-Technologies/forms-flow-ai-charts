@@ -156,7 +156,7 @@ spec:
           - name: FORMSFLOW_WEB_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMSFLOW_WEB_URL
+                key: FORMSFLOW_WEB_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: KEYCLOAK_URL_REALM
             valueFrom:
@@ -166,7 +166,7 @@ spec:
           - name: INSIGHT_API_URL
             valueFrom:
               configMapKeyRef:
-                key: INSIGHT_API_URL
+                key: INSIGHT_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: INSIGHT_API_KEY
             valueFrom:
@@ -176,7 +176,7 @@ spec:
           - name: BPM_API_URL
             valueFrom:
               configMapKeyRef:
-                key: BPM_API_URL
+                key: BPM_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: KEYCLOAK_ADMIN_CLIENT
             valueFrom:
@@ -201,7 +201,7 @@ spec:
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMIO_URL
+                key: FORMIO_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_JWT_SECRET
             valueFrom:

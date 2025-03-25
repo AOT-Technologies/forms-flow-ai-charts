@@ -143,6 +143,7 @@ https://<HOSTNAME>/admin
 | `formsflow.configmap`                  | Name of the formsflow.ai ConfigMap                      | `forms-flow-ai`                |
 | `formsflow.secret`                     | Name of the formsflow.ai secret                         | `forms-flow-ai`                |
 | `formsflow.analytics`                  | Name of the analytics component                          | `forms-flow-analytics`          |
+|`psp.create`                         | To enable pod security policy                       | `false`                           |
 
 ## Ingress Parameters
 

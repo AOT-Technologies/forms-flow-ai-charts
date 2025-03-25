@@ -109,7 +109,7 @@ spec:
           - name: DATA_ANALYSIS_API_BASE_URL
             valueFrom:
               configMapKeyRef:
-                key: DATA_ANALYSIS_URL
+                key: DATA_ANALYSIS_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: JWT_OIDC_ALGORITHMS
             valueFrom:
@@ -205,7 +205,7 @@ spec:
               subPath: nginx.conf
       volumes:
       - name: data-analysis-logs
-        emptyDir: {}
+        emptyDir: {}     
       - name: nginx-config-volume
         configMap:
           name: forms-flow-data-analysis-nginx-config       

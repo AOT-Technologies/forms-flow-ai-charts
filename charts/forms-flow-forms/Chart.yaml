@@ -2,9 +2,9 @@ apiVersion: v2
 name: forms-flow-forms
 description: forms-flow-forms is a component which leverages form.io to build "serverless" data management applications using a simple drag-and-drop form builder interface and its provided by formsflow.
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
-version: v8.0.1
+version: v8.0.3
 type: application
-appVersion: "8.0.1"
+appVersion: "8.0.3"
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami

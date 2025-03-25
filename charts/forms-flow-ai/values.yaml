@@ -13,6 +13,29 @@ formsflowdb:
 forms-flow-bpm:
   clientid: "forms-flow-bpm"
   clientsecret: "e4bdbd25-1467-4f7f-b993-bc4b1944c943"
+  service:
+    name: forms-flow-bpm
+    port: "8080"
+forms-flow-api:
+  service:
+    name: forms-flow-api
+    port: "5000"
+forms-flow-documents-api:
+  service:
+    name: forms-flow-documents-api
+    port: "5006"
+forms-flow-admin:
+  service:
+    name: forms-flow-admin
+    port: "5000"
+forms-flow-analytics:
+  service:
+    name: forms-flow-analytics
+    port: "5000"
+forms-flow-data-analysis:
+  service:
+    name: forms-flow-data-analysis
+    port: "5000"
 forms-flow-forms:
   admin:
     email: "me@defineme.com"
@@ -33,6 +56,9 @@ forms-flow-web:
   clientid: forms-flow-web
   ingress:
       hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-web
+    port: "8080"
 
 imageCredentials:
   registry: quay.io
@@ -186,7 +212,7 @@ mongodb:
 
   persistence:
     enabled: true
-    storageClass: ""
+    storageClass: "gp2"
     accessModes:
       - ReadWriteOnce
     size: 8Gi
@@ -555,7 +581,7 @@ postgresql-ha:
     ## If undefined (the default) or set to null, no storageClassName spec is
     ## set, choosing the default provisioner.
     ##
-    storageClass: ""
+    storageClass: "gp2"
     ## @param persistence.mountPath The path the volume will be mounted at, useful when using different PostgreSQL images.
     ##
     mountPath: /bitnami/postgresql
@@ -768,7 +794,7 @@ redisExporter:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: ""
+    storageClass: "gp2"
     ## @param persistence.annotations Persistent Volume Claim annotations
     ##
     annotations: {}

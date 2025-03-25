@@ -30,9 +30,11 @@ volumes: []
 volumeMounts: []
 
 # commonLabels -- Redash global labels -- applied to all objects
-commonLabels: {}
+commonLabels:
+  Dataclass: low
 # selectorLabels -- Redash global selectorLabels -- applied to all objects
-selectorLabels: {}
+selectorLabels:
+  Dataclass: low
 
 ## Service account and security context configuration
 serviceAccount:
