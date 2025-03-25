@@ -216,12 +216,12 @@ spec:
         - name: FORMSFLOW_API_URL
           valueFrom:
             configMapKeyRef:
-              key: WEB_API_URL
+              key: WEB_API_SERVICE_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: FORMIO_URL
           valueFrom:
             configMapKeyRef:
-              key: FORMIO_URL
+              key: FORMIO_SERVICE_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: FORMIO_ROOT_EMAIL
           valueFrom:
@@ -241,7 +241,7 @@ spec:
         - name: DATA_ANALYSIS_URL
           valueFrom:
             configMapKeyRef:
-              key: DATA_ANALYSIS_URL
+              key: DATA_ANALYSIS_SERVICE_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: KEYCLOAK_ENABLE_CLIENT_AUTH
           valueFrom:
@@ -261,7 +261,7 @@ spec:
         - name: FORMSFLOW_ADMIN_URL
           valueFrom:
             configMapKeyRef:
-              key: FORMSFLOW_ADMIN_URL
+              key: FORMSFLOW_ADMIN_SERVICE_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: CUSTOM_SUBMISSION_URL
           valueFrom:
@@ -301,7 +301,7 @@ spec:
         - name: FORMSFLOW_DOC_API_URL
           valueFrom:
             configMapKeyRef:
-              key: FORMSFLOW_DOC_API_URL
+              key: FORMSFLOW_DOC_API_SERVICE_URL
               name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}

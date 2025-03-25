@@ -113,7 +113,7 @@ spec:
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMIO_URL
+                key: FORMIO_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_ROOT_EMAIL
             valueFrom:
@@ -148,7 +148,7 @@ spec:
           - name: FORMSFLOW_DOC_API_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMSFLOW_DOC_API_URL
+                key: FORMSFLOW_DOC_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: CONFIGURE_LOGS
             valueFrom:

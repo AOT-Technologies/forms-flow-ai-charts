@@ -4,7 +4,7 @@ image:
   repository: formsflow/forms-flow-data-analysis-api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v7.0.0"
+  tag: "v7.0.1"
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -57,6 +57,11 @@ terminationGracePeriodSeconds: ""
 ## The value is evaluated as a template
 ##
 topologySpreadConstraints: []
+
+## Openshift configuration for nginx
+OpenShift:
+  ## proxy configuration of nginx for openshift
+  enabled: false
 
 diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
