@@ -9,6 +9,7 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 data:
+  SERVER_MAX_HTTP_REQUEST_HEADER_SIZE: '32000'
   APP_SECURITY_ORIGIN: "*"
   CAMUNDA_ANALYTICS_DATABASE_SERVICE_NAME: "{{ .Values.camunda.analytics.database }}"
   CAMUNDA_APP_ROOT_LOG_FLAG: "{{ .Values.camunda.logLevel }}"

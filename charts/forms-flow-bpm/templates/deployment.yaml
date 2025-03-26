@@ -161,6 +161,11 @@ spec:
             configMapKeyRef:
               key: CAMUNDA_APP_ROOT_LOG_FLAG
               name: "{{ .Chart.Name }}"
+        - name: SERVER_MAX_HTTP_REQUEST_HEADER_SIZE
+          valueFrom:
+            configMapKeyRef:
+              key: SERVER_MAX_HTTP_REQUEST_HEADER_SIZE
+              name: "{{ .Chart.Name }}"
         - name: APP_SECURITY_ORIGIN
           valueFrom:
             configMapKeyRef:
