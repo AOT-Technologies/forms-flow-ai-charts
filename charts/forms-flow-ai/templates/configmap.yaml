@@ -36,7 +36,6 @@ data:
     NODE_CONFIG: '{"mongo":"mongodb+srv://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}/{{ .Values.mongodb.auth.databases | first }}"}'
     {{- end }}
     FORMSFLOW_WEB_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}
-    FORMSFLOW_WEB_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-web" "service" "name") . }}:{{ tpl (index .Values "forms-flow-web" "service" "port") . }}
     FORMSFLOW_ADMIN_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/admin/api/v1
     FORMSFLOW_ADMIN_BASE: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/admin/api
     FORMSFLOW_ADMIN_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-admin" "service" "name") . }}:{{ tpl (index .Values "forms-flow-admin" "service" "port") . }}/api/v1
