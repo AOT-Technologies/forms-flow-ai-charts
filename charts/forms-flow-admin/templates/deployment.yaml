@@ -156,7 +156,7 @@ spec:
           - name: FORMSFLOW_WEB_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMSFLOW_WEB_SERVICE_URL
+                key: FORMSFLOW_WEB_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: KEYCLOAK_URL_REALM
             valueFrom:
