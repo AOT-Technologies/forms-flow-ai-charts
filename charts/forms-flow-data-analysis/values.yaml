@@ -59,7 +59,7 @@ terminationGracePeriodSeconds: ""
 topologySpreadConstraints: []
 
 ## Openshift configuration for nginx
-OpenShift:
+openshift:
   ## proxy configuration of nginx for openshift
   enabled: false
 

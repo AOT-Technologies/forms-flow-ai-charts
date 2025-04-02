@@ -25,7 +25,22 @@ spec:
       - name: redis
         image: {{ include "forms-flow-ai.redisExporter.image" . }}
         imagePullPolicy: {{ .Values.redisExporter.image.pullPolicy | quote }}
-        command: ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
+        {{- if .Values.redisExporter.containerSecurityContext.enabled }}
+        securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.redisExporter.containerSecurityContext "context" $) | nindent 12 }}
+        {{- end }}
+        {{- if .Values.redisExporter.diagnosticMode.enabled }}
+        command: {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.diagnosticMode.command "context" $) | nindent 12 }}
+        {{- else if .Values.redisExporter.command }}
+        command: {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.command "context" $) | nindent 12 }}
+        {{- end }}
+        {{- if .Values.redisExporter.diagnosticMode.enabled }}
+        args: {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.diagnosticMode.args "context" $) | nindent 12 }}
+        {{- else if .Values.args }}
+        args: {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.args "context" $) | nindent 12 }}
+        {{- end }}
+        {{- if .Values.redisExporter.lifecycleHooks }}
+        lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.redisExporter.lifecycleHooks "context" $) | nindent 12 }}
+        {{- end }}
         env:
           - name: POD_IP
             valueFrom:
