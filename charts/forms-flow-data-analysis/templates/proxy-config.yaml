@@ -16,7 +16,7 @@ data:
 
         client_max_body_size {{ .Values.maxSizePayload }};
         listen {{ .Values.ingress.servicePort }};
-      {{- if OpenShift.enabled }}
+      {{- if .Values.openshift.enabled }}
         location /analysis {
           sub_filter ="/analysis/swaggerui/ ="/analysis/swaggerui/;
           sub_filter_once off;

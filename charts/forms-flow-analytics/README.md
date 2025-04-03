@@ -101,6 +101,13 @@ For example:
 ```
 https://<HOSTNAME>/redash
 ```
+To access and configure redash after installation include /setup  with the url.
+
+For example:
+
+```
+https://<HOSTNAME>/redash/setup
+```
 
 ## Parameters
 

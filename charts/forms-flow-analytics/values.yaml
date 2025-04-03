@@ -332,8 +332,25 @@ server:
     failureThreshold: 3
 
   # server.podSecurityContext -- Security contexts for server pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-  podSecurityContext: {}
-  securityContext: {}
+  podSecurityContext:
+    enabled: false
+    fsGroupChangePolicy: Always
+    sysctls: []
+    supplementalGroups: []
+    fsGroup: 1001  
+  securityContext:
+    enabled: false
+    seLinuxOptions: {}
+    runAsUser: 1001
+    runAsGroup: 1001
+    runAsNonRoot: false
+    privileged: false
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
 
   # server.nodeSelector -- Node labels for server pod assignment [ref](https://kubernetes.io/docs/user-guide/node-selection/)
   nodeSelector: {}
@@ -450,8 +467,25 @@ worker:
       memory: 1Gi
 
   # worker.podSecurityContext -- Default worker's security context pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-  podSecurityContext: {}
-  securityContext: {}
+  podSecurityContext:
+    enabled: false
+    fsGroupChangePolicy: Always
+    sysctls: []
+    supplementalGroups: []
+    fsGroup: 1001  
+  securityContext:
+    enabled: false
+    seLinuxOptions: {}
+    runAsUser: 1001
+    runAsGroup: 1001
+    runAsNonRoot: false
+    privileged: false
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
 
   # worker.nodeSelector -- Default node labels for worker pod assignment [ref](https://kubernetes.io/docs/user-guide/node-selection/)
   nodeSelector: {}
@@ -509,8 +543,25 @@ scheduler:
       memory: 1Gi
 
   # scheduler.podSecurityContext -- Security contexts for scheduler pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-  podSecurityContext: {}
-  securityContext: {}
+  podSecurityContext:
+    enabled: false
+    fsGroupChangePolicy: Always
+    sysctls: []
+    supplementalGroups: []
+    fsGroup: 1001  
+  securityContext:
+    enabled: false
+    seLinuxOptions: {}
+    runAsUser: 1001
+    runAsGroup: 1001
+    runAsNonRoot: false
+    privileged: false
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
 
   # scheduler.livenessProbe -- Liveness probe for scheduler to ensure workers are running fine
   livenessProbe:
@@ -570,8 +621,25 @@ migrations:
       memory: 1Gi
 
   # migrations.podSecurityContext -- Security contexts for scheduled worker pod assignment [ref](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-  podSecurityContext: {}
-  securityContext: {}
+  podSecurityContext:
+    enabled: false
+    fsGroupChangePolicy: Always
+    sysctls: []
+    supplementalGroups: []
+    fsGroup: 1001
+  securityContext:
+    enabled: false
+    seLinuxOptions: {}
+    runAsUser: 1001
+    runAsGroup: 1001
+    runAsNonRoot: false
+    privileged: false
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
 
   # migrations.nodeSelector -- Node labels for scheduled worker pod assignment [ref](https://kubernetes.io/docs/user-guide/node-selection/)
   nodeSelector: {}
