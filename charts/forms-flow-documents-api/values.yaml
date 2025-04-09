@@ -130,7 +130,7 @@ nodeAffinityPreset:
 ## @param podSecurityContext.fsGroup Set forms-flow-documents-api pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: true
+  enabled: false
   fsGroupChangePolicy: Always
   sysctls: []
   supplementalGroups: []
@@ -149,7 +149,7 @@ podSecurityContext:
 ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
 ##
 containerSecurityContext:
-  enabled: true
+  enabled: false
   seLinuxOptions: {}
   runAsUser: 1001
   runAsGroup: 1001

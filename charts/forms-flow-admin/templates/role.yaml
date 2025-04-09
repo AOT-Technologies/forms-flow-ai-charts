@@ -10,6 +10,16 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 rules:
+  {{- if and (include "common.capabilities.psp.supported" .) .Values.psp.create }}
+  - apiGroups:
+      - 'policy'
+    resources:
+      - 'podsecuritypolicies'
+    verbs:
+      - 'use'
+    resourceNames:
+      - {{ include "common.names.fullname" . }}
+  {{- end }}
   {{- if .Values.rbac.rules }}
   {{- include "common.tplvalues.render" ( dict "value" .Values.rbac.rules "context" $ ) | nindent 2 }}
   {{- end }}

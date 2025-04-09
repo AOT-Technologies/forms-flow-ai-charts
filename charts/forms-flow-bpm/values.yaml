@@ -109,7 +109,7 @@ podLabels: {}
 ## @param podSecurityContext.fsGroup Set forms-flow-bpm pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: true
+  enabled: false
   fsGroupChangePolicy: Always
   sysctls: []
   supplementalGroups: []
@@ -128,7 +128,7 @@ podSecurityContext:
 ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
 ##
 containerSecurityContext:
-  enabled: true
+  enabled: false
   seLinuxOptions: {}
   runAsUser: 1001
   runAsGroup: 1001
@@ -579,6 +579,7 @@ camunda:
   historyLevel: auto
   securityOrigin: '*'
   logLevel: INFO
+  HeaderSize: '32000'
   formBuilder:
     password: demo # CAMUNDA_FORMBUILDER_PIPELINE_PASSWORD
     username: demo # CAMUNDA_FORMBUILDER_PIPELINE_USERNAME

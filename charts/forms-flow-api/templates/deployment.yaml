@@ -87,7 +87,7 @@ spec:
           - name: BPM_API_URL
             valueFrom:
               configMapKeyRef:
-                key: BPM_API_URL
+                key: BPM_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: BPM_CLIENT_ID
             valueFrom:
@@ -176,7 +176,7 @@ spec:
           - name: WEB_API_BASE_URL
             valueFrom:
               configMapKeyRef:
-                key: WEB_API_URL
+                key: WEB_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: KEYCLOAK_URL_REALM
             valueFrom:
@@ -186,7 +186,7 @@ spec:
           - name: INSIGHT_API_URL
             valueFrom:
               configMapKeyRef:
-                key: INSIGHT_API_URL
+                key: INSIGHT_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: INSIGHT_API_KEY
             valueFrom:
@@ -206,12 +206,12 @@ spec:
           - name: FORMSFLOW_ADMIN_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMSFLOW_ADMIN_URL
+                key: FORMSFLOW_ADMIN_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMIO_URL
+                key: FORMIO_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_ROOT_EMAIL
             valueFrom:
@@ -313,6 +313,9 @@ spec:
             {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
             {{- end }}
         - name: nginx
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" $) | nindent 12 }}
+          {{- end }}
           image: {{ include "forms-flow-api.nginx.image" . }}
           ports:
             - containerPort: {{ .Values.ingress.servicePort }}
@@ -322,7 +325,7 @@ spec:
               subPath: nginx.conf
       volumes:
       - name: api-logs
-        emptyDir: {}
+        emptyDir: {}    
       - name: nginx-config-volume
         configMap:
           name: forms-flow-api-nginx-config      

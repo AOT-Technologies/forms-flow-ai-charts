@@ -13,6 +13,29 @@ formsflowdb:
 forms-flow-bpm:
   clientid: "forms-flow-bpm"
   clientsecret: "e4bdbd25-1467-4f7f-b993-bc4b1944c943"
+  service:
+    name: forms-flow-bpm
+    port: "8080"
+forms-flow-api:
+  service:
+    name: forms-flow-api
+    port: "5000"
+forms-flow-documents-api:
+  service:
+    name: forms-flow-documents-api
+    port: "5006"
+forms-flow-admin:
+  service:
+    name: forms-flow-admin
+    port: "5000"
+forms-flow-analytics:
+  service:
+    name: forms-flow-analytics
+    port: "5000"
+forms-flow-data-analysis:
+  service:
+    name: forms-flow-data-analysis
+    port: "5000"
 forms-flow-forms:
   admin:
     email: "me@defineme.com"
@@ -33,6 +56,9 @@ forms-flow-web:
   clientid: forms-flow-web
   ingress:
       hostname: forms-flow-web-{{.Release.Namespace}}.{{tpl (.Values.Domain) .}}
+  service:
+    name: forms-flow-web
+    port: "8080"
 
 imageCredentials:
   registry: quay.io
@@ -50,7 +76,7 @@ imageCredentials:
 ##
 mongodb:
   image:
-    tag: 8.0.3-debian-12-r0 #4.2.21-debian-10-r8
+    tag: 8.0.6-debian-12-r1 #4.2.21-debian-10-r8
     pullSecrets:
       - forms-flow-auth
   enabled: true
@@ -255,7 +281,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/postgresql-repmgr
-      tag: 17.2.0-debian-12-r3
+      tag: 17.4.0-debian-12-r14
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
       ##
@@ -434,7 +460,7 @@ postgresql-ha:
     image:
       registry: docker.io
       repository: bitnami/pgpool
-      tag: 4.5.5-debian-12-r0
+      tag: 4.6.0-debian-12-r4
       digest: ""
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
@@ -589,6 +615,24 @@ postgresql-ha:
       postgresql: ""
 
 redisExporter:
+  diagnosticMode:
+    ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
+    ##
+    enabled: false
+    ## @param diagnosticMode.command Command to override all containers in the deployment
+    ##
+    command:
+      - sleep
+    ## @param diagnosticMode.args Args to override all containers in the deployment
+    ##
+    args:
+      - infinity
+  ## @param command Override default container command (useful when using custom images)
+  ##
+  command: ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
+  ## @param lifecycleHooks for the forms-flow-api container(s) to automate configuration before or after startup
+  ##
+  lifecycleHooks: {}
   replicaCounts: 1
   serviceAnnotations: {}
   serviceLabels: {}
@@ -699,6 +743,48 @@ redisExporter:
     initialDelaySeconds: 10
     periodSeconds: 3
     timeoutSeconds: 5
+  
+  ## K8s Security Context for forms-flow-api pods
+  ## Configure Pods Security Context
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+  ## @param podSecurityContext.enabled Enabled forms-flow-api pods' Security Context
+  ## @param podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
+  ## @param podSecurityContext.sysctls Set kernel settings using the sysctl interface
+  ## @param podSecurityContext.supplementalGroups Set filesystem extra groups
+  ## @param podSecurityContext.fsGroup Set forms-flow-api pod's Security Context fsGroup
+  ##
+  podSecurityContext:
+    enabled: false
+    fsGroupChangePolicy: Always
+    sysctls: []
+    supplementalGroups: []
+    fsGroup: 1001
+  ## Configure Container Security Context
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+  ## @param containerSecurityContext.enabled Enabled containers' Security Context
+  ## @param containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
+  ## @param containerSecurityContext.runAsUser Set containers' Security Context runAsUser
+  ## @param containerSecurityContext.runAsGroup Set containers' Security Context runAsGroup
+  ## @param containerSecurityContext.runAsNonRoot Set container's Security Context runAsNonRoot
+  ## @param containerSecurityContext.privileged Set container's Security Context privileged
+  ## @param containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
+  ## @param containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
+  ## @param containerSecurityContext.capabilities.drop List of capabilities to be dropped
+  ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
+  ##
+  containerSecurityContext:
+    enabled: false
+    seLinuxOptions: {}
+    runAsUser: 1001
+    runAsGroup: 1001
+    runAsNonRoot: false
+    privileged: false
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
   ## @param redisExporter.customLivenessProbe Custom livenessProbe that overrides the default one
   ##
   customLivenessProbe: {}

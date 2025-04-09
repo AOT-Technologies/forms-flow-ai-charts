@@ -58,6 +58,11 @@ terminationGracePeriodSeconds: ""
 ##
 topologySpreadConstraints: []
 
+## Openshift configuration for nginx
+openshift:
+  ## proxy configuration of nginx for openshift
+  enabled: false
+
 diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
   ##
@@ -130,7 +135,7 @@ nodeAffinityPreset:
 ## @param podSecurityContext.fsGroup Set forms-flow-data-analysis pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: true
+  enabled: false
   fsGroupChangePolicy: Always
   sysctls: []
   supplementalGroups: []
@@ -149,7 +154,7 @@ podSecurityContext:
 ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
 ##
 containerSecurityContext:
-  enabled: true
+  enabled: false
   seLinuxOptions: {}
   runAsUser: 1001
   runAsGroup: 1001

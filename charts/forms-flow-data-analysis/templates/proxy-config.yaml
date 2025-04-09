@@ -13,8 +13,23 @@ data:
     events { worker_connections 1024; }
     http {
       server {
+
         client_max_body_size {{ .Values.maxSizePayload }};
         listen {{ .Values.ingress.servicePort }};
+      {{- if .Values.openshift.enabled }}
+        location /analysis {
+          sub_filter ="/analysis/swaggerui/ ="/analysis/swaggerui/;
+          sub_filter_once off;
+          sub_filter_types application/javascript text/css text/xml text/javascript application/json text/plain;
+    
+          proxy_set_header Host $http_host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header SCRIPT_NAME /analysis;
+          proxy_pass http://localhost:{{ .Values.containerPorts.http }};
+        }
+      {{- else }}
         location /analysis {
           rewrite ^/analysis/(.*)$ /$1 break;
           sub_filter '="/' '="/analysis/';
@@ -32,6 +47,7 @@ data:
           proxy_set_header Host $http_host;
           proxy_pass http://localhost:{{ .Values.containerPorts.http }}/swagger.json;
         }
+      {{- end }}
       }
     }
     pid /tmp/nginx.pid;

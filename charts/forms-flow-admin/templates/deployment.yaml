@@ -166,7 +166,7 @@ spec:
           - name: INSIGHT_API_URL
             valueFrom:
               configMapKeyRef:
-                key: INSIGHT_API_URL
+                key: INSIGHT_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: INSIGHT_API_KEY
             valueFrom:
@@ -176,7 +176,7 @@ spec:
           - name: BPM_API_URL
             valueFrom:
               configMapKeyRef:
-                key: BPM_API_URL
+                key: BPM_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: KEYCLOAK_ADMIN_CLIENT
             valueFrom:
@@ -201,7 +201,7 @@ spec:
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMIO_URL
+                key: FORMIO_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_JWT_SECRET
             valueFrom:
@@ -248,6 +248,9 @@ spec:
             {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
             {{- end }}
         - name: nginx
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" $) | nindent 12 }}
+          {{- end }}        
           image: {{ include "forms-flow-admin.nginx.image" . }}
           ports:
             - containerPort: {{ .Values.ingress.servicePort }}

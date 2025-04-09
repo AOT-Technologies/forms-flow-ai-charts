@@ -133,7 +133,7 @@ nodeAffinityPreset:
 ## @param podSecurityContext.fsGroup Set forms-flow-admin pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: true
+  enabled: false
   fsGroupChangePolicy: Always
   sysctls: []
   supplementalGroups: []
@@ -152,7 +152,7 @@ podSecurityContext:
 ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
 ##
 containerSecurityContext:
-  enabled: true
+  enabled: false
   seLinuxOptions: {}
   runAsUser: 1001
   runAsGroup: 1001
@@ -358,7 +358,12 @@ rbac:
   ##       - list
   ##
   rules: []
-
+## Pod Security Policy
+## ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+## @param psp.create Whether to create a PodSecurityPolicy. WARNING: PodSecurityPolicy is deprecated in Kubernetes v1.21 or later, unavailable in v1.25 or later
+##
+psp:
+  create: false
 ## Pod disruption budget configuration
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
 ## @param pdb.create If true, create a pod disruption budget for pods.
