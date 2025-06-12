@@ -7,31 +7,38 @@ metadata:
 data:
   nginx.conf: |
     events { worker_connections 1024; }
+
     http {
       server {
         client_max_body_size {{ .Values.maxSizePayload }};
         listen {{ .Values.ingress.port }};
+
         location /redash/ {
+          proxy_set_header Host $http_host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_set_header SCRIPT_NAME /redash;
+
+          sub_filter "http://{{ .Values.ingress.subFilterHost }}/redash/" "https://{{ .Values.ingress.subFilterHost }}/redash/";
+          sub_filter "http://{{ .Values.ingress.subFilterHost }}/" "https://{{ .Values.ingress.subFilterHost }}/";
           sub_filter ="/" ="/redash/";
           sub_filter ="/static/ ="/redash/static/;
           sub_filter ="/api/ ="/redash/api/;
           sub_filter ="/static/images/redash_icon_small.png ="/redash/static/images/redash_icon_small.png;
           sub_filter url(/static/fonts) url(/redash/static/fonts);
           sub_filter_once off;
-          sub_filter_types application/javascript text/css text/xml text/javascript application/json text/plain;
-          proxy_set_header Host $http_host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          sub_filter "http://{{ .Values.ingress.subFilterHost }}/" "https://{{ .Values.ingress.subFilterHost }}/";         
-          proxy_set_header SCRIPT_NAME /redash;
-          
+          sub_filter_types *;
+          gzip off;
+
           proxy_pass http://localhost:{{ .Values.server.httpPort }};
         }
+
         location = /setup {
           return 301 /redash/setup;
         } 
-        
       }
     }
+
     pid /tmp/nginx.pid;
