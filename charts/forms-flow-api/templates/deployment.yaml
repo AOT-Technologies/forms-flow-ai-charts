@@ -186,7 +186,7 @@ spec:
           - name: INSIGHT_API_URL
             valueFrom:
               configMapKeyRef:
-                key: INSIGHT_API_SERVICE_URL
+                key: INSIGHT_API_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: INSIGHT_API_KEY
             valueFrom:
