@@ -263,8 +263,8 @@ gunicorn_threads: "10"
 
 gunicorn_timeout: "120"
 
-UsernameDispalyClaim: "preferred_username"
-
+UsernameDisplayClaim: "preferred_username"
+FormioJwtExpire: "240"
 EnableCompactFormView: false
 
 postgresql-ha:

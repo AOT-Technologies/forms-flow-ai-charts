@@ -170,6 +170,11 @@ spec:
               configMapKeyRef:
                 key: ENABLE_COMPACT_FORM_VIEW
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMIO_JWT_EXPIRE
+            valueFrom:
+              configMapKeyRef:
+                key: FORMIO_JWT_EXPIRE
+                name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
