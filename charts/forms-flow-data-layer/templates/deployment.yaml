@@ -179,7 +179,7 @@ spec:
               configMapKeyRef:
                 key: REDIS_URL
                 name: "{{ .Values.formsflow.configmap }}"
-          - name: CAMUNDA_DB_PASSWO
+          - name: CAMUNDA_DB_PASSWORD
             valueFrom:
               secretKeyRef:
                 key: CAMUNDA_JDBC_PASSWORD
