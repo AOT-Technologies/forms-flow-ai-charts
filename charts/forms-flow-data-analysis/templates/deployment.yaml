@@ -116,6 +116,11 @@ spec:
               configMapKeyRef:
                 key: KEYCLOAK_JWT_OIDC_ALGORITHMS
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: CONFIGURE_LOGS
+            valueFrom:
+              configMapKeyRef:
+                key: CONFIGURE_LOGS
+                name: "{{ .Values.formsflow.configmap }}"
           - name: JWT_OIDC_AUDIENCE
             valueFrom:
               secretKeyRef:
