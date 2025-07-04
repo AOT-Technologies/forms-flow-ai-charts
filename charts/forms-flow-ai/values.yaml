@@ -255,7 +255,7 @@ ipaas:
   embed_base_url: ""
   api_base_url: ""
 
-configure_logs: "true"
+configure_logs: "false"
 
 gunicorn_workers: "5"
 
