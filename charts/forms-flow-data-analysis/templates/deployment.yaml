@@ -193,7 +193,7 @@ spec:
           {{- end }}
           volumeMounts: 
           - name: data-analysis-logs
-            mountPath: /forms-flow-data-analysis/app/logs    
+            mountPath: /forms-flow-data-analysis-api/app/logs    
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
