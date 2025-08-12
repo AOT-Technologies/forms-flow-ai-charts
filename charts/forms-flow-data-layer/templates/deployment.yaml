@@ -169,10 +169,30 @@ spec:
               configMapKeyRef:
                 key: MULTI_TENANCY_ENABLED
                 name: "{{ .Values.formsflow.configmap }}"
-          - name: FORMIO_DB_URI
+          - name: FORMIO_DB_USERNAME
             valueFrom:
               secretKeyRef:
-                key: MONGODB_URI
+                key: FORMIO_DB_USERNAME
+                name: "{{ .Values.formsflow.secret }}"
+          - name: FORMIO_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_DB_PASSWORD
+                name: "{{ .Values.formsflow.secret }}"
+          - name: FORMIO_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_DB_HOST
+                name: "{{ .Values.formsflow.secret }}"
+          - name: FORMIO_DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: FORMIO_DB_PORT
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMIO_DB_OPTIONS
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_DB_OPTIONS
                 name: "{{ .Values.formsflow.secret }}"
           - name: REDIS_URL
             valueFrom:

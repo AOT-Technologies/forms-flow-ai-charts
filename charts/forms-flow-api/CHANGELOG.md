@@ -8,4 +8,4 @@
      USER_NAME_DISPLAY_CLAIM
      FORMIO_JWT_EXPIRE 
 ### Changed
-  Updated default version image tag to `7.1.0`.
+  Updated default version image tag to `7.2.0-alpha`.

@@ -134,7 +134,7 @@ mongodb:
   #               },
   #             ],
   #          });
-
+    options: "authMechanism=SCRAM-SHA-1&authSource=admin"
   ## @param replicaSetName Name of the replica set (only when `architecture=replicaset`)
   ## Ignored when mongodb.architecture=standalone
   ##
@@ -254,6 +254,8 @@ ipaas:
   jwt_private_key: ""
   embed_base_url: ""
   api_base_url: ""
+
+ChromeDriverTimeOut: "60"
 
 configure_logs: "false"
 

@@ -170,6 +170,11 @@ spec:
               configMapKeyRef:
                 key: ENABLE_COMPACT_FORM_VIEW
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: CHROME_DRIVER_TIMEOUT
+            valueFrom:
+              configMapKeyRef:
+                key: CHROME_DRIVER_TIMEOUT
+                name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_JWT_EXPIRE
             valueFrom:
               configMapKeyRef:
