@@ -169,30 +169,15 @@ spec:
               configMapKeyRef:
                 key: MULTI_TENANCY_ENABLED
                 name: "{{ .Values.formsflow.configmap }}"
-          - name: FORMIO_DB_USERNAME
+          - name: FORMIO_DB_URI
             valueFrom:
               secretKeyRef:
-                key: FORMIO_DB_USERNAME
+                key: MONGODB_URI
                 name: "{{ .Values.formsflow.secret }}"
-          - name: FORMIO_DB_PASSWORD
+          - name: FORMIO_DB_NAME
             valueFrom:
               secretKeyRef:
-                key: FORMIO_DB_PASSWORD
-                name: "{{ .Values.formsflow.secret }}"
-          - name: FORMIO_DB_HOST
-            valueFrom:
-              secretKeyRef:
-                key: FORMIO_DB_HOST
-                name: "{{ .Values.formsflow.secret }}"
-          - name: FORMIO_DB_PORT
-            valueFrom:
-              configMapKeyRef:
-                key: FORMIO_DB_PORT
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: FORMIO_DB_OPTIONS
-            valueFrom:
-              secretKeyRef:
-                key: FORMIO_DB_OPTIONS
+                key: FORMIO_DB_NAME
                 name: "{{ .Values.formsflow.secret }}"
           - name: REDIS_URL
             valueFrom:
@@ -219,6 +204,11 @@ spec:
               configMapKeyRef:
                 key: DATABASE_SERVICE_NAME
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: CAMUNDA_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                key: CAMUNDA_DATABASE_NAME
+                name: "{{ .Values.formsflow.bpm.secret }}"
           - name: CAMUNDA_DB_PORT
             valueFrom:
               configMapKeyRef:
