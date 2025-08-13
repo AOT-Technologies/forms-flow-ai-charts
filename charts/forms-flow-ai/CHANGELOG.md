@@ -8,11 +8,6 @@
     USER_NAME_DISPLAY_CLAIM 
     ENABLE_COMPACT_FORM_VIEW
     FORMIO_DB_NAME
-    FORMIO_DB_USERNAME
-    FORMIO_DB_HOST
-    FORMIO_DB_OPTIONS
-    FORMIO_DB_PASSWORD   
-    FORMIO_DB_PORT
     CHROME_DRIVER_TIMEOUT
 ### Changed
   Updated mongodb version image tag into `8.0.10-debian-12-r2`
