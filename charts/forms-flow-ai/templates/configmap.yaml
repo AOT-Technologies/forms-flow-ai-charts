@@ -28,7 +28,7 @@ data:
     FORMIO_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-forms" "service" "name") . }}:{{ tpl (index .Values "forms-flow-forms" "service" "port") . }}
     WEB_API_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/webapi
     WEB_API_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-api" "service" "name") . }}:{{ tpl (index .Values "forms-flow-api" "service" "port") . }}
-
+    FORMIO_DB_PORT: "{{ .Values.mongodb.service.ports.mongodb }}"
     FORMSFLOW_WEB_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}
     FORMSFLOW_ADMIN_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/admin/api/v1
     FORMSFLOW_ADMIN_BASE: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/admin/api
@@ -53,6 +53,7 @@ data:
     REDIS_PORT: "{{ .Values.redis_port }}"
     REDIS_ENABLED: "{{ .Values.EnableRedis }}"
     CHROME_DRIVER_PATH: "/usr/local/bin/chromedriver"
+    CHROME_DRIVER_TIMEOUT: "{{ .Values.ChromeDriverTimeOut }}"
     ENABLE_CHATBOT: "{{ .Values.EnableChatBot }}"
     CHATBOT_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/analysis/conversations
     CHATBOT_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-data-analysis" "service" "name") . }}:{{ tpl (index .Values "forms-flow-data-analysis" "service" "port") . }}/conversations
