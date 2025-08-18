@@ -10,6 +10,6 @@
      REACT_APP_USER_NAME_DISPLAY_CLAIM
      REACT_APP_ENABLE_COMPACT_FORM_VIEW
 ### Changed
-  Updated default version image tag to `7.2.0-alpha`.
+  Updated default version image tag to `7.2.0`.
 ### Fixed
    Added missing env variables in `README.md`

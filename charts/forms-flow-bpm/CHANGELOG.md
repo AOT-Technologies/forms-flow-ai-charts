@@ -12,6 +12,6 @@
      SESSION_COOKIE_SECURE
 
 ### Changed
-  Updated default version image tag to `7.2.0-alpha`.
+  Updated default version image tag to `7.2.0`.
   Updated README.md file with new env variables
   Updated `Values.yaml` file
