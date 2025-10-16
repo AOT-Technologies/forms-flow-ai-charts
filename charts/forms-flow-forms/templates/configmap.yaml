@@ -10,3 +10,4 @@ metadata:
   {{- end }}
 data:
   DEBUG: "formio:*"
+  CONFIGURE_LOGS: "true"

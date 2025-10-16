@@ -226,7 +226,7 @@ spec:
         - name: FORMIO_URL
           valueFrom:
             configMapKeyRef:
-              key: FORMIO_SERVICE_URL
+              key: FORMIO_URL
               name: "{{ .Values.formsflow.configmap }}"
         - name: FORMIO_ROOT_EMAIL
           valueFrom:

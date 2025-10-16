@@ -1,11 +1,10 @@
 # Changelog
-## 8.2.0 (2025-06-26)
+## 8.3.0 (2025-10-16)
 ### Added
-   Support for custom environment variables in configmap template.
 
   Added env variables
 
-     USER_NAME_DISPLAY_CLAIM
-     FORMIO_JWT_EXPIRE 
+     CONFIGURE_LOGS
+
 ### Changed
-  Updated default version image tag to `7.2.0`.
+  Updated default version image tag to `7.3.0`.

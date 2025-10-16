@@ -10,3 +10,4 @@ metadata:
   {{- end }}
 data:
   DATABASE_PORT: "{{ .Values.postgresql.port }}"
+  CONFIGURE_LOGS: "true"

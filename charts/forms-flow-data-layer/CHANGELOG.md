@@ -1,4 +1,10 @@
 # Changelog
-## 8.2.0 (2025-06-26)
+## 8.3.0 (2025-10-16)
 ### Added
-  default version image tag to `7.2.0`.
+
+  Added env variables
+
+    CONFIGURE_LOGS
+    
+### Added
+  default version image tag to `7.3.0`.
