@@ -262,7 +262,7 @@ ipaas:
 
 ChromeDriverTimeOut: "60"
 
-configure_logs: "false"
+LogConfiguration: "false"
 
 gunicorn_workers: "5"
 

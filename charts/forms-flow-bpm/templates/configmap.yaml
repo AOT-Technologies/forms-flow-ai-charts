@@ -31,5 +31,4 @@ data:
   DATA_BUFFER_SIZE: "{{ tpl .Values.camunda.DataBufferSize .}}"
   IDENTITY_PROVIDER_MAX_RESULT_SIZE: "{{ tpl .Values.camunda.IdentityProviderMaxResultSize .}}"
   SESSION_COOKIE_SECURE: "{{ tpl .Values.camunda.SessionCookieSecure .}}"
-  CONFIGURE_LOGS: "true"
   CAMUNDA_BPM_HISTORY_LEVEL: "audit"

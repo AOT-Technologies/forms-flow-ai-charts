@@ -208,6 +208,11 @@ spec:
               secretKeyRef:
                 key: FORMIO_JWT_SECRET
                 name: "{{ .Values.formsflow.secret }}"
+          - name: CONFIGURE_LOGS
+            valueFrom:
+              configMapKeyRef:
+                key: CONFIGURE_LOGS
+                name: "{{ .Values.formsflow.configmap }}"
           - name: BPM_CLIENT_SECRET
             valueFrom:
               secretKeyRef:

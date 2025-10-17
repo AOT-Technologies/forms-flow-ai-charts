@@ -129,6 +129,11 @@ spec:
               configMapKeyRef:
                 key: MULTI_TENANCY_ENABLED
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: CONFIGURE_LOGS
+            valueFrom:
+              configMapKeyRef:
+                key: CONFIGURE_LOGS
+                name: "{{ .Values.formsflow.configmap }}"
           - name: DEBUG
             valueFrom:
               configMapKeyRef:

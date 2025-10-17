@@ -327,7 +327,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: SESSION_COOKIE_SECURE
-              name: "{{ .Chart.Name }}"                
+              name: "{{ .Chart.Name }}" 
+        - name: CONFIGURE_LOGS
+          valueFrom:
+            configMapKeyRef:
+              key: CONFIGURE_LOGS
+              name: "{{ .Values.formsflow.configmap }}"               
         - name: USER_NAME_DISPLAY_CLAIM
           valueFrom:
             configMapKeyRef:

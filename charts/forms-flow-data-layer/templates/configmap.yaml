@@ -12,4 +12,3 @@ data:
   DEBUG: "{{ .Values.Loglevel.Debug.enabled }}"
   FOMRSFLOW_DATA_LAYER_WORKERS: "{{ .Values.WorkerLayer }}"
   FORMSFLOW_DATALAYER_CORS_ORIGINS: "{{ .Values.CorsOrigins }}"
-  CONFIGURE_LOGS: "true"
