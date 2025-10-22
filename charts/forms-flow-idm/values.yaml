@@ -1,6 +1,9 @@
 
 ---
 keycloak:
+  global: 
+    security: 
+      allowInsecureImages: true
   ## @section Keycloak statefulset parameters
 
   ## @param replicaCount Number of Keycloak replicas to deploy
@@ -217,6 +220,9 @@ keycloak:
     enabled: false
 
 postgresql-ha:
+  global: 
+    security: 
+      allowInsecureImages: true
   enabled: true
   ## @param fullnameOverride String to fully override common.names.fullname template
   ##
