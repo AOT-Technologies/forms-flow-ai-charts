@@ -5,6 +5,10 @@
 
   Added env variables
 
+    USER_NAME_DISPLAY_CLAIM 
+    ENABLE_COMPACT_FORM_VIEW
+    FORMIO_DB_NAME
+    CHROME_DRIVER_TIMEOUT
     CONFIGURE_LOGS
 
 ### Changed

@@ -4,6 +4,8 @@
 
   Added env variables
 
+     USER_NAME_DISPLAY_CLAIM
+     FORMIO_JWT_EXPIRE
      CONFIGURE_LOGS
 
 ### Changed
