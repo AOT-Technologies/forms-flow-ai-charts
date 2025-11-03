@@ -264,6 +264,8 @@ ChromeDriverTimeOut: "60"
 
 LogConfiguration: "false"
 
+otel_javaagent_enabled: "false"
+
 gunicorn_workers: "5"
 
 gunicorn_threads: "10"

@@ -323,6 +323,11 @@ spec:
             configMapKeyRef:
               key: IDENTITY_PROVIDER_MAX_RESULT_SIZE
               name: "{{ .Chart.Name }}"
+        - name: OTEL_JAVAAGENT_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: OTEL_JAVAAGENT_ENABLED
+              name: "{{ .Values.formsflow.configmap }}"
         - name: SESSION_COOKIE_SECURE
           valueFrom:
             configMapKeyRef:
