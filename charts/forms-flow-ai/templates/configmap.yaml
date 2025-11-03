@@ -70,3 +70,5 @@ data:
     USER_NAME_DISPLAY_CLAIM: "{{ .Values.UsernameDisplayClaim }}"
     ENABLE_COMPACT_FORM_VIEW: "{{ .Values.EnableCompactFormView }}"
     FORMIO_JWT_EXPIRE: "{{ .Values.formiojwtexpire }}"
+    CONFIGURE_LOGS: "{{ .Values.LogConfiguration }}"
+    OTEL_JAVAAGENT_ENABLED: "{{ .Values.otel_javaagent_enabled }}"

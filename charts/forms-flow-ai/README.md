@@ -157,9 +157,11 @@ forms-flow-idm:
 
 | Parameter                                        | Description                                                  | Default Value                    |
 |--------------------------------------------------|--------------------------------------------------------------|----------------------------------|
-| `mongodb.image.tag`                              | Docker image tag for MongoDB.                               | `7.0.12-debian-12-r5`           |
+| `mongodb.image.tag`                              | Docker image tag for MongoDB.                               | `8.0.10-debian-12-r2`           |
+|`mongodb.image.repository`|                       | Docker image repository                                     | `bitnamilegacy`
 | `mongodb.image.pullSecrets`                      | Secrets for pulling the Docker image.                       | `forms-flow-auth`                |
-| `mongodb.enabled`                                | Enable or disable MongoDB deployment.                       | `true`                           |
+| `mongodb.enabled`                                | Enable or disable MongoDB deployment.                       | `true` 
+|`mongodb.global.security.allowInsecureimages`     |   Allow to pull image from legacy registry                  | `true` 
 | `mongodb.fullnameOverride`                       | Custom name for the MongoDB service.                        | `forms-flow-ai-mongodb`         |
 | `mongodb.clusterDomain`                          | Domain for the MongoDB cluster.                             | `cluster.local`                  |
 | `mongodb.architecture`                           | Architecture type (replica set or standalone).              | `replicaset`                     |
@@ -199,9 +201,10 @@ forms-flow-idm:
 |-------------------------------------------------|--------------------------------------------------------------|--------------------------------|
 | `postgresql-ha.enabled`                         | Enable or disable PostgreSQL High Availability deployment.  | `true`                         |
 | `postgresql.image.registry`                     | Docker image registry for PostgreSQL.                       | `docker.io`                   |
-| `postgresql.image.repository`                   | Docker image repository for PostgreSQL.                     | `bitnami/postgresql-repmgr`   |
-| `postgresql.image.tag`                          | Docker image tag for PostgreSQL.                            | `16.3.0-debian-12-r20`        |
-| `postgresql.image.pullPolicy`                   | Image pull policy.                                          | `IfNotPresent`                 |
+| `postgresql.image.repository`                   | Docker image repository for PostgreSQL.                     | `bitnamilegacy/postgresql-repmgr`   |
+| `postgresql.image.tag`                          | Docker image tag for PostgreSQL.                            | `17.5.0-debian-12-r10`        |
+| `postgresql.image.pullPolicy`                   | Image pull policy.                                          | `IfNotPresent`
+|  `postgresql.global.security.allowInsecureimages`     |   Allow to pull image from legacy registry    |   `true`                |
 | `postgresql.image.pullSecrets`                  | Secrets for pulling the Docker image.                       | `forms-flow-auth`             |
 | `postgresql.replicaCount`                       | Number of PostgreSQL replicas.                              | `3`                            |
 | `postgresql.containerPorts.postgresql`          | Port for PostgreSQL service.                                | `5432`                         |
@@ -227,7 +230,7 @@ forms-flow-idm:
 | Parameter                                        | Description                                                  | Default Value                  |
 |--------------------------------------------------|--------------------------------------------------------------|--------------------------------|
 | `pgpool.image.registry`                          | Docker image registry for Pgpool.                           | `docker.io`                   |
-| `pgpool.image.repository`                        | Docker image repository for Pgpool.                         | `bitnami/pgpool`              |
+| `pgpool.image.repository`                        | Docker image repository for Pgpool.                         | `bitnamileagcy/pgpool`              |
 | `pgpool.image.tag`                              | Docker image tag for Pgpool.                                | `4.5.2-debian-12-r5`          |
 | `pgpool.image.pullPolicy`                       | Image pull policy.                                          | `IfNotPresent`                 |
 | `pgpool.image.pullSecrets`                      | Secrets for pulling the Docker image.                       | `forms-flow-auth`             |

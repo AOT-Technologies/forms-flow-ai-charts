@@ -75,7 +75,12 @@ imageCredentials:
 ## @param image.debug Set to true if you would like to see extra information on logs
 ##
 mongodb:
+  global: 
+    security: 
+      allowInsecureImages: true
   image:
+    registry: docker.io
+    repository: bitnamilegacy/mongodb
     tag: 8.0.10-debian-12-r2 #4.2.21-debian-10-r8
     pullSecrets:
       - forms-flow-auth
@@ -257,7 +262,9 @@ ipaas:
 
 ChromeDriverTimeOut: "60"
 
-configure_logs: "false"
+LogConfiguration: "false"
+
+otel_javaagent_enabled: "false"
 
 gunicorn_workers: "5"
 
@@ -274,6 +281,9 @@ postgresql-ha:
   ## @section PostgreSQL with Repmgr parameters
   ## PostgreSQL parameters
   ##
+  global: 
+    security: 
+      allowInsecureImages: true
   postgresql:
     ## ref: https://hub.docker.com/r/bitnami/postgresql/tags/
     ## @param postgresql.image.registry [default: REGISTRY_NAME] PostgreSQL with Repmgr image registry
@@ -286,7 +296,7 @@ postgresql-ha:
     ##
     image:
       registry: docker.io
-      repository: bitnami/postgresql-repmgr
+      repository: bitnamilegacy/postgresql-repmgr
       tag: 17.5.0-debian-12-r10
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
@@ -465,7 +475,7 @@ postgresql-ha:
     ##
     image:
       registry: docker.io
-      repository: bitnami/pgpool
+      repository: bitnamilegacy/pgpool
       tag: 4.6.2-debian-12-r1
       digest: ""
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

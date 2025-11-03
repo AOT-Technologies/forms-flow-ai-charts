@@ -1,4 +1,5 @@
 # Changelog
-## 8.2.0 (2025-06-26)
+## 8.3.0 (2025-11-03)
+    
 ### Added
-  default version image tag to `7.2.0`.
+  default version image tag to `7.3.0`.
