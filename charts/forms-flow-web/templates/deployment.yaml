@@ -269,6 +269,26 @@ spec:
               configMapKeyRef:
                 key: REACT_APP_SHOW_PREMIUM_ICON
                 name: "{{ .Chart.Name }}"
+          - name: REACT_APP_CUSTOM_RESOURCE_BUNDLE_URL
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_CUSTOM_RESOURCE_BUNDLE_URL
+                name: "{{ .Chart.Name }}"
+          - name: REACT_APP_GRAPHQL_API_URL
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_GRAPHQL_API_URL
+                name: "{{ .Chart.Name }}"
+          - name: REACT_APP_USER_NAME_DISPLAY_CLAIM
+            valueFrom:
+              configMapKeyRef:
+                key: USER_NAME_DISPLAY_CLAIM
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: REACT_APP_ENABLE_COMPACT_FORM_VIEW
+            valueFrom:
+              configMapKeyRef:
+                key: ENABLE_COMPACT_FORM_VIEW
+                name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}

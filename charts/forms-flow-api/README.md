@@ -103,12 +103,12 @@ sidecars:
 ```
 
 ## API Path Update
-The `Forms-flow-api` can now be accessed at the `/api` route. Ensure that all configurations and requests reference this updated path.
+The `Forms-flow-api` can now be accessed at the `/webapi` route. Ensure that all configurations and requests reference this updated path.
 
 For example:
 
 ```
-https://<HOSTNAME>/api
+https://<HOSTNAME>/webapi
 ```
 ## Parameters
 
@@ -187,6 +187,7 @@ https://<HOSTNAME>/api
 | `autoscaling.behavior.scaleDown.policies` | HPA scaling policies when scaling down                                                           | `[ { type: Pods, value: 1, periodSeconds: 300 } ]` |
 | `formsflow.configmap`           | Name of formsflow.ai configmap                                                                       | `forms-flow-ai`             |
 | `formsflow.secret`              | Name of formsflow.ai secret                                                                          | `forms-flow-ai`             |
+|FormioJWTExpire                 | values for jwtExpire                         |`240`                        |
 
 
 ## Ingress Parameters

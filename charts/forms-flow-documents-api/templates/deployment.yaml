@@ -113,7 +113,7 @@ spec:
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMIO_SERVICE_URL
+                key: FORMIO_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_ROOT_EMAIL
             valueFrom:
@@ -150,6 +150,11 @@ spec:
               configMapKeyRef:
                 key: FORMSFLOW_DOC_API_SERVICE_URL
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMSFLOW_API_URL
+            valueFrom:
+              configMapKeyRef:
+                key: WEB_API_URL
+                name: "{{ .Values.formsflow.configmap }}"
           - name: CONFIGURE_LOGS
             valueFrom:
               configMapKeyRef:
@@ -164,6 +169,21 @@ spec:
             valueFrom:
               configMapKeyRef:
                 key: REDIS_URL
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: ENABLE_COMPACT_FORM_VIEW
+            valueFrom:
+              configMapKeyRef:
+                key: ENABLE_COMPACT_FORM_VIEW
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: CHROME_DRIVER_TIMEOUT
+            valueFrom:
+              configMapKeyRef:
+                key: CHROME_DRIVER_TIMEOUT
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMIO_JWT_EXPIRE
+            valueFrom:
+              configMapKeyRef:
+                key: FORMIO_JWT_EXPIRE
                 name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
@@ -208,9 +228,13 @@ spec:
             - name: nginx-config-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
       volumes:
       - name: documents-logs
         emptyDir: {}
+      - name: nginx-cache
+        emptyDir: {} 
       - name: nginx-config-volume
         configMap:
           name: forms-flow-documents-api-nginx-config  

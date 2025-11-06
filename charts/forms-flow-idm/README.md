@@ -98,7 +98,7 @@ can supply the files by mounting a volume e.g. with docker compose as follows:
 
 ```yaml
 keycloak:
-  image: bitnami/keycloak:latest
+  image: bitnamilegacy/keycloak:latest
   volumes:
     - /local/path/to/realms/folder:/opt/bitnami/keycloak/data/import
 ```
@@ -112,7 +112,7 @@ By using the `kc.sh` script you can export a realm with users. Be sure to mount 
 
 ```yaml
 keycloak:
-  image: bitnami/keycloak:latest
+  image: bitnamilegacy/keycloak:latest
   volumes:
     - /local/path/to/export/folder:/export
 ```
@@ -296,6 +296,7 @@ As an alternative, you can use of the preset configurations for pod affinity, po
 | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | `global.imageRegistry`                                | Global Docker image registry                                                                                                                                                                                                                                                                                                                                        | `""`   |
 | `global.imagePullSecrets`                             | Global Docker registry secret names as an array                                                                                                                                                                                                                                                                                                                     | `[]`   |
+| `global.security.allowInsecureImages`| Global permission to pull image from bitnamilegacy |  `true`
 | `global.defaultStorageClass`                          | Global default StorageClass for Persistent Volume(s)                                                                                                                                                                                                                                                                                                                | `""`   |
 | `global.storageClass`                                 | DEPRECATED: use global.defaultStorageClass instead                                                                                                                                                                                                                                                                                                                  | `""`   |
 | `global.compatibility.openshift.adaptSecurityContext` | Adapt the securityContext sections of the deployment to make them compatible with Openshift restricted-v2 SCC: remove runAsUser, runAsGroup and fsGroup and let the platform use their allowed default IDs. Possible values: auto (apply if the detected running cluster is Openshift), force (perform the adaptation always), disabled (do not perform adaptation) | `auto` |
@@ -323,8 +324,9 @@ As an alternative, you can use of the preset configurations for pod affinity, po
 
 | Name                             | Description                                                                                                                                            | Value                         |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- |
-| `image.registry`                 | Keycloak image registry                                                                                                                                | `REGISTRY_NAME`               |
-| `image.repository`               | Keycloak image repository                                                                                                                              | `REPOSITORY_NAME/keycloak`    |
+| `image.registry`                 | Keycloak image registry                                                                                                                                | `docker`               |
+| `image.repository`               | Keycloak image repository                                                                                                                              | `bitnamilegacy/keycloak`    |
+| `image.tag` | Image tag | `26.1.4-debian-12-r2`
 | `image.digest`                   | Keycloak image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag                                               | `""`                          |
 | `image.pullPolicy`               | Keycloak image pull policy                                                                                                                             | `IfNotPresent`                |
 | `image.pullSecrets`              | Specify docker-registry secret names as an array                                                                                                       | `[]`                          |
@@ -618,6 +620,7 @@ As an alternative, you can use of the preset configurations for pod affinity, po
 | `postgresql.auth.postgresPassword`           | Password for the "postgres" admin user. Ignored if `auth.existingSecret` with key `postgres-password` is provided | `""`               |
 | `postgresql.auth.username`                   | Name for a custom user to create                                                                                  | `bn_keycloak`      |
 | `postgresql.auth.password`                   | Password for the custom user to create                                                                            | `""`               |
+| `postgresql.global.security.allowInsecureImages` |Allow user to pull bitnamilegacy image |  `true`
 | `postgresql.auth.database`                   | Name for a custom database to create                                                                              | `bitnami_keycloak` |
 | `postgresql.auth.existingSecret`             | Name of existing secret to use for PostgreSQL credentials                                                         | `""`               |
 | `postgresql.auth.secretKeys.userPasswordKey` | Name of key in existing secret to use for PostgreSQL credentials. Only used when `auth.existingSecret` is set.    | `password`         |

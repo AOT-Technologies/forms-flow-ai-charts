@@ -18,11 +18,14 @@ data:
           sub_filter ="/static/images/redash_icon_small.png ="/redash/static/images/redash_icon_small.png;
           sub_filter url(/static/fonts) url(/redash/static/fonts);
           sub_filter_once off;
-          sub_filter_types application/javascript text/css text/xml text/javascript application/json text/plain;
+          sub_filter_types *;
+          gzip off;
           proxy_set_header Host $http_host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-Host $host;
+          sub_filter "http://{{ .Values.ingress.subFilterHost }}/redash/" "https://{{ .Values.ingress.subFilterHost }}/redash/";
           sub_filter "http://{{ .Values.ingress.subFilterHost }}/" "https://{{ .Values.ingress.subFilterHost }}/";         
           proxy_set_header SCRIPT_NAME /redash;
           

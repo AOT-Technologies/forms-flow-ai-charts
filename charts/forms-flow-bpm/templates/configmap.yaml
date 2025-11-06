@@ -27,3 +27,8 @@ data:
   WEBSOCKET_MESSAGE_TYPE: "{{ .Values.camunda.websocket.messageType }}"
   WEBSOCKET_SECURITY_ORIGIN: {{ ternary  (.Values.camunda.websocket.securityOrigin | quote) (randAlphaNum 6 | quote) (kindIs "string" .Values.camunda.websocket.securityOrigin) }}
   BPM_BASE_URL: "https://{{tpl .Values.ingress.hostname .}}"
+  BPM_CLIENT_CONN_TIMEOUT: "{{ tpl .Values.camunda.ClientConnectionTimeOut .}}"
+  DATA_BUFFER_SIZE: "{{ tpl .Values.camunda.DataBufferSize .}}"
+  IDENTITY_PROVIDER_MAX_RESULT_SIZE: "{{ tpl .Values.camunda.IdentityProviderMaxResultSize .}}"
+  SESSION_COOKIE_SECURE: "{{ tpl .Values.camunda.SessionCookieSecure .}}"
+  CAMUNDA_BPM_HISTORY_LEVEL: "audit"

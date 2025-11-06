@@ -278,6 +278,7 @@ https://<HOSTNAME>/redash/setup
 | `autoscaling.behavior.scaleDown.stabilizationWindowSeconds` | Time in seconds to consider past recommendations when scaling down | `300`                  |
 | `autoscaling.behavior.scaleDown.selectPolicy`           | Priority of policies that the autoscaler will apply when scaling down | `Max`                  |
 | `autoscaling.behavior.scaleDown.policies`               | Policies for scaling down                             | `- type: Pods, value: 1, periodSeconds: 300` |
+|`UsernameDispalyClaim`| values for username dispaly claim | `preferred_username` |
 
 
 ## Ingress Parameters

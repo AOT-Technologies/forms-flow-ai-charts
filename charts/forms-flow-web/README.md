@@ -90,7 +90,7 @@ These environment variables will be used to enable EE-specific features in forms
 | `image.registry`                        | Docker registry for the application image.                                                           | `docker.io`                 |
 | `image.repository`                      | Repository name for the application image.                                                           | `formsflow/forms-flow-web`  |
 | `image.pullPolicy`                     | Image pull policy for the application.                                                               | `IfNotPresent`              |
-| `image.tag`                            | Tag of the image to use for the application.                                                         | `v7.0.0`              |
+| `image.tag`                            | Tag of the image to use for the application.                                                         | `v7.3.0`              |
 | `image.pullSecrets`                    | Secrets to use for pulling the application image.                                                   | `["forms-flow-ai-auth"]`    |
 | `nameOverride`                          | Override for the name of the application.                                                            | `""`                        |
 | `fullnameOverride`                      | Override for the full name of the application.                                                       | `""`                        |
@@ -168,14 +168,23 @@ These environment variables will be used to enable EE-specific features in forms
 | `autoscaling.targetMemory`             | Target memory utilization percentage for autoscaling.                                              | `""`                        |
 | `autoscaling.behavior.scaleUp`         | Scaling behavior when scaling up.                                                                    | `{ stabilizationWindowSeconds: 120, selectPolicy: Max, policies: [] }` |
 | `autoscaling.behavior.scaleDown`       | Scaling behavior when scaling down.                                                                  | `{ stabilizationWindowSeconds: 300, selectPolicy: Max, policies: [{ type: Pods, value: 1, periodSeconds: 300 }] }` |
-|  `enable_forms_module`                 | Enable or disable tasks module                                                                       | `true`   |         
-|  `enable_tasks_module`                 | Enable or disable tasks module      |     `true` |
-|  `enable_dashboards_module`              | Enable or disable dashboards module | `true` |
-|  `enable_processes_module`      | Enable or disable process module |  `true`  |
-|  `enable_applications_module`   | Enable or disable application module | `true` |
-|  `public_workflow_enabled`  | Enable or disable workflow - public  |  `false` | 
-|  `opentelemetry_service`    | Enable or disable opentelemetry service | `false` |
-
+|  `web.enable_forms_module`                 | Enable or disable tasks module                                                                       | `true`   |         
+|  `web.enable_tasks_module`                 | Enable or disable tasks module      |     `true` |
+|  `web.enable_dashboards_module`              | Enable or disable dashboards module | `true` |
+|  `web.enable_processes_module`      | Enable or disable process module |  `true`  |
+|  `web.enable_applications_module`   | Enable or disable application module | `true` |
+|  `web.public_workflow_enabled`  | Enable or disable workflow - public  |  `false` | 
+|  `web.opentelemetry_service`    | Enable or disable opentelemetry service | `false` |
+|`config_path`                    | config path of formsflow-web |`/usr/share/nginx/html/config/`        |
+|`webclient`                      | name of webclient             |`{{ .Chart.Name }}`           |
+|`webname`                        | name of web component         |`formsflow`                   |
+|`UserAccesPermissions`           | value for access permission for user    | `""`                         |
+|`Language`                       | value for customization of language    |`""`                          |
+|`ShowPremiumIcon`                | value for premium icon display         |`""`                          |
+|`IsEnterPrise`                   | value for enterprise edition           |`""`                          |
+|`ClarityKey`                     | value for clarity key enable           |`""`                          |
+|`GraphqlApiUrl`                  | value for datalayer                    |`https://{{ .Values.ingress.hostname }}/datalayer/queries`|
+|`CustomResourceBundleUrl`        | value for resource bundle url          |`""`                          |
 
 ## Ingress Parameters
 

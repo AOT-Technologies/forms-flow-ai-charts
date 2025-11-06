@@ -126,7 +126,7 @@ https://<HOSTNAME>/camunda
 | `image.registry`                 | Container image registry                                                                               | `docker.io`                 |
 | `image.repository`               | Container image repository                                                                             | `formsflow/forms-flow-bpm`  |
 | `image.pullPolicy`               | Image pull policy                                                                                     | `IfNotPresent`              |
-| `image.tag`                      | Image tag                                                                                            | `v7.0.0`              |
+| `image.tag`                      | Image tag                                                                                            | `v7.3.0`              |
 | `image.pullSecrets`              | Pull secrets for the image                                                                           | `forms-flow-ai-auth`        |
 | `nameOverride`                   | Override for common names                                                                              | `""`                        |
 | `fullnameOverride`               | Full override for common names                                                                         | `""`                        |
@@ -233,7 +233,10 @@ https://<HOSTNAME>/camunda
 | `formsflow.configmap`           | Name of the FormsFlow configuration map.                                                             | `forms-flow-ai`             |
 | `formsflow.secret`               | Name of the FormsFlow secret.                                                                        | `forms-flow-ai`             |
 | `waitFor`                        | Service and port to wait for before starting.                                                       | `${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}` |
-
+|`ClientConnectionTimeOut`         | conection timeout for the component  |`5000`                             |
+|`DataBufferSize`                  | value of data buffersize             |`2`                                |
+|`IdentityProviderMaxResultSize`   | value fof maximum size allocated to identity provider  |`250`            |
+|`SessionCookieSecure`             | value of sesssion cookie secure      |`false`                            |
 ## Vault Parameters
 
 | Name          | Value                                |

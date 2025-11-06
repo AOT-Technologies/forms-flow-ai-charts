@@ -75,8 +75,13 @@ imageCredentials:
 ## @param image.debug Set to true if you would like to see extra information on logs
 ##
 mongodb:
+  global: 
+    security: 
+      allowInsecureImages: true
   image:
-    tag: 8.0.6-debian-12-r1 #4.2.21-debian-10-r8
+    registry: docker.io
+    repository: bitnamilegacy/mongodb
+    tag: 8.0.10-debian-12-r2 #4.2.21-debian-10-r8
     pullSecrets:
       - forms-flow-auth
   enabled: true
@@ -134,7 +139,7 @@ mongodb:
   #               },
   #             ],
   #          });
-
+    options: "authMechanism=SCRAM-SHA-1&authSource=admin"
   ## @param replicaSetName Name of the replica set (only when `architecture=replicaset`)
   ## Ignored when mongodb.architecture=standalone
   ##
@@ -255,7 +260,11 @@ ipaas:
   embed_base_url: ""
   api_base_url: ""
 
-configure_logs: "true"
+ChromeDriverTimeOut: "60"
+
+LogConfiguration: "false"
+
+otel_javaagent_enabled: "false"
 
 gunicorn_workers: "5"
 
@@ -263,11 +272,18 @@ gunicorn_threads: "10"
 
 gunicorn_timeout: "120"
 
+UsernameDisplayClaim: "preferred_username"
+FormioJwtExpire: "240"
+EnableCompactFormView: false
+
 postgresql-ha:
   enabled: true
   ## @section PostgreSQL with Repmgr parameters
   ## PostgreSQL parameters
   ##
+  global: 
+    security: 
+      allowInsecureImages: true
   postgresql:
     ## ref: https://hub.docker.com/r/bitnami/postgresql/tags/
     ## @param postgresql.image.registry [default: REGISTRY_NAME] PostgreSQL with Repmgr image registry
@@ -280,8 +296,8 @@ postgresql-ha:
     ##
     image:
       registry: docker.io
-      repository: bitnami/postgresql-repmgr
-      tag: 17.4.0-debian-12-r14
+      repository: bitnamilegacy/postgresql-repmgr
+      tag: 17.5.0-debian-12-r10
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
       ##
@@ -459,8 +475,8 @@ postgresql-ha:
     ##
     image:
       registry: docker.io
-      repository: bitnami/pgpool
-      tag: 4.6.0-debian-12-r4
+      repository: bitnamilegacy/pgpool
+      tag: 4.6.2-debian-12-r1
       digest: ""
       ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images

@@ -28,13 +28,7 @@ data:
     FORMIO_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-forms" "service" "name") . }}:{{ tpl (index .Values "forms-flow-forms" "service" "port") . }}
     WEB_API_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/webapi
     WEB_API_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-api" "service" "name") . }}:{{ tpl (index .Values "forms-flow-api" "service" "port") . }}
-    {{- if .Values.mongodb.enabled }} 
-    NODE_CONFIG: '{"mongo":"mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}"}'
-    MONGODB_URI:  {{ ternary (tpl "mongodb://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}:{{ .Values.mongodb.service.ports.mongodb }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }}
-    {{- else }}
-    MONGODB_URI:  {{ ternary (tpl "mongodb+srv://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}/{{ .Values.mongodb.auth.databases | first }}" .) "<DEFINE_ME>" .Values.mongodb.enabled | quote }} 
-    NODE_CONFIG: '{"mongo":"mongodb+srv://{{ .Values.mongodb.auth.usernames | first }}:{{ .Values.mongodb.auth.passwords | first }}@{{ .Values.mongodb.service.nameOverride }}/{{ .Values.mongodb.auth.databases | first }}"}'
-    {{- end }}
+    FORMIO_DB_PORT: "{{ .Values.mongodb.service.ports.mongodb }}"
     FORMSFLOW_WEB_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}
     FORMSFLOW_ADMIN_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/admin/api/v1
     FORMSFLOW_ADMIN_BASE: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/admin/api
@@ -59,6 +53,7 @@ data:
     REDIS_PORT: "{{ .Values.redis_port }}"
     REDIS_ENABLED: "{{ .Values.EnableRedis }}"
     CHROME_DRIVER_PATH: "/usr/local/bin/chromedriver"
+    CHROME_DRIVER_TIMEOUT: "{{ .Values.ChromeDriverTimeOut }}"
     ENABLE_CHATBOT: "{{ .Values.EnableChatBot }}"
     CHATBOT_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/analysis/conversations
     CHATBOT_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-data-analysis" "service" "name") . }}:{{ tpl (index .Values "forms-flow-data-analysis" "service" "port") . }}/conversations
@@ -72,3 +67,8 @@ data:
     GUNICORN_WORKERS: "{{ .Values.gunicorn_workers }}"
     GUNICORN_THREADS: "{{ .Values.gunicorn_threads }}"
     GUNICORN_TIMEOUT: "{{ .Values.gunicorn_timeout }}"
+    USER_NAME_DISPLAY_CLAIM: "{{ .Values.UsernameDisplayClaim }}"
+    ENABLE_COMPACT_FORM_VIEW: "{{ .Values.EnableCompactFormView }}"
+    FORMIO_JWT_EXPIRE: "{{ .Values.formiojwtexpire }}"
+    CONFIGURE_LOGS: "{{ .Values.LogConfiguration }}"
+    OTEL_JAVAAGENT_ENABLED: "{{ .Values.otel_javaagent_enabled }}"

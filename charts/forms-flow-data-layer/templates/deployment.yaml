@@ -1,0 +1,269 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  {{- $podLabels := include "common.tplvalues.merge" ( dict "values" ( list .Values.podLabels .Values.commonLabels ) "context" . ) }}
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 6 }}
+  replicas: {{ .Values.replicaCount }}
+  strategy: {{- include "common.tplvalues.render" (dict "value" .Values.updateStrategy "context" $ ) | nindent 4 }}
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" ( dict "customLabels" $podLabels "context" $ ) | nindent 8 }}
+        app.kubernetes.io/component: forms-flow-data-layer
+      annotations:
+        checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
+        {{- if (include "forms-flow-data-layer.createConfigmap" .) }}
+        checksum/configuration: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "forms-flow-data-layer.serviceAccountName" . }}
+      {{- include "forms-flow-data-layer.imagePullSecrets" . | nindent 6 }}
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
+      {{- if .Values.hostAliases }}
+      hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" $) | nindent 8 }}
+      {{- else }}
+      affinity:
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "jenkins-controller" "customLabels" $podLabels "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "jenkins-controller" "customLabels" $podLabels "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset) | nindent 10 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.schedulerName }}
+      schedulerName: {{ .Values.schedulerName }}
+      {{- end }}
+      {{- if .Values.topologySpreadConstraints }}
+      topologySpreadConstraints: {{- include "common.tplvalues.render" (dict "value" .Values.topologySpreadConstraints "context" .) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName | quote }}
+      {{- end }}
+      {{- if .Values.podSecurityContext.enabled }}
+      securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.podSecurityContext "context" $) | nindent 8 }}
+      {{- end }}
+      containers:       
+        - name: forms-flow-data-layer
+          image: {{ include "forms-flow-data-layer.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.diagnosticMode.enabled }}
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.command "context" $) | nindent 12 }}
+          {{- else if .Values.command }}
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.diagnosticMode.enabled }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
+          {{- else if .Values.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.lifecycleHooks }}
+          lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
+          {{- end }}
+          env:
+          - name: DEBUG
+            valueFrom:
+              configMapKeyRef:
+                key: DEBUG
+                name: "{{ .Chart.Name }}"
+          - name: FOMRSFLOW_DATA_LAYER_WORKERS
+            valueFrom:
+              configMapKeyRef:
+                key: FOMRSFLOW_DATA_LAYER_WORKERS
+                name: "{{ .Chart.Name }}"
+          - name: FORMSFLOW_API_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                key: FORMSFLOW_API_HOSTNAME
+                name: "{{ .Values.formsflow.webapi.secret }}"
+          - name: FORMSFLOW_API_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: FORMSFLOW_API_DB_USER
+                name: "{{ .Values.formsflow.webapi.secret }}"
+          - name: FORMSFLOW_API_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: FORMSFLOW_API_DB_PASSWORD
+                name: "{{ .Values.formsflow.webapi.secret }}"
+          - name: FORMSFLOW_API_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                key: FORMSFLOW_API_DB_NAME
+                name: "{{ .Values.formsflow.webapi.secret }}"
+          - name: FORMSFLOW_API_DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: FORMSFLOW_API_PORT
+                name: "{{ .Values.formsflow.webapi.configmap }}"
+          - name: FORMSFLOW_DATALAYER_CORS_ORIGINS
+            valueFrom:
+              configMapKeyRef:
+                key: FORMSFLOW_DATALAYER_CORS_ORIGINS
+                name: "{{ .Chart.Name }}"               
+          - name: JWT_OIDC_AUDIENCE
+            valueFrom:
+              secretKeyRef:
+                key: WEB_CLIENTID
+                name: "{{ .Values.formsflow.secret }}"
+          - name: JWT_OIDC_CACHING_ENABLED
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_JWT_OIDC_CACHING_ENABLED
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: JWT_OIDC_ISSUER
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_JWT_OIDC_ISSUER
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: JWT_OIDC_JWKS_URI
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_JWT_OIDC_JWKS_URI
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: JWT_OIDC_WELL_KNOWN_CONFIG
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_JWT_OIDC_CONFIG
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: KEYCLOAK_URL
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_URL
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: WEB_API_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                key: WEB_API_SERVICE_URL
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: KEYCLOAK_URL_REALM
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_URL_REALM
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: KEYCLOAK_ENABLE_CLIENT_AUTH
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_ENABLE_CLIENT_AUTH
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: MULTI_TENANCY_ENABLED
+            valueFrom:
+              configMapKeyRef:
+                key: MULTI_TENANCY_ENABLED
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMIO_DB_URI
+            valueFrom:
+              secretKeyRef:
+                key: MONGODB_URI
+                name: "{{ .Values.formsflow.secret }}"
+          - name: FORMIO_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_DB_NAME
+                name: "{{ .Values.formsflow.secret }}"
+          - name: REDIS_URL
+            valueFrom:
+              configMapKeyRef:
+                key: REDIS_URL
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: CAMUNDA_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: CAMUNDA_JDBC_PASSWORD
+                name: "{{ .Values.formsflow.bpm.secret }}"
+          - name: KEYCLOAK_URL_HTTP_RELATIVE_PATH
+            valueFrom:
+              configMapKeyRef:
+                key: KEYCLOAK_URL_HTTP_RELATIVE_PATH
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: CAMUNDA_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: CAMUNDA_JDBC_USER
+                name: "{{ .Values.formsflow.bpm.secret }}"
+          - name: CAMUNDA_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: DATABASE_SERVICE_NAME
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: CAMUNDA_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                key: CAMUNDA_DATABASE_NAME
+                name: "{{ .Values.formsflow.bpm.secret }}"
+          - name: CAMUNDA_DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: CAMUNDA_DATABASE_PORT
+                name: "{{ .Values.formsflow.bpm.configmap }}"
+          {{- if .Values.extraEnvVars }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
+          {{- end }}
+          {{- if or .Values.extraEnvVarsCM .Values.extraEnvVarsSecret }}
+          envFrom:
+            {{- if .Values.extraEnvVarsCM }}
+            - configMapRef:
+                name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsCM "context" $) }}
+            {{- end }}
+            {{- if .Values.extraEnvVarsSecret }}
+            - secretRef:
+                name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
+            {{- end }}
+          {{- end }}
+          ports:
+          - name: http
+            containerPort: {{ .Values.containerPorts.http }}
+            protocol: TCP
+          {{- if .Values.resources }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          {{- else if ne .Values.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.resourcesPreset) | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            {{- if .Values.extraVolumeMounts }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
+            {{- end }}
+            {{- if .Values.sidecars }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
+            {{- end }}
+        - name: nginx
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" $) | nindent 12 }}
+          {{- end }}
+          image: {{ include "forms-flow-data-layer.nginx.image" . }}
+          ports:
+            - containerPort: {{ .Values.ingress.servicePort }}
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+      volumes:
+      - name: nginx-cache
+        emptyDir: {} 
+      - name: nginx-config-volume
+        configMap:
+          name: forms-flow-data-layer-nginx-config      
+        {{- if .Values.extraVolumes }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+        {{- end }}
+      restartPolicy: Always

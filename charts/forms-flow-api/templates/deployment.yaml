@@ -81,9 +81,9 @@ spec:
           env:
           - name: MONGODB_URI
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 key: MONGODB_URI
-                name: "{{ .Values.formsflow.configmap }}"
+                name: "{{ .Values.formsflow.secret }}"
           - name: BPM_API_URL
             valueFrom:
               configMapKeyRef:
@@ -186,7 +186,7 @@ spec:
           - name: INSIGHT_API_URL
             valueFrom:
               configMapKeyRef:
-                key: INSIGHT_API_SERVICE_URL
+                key: INSIGHT_API_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: INSIGHT_API_KEY
             valueFrom:
@@ -211,7 +211,7 @@ spec:
           - name: FORMIO_URL
             valueFrom:
               configMapKeyRef:
-                key: FORMIO_SERVICE_URL
+                key: FORMIO_URL
                 name: "{{ .Values.formsflow.configmap }}"
           - name: FORMIO_ROOT_EMAIL
             valueFrom:
@@ -280,6 +280,16 @@ spec:
               configMapKeyRef:
                 key: GUNICORN_TIMEOUT
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: USER_NAME_DISPLAY_CLAIM
+            valueFrom:
+              configMapKeyRef:
+                key: USER_NAME_DISPLAY_CLAIM
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMIO_JWT_EXPIRE
+            valueFrom:
+              configMapKeyRef:
+                key: FORMIO_JWT_EXPIRE
+                name: "{{ .Chart.Name }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
@@ -323,9 +333,13 @@ spec:
             - name: nginx-config-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
       volumes:
       - name: api-logs
-        emptyDir: {}    
+        emptyDir: {}
+      - name: nginx-cache
+        emptyDir: {}  
       - name: nginx-config-volume
         configMap:
           name: forms-flow-api-nginx-config      
