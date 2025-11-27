@@ -1,17 +1,5 @@
 # Changelog
-## 8.3.0 (2025-11-06)
-### Added
-
-  Added env variables
-
-    CONFIGURE_LOGS
-    CAMUNDA_BPM_HISTORY_LEVEL
-    USER_NAME_DISPLAY_CLAIM
-    BPM_CLIENT_CONN_TIMEOUT
-    DATA_BUFFER_SIZE
-    IDENTITY_PROVIDER_MAX_RESULT_SIZE
-    SESSION_COOKIE_SECURE
+## 8.4.0 (2025-11-27)
 
 ### Changed
-  Updated default version image tag to `7.3.0`.
-  Updated README.md file with new env variables
+  Updated default version image tag to `v8.0.0`.

@@ -239,6 +239,6 @@ spec:
         configMap:
           name: forms-flow-documents-api-nginx-config  
         {{- if .Values.extraVolumes }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 6 }}
         {{- end }}
       restartPolicy: Always

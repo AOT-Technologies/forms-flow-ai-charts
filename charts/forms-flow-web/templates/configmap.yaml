@@ -27,4 +27,6 @@ data:
   REACT_APP_CLARITY_KEY: "{{ tpl .Values.ClarityKey . }}"
   REACT_APP_GRAPHQL_API_URL: "{{ tpl .Values.GraphqlApiUrl . }}"
   REACT_APP_CUSTOM_RESOURCE_BUNDLE_URL: "{{ tpl .Values.CustomResourceBundleUrl . }}"
+  REACT_APP_PRODUCT_FRUIT_WORKSPACE_CODE: "{{ tpl .Values.ProductFruitWorkspaceCode . }}"
+  REACT_APP_GOOGLE_ANALYTICS_KEY: "{{ tpl .Values.GoogleAnalyticsKey . }}"
 

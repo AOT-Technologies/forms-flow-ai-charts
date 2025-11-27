@@ -284,6 +284,16 @@ spec:
               configMapKeyRef:
                 key: USER_NAME_DISPLAY_CLAIM
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: REACT_APP_PRODUCT_FRUIT_WORKSPACE_CODE
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_PRODUCT_FRUIT_WORKSPACE_CODE
+                name: "{{ .Chart.Name }}"
+          - name: REACT_APP_GOOGLE_ANALYTICS_KEY
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_GOOGLE_ANALYTICS_KEY
+                name: "{{ .Chart.Name }}"
           - name: REACT_APP_ENABLE_COMPACT_FORM_VIEW
             valueFrom:
               configMapKeyRef:
