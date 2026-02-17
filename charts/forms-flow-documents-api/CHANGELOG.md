@@ -1,13 +1,5 @@
 # Changelog
-## 8.3.0 (2025-11-06)
-### Added
-  Support for custom environment variables in configmap template.
-
-  Added env variables
-
-     ENABLE_COMPACT_FORM_VIEW
+## 8.3.1 (2025-11-06)
 
 ### Changed
-  Updated default version image tag to `7.3.0`.
-  Updated README.md file with new env variables
-  Updated `Values.yaml` file
+  Updated Intentation in deployment yaml

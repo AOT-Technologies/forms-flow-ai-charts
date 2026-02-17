@@ -1,5 +1,5 @@
 # Changelog
-## 8.3.0 (2025-11-06)
+## 8.3.1 (2026-02-17)
 
 ### Changed
-  Updated default version image tag to `7.3.0`.
+  Updated Intentation in deployment yaml
