@@ -289,6 +289,36 @@ spec:
               configMapKeyRef:
                 key: ENABLE_COMPACT_FORM_VIEW
                 name: "{{ .Values.formsflow.configmap }}"
+          - name: REACT_APP_PRODUCT_FRUIT_WORKSPACE_CODE
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_PRODUCT_FRUIT_WORKSPACE_CODE
+                name: "{{ .Chart.Name }}"
+          - name: REACT_APP_GOOGLE_ANALYTICS_KEY
+            valueFrom:
+              configMapKeyRef:
+                key: REACT_APP_GOOGLE_ANALYTICS_KEY
+                name: "{{ .Chart.Name }}"
+          - name: URL_UPGRADE
+            valueFrom:
+              configMapKeyRef:
+                key: URL_UPGRADE
+                name: "{{ .Chart.Name }}"
+          - name: URL_CONTACT_SALES
+            valueFrom:
+              configMapKeyRef:
+                key: URL_CONTACT_SALES
+                name: "{{ .Chart.Name }}"
+          - name: URL_TERMS_AND_CONDITIONS
+            valueFrom:
+              configMapKeyRef:
+                key: URL_TERMS_AND_CONDITIONS
+                name: "{{ .Chart.Name }}"
+          - name: URL_PRIVACY_POLICY
+            valueFrom:
+              configMapKeyRef:
+                key: URL_PRIVACY_POLICY
+                name: "{{ .Chart.Name }}"          
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
