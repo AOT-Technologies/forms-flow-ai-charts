@@ -236,7 +236,7 @@ ingress:
   ingressClassName: ""
   ## @param ingress.pathType Ingress path type
   ##
-  pathType: Prefix
+  pathType: ImplementationSpecific
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
   ##
   apiVersion: ""
