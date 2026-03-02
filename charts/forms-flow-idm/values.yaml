@@ -58,7 +58,7 @@ keycloak:
         -Dkeycloak.profile.feature.upload_scripts=enabled
         -Djava.net.preferIPv4Stack=true
     - name: FF_ADMIN_API_URL
-      value: "http://forms-flow-admin:5010/api/v1"
+      value: "http://forms-flow-admin.default.svc.cluster.local:5000/api/v1"
     - name: FF_KEYCLOAK_PUBLIC_URL
       value: "http://forms-flow-idm-keycloak:80/auth"
     - name: HUBSPOT_ENABLED
@@ -216,7 +216,7 @@ keycloak:
     hostname: #DEFINE_ME
     pathtype: Prefix
     servicePort: http
-    tls: true
+    tls: false
   ## @param httpRelativePath Set the path relative to '/' for serving resources. Useful if you are migrating from older version which were using '/auth/'
   ## ref: https://www.keycloak.org/migration/migrating-to-quarkus#_default_context_path_changed
   ##
