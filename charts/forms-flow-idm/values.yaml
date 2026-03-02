@@ -63,7 +63,10 @@ keycloak:
           name: forms-flow-ai
           key: FORMSFLOW_ADMIN_URL
     - name: FF_KEYCLOAK_PUBLIC_URL
-      value: "http://forms-flow-idm-keycloak:80/auth"
+      valueFrom:
+        configMapKeyRef:
+          name: forms-flow-idm-keycloak-env-vars
+          key: KEYCLOAK_HOSTNAME
     - name: HUBSPOT_ENABLED
       value: "false"
   ## @param extraVolumes Optionally specify extra list of additional volumes for Keycloak pods
