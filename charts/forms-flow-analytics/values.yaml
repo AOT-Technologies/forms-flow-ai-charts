@@ -423,7 +423,7 @@ ingress:
     - host: chart-example.local
       paths: []
   #ingress.pathType -- How ingress paths should be treated.
-  pathType: Prefix
+  pathType: ImplementationSpecific
   
   port: 8080
   # ingress.tls -- Ingress TLS configuration

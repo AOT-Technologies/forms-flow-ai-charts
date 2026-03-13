@@ -185,7 +185,12 @@ These environment variables will be used to enable EE-specific features in forms
 |`ClarityKey`                     | value for clarity key enable           |`""`                          |
 |`GraphqlApiUrl`                  | value for datalayer                    |`https://{{ .Values.ingress.hostname }}/datalayer/queries`|
 |`CustomResourceBundleUrl`        | value for resource bundle url          |`""`                          |
-
+|`UrlUpgrade`                     | value for url  upgrede                 |`"https://formsflow.ai/license-upgrade-call-scheduler"`   |
+|`UrlContactSales`                | url for sales contact                  | `"https://formsflow.ai/about-us"`                        |
+|`UrlTermsAndConditions`          | url for terms and conditions           |`"https://formsflow.ai/license-faq"`                      |
+|`UrlPrivacyPolicy`               | Url for privacy policy                 |`"https://formsflow.ai/privacy-policy"`                   |
+|`ProductFruitWorkspaceCode`      | Values for productfruit                |`""`                          |
+|`GoogleAnalyticsKey`             | Value for Google analytics key         |`""`                          |
 ## Ingress Parameters
 
 | Parameter                               | Description                                                                                          | Default Value               |

@@ -193,12 +193,9 @@ spec:
           volumeMounts:
           - name: forms-logs
             mountPath: /app/logs     
-            {{- if .Values.extraVolumeMounts }}
-            {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $ ) | nindent 12 }}
-            {{- end }}
-            {{- if .Values.sidecars }}
-            {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
-            {{- end }}
+          {{- if .Values.extraVolumeMounts }}
+          {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $ ) | nindent 10 }}
+          {{- end }}
         - name: nginx
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.containerSecurityContext "context" $) | nindent 12 }}
@@ -210,6 +207,9 @@ spec:
             - name: nginx-config-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+        {{- if .Values.sidecars }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
+        {{- end }}
       volumes:
       - name: forms-logs
         emptyDir: {}
@@ -217,6 +217,6 @@ spec:
         configMap:
           name: forms-flow-forms-nginx-config 
       {{- if .Values.extraVolumes }}
-      {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 6 }}
       {{- end }}
       restartPolicy: Always
