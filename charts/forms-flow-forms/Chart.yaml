@@ -4,7 +4,7 @@ description: forms-flow-forms is a component which leverages form.io to build "s
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
 version: v8.4.0
 type: application
-appVersion: "8.3.1"
+appVersion: "v8.4.0"
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami

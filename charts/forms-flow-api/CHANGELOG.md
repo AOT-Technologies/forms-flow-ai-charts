@@ -1,5 +1,9 @@
 # Changelog
-## 8.3.1 (2026-2-17)
+## 8.4.0 (2026-04-14)
 
-### Changed
-  Updated intentation in deployment yaml.
+### Added
+  Added env variables
+
+    AI_FORM_GENERATION_LIMIT_TRIAL
+    AI_FORM_GENERATION_LIMIT_PAID
+    OPENAI_API_KEY

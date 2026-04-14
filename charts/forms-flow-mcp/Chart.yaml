@@ -4,7 +4,7 @@ description: forms-flow-mcp is esigned to seamlessly integrate with forms-flow c
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
 version: v8.4.0
 type: application
-appVersion: "8.3.1"
+appVersion: "8.4.0"
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami

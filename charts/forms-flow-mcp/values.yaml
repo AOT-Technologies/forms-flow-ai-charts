@@ -524,7 +524,7 @@ formsflow:
 mcpOidcIssuerUrl: "http://localhost:5050/mcp-protocol"
 mcpOidcRedirectPath: "/oauth/callback"
 mcpOidcScopes: "openid"
-mcpOidcVerifyIdToken: "true"
+mcpOidcVerifyIdToken: "false"
 mcpOidcRequireConsent: "false"
 pythonUnbuffered: "1"
 forwardedAllowIps: "*"

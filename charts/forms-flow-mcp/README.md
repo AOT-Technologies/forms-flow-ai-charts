@@ -175,6 +175,17 @@ https://<HOSTNAME>/mcp
 | `formsflow.configmap`           | Name of formsflow.ai configmap                                                                       | `forms-flow-ai`             |
 | `formsflow.secret`              | Name of formsflow.ai secret                                                                          | `forms-flow-ai`             |
 |FormioJWTExpire                 | values for jwtExpire                         |`240`                        |
+|`mcpOidcIssuerUrl`              | values for OIDC Issuer URL                         |`""`                        |
+|`mcpOidcRedirectPath`               | values for OIDC Redirect Path                         |`"/api/mcp/callback"`                        |
+|`mcpOidcScopes`               | values for OIDC Scopes                         |`"openid"`                        | 
+|`mcpOidcVerifyIdToken`               | values for OIDC Verify Id Token                         |`"false"`                        |
+|`mcpOidcRequireConsent`               | values for OIDC Require Consent                         |`"false"`                        |
+|`pythonUnbuffered`               | values for Python Unbuffered                         |`"1"`                        |
+|`forwardedAllowIps`               | values for forwardedAllowIps                         |`""`                        |
+|`apiTimeout`               | values for apiTimeout                         |`"30"`                        |
+|`mcpOidcBaseUrl`               | values for OIDC Base URL                         |`""`                        |
+
+
 
 
 ## Ingress Parameters
