@@ -1,10 +1,10 @@
 replicaCount: 1
 image:
   registry: docker.io
-  repository: formsflow/forms-flow-documents-api
-  pullPolicy: IfNotPresent
+  repository: formsflow/forms-flow-mcp
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v7.3.0"
+  tag: "v8.2.1"
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -26,7 +26,6 @@ commonLabels: {}
 ##
 commonAnnotations: {}
 
-nodeSelector: {}
 ## @param tolerations Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
@@ -48,7 +47,7 @@ priorityClassName: ""
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
 ##
 schedulerName: ""
-## @param terminationGracePeriodSeconds In seconds, time the given to the forms-flow-documents-api pod needs to terminate gracefully
+## @param terminationGracePeriodSeconds In seconds, time the given to the forms-flow-mcp pod needs to terminate gracefully
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 ##
 terminationGracePeriodSeconds: ""
@@ -88,7 +87,7 @@ serviceAccount:
 ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
-## @param podLabels Extra labels for forms-flow-documents-api pods
+## @param podLabels Extra labels for forms-flow-mcp pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
@@ -120,14 +119,14 @@ nodeAffinityPreset:
   ##
   values: []
 
-## K8s Security Context for forms-flow-documents-api pods
+## K8s Security Context for forms-flow-mcp pods
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enabled forms-flow-documents-api pods' Security Context
+## @param podSecurityContext.enabled Enabled forms-flow-mcp pods' Security Context
 ## @param podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
 ## @param podSecurityContext.sysctls Set kernel settings using the sysctl interface
 ## @param podSecurityContext.supplementalGroups Set filesystem extra groups
-## @param podSecurityContext.fsGroup Set forms-flow-documents-api pod's Security Context fsGroup
+## @param podSecurityContext.fsGroup Set forms-flow-mcp pod's Security Context fsGroup
 ##
 podSecurityContext:
   enabled: false
@@ -167,11 +166,11 @@ command: []
 ## @param args Override default container args (useful when using custom images)
 ##
 args: []
-## @param lifecycleHooks for the forms-flow-documents-api container(s) to automate configuration before or after startup
+## @param lifecycleHooks for the forms-flow-mcp container(s) to automate configuration before or after startup
 ##
 lifecycleHooks: {}
 automountServiceAccountToken: true
-## @param extraEnvVars Extra environment variables to be set on formsflow documents-api container
+## @param extraEnvVars Extra environment variables to be set on formsflow api container
 ## Example:
 ## extraEnvVars:
 ##   - name: FOO
@@ -195,9 +194,6 @@ extraVolumes: {}
 ##     readOnly: true
 ##
 extraVolumeMounts: {}
-
-
-
 ## sidecars configuration
 sidecars: {}
 ExtraContainer:
@@ -207,13 +203,10 @@ ExtraContainer:
     repository: nginxinc/nginx-unprivileged
     pullPolicy: IfNotPresent
     tag: "latest"
-
 ## @param auth.existingSecret Existing secret containing password,username,dbname and 
   ##
-auth:
-  existingSecret: ""
-  annotations: {}
-## @param updateStrategy.type Set up update strategy for forms-flow-documents-api installation.
+existingSecret: ""
+## @param updateStrategy.type Set up update strategy for forms-flow-mcp installation.
 ## Set to Recreate if you use persistent volume that cannot be mounted by more than one pods to make sure the pods is destroyed first.
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
 ## Example:
@@ -229,19 +222,18 @@ updateStrategy:
     maxSurge: 25%
     maxUnavailable: 25%
 
-
-## forms-flow-documents-api ingress parameters
+## forms-flow-mcp ingress parameters
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 ingress:
-  ## @param ingress.enabled Enable ingress record generation for forms-flow-documents-api
+  ## @param ingress.enabled Enable ingress record generation for forms-flow-mcp
   ##
   enabled: true
   ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
-  ingressClassName: ""
+  ingressClassName: "alb"
   ## @param ingress.pathType Ingress path type
   ##
   pathType: ImplementationSpecific
@@ -255,10 +247,10 @@ ingress:
   controller: default
   ## @param ingress.hostname Default host for the ingress record (evaluated as template)
   ##
-  hostname: forms-flow-documents-api.local
+  hostname: forms-flow-web-ee.aot-technologies.com
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/docapi"
+  path: "/mcp/*"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
@@ -271,14 +263,23 @@ ingress:
   ##   kubernetes.io/ingress.class: nginx
   ##   cert-manager.io/cluster-issuer: cluster-issuer-name
   ##
-  annotations: {}
+  annotations:
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/certificate-arn: >-
+      arn:aws:acm:ca-central-1:653405621825:certificate/493bcd65-d761-4156-9d1e-c17d20d42294
+    alb.ingress.kubernetes.io/group.name: shared-alb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443},{"HTTP":80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/subnets: subnet-088c1ca4cdd7eeab7,subnet-045f27b748e458764
+    alb.ingress.kubernetes.io/target-type: ip
   ## nginx.ingress.kubernetes.io/proxy-body-size: 50M
   ## if openshift add annotation
   ## haproxy.router.openshift.io/max-body-size=50m
   ## @param ingress.labels Additional labels for the Ingress resource.
   ## e.g:
   ## labels:
-  ##   app: forms-flow-documents-api
+  ##   app: forms-flow-mcp
   ##
   labels: {}
   ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
@@ -295,7 +296,7 @@ ingress:
   ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
   ## e.g:
   ## extraHosts:
-  ##   - name: forms-flow-documents-api.local
+  ##   - name: forms-flow-mcp.local
   ##     path: /
   ##
   extraHosts: []
@@ -312,8 +313,8 @@ ingress:
   ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
   ## extraTls:
   ## - hosts:
-  ##     - forms-flow-documents-api.local
-  ##   secretName: forms-flow-documents-api.local-tls
+  ##     - forms-flow-mcp.local
+  ##   secretName: forms-flow-mcp.local-tls
   ##
   extraTls: []
   ## @param ingress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
@@ -326,7 +327,7 @@ ingress:
   ## It is also possible to create and manage the certificates outside of this helm chart
   ## Please see README.md for more information
   ## e.g:
-  ## - name: forms-flow-documents-api.local-tls
+  ## - name: forms-flow-mcp.local-tls
   ##   key:
   ##   certificate:
   ##
@@ -345,7 +346,7 @@ ingress:
   ##             name: http
   ##
   extraRules: []
-## forms-flow-documents-api admin ingress parameters
+## forms-flow-mcp admin ingress parameters
 ## ref: https://kubernetes.io/docs/user-guide/ingress/
 ##
 ## Pod disruption budget configuration
@@ -358,7 +359,7 @@ pdb:
   create: true
   minAvailable: ""
   maxUnavailable: ""
-## forms-flow-documents-api containers' resource requests and limits
+## forms-flow-mcp containers' resource requests and limits
 ## ref: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
 ## We usually recommend not to specify default resources and to leave this as a conscious
 ## choice for the user. This also increases chances charts run on environments with little
@@ -380,10 +381,10 @@ resourcesPreset: "small"
 ##
 resources:
   limits:
-    cpu: 200m
+    cpu: 300m
     memory: 1Gi
   requests:
-    cpu: 100m
+    cpu: 200m
     memory: 512Mi
 ## @param customStartupProbe Custom startup probe for the Web component
 ##
@@ -403,13 +404,13 @@ service:
   ## @param service.type Kubernetes service type (`ClusterIP`, `NodePort`, or `LoadBalancer`)
   ##
   type: ClusterIP
-  ## @param service.ports [array] forms-flow-documents-api service ports (evaluated as a template)
+  ## @param service.ports [array] forms-flow-mcp service ports (evaluated as a template)
   ##
   ports:
     - name: http
-      port: 5006
+      port: 5050
       targetPort: http
-      protocol: TCP
+      protocol: TCP 
     - name: nginx
       port: 8080
       targetPort: 8080
@@ -437,7 +438,7 @@ service:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param service.annotations Annotations for forms-flow-documents-api service
+  ## @param service.annotations Annotations for forms-flow-mcp service
   ##
   annotations: {}
   ## @param service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
@@ -463,13 +464,13 @@ configuration: []
 maxSizePayload: 50M
 
 containerPorts:
-  http: 5006
+  http: 5050
 
-## forms-flow-documents-api Autoscaling configuration
+## forms-flow-mcp Autoscaling configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-## @param autoscaling.enabled Enable autoscaling for forms-flow-documents-api
-## @param autoscaling.minReplicas Minimum number of forms-flow-documents-api replicas
-## @param autoscaling.maxReplicas Maximum number of forms-flow-documents-api replicas
+## @param autoscaling.enabled Enable autoscaling for forms-flow-mcp
+## @param autoscaling.minReplicas Minimum number of forms-flow-mcp replicas
+## @param autoscaling.maxReplicas Maximum number of forms-flow-mcp replicas
 ## @param autoscaling.targetCPU Target CPU utilization percentage
 ## @param autoscaling.targetMemory Target Memory utilization percentage
 ##
@@ -514,6 +515,18 @@ autoscaling:
         - type: Pods
           value: 1
           periodSeconds: 300
+
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret
+
+
+mcpOidcIssuerUrl: "http://localhost:5050/mcp-protocol"
+mcpOidcRedirectPath: "/oauth/callback"
+mcpOidcScopes: "openid"
+mcpOidcVerifyIdToken: "false"
+mcpOidcRequireConsent: "false"
+pythonUnbuffered: "1"
+forwardedAllowIps: "*"
+apiTimeout: "30"
+mcpOidcBaseUrl: "http://localhost:5050/mcp-protocol"

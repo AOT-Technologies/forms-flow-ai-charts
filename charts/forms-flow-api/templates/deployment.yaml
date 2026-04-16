@@ -290,6 +290,26 @@ spec:
               configMapKeyRef:
                 key: FORMIO_JWT_EXPIRE
                 name: "{{ .Chart.Name }}"
+          - name: OPENAI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                key: OPENAI_API_KEY
+                name: "{{ .Values.formsflow.secret }}"
+          - name: AI_FORM_GENERATION_LIMIT_TRIAL
+            valueFrom:
+              configMapKeyRef:
+                key: AI_FORM_GENERATION_LIMIT_TRIAL
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: AI_FORM_GENERATION_LIMIT_PAID
+            valueFrom:
+              configMapKeyRef:
+                key: AI_FORM_GENERATION_LIMIT_PAID
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: AI_BUILDER_QUOTA_TIMEZONE
+            valueFrom:
+              configMapKeyRef:
+                key: AI_BUILDER_QUOTA_TIMEZONE
+                name: "{{ .Values.formsflow.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
@@ -344,6 +364,6 @@ spec:
         configMap:
           name: forms-flow-api-nginx-config      
         {{- if .Values.extraVolumes }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 6 }}
         {{- end }}
       restartPolicy: Always

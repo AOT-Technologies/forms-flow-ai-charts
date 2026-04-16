@@ -27,4 +27,9 @@ data:
   REACT_APP_CLARITY_KEY: "{{ tpl .Values.ClarityKey . }}"
   REACT_APP_GRAPHQL_API_URL: "{{ tpl .Values.GraphqlApiUrl . }}"
   REACT_APP_CUSTOM_RESOURCE_BUNDLE_URL: "{{ tpl .Values.CustomResourceBundleUrl . }}"
-
+  REACT_APP_URL_UPGRADE: "{{ tpl .Values.UrlUpgrade . }}"
+  REACT_APP_URL_CONTACT_SALES: "{{ tpl .Values.UrlContactSales . }}"
+  REACT_APP_URL_TERMS_AND_CONDITIONS: "{{ tpl .Values.UrlTermsAndConditions . }}"
+  REACT_APP_URL_PRIVACY_POLICY: "{{ tpl .Values.UrlPrivacyPolicy . }}"
+  REACT_APP_PRODUCT_FRUIT_WORKSPACE_CODE: "{{ tpl .Values.ProductFruitWorkspaceCode . }}"
+  REACT_APP_GOOGLE_ANALYTICS_KEY: "{{ tpl .Values.GoogleAnalyticsKey . }}"

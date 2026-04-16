@@ -144,6 +144,10 @@ https://<HOSTNAME>/admin
 | `formsflow.secret`                     | Name of the formsflow.ai secret                         | `forms-flow-ai`                |
 | `formsflow.analytics`                  | Name of the analytics component                          | `forms-flow-analytics`          |
 |`psp.create`                         | To enable pod security policy                       | `false`                           |
+| `stripeWebhookSecret`                | Stripe webhook secret                               | `""`                             |
+| `stripeSecretKey`                    | Stripe secret key                                   | `""`                             |
+| `stripePublishableKey`               | Stripe publishable key                              | `""`                             |
+| `stripePricingTableId`               | Stripe pricing table ID                             | `""`                             |
 
 ## Ingress Parameters
 
