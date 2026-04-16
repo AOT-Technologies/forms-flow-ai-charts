@@ -275,6 +275,11 @@ gunicorn_timeout: "120"
 UsernameDisplayClaim: "preferred_username"
 FormioJwtExpire: "240"
 EnableCompactFormView: false
+openai:
+  apiKey: ""
+AiFormGenerationLimitTrial: "10"
+AiFormGenerationLimitPaid: "100"
+AiBuilderQuotaTimezone: ""
 
 postgresql-ha:
   enabled: true
