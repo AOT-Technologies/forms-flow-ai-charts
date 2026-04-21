@@ -92,7 +92,7 @@ https://<HOSTNAME>/admin
 | `replicaCount`                     | Number of replicas                                  | `1`                                |
 | `image.registry`                   | Docker registry for the image                       | `docker.io`                        |
 | `image.repository`                 | Repository for the image                            | `formsflow/forms-flow-ai-admin`   |
-| `image.pullPolicy`                 | Image pull policy                                   | `IfNotPresent`                     |
+| `image.pullPolicy`                 | Image pull policy                                   | `Always`                     |
 | `image.tag`                        | Image tag                                          | `v7.0.0`                    |
 | `image.pullSecrets`                | Array of image pull secrets                         | `forms-flow-ai-auth`               |
 | `nameOverride`                     | String to partially override common.names.fullname | `""`                               |
