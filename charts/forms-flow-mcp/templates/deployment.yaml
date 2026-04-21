@@ -201,18 +201,6 @@ spec:
           image: {{ include "forms-flow-mcp.nginx.image" . }}
           ports:
             - containerPort: {{ .Values.ingress.servicePort }}
-          volumeMounts:
-            - name: nginx-config-volume
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
-            - name: nginx-cache
-              mountPath: /var/cache/nginx
-      volumes:
-      - name: nginx-cache
-        emptyDir: {}  
-      - name: nginx-config-volume
-        configMap:
-          name: forms-flow-mcp-nginx-config
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 6 }}
         {{- end }}
