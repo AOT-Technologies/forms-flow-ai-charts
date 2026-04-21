@@ -113,7 +113,7 @@ https://<HOSTNAME>/analysis
 | `replicaCount`                     | Number of replicas for the deployment.                                                               | `1`                         |
 | `image.registry`                   | Docker registry for the image.                                                                       | `docker.io`                 |
 | `image.repository`                 | Repository for the image.                                                                             | `formsflow/forms-flow-data-analysis-api` |
-| `image.pullPolicy`                 | Image pull policy.                                                                                    | `IfNotPresent`              |
+| `image.pullPolicy`                 | Image pull policy.                                                                                    | `Always`              |
 | `image.tag`                        | Tag of the image to use.                                                                             | `v7.3.0`             |
 | `image.pullSecrets`                | Array of image pull secrets.                                                                          | `forms-flow-ai-auth`       |
 | `nameOverride`                     | Override the name of the deployment.                                                                  | `""`                        |

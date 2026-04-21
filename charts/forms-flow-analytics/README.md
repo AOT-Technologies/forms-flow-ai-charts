@@ -116,7 +116,7 @@ https://<HOSTNAME>/redash/setup
 | `server.replicaCount`           | Number of replicas for the server                | `1`                    |
 | `server.image.registry`         | Docker registry for the image                    | `docker.io`            |
 | `server.image.repository`       | Repository for the image                         | `formsflow/redash`     |
-| `server.image.pullPolicy`       | Image pull policy                                | `IfNotPresent`         |
+| `server.image.pullPolicy`       | Image pull policy                                | `Always`         |
 | `server.image.tag`              | Tag for the image                                | `24.04.0`              |
 | `server.image.pullSecrets`      | Secrets for pulling images                        | `forms-flow-ai-auth`   |
 | `server.nameOverride`           | Override for the name                            | `""`                   |
@@ -218,7 +218,7 @@ https://<HOSTNAME>/redash/setup
 | `worker.replicaCount`                                      | Number of replicas for the worker                    | `1`                    |
 | `worker.image.registry`                                    | Docker registry for the worker image                 | `docker.io`            |
 | `worker.image.repository`                                  | Repository for the worker image                      | `formsflow/redash`     |
-| `worker.image.pullPolicy`                                  | Image pull policy                                    | `IfNotPresent`         |
+| `worker.image.pullPolicy`                                  | Image pull policy                                    | `Always`         |
 | `worker.image.tag`                                         | Tag for the worker image                             | `24.04.0`              |
 | `worker.image.pullSecrets`                                 | Secrets for pulling the image                        | `forms-flow-ai-auth`   |
 | `worker.nameOverride`                                      | Override for the worker name                         | `""`                   |
@@ -238,7 +238,7 @@ https://<HOSTNAME>/redash/setup
 | `scheduler.replicaCount`                                   | Number of replicas for the scheduler                 | `1`                    |
 | `scheduler.image.registry`                                 | Docker registry for the scheduler image              | `docker.io`            |
 | `scheduler.image.repository`                               | Repository for the scheduler image                   | `formsflow/redash`     |
-| `scheduler.image.pullPolicy`                               | Image pull policy                                    | `IfNotPresent`         |
+| `scheduler.image.pullPolicy`                               | Image pull policy                                    | `Always`         |
 | `scheduler.image.tag`                                      | Tag for the scheduler image                          | `24.04.0`              |
 | `scheduler.image.pullSecrets`                              | Secrets for pulling the image                        | `forms-flow-ai-auth`   |
 | `scheduler.nameOverride`                                   | Override for the scheduler name                      | `""`                   |

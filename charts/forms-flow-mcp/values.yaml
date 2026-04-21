@@ -196,13 +196,8 @@ extraVolumes: {}
 extraVolumeMounts: {}
 ## sidecars configuration
 sidecars: {}
-ExtraContainer:
+ExtraContainer: {}
   ## nginx configuration for sidecar 
-  image:
-    registry: docker.io
-    repository: nginxinc/nginx-unprivileged
-    pullPolicy: IfNotPresent
-    tag: "latest"
 ## @param auth.existingSecret Existing secret containing password,username,dbname and 
   ##
 existingSecret: ""
@@ -233,10 +228,10 @@ ingress:
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
-  ingressClassName: "alb"
+  ingressClassName: ""
   ## @param ingress.pathType Ingress path type
   ##
-  pathType: ImplementationSpecific
+  pathType: Prefix
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
   ##
   apiVersion: ""
@@ -247,14 +242,14 @@ ingress:
   controller: default
   ## @param ingress.hostname Default host for the ingress record (evaluated as template)
   ##
-  hostname: forms-flow-web-ee.aot-technologies.com
+  hostname: forms-flow-mcp.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/mcp/*"
+  path: "/"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
-  servicePort: 8080
+  servicePort: 5050
   ## @param ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -263,16 +258,7 @@ ingress:
   ##   kubernetes.io/ingress.class: nginx
   ##   cert-manager.io/cluster-issuer: cluster-issuer-name
   ##
-  annotations:
-    alb.ingress.kubernetes.io/backend-protocol: HTTP
-    alb.ingress.kubernetes.io/certificate-arn: >-
-      arn:aws:acm:ca-central-1:653405621825:certificate/493bcd65-d761-4156-9d1e-c17d20d42294
-    alb.ingress.kubernetes.io/group.name: shared-alb
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443},{"HTTP":80}]'
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
-    alb.ingress.kubernetes.io/subnets: subnet-088c1ca4cdd7eeab7,subnet-045f27b748e458764
-    alb.ingress.kubernetes.io/target-type: ip
+  annotations: {}
   ## nginx.ingress.kubernetes.io/proxy-body-size: 50M
   ## if openshift add annotation
   ## haproxy.router.openshift.io/max-body-size=50m
@@ -410,10 +396,6 @@ service:
     - name: http
       port: 5050
       targetPort: http
-      protocol: TCP 
-    - name: nginx
-      port: 8080
-      targetPort: 8080
       protocol: TCP
       ## - name: system
       ##   port: 1764
@@ -521,7 +503,7 @@ formsflow:
   secret: forms-flow-ai #name of formsflow.ai secret
 
 
-mcpOidcIssuerUrl: "http://localhost:5050/mcp-protocol"
+mcpOidcIssuerUrl: "https://{{ .Values.ingress.hostname }}"
 mcpOidcRedirectPath: "/oauth/callback"
 mcpOidcScopes: "openid"
 mcpOidcVerifyIdToken: "false"
@@ -529,4 +511,4 @@ mcpOidcRequireConsent: "false"
 pythonUnbuffered: "1"
 forwardedAllowIps: "*"
 apiTimeout: "30"
-mcpOidcBaseUrl: "http://localhost:5050/mcp-protocol"
+mcpOidcBaseUrl: "https://{{ .Values.ingress.hostname }}"
