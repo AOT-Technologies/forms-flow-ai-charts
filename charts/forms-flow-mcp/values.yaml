@@ -4,7 +4,7 @@ image:
   repository: formsflow/forms-flow-mcp
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v8.2.1"
+  tag: "v8.2.0"
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -512,3 +512,16 @@ pythonUnbuffered: "1"
 forwardedAllowIps: "*"
 apiTimeout: "30"
 mcpOidcBaseUrl: "https://{{ .Values.ingress.hostname }}"
+mcpServerHost: "0.0.0.0"
+mcpServerPort: "5050"
+
+# formsflow auth token
+formsflowBearerToken: 
+# keycloak client id
+mcpRopcClientId: 
+# keycloak client secret
+mcpRopcClientSecret: 
+# keycloak client username
+mcpUsername: 
+# keycloak client password
+mcpPassword: 
