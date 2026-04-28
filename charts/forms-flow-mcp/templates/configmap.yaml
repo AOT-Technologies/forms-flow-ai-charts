@@ -19,3 +19,5 @@ data:
   MCP_OIDC_REQUIRE_CONSENT: "{{ .Values.mcpOidcRequireConsent }}"
   API_TIMEOUT: "{{ .Values.apiTimeout }}"
   MCP_OIDC_BASE_URL: "{{ .Values.mcpOidcBaseUrl }}"
+  MCP_SERVER_HOST: "{{ .Values.mcpServerHost }}"
+  MCP_SERVER_PORT: "{{ .Values.mcpServerPort }}"

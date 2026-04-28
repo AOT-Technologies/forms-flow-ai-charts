@@ -164,6 +164,51 @@ spec:
               secretKeyRef:
                 key: FORMIO_ROOT_PASSWORD
                 name: "{{ .Values.formsflow.secret }}"
+          - name: MCP_ROPC_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                key: MCP_ROPC_CLIENT_ID
+                name: "{{ .Chart.Name }}"
+          - name: MCP_ROPC_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: MCP_ROPC_CLIENT_SECRET
+                name: "{{ .Chart.Name }}"
+          - name: MCP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: MCP_PASSWORD
+                name: "{{ .Chart.Name }}"
+          - name: MCP_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: MCP_USERNAME
+                name: "{{ .Chart.Name }}"
+          - name: MCP_FORMSFLOW_ADMIN_URL
+            valueFrom:
+              configMapKeyRef:
+                key: FORMSFLOW_ADMIN_SERVICE_URL
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: FORMSFLOW_BEARER_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: FORMSFLOW_BEARER_TOKEN
+                name: "{{ .Chart.Name }}" 
+          - name: MCP_MULTI_TENANCY_ENABLED
+            valueFrom:
+              configMapKeyRef:
+                key: MULTI_TENANCY_ENABLED
+                name: "{{ .Values.formsflow.configmap }}"
+          - name: MCP_SERVER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: MCP_SERVER_HOST
+                name: "{{ .Chart.Name }}"
+          - name: MCP_SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: MCP_SERVER_PORT
+                name: "{{ .Chart.Name }}"                 
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}
