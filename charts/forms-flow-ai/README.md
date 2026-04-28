@@ -203,7 +203,7 @@ forms-flow-idm:
 | `postgresql.image.registry`                     | Docker image registry for PostgreSQL.                       | `docker.io`                   |
 | `postgresql.image.repository`                   | Docker image repository for PostgreSQL.                     | `bitnamilegacy/postgresql-repmgr`   |
 | `postgresql.image.tag`                          | Docker image tag for PostgreSQL.                            | `17.5.0-debian-12-r10`        |
-| `postgresql.image.pullPolicy`                   | Image pull policy.                                          | `IfNotPresent`
+| `postgresql.image.pullPolicy`                   | Image pull policy.                                          | `Always`
 |  `postgresql.global.security.allowInsecureimages`     |   Allow to pull image from legacy registry    |   `true`                |
 | `postgresql.image.pullSecrets`                  | Secrets for pulling the Docker image.                       | `forms-flow-auth`             |
 | `postgresql.replicaCount`                       | Number of PostgreSQL replicas.                              | `3`                            |
@@ -232,7 +232,7 @@ forms-flow-idm:
 | `pgpool.image.registry`                          | Docker image registry for Pgpool.                           | `docker.io`                   |
 | `pgpool.image.repository`                        | Docker image repository for Pgpool.                         | `bitnamileagcy/pgpool`              |
 | `pgpool.image.tag`                              | Docker image tag for Pgpool.                                | `4.5.2-debian-12-r5`          |
-| `pgpool.image.pullPolicy`                       | Image pull policy.                                          | `IfNotPresent`                 |
+| `pgpool.image.pullPolicy`                       | Image pull policy.                                          | `Always`                 |
 | `pgpool.image.pullSecrets`                      | Secrets for pulling the Docker image.                       | `forms-flow-auth`             |
 | `pgpool.replicaCount`                           | Number of Pgpool replicas.                                  | `1`                            |
 | `pgpool.containerPorts.postgresql`              | Port for Pgpool service.                                    | `5432`                         |
@@ -277,7 +277,7 @@ forms-flow-idm:
 | `redisExporter.image.registry`                   | Docker image registry for Redis.                             | `docker.io`                   |
 | `redisExporter.image.repository`                 | Docker image repository for Redis.                           | `redis`                       |
 | `redisExporter.image.tag`                        | Docker image tag for Redis.                                  | `7.2.4-alpine`                |
-| `redisExporter.image.pullPolicy`                 | Image pull policy.                                          | `IfNotPresent`                 |
+| `redisExporter.image.pullPolicy`                 | Image pull policy.                                          | `Always`                 |
 | `redisExporter.image.pullSecrets`                | Secrets for pulling the Docker image.                       | `[]`                          |
 | `redisExporter.livenessProbe.enabled`            | Enable liveness probe for Redis Exporter.                   | `true`                         |
 | `redisExporter.livenessProbe.initialDelaySeconds`| Initial delay for liveness probe.                           | `30`                           |
