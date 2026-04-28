@@ -184,6 +184,15 @@ https://<HOSTNAME>/mcp
 |`forwardedAllowIps`               | values for forwardedAllowIps                         |`""`                        |
 |`apiTimeout`               | values for apiTimeout                         |`"30"`                        |
 |`mcpOidcBaseUrl`               | values for OIDC Base URL                         |`""`                        |
+|`mcpMultiTenancyEnabled`               | values for MCP Multi Tenancy Enabled                         |`""`                        |
+|`mcpServerHost`               | values for MCP Server Host                         |`"0.0.0.0"`                        |
+|`mcpServerPort`               | values for MCP Server Port                         |`"5050"`                        |
+|`mcpFormsflowAdminUrl`               | values for MCP Formsflow Admin URL                         |`""`                        |
+|`mcpFormsflowBearerToken`               | values for MCP Formsflow Bearer Token                         |`""`                        |
+|`mcpUsername`               | values for MCP Username                         |`""`                        |
+|`mcpPassword`               | values for MCP Password                         |`""`                        |
+|`mcpRopcClientId`               | values for MCP ROPC Client ID                         |`""`                        |
+|`mcpRopcClientSecret`               | values for MCP ROPC Client Secret                         |`""`                        |
 
 
 
