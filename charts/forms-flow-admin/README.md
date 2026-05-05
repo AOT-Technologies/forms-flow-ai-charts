@@ -148,6 +148,7 @@ https://<HOSTNAME>/admin
 | `stripeSecretKey`                    | Stripe secret key                                   | `""`                             |
 | `stripePublishableKey`               | Stripe publishable key                              | `""`                             |
 | `stripePricingTableId`               | Stripe pricing table ID                             | `""`                             |
+| `trialPeriod`               | Trial period for new tenants                             | `""`                             |
 
 ## Ingress Parameters
 

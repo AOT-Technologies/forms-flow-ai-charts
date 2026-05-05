@@ -583,3 +583,5 @@ stripeSecretKey: ""
 stripePublishableKey: ""
 
 stripePricingTableId: ""
+
+trialPeriod: ""
