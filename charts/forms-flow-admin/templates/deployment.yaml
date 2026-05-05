@@ -240,6 +240,11 @@ spec:
               secretKeyRef:
                 key: STRIPE_PRICING_TABLE_ID
                 name: "{{ .Chart.Name }}"
+          - name: TRIAL_PERIOD
+            valueFrom:
+              configMapKeyRef:
+                key: TRIAL_PERIOD
+                name: "{{ .Chart.Name }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}

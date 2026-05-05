@@ -1,11 +1,7 @@
 # Changelog
-## 8.4.0 (2026-04-14)
+## 8.4.0 (2026-05-05)
 
 ### Added
 
   Added env variables
-
-    STRIPE_WEBHOOK_SECRET
-    STRIPE_SECRET_KEY
-    STRIPE_PUBLISHABLE_KEY
-    STRIPE_PRICING_TABLE_ID
+    TRIAL_PERIOD
