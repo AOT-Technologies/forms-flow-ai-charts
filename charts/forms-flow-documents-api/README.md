@@ -102,7 +102,7 @@ https://<HOSTNAME>/docapi
 | `replicaCount`                           | Number of replicas for the deployment.                                                               | `1`                         |
 | `image.registry`                         | Container image registry.                                                                             | `docker.io`                 |
 | `image.repository`                       | Repository for the container image.                                                                   | `formsflow/forms-flow-documents-api` |
-| `image.pullPolicy`                       | Image pull policy.                                                                                   | `IfNotPresent`              |
+| `image.pullPolicy`                       | Image pull policy.                                                                                   | `Always`              |
 | `image.tag`                              | Tag for the container image.                                                                         | `v7.3.0`             |
 | `image.pullSecrets`                     | Array of image pull secrets.                                                                         | `["forms-flow-ai-auth"]`    |
 | `nameOverride`                           | Override for the name of the deployment.                                                             | `""`                        |

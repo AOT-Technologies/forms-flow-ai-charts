@@ -1,8 +1,8 @@
-# 🚨 Important Notice: Upgrade Impact on forms-flow-ai-charts (Helm) v8.3.2
+# 🚨 Important Notice: Upgrade Impact on forms-flow-ai-charts (Helm) v8.4.0
 
 ## Key Points:
 
-1. **Database Backup**: The latest upgrade (v8.3.2) will affect existing data. Please ensure you backup your database before proceeding with the upgrade.
+1. **Database Backup**: The latest upgrade (v8.4.0) will affect existing data. Please ensure you backup your database before proceeding with the upgrade.
 
 2. **Environment Changes**: Changes to the environment variables will not affect the deployment unless there are modifications to the database.
 

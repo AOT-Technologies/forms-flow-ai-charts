@@ -275,6 +275,11 @@ gunicorn_timeout: "120"
 UsernameDisplayClaim: "preferred_username"
 FormioJwtExpire: "240"
 EnableCompactFormView: false
+openai:
+  apiKey: ""
+AiFormGenerationLimitTrial: "10"
+AiFormGenerationLimitPaid: "100"
+AiBuilderQuotaTimezone: ""
 
 postgresql-ha:
   enabled: true
@@ -298,10 +303,10 @@ postgresql-ha:
       registry: docker.io
       repository: bitnamilegacy/postgresql-repmgr
       tag: 17.5.0-debian-12-r10
-      ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+      ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'Always'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
       ##
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
       ## Optionally specify an array of imagePullSecrets.
       ## Secrets must be manually created in the namespace.
       ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -478,10 +483,10 @@ postgresql-ha:
       repository: bitnamilegacy/pgpool
       tag: 4.6.2-debian-12-r1
       digest: ""
-      ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+      ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'Always'
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
       ##
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
       ## Optionally specify an array of imagePullSecrets.
       ## Secrets must be manually created in the namespace.
       ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -745,7 +750,7 @@ redisExporter:
     registry: docker.io
     repository: redis
     tag: 7.4.1
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     pullSecrets: []
   livenessProbe:
     enabled: true

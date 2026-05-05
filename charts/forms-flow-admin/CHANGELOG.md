@@ -1,11 +1,7 @@
 # Changelog
-## 8.3.0 (2025-11-06)
+## 8.4.0 (2026-05-05)
 
 ### Added
 
   Added env variables
-
-    CONFIGURE_LOGS
-
-### Changed
-  Updated default version image tag to `7.3.0`.
+    TRIAL_PERIOD
