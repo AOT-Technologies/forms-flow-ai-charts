@@ -78,12 +78,6 @@ Return true if a configmap object should be created
 {{- end -}}
 
 {{/*
-Return the proper forms-flow-mcp side car nginx image name
-*/}}
-{{- define "forms-flow-mcp.nginx.image" -}}
-{{ include "common.images.image" (dict "imageRoot" .Values.ExtraContainer.image "global" .Values.global) }}
-{{- end -}}
-{{/*
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "forms-flow-mcp.imagePullSecrets" -}}
