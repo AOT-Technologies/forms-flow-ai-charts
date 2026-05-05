@@ -503,7 +503,6 @@ formsflow:
   secret: forms-flow-ai #name of formsflow.ai secret
 
 
-mcpOidcIssuerUrl: "https://{{ .Values.ingress.hostname }}"
 mcpOidcRedirectPath: "/oauth/callback"
 mcpOidcScopes: "openid"
 mcpOidcVerifyIdToken: "false"
@@ -511,7 +510,6 @@ mcpOidcRequireConsent: "false"
 pythonUnbuffered: "1"
 forwardedAllowIps: "*"
 apiTimeout: "30"
-mcpOidcBaseUrl: "https://{{ .Values.ingress.hostname }}"
 mcpServerHost: "0.0.0.0"
 mcpServerPort: "5050"
 
