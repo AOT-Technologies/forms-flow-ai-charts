@@ -62,7 +62,6 @@ runHelmInstall() {
             helm upgrade --install forms-flow-api ../charts/forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-webapi-ee -n $namespace --version $version_ff_api
             helm upgrade --install forms-flow-bpm ../charts/forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee -n $namespace --version $version_ff_bpm
             helm upgrade --install forms-flow-documents-api ../charts/forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-documents-api-ee   -n $namespace --version $version_ff_documents_api
-	        helm upgrade --install forms-flow-data-analysis ../charts/forms-flow-data-analysis --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name  --set ingress.tls=true --set image.repository=formsflow/forms-flow-data-analysis-api-ee  -n $namespace --version $version_ff_data_analysis
             helm upgrade --install forms-flow-web ../charts/forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-web-ee  -n $namespace --version $version_ff_web
         else
             helm upgrade --install forms-flow-ai ../charts/forms-flow-ai --set Domain=$domain_name --set postgresql-ha.postgresql.podSecurityContext.enabled=true --set mongodb.podSecurityContext.enabled=true -–set imageCredentials.registry=docker.io -–set imageCredentials.username=$premium_username -–set imageCredentials.password=$access_token  -n $namespace --version $version_ff_ai
@@ -86,7 +85,6 @@ runHelmInstall() {
             helm upgrade --install forms-flow-api ../charts/forms-flow-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-webapi-ee -n $namespace --version $version_ff_api
             helm upgrade --install forms-flow-bpm ../charts/forms-flow-bpm --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee --set camunda.websocket.securityOrigin=https://forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-bpm-ee -n $namespace --version $version_ff_bpm
             helm upgrade --install forms-flow-documents-api ../charts/forms-flow-documents-api --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-documents-api-ee   -n $namespace --version $version_ff_documents_api
-	        helm upgrade --install forms-flow-data-analysis ../charts/forms-flow-data-analysis --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name  --set ingress.tls=true --set image.repository=formsflow/forms-flow-data-analysis-api-ee  -n $namespace --version $version_ff_data_analysis
             helm upgrade --install forms-flow-web ../charts/forms-flow-web --set ingress.ingressClassName=$classname --set ingress.hostname=forms-flow-web-$namespace.$domain_name --set image.repository=formsflow/forms-flow-web-ee  -n $namespace --version $version_ff_web
           fi
 
@@ -141,7 +139,6 @@ configureLatestOrStableReleases() {
         version_ff_analytics="latest"
         version_ff_api="latest"
         version_ff_bpm="latest"
-        version_ff_data_analysis="latest"
         version_ff_documents_api="latest"
         version_ff_forms="latest"
         version_ff_idm="latest"
@@ -153,7 +150,6 @@ configureLatestOrStableReleases() {
         version_ff_analytics="v7.1.1"
         version_ff_api="v7.1.1"
         version_ff_bpm="v7.1.1"
-        version_ff_data_analysis="v7.1.1"
         version_ff_documents_api="v7.1.1"
         version_ff_forms="v7.1.1"
         version_ff_idm="v7.1.1"
@@ -176,7 +172,6 @@ updateLocalDependencies(){
     helm dependency build $directory/forms-flow-admin/
     helm dependency build $directory/forms-flow-api/
     helm dependency build $directory/forms-flow-bpm/
-    helm dependency build $directory/forms-flow-data-analysis/
     helm dependency build $directory/forms-flow-web/
     helm dependency build $directory/forms-flow-documents-api/
 }
