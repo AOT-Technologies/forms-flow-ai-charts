@@ -1,10 +1,10 @@
 apiVersion: v2
-name: forms-flow-forms
-description: forms-flow-forms is a component which leverages form.io to build "serverless" data management applications using a simple drag-and-drop form builder interface and its provided by formsflow.
+name: forms-flow-mcp
+description: forms-flow-mcp is esigned to seamlessly integrate with forms-flow components, enabling efficient communication between MCP clients and backend services provided by formsflow.
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
 version: v8.4.0
 type: application
-appVersion: "v8.4.0"
+appVersion: "8.4.0"
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami

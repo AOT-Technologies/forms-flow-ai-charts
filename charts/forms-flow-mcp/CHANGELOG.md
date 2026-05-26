@@ -1,0 +1,16 @@
+# Changelog
+## 8.4.0 (2026-4-28)
+
+### Changed
+  Updated image tag to v8.4.0.
+### Updates
+Added Env variables for forms-flow-ai-mcp.
+ MCP_MULTI_TENANCY_ENABLED
+  MCP_SERVER_HOST
+  MCP_SERVER_PORT
+  MCP_FORMSFLOW_ADMIN_URL
+  FORMSFLOW_BEARER_TOKEN
+  MCP_USERNAME
+  MCP_PASSWORD
+  MCP_ROPC_CLIENT_ID
+  MCP_ROPC_CLIENT_SECRET

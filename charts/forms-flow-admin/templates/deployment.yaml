@@ -220,6 +220,31 @@ spec:
                 name: "{{ .Values.formsflow.secret }}"
           - name: FORMSFLOW_ADMIN_API_CORS_ORIGINS
             value: '*'
+          - name: STRIPE_WEBHOOK_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: STRIPE_WEBHOOK_SECRET
+                name: "{{ .Chart.Name }}"
+          - name: STRIPE_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                key: STRIPE_SECRET_KEY
+                name: "{{ .Chart.Name }}"
+          - name: STRIPE_PUBLISHABLE_KEY
+            valueFrom:
+              secretKeyRef:
+                key: STRIPE_PUBLISHABLE_KEY
+                name: "{{ .Chart.Name }}"
+          - name: STRIPE_PRICING_TABLE_ID
+            valueFrom:
+              secretKeyRef:
+                key: STRIPE_PRICING_TABLE_ID
+                name: "{{ .Chart.Name }}"
+          - name: TRIAL_PERIOD
+            valueFrom:
+              configMapKeyRef:
+                key: TRIAL_PERIOD
+                name: "{{ .Chart.Name }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}

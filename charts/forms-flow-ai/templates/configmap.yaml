@@ -72,3 +72,6 @@ data:
     FORMIO_JWT_EXPIRE: "{{ .Values.formiojwtexpire }}"
     CONFIGURE_LOGS: "{{ .Values.LogConfiguration }}"
     OTEL_JAVAAGENT_ENABLED: "{{ .Values.otel_javaagent_enabled }}"
+    AI_FORM_GENERATION_LIMIT_TRIAL: "{{ .Values.AiFormGenerationLimitTrial }}"
+    AI_FORM_GENERATION_LIMIT_PAID: "{{ .Values.AiFormGenerationLimitPaid }}"
+    AI_BUILDER_QUOTA_TIMEZONE: "{{ .Values.AiBuilderQuotaTimezone }}"

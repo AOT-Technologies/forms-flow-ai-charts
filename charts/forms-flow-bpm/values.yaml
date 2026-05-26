@@ -6,7 +6,7 @@ existingSecret: ""
 image:
   registry: docker.io
   repository: formsflow/forms-flow-bpm
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v7.3.0"
   pullSecrets:

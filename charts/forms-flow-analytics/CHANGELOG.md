@@ -1,4 +1,2 @@
 # Changelog
-## 8.3.0 (2025-11-06)
-### Changed
- Updated nginx configmap 
+## 8.4.0 (2026-04-14)

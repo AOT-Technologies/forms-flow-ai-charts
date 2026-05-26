@@ -90,7 +90,7 @@ https://<HOSTNAME>/formio
 | `replicaCount`                          | Number of replicas for the deployment.                                                               | `1`                         |
 | `image.registry`                        | Docker registry for the application image.                                                           | `docker.io`                 |
 | `image.repository`                      | Repository for the application image.                                                                | `formsflow/forms-flow-forms` |
-| `image.pullPolicy`                      | Image pull policy.                                                                                   | `IfNotPresent`              |
+| `image.pullPolicy`                      | Image pull policy.                                                                                   | `Always`              |
 | `image.tag`                             | Tag of the application image.                                                                         | `v7.3.0`              |
 | `image.pullSecrets`                     | Array of image pull secrets.                                                                          | `["forms-flow-ai-auth"]`    |
 | `nameOverride`                          | Override for the application name.                                                                    | `""`                        |

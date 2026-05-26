@@ -1,10 +1,10 @@
 replicaCount: 1
 image:
   registry: docker.io
-  repository: formsflow/forms-flow-data-analysis-api
-  pullPolicy: IfNotPresent
+  repository: formsflow/forms-flow-mcp
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v7.3.0"
+  tag: "v8.2.0"
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -26,7 +26,6 @@ commonLabels: {}
 ##
 commonAnnotations: {}
 
-nodeSelector: {}
 ## @param tolerations Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
@@ -48,7 +47,7 @@ priorityClassName: ""
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
 ##
 schedulerName: ""
-## @param terminationGracePeriodSeconds In seconds, time the given to the forms-flow-data-analysis pod needs to terminate gracefully
+## @param terminationGracePeriodSeconds In seconds, time the given to the forms-flow-mcp pod needs to terminate gracefully
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 ##
 terminationGracePeriodSeconds: ""
@@ -57,11 +56,6 @@ terminationGracePeriodSeconds: ""
 ## The value is evaluated as a template
 ##
 topologySpreadConstraints: []
-
-## Openshift configuration for nginx
-openshift:
-  ## proxy configuration of nginx for openshift
-  enabled: false
 
 diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
@@ -93,7 +87,7 @@ serviceAccount:
 ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
-## @param podLabels Extra labels for forms-flow-data-analysis pods
+## @param podLabels Extra labels for forms-flow-mcp pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
@@ -125,14 +119,14 @@ nodeAffinityPreset:
   ##
   values: []
 
-## K8s Security Context for forms-flow-data-analysis pods
+## K8s Security Context for forms-flow-mcp pods
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enabled forms-flow-data-analysis pods' Security Context
+## @param podSecurityContext.enabled Enabled forms-flow-mcp pods' Security Context
 ## @param podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
 ## @param podSecurityContext.sysctls Set kernel settings using the sysctl interface
 ## @param podSecurityContext.supplementalGroups Set filesystem extra groups
-## @param podSecurityContext.fsGroup Set forms-flow-data-analysis pod's Security Context fsGroup
+## @param podSecurityContext.fsGroup Set forms-flow-mcp pod's Security Context fsGroup
 ##
 podSecurityContext:
   enabled: false
@@ -172,7 +166,7 @@ command: []
 ## @param args Override default container args (useful when using custom images)
 ##
 args: []
-## @param lifecycleHooks for the forms-flow-data-analysis container(s) to automate configuration before or after startup
+## @param lifecycleHooks for the forms-flow-mcp container(s) to automate configuration before or after startup
 ##
 lifecycleHooks: {}
 automountServiceAccountToken: true
@@ -200,21 +194,14 @@ extraVolumes: {}
 ##     readOnly: true
 ##
 extraVolumeMounts: {}
-
 ## sidecars configuration
 sidecars: {}
-ExtraContainer:
+ExtraContainer: {}
   ## nginx configuration for sidecar 
-  image:
-    registry: docker.io
-    repository: nginxinc/nginx-unprivileged
-    pullPolicy: IfNotPresent
-    tag: "latest"
-
 ## @param auth.existingSecret Existing secret containing password,username,dbname and 
   ##
 existingSecret: ""
-## @param updateStrategy.type Set up update strategy for forms-flow-data-analysis installation.
+## @param updateStrategy.type Set up update strategy for forms-flow-mcp installation.
 ## Set to Recreate if you use persistent volume that cannot be mounted by more than one pods to make sure the pods is destroyed first.
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
 ## Example:
@@ -230,11 +217,11 @@ updateStrategy:
     maxSurge: 25%
     maxUnavailable: 25%
 
-## forms-flow-data-analysis ingress parameters
+## forms-flow-mcp ingress parameters
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 ingress:
-  ## @param ingress.enabled Enable ingress record generation for forms-flow-data-analysis
+  ## @param ingress.enabled Enable ingress record generation for forms-flow-mcp
   ##
   enabled: true
   ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
@@ -244,7 +231,7 @@ ingress:
   ingressClassName: ""
   ## @param ingress.pathType Ingress path type
   ##
-  pathType: ImplementationSpecific
+  pathType: Prefix
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
   ##
   apiVersion: ""
@@ -255,14 +242,14 @@ ingress:
   controller: default
   ## @param ingress.hostname Default host for the ingress record (evaluated as template)
   ##
-  hostname: forms-flow-data-analysis.local
+  hostname: forms-flow-mcp.local
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
-  path: "/analysis"
+  path: "/"
   ## @param ingress.servicePort Backend service port to use
   ## Default is http. Alternative is https.
   ##
-  servicePort: 8080
+  servicePort: 5050
   ## @param ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
@@ -278,7 +265,7 @@ ingress:
   ## @param ingress.labels Additional labels for the Ingress resource.
   ## e.g:
   ## labels:
-  ##   app: forms-flow-data-analysis
+  ##   app: forms-flow-mcp
   ##
   labels: {}
   ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
@@ -295,7 +282,7 @@ ingress:
   ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
   ## e.g:
   ## extraHosts:
-  ##   - name: forms-flow-data-analysis.local
+  ##   - name: forms-flow-mcp.local
   ##     path: /
   ##
   extraHosts: []
@@ -312,8 +299,8 @@ ingress:
   ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
   ## extraTls:
   ## - hosts:
-  ##     - forms-flow-data-analysis.local
-  ##   secretName: forms-flow-data-analysis.local-tls
+  ##     - forms-flow-mcp.local
+  ##   secretName: forms-flow-mcp.local-tls
   ##
   extraTls: []
   ## @param ingress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
@@ -326,7 +313,7 @@ ingress:
   ## It is also possible to create and manage the certificates outside of this helm chart
   ## Please see README.md for more information
   ## e.g:
-  ## - name: forms-flow-data-analysis.local-tls
+  ## - name: forms-flow-mcp.local-tls
   ##   key:
   ##   certificate:
   ##
@@ -345,7 +332,7 @@ ingress:
   ##             name: http
   ##
   extraRules: []
-## forms-flow-data-analysis admin ingress parameters
+## forms-flow-mcp admin ingress parameters
 ## ref: https://kubernetes.io/docs/user-guide/ingress/
 ##
 ## Pod disruption budget configuration
@@ -358,7 +345,7 @@ pdb:
   create: true
   minAvailable: ""
   maxUnavailable: ""
-## forms-flow-data-analysis containers' resource requests and limits
+## forms-flow-mcp containers' resource requests and limits
 ## ref: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
 ## We usually recommend not to specify default resources and to leave this as a conscious
 ## choice for the user. This also increases chances charts run on environments with little
@@ -380,10 +367,10 @@ resourcesPreset: "small"
 ##
 resources:
   limits:
-    cpu: 500m
+    cpu: 300m
     memory: 1Gi
   requests:
-    cpu: 250m
+    cpu: 200m
     memory: 512Mi
 ## @param customStartupProbe Custom startup probe for the Web component
 ##
@@ -403,16 +390,12 @@ service:
   ## @param service.type Kubernetes service type (`ClusterIP`, `NodePort`, or `LoadBalancer`)
   ##
   type: ClusterIP
-  ## @param service.ports [array] forms-flow-data-analysis service ports (evaluated as a template)
+  ## @param service.ports [array] forms-flow-mcp service ports (evaluated as a template)
   ##
   ports:
     - name: http
-      port: 5000
+      port: 5050
       targetPort: http
-      protocol: TCP
-    - name: nginx
-      port: 8080
-      targetPort: 8080
       protocol: TCP
       ## - name: system
       ##   port: 1764
@@ -437,7 +420,7 @@ service:
   ## clusterIP: None
   ##
   clusterIP: ""
-  ## @param service.annotations Annotations for forms-flow-data-analysis service
+  ## @param service.annotations Annotations for forms-flow-mcp service
   ##
   annotations: {}
   ## @param service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
@@ -463,13 +446,13 @@ configuration: []
 maxSizePayload: 50M
 
 containerPorts:
-  http: 5000
+  http: 5050
 
-## forms-flow-data-analysis Autoscaling configuration
+## forms-flow-mcp Autoscaling configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-## @param autoscaling.enabled Enable autoscaling for forms-flow-data-analysis
-## @param autoscaling.minReplicas Minimum number of forms-flow-data-analysis replicas
-## @param autoscaling.maxReplicas Maximum number of forms-flow-data-analysis replicas
+## @param autoscaling.enabled Enable autoscaling for forms-flow-mcp
+## @param autoscaling.minReplicas Minimum number of forms-flow-mcp replicas
+## @param autoscaling.maxReplicas Maximum number of forms-flow-mcp replicas
 ## @param autoscaling.targetCPU Target CPU utilization percentage
 ## @param autoscaling.targetMemory Target Memory utilization percentage
 ##
@@ -515,8 +498,28 @@ autoscaling:
           value: 1
           periodSeconds: 300
 
-openApiKey: ""
-chatbotModelId: "gpt-3.5-turbo"
 formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret
+
+
+mcpOidcRedirectPath: "/oauth/callback"
+mcpOidcScopes: "openid"
+mcpOidcVerifyIdToken: "false"
+mcpOidcRequireConsent: "false"
+pythonUnbuffered: "1"
+forwardedAllowIps: "*"
+apiTimeout: "30"
+mcpServerHost: "0.0.0.0"
+mcpServerPort: "5050"
+
+# formsflow auth token
+formsflowBearerToken: 
+# keycloak client id
+mcpRopcClientId: 
+# keycloak client secret
+mcpRopcClientSecret: 
+# keycloak client username
+mcpUsername: 
+# keycloak client password
+mcpPassword: 
