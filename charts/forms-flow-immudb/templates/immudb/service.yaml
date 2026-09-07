@@ -1,0 +1,31 @@
+{{- if .Values.immudb.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "forms-flow-immudb.immudb.serviceName" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "forms-flow-immudb.immudb.labels" . | nindent 4 }}
+  {{- if or .Values.commonAnnotations .Values.immudb.service.annotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.immudb.service.annotations .Values.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.immudb.service.type | default "ClusterIP" }}
+  {{- if and .Values.immudb.service.clusterIP (eq .Values.immudb.service.type "ClusterIP") }}
+  clusterIP: {{ .Values.immudb.service.clusterIP }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.immudb.service.ports.grpc | default 3322 }}
+      targetPort: grpc
+      name: grpc
+      protocol: TCP
+    - port: {{ .Values.immudb.service.ports.web | default 8080 }}
+      targetPort: web
+      name: web
+      protocol: TCP
+    - port: {{ .Values.immudb.service.ports.metrics | default 9497 }}
+      targetPort: metrics
+      name: metrics
+      protocol: TCP
+  selector: {{- include "forms-flow-immudb.immudb.selectorLabels" . | nindent 4 }}
+{{- end }}

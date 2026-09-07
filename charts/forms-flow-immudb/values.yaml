@@ -1,0 +1,308 @@
+## @section Global parameters
+## Global parameters applied to forms-flow-immudb and sub-components
+##
+
+## @param nameOverride String to partially override common.names.fullname
+nameOverride: ""
+
+## @param fullnameOverride String to fully override common.names.fullname
+fullnameOverride: ""
+
+## @param imagePullSecrets Specify docker-registry secret names as an array
+imagePullSecrets: []
+
+## @param commonLabels Labels to add to all deployed objects
+commonLabels: {}
+
+## @param commonAnnotations Annotations to add to all deployed objects
+commonAnnotations: {}
+
+## @section Service Account parameters
+serviceAccount:
+  ## @param serviceAccount.create Specifies whether a service account should be created
+  create: true
+  ## @param serviceAccount.name The name of the service account to use
+  name: ""
+  ## @param serviceAccount.automountServiceAccountToken Automount service account token
+  automountServiceAccountToken: false
+  ## @param serviceAccount.annotations Annotations for service account
+  annotations: {}
+
+## =============================================================================
+## @section Forms Flow ImmuDB Worker Service (Audit API & Reports UI)
+## =============================================================================
+worker:
+  ## @param worker.enabled Enable forms-flow-immudb worker deployment
+  enabled: true
+
+  ## @param worker.replicaCount Number of worker replicas
+  replicaCount: 1
+
+  ## @param worker.nameOverride Override worker name
+  nameOverride: ""
+
+  ## @param worker.fullnameOverride Override worker fullname (defaults to forms-flow-immudb)
+  fullnameOverride: "forms-flow-immudb"
+
+  image:
+    ## @param worker.image.registry Worker image registry
+    registry: docker.io
+    ## @param worker.image.repository Worker image repository
+    repository: formsflow/forms-flow-immudb
+    ## @param worker.image.pullPolicy Worker image pull policy
+    pullPolicy: Always
+    ## @param worker.image.tag Worker image tag
+    tag: "v8.1.0.20260722113346"
+
+  ## Security Context
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: false
+
+  ## Configuration parameters
+  config:
+    ## @param worker.config.debug Enable Flask debug mode
+    debug: false
+    ## @param worker.config.flaskEnv Flask environment (production/development)
+    flaskEnv: "production"
+    ## @param worker.config.immudbEnabled Enable immudb integration
+    immudbEnabled: true
+    ## @param worker.config.immudbUser ImmuDB username
+    immudbUser: "immudb"
+    ## @param worker.config.apiPrefix API route prefix
+    apiPrefix: "/api/v1"
+    ## @param worker.config.corsOrigins CORS allowed origins
+    corsOrigins: "*"
+    ## @param worker.config.logLevel Logging verbosity (DEBUG, INFO, WARNING, ERROR)
+    logLevel: "INFO"
+    ## @param worker.config.gunicornWorkers Number of Gunicorn workers
+    gunicornWorkers: 4
+    ## @param worker.config.gunicornThreads Number of Gunicorn threads per worker
+    gunicornThreads: 10
+    ## @param worker.config.gunicornTimeout Gunicorn request timeout in seconds
+    gunicornTimeout: 120
+
+  ## Authentication and Secrets
+  auth:
+    ## @param worker.auth.existingSecret Name of existing secret for worker
+    existingSecret: ""
+    ## @param worker.auth.secretKey Flask application secret key
+    secretKey: "change-me-in-production-use-strong-random-key"
+    ## @param worker.auth.immudbPassword Password to connect to ImmuDB
+    immudbPassword: "immudb"
+    ## @param worker.auth.immudbSecretKey Fernet secret key / token for X-Auth-Token validation (e.g. from Camunda BPM plugin)
+    immudbSecretKey: "1Ipjwuf3k3Mj-QI97iGhZMsJx2lxXzIWT6afdg9f-l0="
+
+  ## Existing ConfigMap
+  existingConfigmap: ""
+
+  ## Service parameters
+  service:
+    ## @param worker.service.type Kubernetes service type
+    type: ClusterIP
+    ## @param worker.service.port Service port (5001 matches BPM default serviceUrl)
+    port: 5001
+    ## @param worker.service.targetPort Container target port
+    targetPort: 5001
+    ## @param worker.service.portName Service port name
+    portName: http
+    ## @param worker.service.nameOverride Override service name
+    nameOverride: ""
+    ## @param worker.service.annotations Service annotations
+    annotations: {}
+
+  ## Ingress parameters
+  ingress:
+    ## @param worker.ingress.enabled Enable ingress for worker reporting UI / API
+    enabled: false
+    ## @param worker.ingress.ingressClassName IngressClass name
+    ingressClassName: ""
+    ## @param worker.ingress.hostname Ingress hostname
+    hostname: "forms-flow-immudb.local"
+    ## @param worker.ingress.path Ingress path
+    path: "/api/v1/report"
+    ## @param worker.ingress.pathType Ingress path type
+    pathType: "ImplementationSpecific"
+    annotations: {}
+    tls: false
+    tlsSecretName: ""
+    extraPaths: []
+    extraHosts: []
+
+  ## Compute resources
+  resourcesPreset: "none"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  ## Probes
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+
+  customLivenessProbe: {}
+  customReadinessProbe: {}
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPU: 80
+    targetMemory: 80
+
+  pdb:
+    create: false
+    minAvailable: ""
+    maxUnavailable: 1
+
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  podAnnotations: {}
+  deploymentAnnotations: {}
+  secretAnnotations: {}
+  configMapAnnotations: {}
+  extraEnvVars: []
+  extraEnvVarsCM: ""
+  extraEnvVarsSecret: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+
+## =============================================================================
+## @section ImmuDB Database Server (Immutable Ledger Database)
+## =============================================================================
+immudb:
+  ## @param immudb.enabled Enable embedded immudb database StatefulSet
+  enabled: true
+
+  ## @param immudb.replicaCount Number of immudb database replicas (1 for single node)
+  replicaCount: 1
+
+  ## @param immudb.nameOverride Override immudb name
+  nameOverride: "immudb"
+
+  ## @param immudb.fullnameOverride Override immudb fullname
+  fullnameOverride: "immudb"
+
+  image:
+    ## @param immudb.image.registry ImmuDB image registry
+    registry: docker.io
+    ## @param immudb.image.repository ImmuDB image repository
+    repository: codenotary/immudb
+    ## @param immudb.image.pullPolicy ImmuDB image pull policy
+    pullPolicy: IfNotPresent
+    ## @param immudb.image.tag ImmuDB image tag
+    tag: "latest"
+
+  ## Security Context
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: false
+
+  ## Authentication
+  auth:
+    ## @param immudb.auth.existingSecret Existing secret containing admin-password
+    existingSecret: ""
+    ## @param immudb.auth.adminPassword ImmuDB root/admin password
+    adminPassword: "immudb"
+
+  ## Service parameters
+  service:
+    ## @param immudb.service.type Kubernetes service type
+    type: ClusterIP
+    ## @param immudb.service.nameOverride Override service name (defaults to immudb)
+    nameOverride: "immudb"
+    ports:
+      ## @param immudb.service.ports.grpc ImmuDB gRPC port
+      grpc: 3322
+      ## @param immudb.service.ports.web ImmuDB Web / REST port
+      web: 8080
+      ## @param immudb.service.ports.metrics ImmuDB Prometheus metrics port
+      metrics: 9497
+    annotations: {}
+
+  ## Persistence
+  persistence:
+    ## @param immudb.persistence.enabled Enable persistence for immudb
+    enabled: true
+    ## @param immudb.persistence.storageClass Storage class name (e.g. gp2)
+    storageClass: "gp2"
+    ## @param immudb.persistence.accessModes Access modes
+    accessModes:
+      - ReadWriteOnce
+    ## @param immudb.persistence.size Persistent volume size
+    size: "5Gi"
+    annotations: {}
+
+  ## Compute resources
+  resourcesPreset: "none"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  ## Probes
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+
+  customLivenessProbe: {}
+  customReadinessProbe: {}
+
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  podAnnotations: {}
+  statefulsetAnnotations: {}
+  secretAnnotations: {}
+  extraEnvVars: []
+  extraEnvVarsCM: ""
+  extraEnvVarsSecret: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+
+## @section External ImmuDB Configuration (used when immudb.enabled is false)
+externalImmudb:
+  ## @param externalImmudb.host External ImmuDB host:port (e.g. "my-immudb.internal:3322")
+  host: ""

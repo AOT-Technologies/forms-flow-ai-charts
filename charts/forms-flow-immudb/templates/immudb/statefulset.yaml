@@ -1,0 +1,141 @@
+{{- if .Values.immudb.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "forms-flow-immudb.immudb.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "forms-flow-immudb.immudb.labels" . | nindent 4 }}
+  {{- if or .Values.immudb.statefulsetAnnotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.immudb.statefulsetAnnotations .Values.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  serviceName: {{ include "forms-flow-immudb.immudb.serviceName" . }}
+  replicas: {{ .Values.immudb.replicaCount | default 1 }}
+  selector:
+    matchLabels: {{- include "forms-flow-immudb.immudb.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "forms-flow-immudb.immudb.labels" . | nindent 8 }}
+      {{- if or .Values.immudb.podAnnotations .Values.commonAnnotations }}
+      {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.immudb.podAnnotations .Values.commonAnnotations ) "context" . ) }}
+      annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- include "forms-flow-immudb.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ include "forms-flow-immudb.serviceAccountName" . }}
+      {{- if .Values.immudb.podSecurityContext.enabled }}
+      securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.immudb.podSecurityContext "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.immudb.nodeSelector }}
+      nodeSelector: {{- toYaml .Values.immudb.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.immudb.tolerations }}
+      tolerations: {{- toYaml .Values.immudb.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.immudb.affinity }}
+      affinity: {{- toYaml .Values.immudb.affinity | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: immudb
+          image: {{ include "forms-flow-immudb.immudb.image" . }}
+          imagePullPolicy: {{ .Values.immudb.image.pullPolicy | quote }}
+          {{- if .Values.immudb.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.immudb.containerSecurityContext "context" $) | nindent 12 }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.immudb.service.ports.grpc | default 3322 }}
+              name: grpc
+            - containerPort: {{ .Values.immudb.service.ports.web | default 8080 }}
+              name: web
+            - containerPort: {{ .Values.immudb.service.ports.metrics | default 9497 }}
+              name: metrics
+          env:
+            - name: IMMUDB_ADDRESS
+              value: "0.0.0.0"
+            - name: IMMUDB_PORT
+              value: {{ .Values.immudb.service.ports.grpc | default 3322 | quote }}
+            - name: IMMUDB_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "forms-flow-immudb.immudb.secretName" . }}
+                  key: admin-password
+            {{- if .Values.immudb.extraEnvVars }}
+            {{- include "common.tplvalues.render" ( dict "value" .Values.immudb.extraEnvVars "context" $ ) | nindent 12 }}
+            {{- end }}
+          {{- if or .Values.immudb.extraEnvVarsCM .Values.immudb.extraEnvVarsSecret }}
+          envFrom:
+            {{- if .Values.immudb.extraEnvVarsCM }}
+            - configMapRef:
+                name: {{ include "common.tplvalues.render" ( dict "value" .Values.immudb.extraEnvVarsCM "context" $ ) }}
+            {{- end }}
+            {{- if .Values.immudb.extraEnvVarsSecret }}
+            - secretRef:
+                name: {{ include "common.tplvalues.render" ( dict "value" .Values.immudb.extraEnvVarsSecret "context" $ ) }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.immudb.resources }}
+          resources: {{- toYaml .Values.immudb.resources | nindent 12 }}
+          {{- else if and .Values.immudb.resourcesPreset (ne .Values.immudb.resourcesPreset "none") }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.immudb.resourcesPreset) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.immudb.customLivenessProbe }}
+          livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.immudb.customLivenessProbe "context" $) | nindent 12 }}
+          {{- else if .Values.immudb.livenessProbe.enabled }}
+          livenessProbe:
+            initialDelaySeconds: {{ .Values.immudb.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.immudb.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.immudb.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.immudb.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.immudb.livenessProbe.failureThreshold }}
+            tcpSocket:
+              port: grpc
+          {{- end }}
+          {{- if .Values.immudb.customReadinessProbe }}
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.immudb.customReadinessProbe "context" $) | nindent 12 }}
+          {{- else if .Values.immudb.readinessProbe.enabled }}
+          readinessProbe:
+            initialDelaySeconds: {{ .Values.immudb.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.immudb.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.immudb.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.immudb.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.immudb.readinessProbe.failureThreshold }}
+            tcpSocket:
+              port: grpc
+          {{- end }}
+          volumeMounts:
+            {{- if .Values.immudb.persistence.enabled }}
+            - name: immudb-data
+              mountPath: /var/lib/immudb
+            {{- end }}
+            {{- if .Values.immudb.extraVolumeMounts }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.immudb.extraVolumeMounts "context" $) | nindent 12 }}
+            {{- end }}
+      {{- if and (not .Values.immudb.persistence.enabled) .Values.immudb.extraVolumes }}
+      volumes:
+        {{- include "common.tplvalues.render" (dict "value" .Values.immudb.extraVolumes "context" $) | nindent 8 }}
+      {{- else if .Values.immudb.extraVolumes }}
+      volumes:
+        {{- include "common.tplvalues.render" (dict "value" .Values.immudb.extraVolumes "context" $) | nindent 8 }}
+      {{- end }}
+  {{- if .Values.immudb.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: immudb-data
+        labels: {{- include "forms-flow-immudb.immudb.labels" . | nindent 10 }}
+        {{- if .Values.immudb.persistence.annotations }}
+        annotations: {{- toYaml .Values.immudb.persistence.annotations | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+        {{- range .Values.immudb.persistence.accessModes }}
+          - {{ . | quote }}
+        {{- end }}
+        {{- if .Values.immudb.persistence.storageClass }}
+        storageClassName: {{ .Values.immudb.persistence.storageClass | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.immudb.persistence.size | quote }}
+  {{- end }}
+{{- end }}

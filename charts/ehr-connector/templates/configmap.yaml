@@ -1,0 +1,18 @@
+{{- if not .Values.existingConfigmap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ehr-connector.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "ehr-connector.labels" . | nindent 4 }}
+  {{- if or .Values.configMapAnnotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.configMapAnnotations .Values.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+data:
+  SERVICE_TYPE: {{ .Values.config.serviceType | quote }}
+  PORT: {{ .Values.service.port | default 8002 | quote }}
+  EPIC_FHIR_BASE_URL: {{ .Values.epic.fhirBaseUrl | quote }}
+  EPIC_TOKEN_URL: {{ .Values.epic.tokenUrl | quote }}
+  LOG_LEVEL: {{ .Values.config.logLevel | quote }}
+{{- end }}

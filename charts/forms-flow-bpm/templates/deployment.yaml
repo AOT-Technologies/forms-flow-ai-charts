@@ -70,6 +70,15 @@ spec:
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.podSecurityContext "context" $) | nindent 8 }}
       {{- end }}
+      {{- if .Values.immudbAuditPlugin.enabled }}
+      initContainers:
+      - name: immudb-audit-plugin
+        image: "{{ .Values.immudbAuditPlugin.image.repository }}:{{ .Values.immudbAuditPlugin.image.tag }}"
+        imagePullPolicy: {{ .Values.immudbAuditPlugin.image.pullPolicy | quote }}
+        volumeMounts:
+        - name: shared-plugins
+          mountPath: /shared-plugins
+      {{- end }}
       containers:
       - name: forms-flow-bpm
         image: {{ include "forms-flow-bpm.image" . }}
@@ -81,11 +90,15 @@ spec:
         command: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.command "context" $) | nindent 12 }}
         {{- else if .Values.command }}
         command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
+        {{- else if .Values.immudbAuditPlugin.enabled }}
+        command: ["java"]
         {{- end }}
         {{- if .Values.diagnosticMode.enabled }}
         args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
         {{- else if .Values.args }}
         args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
+        {{- else if .Values.immudbAuditPlugin.enabled }}
+        args: ["-Djava.security.egd=file:/dev/./urandom", "-Dloader.path=/app/plugins", "-cp", "/app/forms-flow-bpm.jar", "org.springframework.boot.loader.launch.PropertiesLauncher"]
         {{- end }}
         {{- if .Values.lifecycleHooks }}
         lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
@@ -343,9 +356,15 @@ spec:
             configMapKeyRef:
               key: USER_NAME_DISPLAY_CLAIM
               name: "{{ .Values.formsflow.configmap }}"                
-          {{- if .Values.extraEnvVars }}
-          {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
-          {{- end }}
+        {{- if .Values.immudbAuditPlugin.enabled }}
+        - name: IMMUDB_SERVICE_URL
+          value: {{ .Values.immudbAuditPlugin.serviceUrl | quote }}
+        - name: IMMUDB_AUTH_TOKEN
+          value: {{ .Values.immudbAuditPlugin.authToken | quote }}
+        {{- end }}
+        {{- if .Values.extraEnvVars }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
+        {{- end }}
         envFrom:
           {{- if .Values.extraEnvVarsCM }}
           - configMapRef:
@@ -397,6 +416,10 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File   
         volumeMounts:
+        {{- if .Values.immudbAuditPlugin.enabled }}
+        - name: shared-plugins
+          mountPath: /app/plugins
+        {{- end }}
         - name: bpm-logs
           mountPath: /logs 
         - name: "forms-flow-bpm-mail-configuration"
@@ -409,6 +432,10 @@ spec:
         {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 6 }}
         {{- end }}
       volumes:
+      {{- if .Values.immudbAuditPlugin.enabled }}
+      - name: shared-plugins
+        emptyDir: {}
+      {{- end }}
       - name: bpm-logs
         emptyDir: {}
       - name: "forms-flow-bpm-mail-configuration"

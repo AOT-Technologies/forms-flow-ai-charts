@@ -6,7 +6,7 @@ existingSecret: ""
 image:
   registry: docker.io
   repository: formsflow/forms-flow-bpm
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v7.3.0"
   pullSecrets:
@@ -223,7 +223,7 @@ ingress:
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
-  ingressClassName: ""
+  ingressClassName: "alb"
   ## @param ingress.pathType Ingress path type
   ##
   pathType: ImplementationSpecific
@@ -237,7 +237,7 @@ ingress:
   controller: default
   ## @param ingress.hostname Default host for the ingress record (evaluated as template)
   ##
-  hostname: forms-flow-bpm.local
+  hostname: fhir-epic.aot-technologies.com
   ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
   ##
   path: "/camunda"
@@ -574,7 +574,7 @@ camunda:
     enabled: true
     revokeCheck: auto
   database:
-    name: forms-flow-bpm
+    name: fhir-bpm
     port: 5432
   historyLevel: auto
   securityOrigin: '*'
@@ -592,8 +592,8 @@ camunda:
       max: 10 #CAMUNDA_HIKARI_MAX_POOLSIZE
   jdbc:
     driver: org.postgresql.Driver
-    username: postgres
-    password: postgres
+    username: formsflow
+    password: 9bJI5yJ1DYqZ
     url: "jdbc:postgresql://${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}/${CAMUNDA_DATABASE_NAME}"
   websocket:
     messageType: TASK_EVENT #WEBSOCKET_MESSAGE_TYPE
@@ -639,3 +639,14 @@ formsflow:
   configmap: forms-flow-ai # name of formsflow.ai configmap
   secret: forms-flow-ai #name of formsflow.ai secret
 waitFor: "${CAMUNDA_DATABASE_SERVICE_NAME}:${CAMUNDA_DATABASE_PORT}"
+
+## Configures the ImmuDB Audit Plugin for Camunda
+immudbAuditPlugin:
+  enabled: true
+  image:
+    repository: formsflow/forms-flow-immudb-plugin
+    tag: v8.0.0-alpha
+    pullPolicy: Always
+  serviceUrl: "http://forms-flow-immudb:5001/api/v1/audit/log"
+  authToken: "1Ipjwuf3k3Mj-QI97iGhZMsJx2lxXzIWT6afdg9f-l0="
+

@@ -1,0 +1,26 @@
+{{- if and .Values.worker.enabled (not .Values.worker.existingConfigmap) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "forms-flow-immudb.worker.configMapName" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "forms-flow-immudb.worker.labels" . | nindent 4 }}
+  {{- if or .Values.worker.configMapAnnotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.worker.configMapAnnotations .Values.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+data:
+  DEBUG: {{ .Values.worker.config.debug | default false | quote }}
+  HOST: "0.0.0.0"
+  PORT: {{ .Values.worker.service.port | default 5001 | quote }}
+  FLASK_ENV: {{ .Values.worker.config.flaskEnv | default "production" | quote }}
+  IMMUDB_ENABLED: {{ .Values.worker.config.immudbEnabled | default true | quote }}
+  IMMUDB_HOST: {{ include "forms-flow-immudb.immudb.host" . | quote }}
+  IMMUDB_USER: {{ .Values.worker.config.immudbUser | default "immudb" | quote }}
+  API_PREFIX: {{ .Values.worker.config.apiPrefix | default "/api/v1" | quote }}
+  CORS_ORIGINS: {{ .Values.worker.config.corsOrigins | default "*" | quote }}
+  LOG_LEVEL: {{ .Values.worker.config.logLevel | default "INFO" | quote }}
+  GUNICORN_WORKERS: {{ .Values.worker.config.gunicornWorkers | default 4 | quote }}
+  GUNICORN_THREADS: {{ .Values.worker.config.gunicornThreads | default 10 | quote }}
+  GUNICORN_TIMEOUT: {{ .Values.worker.config.gunicornTimeout | default 120 | quote }}
+{{- end }}

@@ -1,0 +1,236 @@
+## @section Global parameters
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+##
+
+## @param replicaCount Number of ehr-connector replicas
+replicaCount: 1
+
+## @section ehr-connector Image parameters
+image:
+  ## @param image.registry ehr-connector image registry
+  registry: docker.io
+  ## @param image.repository ehr-connector image repository
+  repository: formsflow/forms-flow-ehr-connectors
+  ## @param image.pullPolicy ehr-connector image pull policy
+  pullPolicy: Always
+  ## @param image.tag ehr-connector image tag (immutable tags are recommended)
+  tag: "v8.1.0.20260810105148"
+  ## @param image.pullSecrets Specify docker-registry secret names as an array
+  pullSecrets: []
+
+## @param nameOverride String to partially override common.names.fullname
+nameOverride: ""
+
+## @param fullnameOverride String to fully override common.names.fullname
+fullnameOverride: ""
+
+## @param commonLabels Labels to add to all deployed objects
+commonLabels: {}
+
+## @param commonAnnotations Annotations to add to all deployed objects
+commonAnnotations: {}
+
+## @section Service Account parameters
+serviceAccount:
+  ## @param serviceAccount.create Specifies whether a service account should be created
+  create: true
+  ## @param serviceAccount.name The name of the service account to use
+  name: ""
+  ## @param serviceAccount.automountServiceAccountToken Automount service account token
+  automountServiceAccountToken: false
+  ## @param serviceAccount.annotations Annotations for service account
+  annotations: {}
+
+## @section Security Context parameters
+podSecurityContext:
+  ## @param podSecurityContext.enabled Enable pod security context
+  enabled: false
+  fsGroup: 1001
+
+containerSecurityContext:
+  ## @param containerSecurityContext.enabled Enable container security context
+  enabled: false
+  runAsUser: 1001
+  runAsNonRoot: false
+
+## @section Application Configuration parameters
+config:
+  ## @param config.serviceType Service type configuration
+  serviceType: "connector"
+  ## @param config.logLevel Logging verbosity (debug, info, warning, error)
+  logLevel: "info"
+
+## @section Epic FHIR Authentication & Endpoint parameters
+epic:
+  ## @param epic.fhirBaseUrl Epic FHIR R4 Base URL
+  fhirBaseUrl: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4"
+  ## @param epic.tokenUrl Epic OAuth2 token URL
+  tokenUrl: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token"
+  ## @param epic.clientId Epic Client ID
+  clientId: "bafc2133-f680-475f-a335-e6d28294d579"
+  ## @param epic.kid Key ID for JWKS authentication
+  kid: "df16c8aa-5409-4fdd-b89a-73eca455db33"
+  ## @param epic.privateKey RSA private key for signing Epic JWT assertion tokens
+  privateKey: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEogIBAAKCAQEAtwfk2XAe7AoVinwOVf1/jFQPEjZBcbCwqn4JHN/qQ9INZmUN
+    LnBzV02Kn/FYCfAIoTq3DJS2GQn9L+G3S4I2XbOuqs5+zDuR7kzOCmTPCn2Eket+
+    7XlbDNnQ2xlf08UvAal3fD3qqWcW/e7QXk5nmk3R2GS1CX6ym0mYExp2LkaMivPX
+    4+TpG3khFpiay9aM1ZNqYvUW/kyaZH/VSIi3jjm3wg2IYG9n85hHZlZqIVIbJrSP
+    UUykw0owV/e/OqviVLwe/4qoUgPAPKhgIj0LUwDPaaE83x7h7HrEP85+M7oYGtXg
+    CyQ7d4yVkKXi+o6ePz21FWjOF3duAsqWmxGLtwIDAQABAoIBABOIvaVxQHObrene
+    TJ9j00GUVRlx/fEW1PwVQH667SM432I+xbXfnYfDSFjCps1Et38Rp6iplHe+p619
+    DxV5e7jrbOhg6op8jxoaS2Ezmh85/zSdqCnLKmsIMjC4GBCfemFYh16Usx9KV9tZ
+    KhbukkMXLB7GvMWbJo/JPnhHejZ89duP+08hV2ymG5fYik3MwO5nlpXLH/8uRWxg
+    QasKgPsO2OngTl+H8WSn53N6LF0fODNLdYBrCxb76hr44pnzY8ito5AHJQmKUpvh
+    4ti7SfGXqwKazACJXCTu9Y7hQhQcE/G59OgnNFj8BPMtPZGJmwMUPisbYoY3MRdr
+    g1qO5n0CgYEA3G0gLRujRzBiykcjYgbsc5TtNmF3R866x6571zBmFOvWZDN8Lx1w
+    5lRw6wq1OfN4SczwvAvxs1fJrEsGdqfWA5j6pk9ywqW92DmPvLD0cIi6yeJoXgiL
+    vQdNBHOLiwjZcGhcJiZRyHX2fIU75Fr5IysgqNgx0Wvlhaf0/3JZ8y0CgYEA1JHI
+    N0lI6fdULz9NnWhCS/Agy7x5Xr0lyziLJ8oPkNgo8zw+89k58qOzGKuUBJiE4BA6
+    tctBYKWayp6vTxgrlD/in1Tgyw7OT0pSBOeNWgfLWjFYzNr0HBUHmAT2QXXK25EZ
+    iTYpcqbN7w6XXrBNx3mF9APqTgda9aL4L5ihmPMCgYAy5evhHpmkTZLyPFz6PLkK
+    s1/XB8iAR0cv5qVn+iAIQrDdsFnDk1vHg8YTMATK3eJvwCfydBuamvHRm/1hFr4/
+    VGrETmIkehsNO7VqD75R4fCnv2T0GasSugXZukiFkUSMRTzJ/l0yGbMR6735q9wN
+    d97xvgI65lw4caEL/z6v/QKBgHyAekUvbj5i93LI3/vO4e26UmsiE/BSVr2Fe7Ot
+    XJqYkLuOUMzgMVmVWcOcUxCyCDl4J/rsdnlV5ajBcqqf3H5zQJfTzeoA3QOB4zIu
+    MRNHN2q3Nmyd3ZZJFu6KEXXbuRoLDWrZR0N4wWtAH5Z9KsEnwzZdyLE1C6iNcFHo
+    UtXTAoGABHqpo9uCxJcUZFkq+oEL80oqgn4YHs95j1gITY3uEeb5D8FElqK16i3n
+    7KKuUZtAawXehlYvry6Olvf9Z3OiJmCJmGSgfY7NVhin6xqloHtN638nSKYwFKHm
+    PNQj1LRC6aZd4h7jP8YMgpnqtPxrI2l5m5uuV4lqo49UP6k/Ilo=
+    -----END RSA PRIVATE KEY-----
+
+auth:
+  ## @param auth.existingSecret Existing secret containing epic-client-id, epic-kid, epic-private-key
+  existingSecret: ""
+
+## @section Service parameters
+service:
+  ## @param service.type Kubernetes service type
+  type: ClusterIP
+  ## @param service.port Service port
+  port: 8002
+  ## @param service.targetPort Target port on the container
+  targetPort: 8002
+  ## @param service.portName Service port name
+  portName: api
+  ## @param service.nameOverride Override the service name
+  nameOverride: ""
+  ## @param service.annotations Service annotations
+  annotations: {}
+
+## @section Ingress parameters
+ingress:
+  ## @param ingress.enabled Enable ingress record generation
+  enabled: true
+  ## @param ingress.ingressClassName IngressClass that will be used to implement the Ingress
+  ingressClassName: "nginx"
+  ## @param ingress.hostname Ingress hostname
+  hostname: "fhir-epic.aot-technologies.com"
+  ## @param ingress.path Ingress path
+  path: "/epic/.*"
+  ## @param ingress.pathType Ingress path type
+  pathType: "Prefix"
+  ## @param ingress.annotations Ingress annotations
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  ## @param ingress.tls Enable TLS configuration
+  tls: false
+  ## @param ingress.tlsSecretName Custom TLS secret name
+  tlsSecretName: ""
+  ## @param ingress.extraPaths Extra paths to include in the ingress
+  extraPaths: []
+  ## @param ingress.extraHosts Extra hosts to include in the ingress
+  extraHosts: []
+  ## @param ingress.extraRules Extra rules to include in the ingress
+  extraRules: []
+
+## @section Persistence parameters
+persistence:
+  ## @param persistence.enabled Enable persistent volume claim template
+  enabled: true
+  ## @param persistence.mountPath Data directory mount path in container
+  mountPath: "/forms-flow-ehr-connectors/app/data"
+  ## @param persistence.storageClass Storage class name (e.g. gp2)
+  storageClass: "gp2"
+  ## @param persistence.accessModes PVC Access Modes
+  accessModes:
+    - ReadWriteOnce
+  ## @param persistence.size PVC size
+  size: "1Gi"
+  ## @param persistence.annotations PVC annotations
+  annotations: {}
+
+## @section Resources parameters
+resourcesPreset: "none"
+## @param resources Container requests and limits
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+## @section Probes parameters
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+
+## @param customLivenessProbe Custom liveness probe
+customLivenessProbe: {}
+## @param customReadinessProbe Custom readiness probe
+customReadinessProbe: {}
+
+## @section Autoscaling parameters
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPU: 80
+  targetMemory: 80
+
+## @section Pod Disruption Budget
+pdb:
+  create: false
+  minAvailable: ""
+  maxUnavailable: 1
+
+## @section Diagnostics & Overrides
+diagnosticMode:
+  enabled: false
+  command:
+    - sleep
+  args:
+    - infinity
+
+command: []
+args: []
+
+extraEnvVars: []
+extraEnvVarsCM: ""
+extraEnvVarsSecret: ""
+extraVolumes: []
+extraVolumeMounts: []
+nodeSelector: {}
+tolerations: []
+affinity: {}
+podAnnotations: {}
+statefulsetAnnotations: {}
+secretAnnotations: {}
+configMapAnnotations: {}

@@ -1,0 +1,59 @@
+{{- if and .Values.worker.enabled .Values.worker.ingress.enabled }}
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ include "forms-flow-immudb.worker.fullname" . }}-ingress
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "forms-flow-immudb.worker.labels" . | nindent 4 }}
+  {{- if or .Values.worker.ingress.annotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.worker.ingress.annotations .Values.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if and .Values.worker.ingress.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.worker.ingress.ingressClassName | quote }}
+  {{- end }}
+  rules:
+    {{- if .Values.worker.ingress.hostname }}
+    - host: {{ (tpl .Values.worker.ingress.hostname .) | quote }}
+      http:
+        paths:
+          {{- if .Values.worker.ingress.extraPaths }}
+          {{- toYaml .Values.worker.ingress.extraPaths | nindent 10 }}
+          {{- end }}
+          - path: {{ .Values.worker.ingress.path | default "/api/v1/report" | quote }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" .) }}
+            pathType: {{ .Values.worker.ingress.pathType | default "ImplementationSpecific" }}
+            {{- end }}
+            backend:
+              service:
+                name: {{ include "forms-flow-immudb.worker.serviceName" . }}
+                port:
+                  number: {{ .Values.worker.service.port | default 5001 }}
+    {{- end }}
+    {{- range .Values.worker.ingress.extraHosts }}
+    - host: {{ (tpl .name $) | quote }}
+      http:
+        paths:
+          - path: {{ default "/" .path | quote }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            {{- end }}
+            backend:
+              service:
+                name: {{ include "forms-flow-immudb.worker.serviceName" $ }}
+                port:
+                  number: {{ $.Values.worker.service.port | default 5001 }}
+    {{- end }}
+  {{- if or (and .Values.worker.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.worker.ingress.annotations )) .Values.worker.ingress.selfSigned .Values.worker.ingress.secrets )) .Values.worker.ingress.extraTls }}
+  tls:
+    {{- if and .Values.worker.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.worker.ingress.annotations )) .Values.worker.ingress.secrets .Values.worker.ingress.selfSigned) }}
+    - hosts:
+        - {{ (tpl .Values.worker.ingress.hostname .) | quote }}
+      secretName: {{ default (printf "%s-tls" (tpl .Values.worker.ingress.hostname .)) .Values.worker.ingress.tlsSecretName }}
+    {{- end }}
+    {{- if .Values.worker.ingress.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.worker.ingress.extraTls "context" $) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,13 @@
+apiVersion: v2
+name: forms-flow-immudb
+description: forms-flow-immudb is an immutable audit logging service and immudb ledger integration for formsflow.ai.
+icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
+version: v8.3.2
+type: application
+appVersion: "8.1.0"
+dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  tags:
+  - bitnami-common
+  version: 2.27.0

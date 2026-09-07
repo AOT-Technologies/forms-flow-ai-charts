@@ -1,0 +1,35 @@
+{{- if .Values.worker.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "forms-flow-immudb.worker.serviceName" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "forms-flow-immudb.worker.labels" . | nindent 4 }}
+  {{- if or .Values.commonAnnotations .Values.worker.service.annotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.worker.service.annotations .Values.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.worker.service.type | default "ClusterIP" }}
+  {{- if and .Values.worker.service.loadBalancerIP (eq .Values.worker.service.type "LoadBalancer") }}
+  loadBalancerIP: {{ .Values.worker.service.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.worker.service.type "LoadBalancer") .Values.worker.service.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges: {{- toYaml .Values.worker.service.loadBalancerSourceRanges | nindent 4 }}
+  {{- end }}
+  {{- if and .Values.worker.service.clusterIP (eq .Values.worker.service.type "ClusterIP") }}
+  clusterIP: {{ .Values.worker.service.clusterIP }}
+  {{- end }}
+  {{- if or (eq .Values.worker.service.type "LoadBalancer") (eq .Values.worker.service.type "NodePort") }}
+  externalTrafficPolicy: {{ .Values.worker.service.externalTrafficPolicy | quote }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.worker.service.port | default 5001 }}
+      targetPort: {{ .Values.worker.service.targetPort | default 5001 }}
+      name: {{ .Values.worker.service.portName | default "http" }}
+      protocol: TCP
+      {{- if and (or (eq .Values.worker.service.type "NodePort") (eq .Values.worker.service.type "LoadBalancer")) (not (empty .Values.worker.service.nodePort)) }}
+      nodePort: {{ .Values.worker.service.nodePort }}
+      {{- end }}
+  selector: {{- include "forms-flow-immudb.worker.selectorLabels" . | nindent 4 }}
+{{- end }}
