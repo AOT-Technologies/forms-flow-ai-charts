@@ -79,6 +79,7 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           env:
+          {{- $secretName := default (printf "%s" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-") .Values.existingSecret }}
           - name: DEBUG
             valueFrom:
               configMapKeyRef:
@@ -89,36 +90,26 @@ spec:
               configMapKeyRef:
                 key: FOMRSFLOW_DATA_LAYER_WORKERS
                 name: "{{ .Chart.Name }}"
-          - name: FORMSFLOW_API_DB_HOST
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_HOSTNAME
-                name: "{{ .Values.formsflow.webapi.secret }}"
-          - name: FORMSFLOW_API_DB_USER
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_USER
-                name: "{{ .Values.formsflow.webapi.secret }}"
-          - name: FORMSFLOW_API_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_PASSWORD
-                name: "{{ .Values.formsflow.webapi.secret }}"
-          - name: FORMSFLOW_API_DB_NAME
-            valueFrom:
-              secretKeyRef:
-                key: FORMSFLOW_API_DB_NAME
-                name: "{{ .Values.formsflow.webapi.secret }}"
-          - name: FORMSFLOW_API_DB_PORT
-            valueFrom:
-              configMapKeyRef:
-                key: FORMSFLOW_API_PORT
-                name: "{{ .Values.formsflow.webapi.configmap }}"
           - name: FORMSFLOW_DATALAYER_CORS_ORIGINS
             valueFrom:
               configMapKeyRef:
                 key: FORMSFLOW_DATALAYER_CORS_ORIGINS
                 name: "{{ .Chart.Name }}"               
+          - name: CAMUNDA_DB_URL
+            valueFrom:
+              secretKeyRef:
+                key: CAMUNDA_DB_URL
+                name: {{ $secretName | quote }}
+          - name: FORMIO_DB_URL
+            valueFrom:
+              secretKeyRef:
+                key: FORMIO_DB_URL
+                name: {{ $secretName | quote }}
+          - name: FORMSFLOW_API_DB_URL
+            valueFrom:
+              secretKeyRef:
+                key: FORMSFLOW_API_DB_URL
+                name: {{ $secretName | quote }}
           - name: JWT_OIDC_AUDIENCE
             valueFrom:
               secretKeyRef:
@@ -169,51 +160,16 @@ spec:
               configMapKeyRef:
                 key: MULTI_TENANCY_ENABLED
                 name: "{{ .Values.formsflow.configmap }}"
-          - name: FORMIO_DB_URI
-            valueFrom:
-              secretKeyRef:
-                key: MONGODB_URI
-                name: "{{ .Values.formsflow.secret }}"
-          - name: FORMIO_DB_NAME
-            valueFrom:
-              secretKeyRef:
-                key: FORMIO_DB_NAME
-                name: "{{ .Values.formsflow.secret }}"
           - name: REDIS_URL
             valueFrom:
               configMapKeyRef:
                 key: REDIS_URL
                 name: "{{ .Values.formsflow.configmap }}"
-          - name: CAMUNDA_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: CAMUNDA_JDBC_PASSWORD
-                name: "{{ .Values.formsflow.bpm.secret }}"
           - name: KEYCLOAK_URL_HTTP_RELATIVE_PATH
             valueFrom:
               configMapKeyRef:
                 key: KEYCLOAK_URL_HTTP_RELATIVE_PATH
                 name: "{{ .Values.formsflow.configmap }}"
-          - name: CAMUNDA_DB_USER
-            valueFrom:
-              secretKeyRef:
-                key: CAMUNDA_JDBC_USER
-                name: "{{ .Values.formsflow.bpm.secret }}"
-          - name: CAMUNDA_DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                key: DATABASE_SERVICE_NAME
-                name: "{{ .Values.formsflow.configmap }}"
-          - name: CAMUNDA_DB_NAME
-            valueFrom:
-              secretKeyRef:
-                key: CAMUNDA_DATABASE_NAME
-                name: "{{ .Values.formsflow.bpm.secret }}"
-          - name: CAMUNDA_DB_PORT
-            valueFrom:
-              configMapKeyRef:
-                key: CAMUNDA_DATABASE_PORT
-                name: "{{ .Values.formsflow.bpm.configmap }}"
           {{- if .Values.extraEnvVars }}
           {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 8 }}
           {{- end }}

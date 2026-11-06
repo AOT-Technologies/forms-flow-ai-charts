@@ -68,16 +68,11 @@ Make sure to replace X.Y.Z with the specific version number you wish to use for 
 
 ### EE Specific Environment Variables
 When deploying the Enterprise Edition (EE) for forms-flow-web, the environment variables specific to the EE deployment are already included in the `values.yaml` file of the forms-flow-web chart.
-
-Make sure to replace `clarity_key` and `show_premium_icon` with the appropriate values provided to you.
-
 Example: 
 ```yaml
 ShowPremiumIcon: SHOW_PREMIUM_ICON
-ClarityKey: true
 ```
 
-- `CLARITY_KEY_VALUE` should be replaced with the actual clarity key provided to you.
 - `SHOW_PREMIUM_ICON` should be set to "true" to display the premium icon in the EE version of the application.
 
 These environment variables will be used to enable EE-specific features in forms-flow-web.
@@ -182,7 +177,6 @@ These environment variables will be used to enable EE-specific features in forms
 |`Language`                       | value for customization of language    |`""`                          |
 |`ShowPremiumIcon`                | value for premium icon display         |`""`                          |
 |`IsEnterPrise`                   | value for enterprise edition           |`""`                          |
-|`ClarityKey`                     | value for clarity key enable           |`""`                          |
 |`GraphqlApiUrl`                  | value for datalayer                    |`https://{{ .Values.ingress.hostname }}/datalayer/queries`|
 |`CustomResourceBundleUrl`        | value for resource bundle url          |`""`                          |
 |`UrlUpgrade`                     | value for url  upgrede                 |`"https://formsflow.ai/license-upgrade-call-scheduler"`   |

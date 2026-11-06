@@ -32,10 +32,6 @@ forms-flow-analytics:
   service:
     name: forms-flow-analytics
     port: "5000"
-forms-flow-data-analysis:
-  service:
-    name: forms-flow-data-analysis
-    port: "5000"
 forms-flow-forms:
   admin:
     email: "me@defineme.com"

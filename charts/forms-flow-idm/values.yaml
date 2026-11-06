@@ -67,8 +67,6 @@ keycloak:
         configMapKeyRef:
           name: forms-flow-idm-keycloak-env-vars
           key: KEYCLOAK_HOSTNAME
-    - name: HUBSPOT_ENABLED
-      value: "false"
   ## @param extraVolumes Optionally specify extra list of additional volumes for Keycloak pods
   ##
   ##extraVolumes: {}    
@@ -237,12 +235,6 @@ keycloak:
   cache:
     enabled: false
 
-HubspotBaseUrl: "https://api.hubapi.com"
-HubspotAccessToken: ""
-HubspotPipelineId: ""
-HubspotBaseDealStageId: ""
-HubspotOwnerId: ""
-HubspotDealSource: ""
 postgresql-ha:
   global: 
     security: 
