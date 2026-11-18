@@ -181,6 +181,18 @@ https://<HOSTNAME>/datalayer
 | `Loglevel.Debug.enabled`           | Log level of data layer                                                                       | `false`             |
 | `CorsOrigins`              | Cors origin of datalayer                                                                         | `*`             |
 | `WorkerLayer`              | Worker layer of datalayer                                                                         | `4`             |
+| `CAMUNDA_DB_URL`           | Connection URL for the Camunda database                                                          | `""`            |
+| `FORMIO_DB_URL`            | Connection URL for the Form.io database                                                          | `""`            |
+| `FORMSFLOW_API_DB_URL`     | Connection URL for the Formsflow API database                                                    | `""`            |
+
+Example database URL values (replace the sample hosts, database names, and credentials with your own):
+
+```yaml
+CAMUNDA_DB_URL: "postgresql://camunda_user:change-me@postgres.example.com:5432/camunda"
+FORMIO_DB_URL: "mongodb://formio_user:change-me@mongo.example.com:27017/formio?authSource=admin"
+FORMSFLOW_API_DB_URL: "postgresql://formsflow_user:change-me@postgres.example.com:5432/formsflow"
+```
+
 ## Ingress Parameters
 
 | Parameter                       | Description                                                                                          | Default Value               |

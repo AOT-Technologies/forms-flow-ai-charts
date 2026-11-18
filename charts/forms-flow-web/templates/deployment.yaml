@@ -254,11 +254,6 @@ spec:
               configMapKeyRef:
                 key: REACT_APP_LANGUAGE
                 name: "{{ .Chart.Name }}"
-          - name: REACT_APP_CLARITY_KEY
-            valueFrom:
-              configMapKeyRef:
-                key: REACT_APP_CLARITY_KEY
-                name: "{{ .Chart.Name }}"
           - name: REACT_APP_IS_ENTERPRISE
             valueFrom:
               configMapKeyRef:

@@ -39,8 +39,6 @@ data:
     INSIGHT_API_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-analytics" "service" "name") . }}:{{ tpl (index .Values "forms-flow-analytics" "service" "port") . }}
     KEYCLOAK_ENABLE_CLIENT_AUTH: "{{ index .Values "forms-flow-idm" "keycloak" "EnableKeycloakClientAuth" }}"
     MULTI_TENANCY_ENABLED: "{{ index .Values "forms-flow-web" "EnableMultitenant" }}"
-    DATA_ANALYSIS_URL: https://{{ tpl (index .Values "forms-flow-web" "ingress" "hostname") . }}/analysis
-    DATA_ANALYSIS_SERVICE_URL: http://{{ tpl (index .Values "forms-flow-data-analysis" "service" "name") . }}:{{ tpl (index .Values "forms-flow-data-analysis" "service" "port") . }}
     NODE_ENV: "production"
     CUSTOM_SUBMISSION_URL: "{{ .Values.custom_submission_url }}"
     CUSTOM_SUBMISSION_ENABLED: "{{ .Values.custom_submission_enabled }}"

@@ -2,7 +2,7 @@ apiVersion: v2
 name: forms-flow-mcp
 description: forms-flow-mcp is esigned to seamlessly integrate with forms-flow components, enabling efficient communication between MCP clients and backend services provided by formsflow.
 icon: "https://raw.githubusercontent.com/AOT-Technologies/forms-flow-ai/develop/.images/logo.png"
-version: v8.4.0
+version: v8.4.1
 type: application
 appVersion: "8.4.0"
 dependencies:
