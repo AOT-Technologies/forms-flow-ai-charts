@@ -126,7 +126,7 @@ https://<HOSTNAME>/camunda
 | `image.registry`                 | Container image registry                                                                               | `docker.io`                 |
 | `image.repository`               | Container image repository                                                                             | `formsflow/forms-flow-bpm`  |
 | `image.pullPolicy`               | Image pull policy                                                                                     | `Always`              |
-| `image.tag`                      | Image tag                                                                                            | `v7.3.0`              |
+| `image.tag`                      | Image tag                                                                                            | `v7.3.1`              |
 | `image.pullSecrets`              | Pull secrets for the image                                                                           | `forms-flow-ai-auth`        |
 | `nameOverride`                   | Override for common names                                                                              | `""`                        |
 | `fullnameOverride`               | Full override for common names                                                                         | `""`                        |

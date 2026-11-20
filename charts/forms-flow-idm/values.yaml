@@ -92,7 +92,7 @@ keycloak:
   ##
   initContainers:
     - name: formsflow-themes
-      image: formsflow/keycloak-customizations:v7.3.0
+      image: formsflow/keycloak-customizations:v7.3.1
       imagePullPolicy: Always
       securityContext:
         runAsUser: 1001
