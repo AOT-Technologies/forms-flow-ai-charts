@@ -52,6 +52,7 @@ The versions of Helm charts available in this repository are as follows:
 
 | Formsflow Version         | Chart Name                | Chart Version |
 |---------------------------|---------------------------|---------------------------|
+| 7.3.1                     | forms-flow-ai             | v8.4.2                    |
 | 7.3.0                     | forms-flow-ai             | v8.4.1                    |
 | 7.3.0                     | forms-flow-ai             | v8.4.0                    |
 | 7.3.0                     | forms-flow-ai             | v8.3.2                    |
